@@ -133,18 +133,6 @@ export default function ProductDetail() {
             }}
           >
             <img src={VIAL_IMG} alt={product.name} className="w-full h-full object-cover opacity-80" />
-            {/* Logo overlay — bottom center */}
-            <div
-              className="absolute inset-0 flex items-end justify-center pb-3"
-              style={{ background: "linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 55%)" }}
-            >
-              <img
-                src={LOGO_URL}
-                alt="Elite LA Peptides"
-                className="w-24 md:w-28 object-contain drop-shadow-lg"
-                style={{ filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.7))" }}
-              />
-            </div>
           </div>
 
           {/* Title block */}
