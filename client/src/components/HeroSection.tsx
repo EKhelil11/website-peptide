@@ -31,9 +31,49 @@ export default function HeroSection() {
       className="relative min-h-screen flex items-center overflow-hidden"
       style={{ background: "oklch(0.09 0.05 255)" }}
     >
-      {/* DNA image — RIGHT side */}
+      {/* ── MOBILE: single DNA image on the right (≤ md) ── */}
       <div
-        className="absolute inset-y-0 right-0 pointer-events-none"
+        className="absolute inset-y-0 right-0 pointer-events-none md:hidden"
+        style={{ width: "65%" }}
+      >
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `url(${HERO_BG})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center top",
+            backgroundRepeat: "no-repeat",
+          }}
+        />
+        {/* Fade left edge */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to right, oklch(0.09 0.05 255) 0%, oklch(0.09 0.05 255 / 60%) 30%, transparent 65%)",
+          }}
+        />
+        {/* Fade bottom edge */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: "linear-gradient(to top, oklch(0.09 0.05 255) 0%, transparent 30%)",
+          }}
+        />
+      </div>
+      {/* Mobile dark left fill */}
+      <div
+        className="absolute inset-0 pointer-events-none md:hidden"
+        style={{
+          background:
+            "linear-gradient(120deg, oklch(0.08 0.06 255) 0%, oklch(0.1 0.05 255 / 90%) 45%, transparent 75%)",
+        }}
+      />
+
+      {/* ── DESKTOP: mirrored DNA on both sides (≥ md) ── */}
+      {/* Right side */}
+      <div
+        className="absolute inset-y-0 right-0 pointer-events-none hidden md:block"
         style={{ width: "50%" }}
       >
         <div
@@ -45,7 +85,6 @@ export default function HeroSection() {
             backgroundRepeat: "no-repeat",
           }}
         />
-        {/* Fade left edge into center */}
         <div
           className="absolute inset-0"
           style={{
@@ -53,7 +92,6 @@ export default function HeroSection() {
               "linear-gradient(to right, oklch(0.09 0.05 255) 0%, transparent 35%)",
           }}
         />
-        {/* Fade bottom edge */}
         <div
           className="absolute inset-0"
           style={{
@@ -61,10 +99,9 @@ export default function HeroSection() {
           }}
         />
       </div>
-
-      {/* DNA image — LEFT side (horizontally mirrored) */}
+      {/* Left side — mirrored */}
       <div
-        className="absolute inset-y-0 left-0 pointer-events-none"
+        className="absolute inset-y-0 left-0 pointer-events-none hidden md:block"
         style={{ width: "50%" }}
       >
         <div
@@ -77,7 +114,6 @@ export default function HeroSection() {
             transform: "scaleX(-1)",
           }}
         />
-        {/* Fade right edge into center */}
         <div
           className="absolute inset-0"
           style={{
@@ -85,7 +121,6 @@ export default function HeroSection() {
               "linear-gradient(to left, oklch(0.09 0.05 255) 0%, transparent 35%)",
           }}
         />
-        {/* Fade bottom edge */}
         <div
           className="absolute inset-0"
           style={{
@@ -93,10 +128,9 @@ export default function HeroSection() {
           }}
         />
       </div>
-
-      {/* Dark center vignette so text stays readable over both images */}
+      {/* Desktop center vignette for text readability */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none hidden md:block"
         style={{
           background:
             "radial-gradient(ellipse 60% 100% at 50% 50%, oklch(0.08 0.06 255 / 75%) 0%, transparent 100%)",
