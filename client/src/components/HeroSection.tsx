@@ -98,6 +98,30 @@ export default function HeroSection() {
             Science-backed peptides formulated for the performance-driven. From metabolic optimization to cellular regeneration — Elite LA Peptides delivers pharmaceutical-grade compounds for those who demand the best.
           </p>
 
+          {/* ===== TIKTOK VIDEO TEST — remove this block to restore original hero ===== */}
+          <div className="hero-item opacity-0 mb-8">
+            <div
+              className="rounded-lg overflow-hidden"
+              style={{
+                border: "1px solid oklch(0.72 0.18 210 / 30%)",
+                boxShadow: "0 0 30px oklch(0.72 0.18 210 / 12%)",
+                maxWidth: "325px",
+                background: "#000",
+              }}
+            >
+              <blockquote
+                className="tiktok-embed"
+                cite="https://www.tiktok.com/@mrs.peptides/video/7638702656789220622"
+                data-video-id="7638702656789220622"
+                style={{ maxWidth: "325px", minWidth: "325px" }}
+              >
+                <section />
+              </blockquote>
+              <script async src="https://www.tiktok.com/embed.js" />
+            </div>
+          </div>
+          {/* ===== END TIKTOK VIDEO TEST ===== */}
+
           {/* CTA Buttons */}
           <div className="hero-item opacity-0 flex flex-wrap gap-4">
             <button
