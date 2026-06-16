@@ -94,7 +94,7 @@ export default function Footer() {
                     <Instagram size={14} style={{ color: "#00BFFF" }} />
                   </div>
                   <span style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.9rem" }}>
-                    @elitelapeptides
+                    @laelitepeptides
                   </span>
                 </div>
               </div>
