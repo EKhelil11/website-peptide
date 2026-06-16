@@ -29,16 +29,46 @@ export default function HeroSection() {
   return (
     <section
       className="relative min-h-screen flex items-center overflow-hidden"
-      style={{
-        background: `linear-gradient(to right, oklch(0.1 0.05 255 / 95%) 0%, oklch(0.12 0.05 255 / 70%) 50%, transparent 100%), url(${HERO_BG}) center/cover no-repeat`,
-      }}
+      style={{ background: "oklch(0.09 0.05 255)" }}
     >
-      {/* Gradient overlay for text contrast */}
+      {/* DNA image — pinned to right half, full height, fades left */}
       <div
-        className="absolute inset-0"
+        className="absolute inset-y-0 right-0 pointer-events-none"
+        style={{ width: "65%" }}
+      >
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `url(${HERO_BG})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center top",
+            backgroundRepeat: "no-repeat",
+          }}
+        />
+        {/* Fade the image into the dark bg on the left edge */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to right, oklch(0.09 0.05 255) 0%, oklch(0.09 0.05 255 / 60%) 30%, transparent 65%)",
+          }}
+        />
+        {/* Fade bottom edge */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to top, oklch(0.09 0.05 255) 0%, transparent 30%)",
+          }}
+        />
+      </div>
+
+      {/* Full-width dark base gradient so left side is never empty */}
+      <div
+        className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "linear-gradient(135deg, oklch(0.08 0.05 255 / 80%) 0%, oklch(0.1 0.05 255 / 40%) 60%, transparent 100%)",
+            "linear-gradient(120deg, oklch(0.08 0.06 255) 0%, oklch(0.1 0.05 255 / 90%) 45%, transparent 75%)",
         }}
       />
 
@@ -46,8 +76,17 @@ export default function HeroSection() {
       <div
         className="absolute top-1/3 right-1/4 w-96 h-96 rounded-full pointer-events-none"
         style={{
-          background: "radial-gradient(circle, oklch(0.72 0.18 210 / 8%) 0%, transparent 70%)",
+          background: "radial-gradient(circle, oklch(0.72 0.18 210 / 10%) 0%, transparent 70%)",
           filter: "blur(40px)",
+        }}
+      />
+
+      {/* Hot pink accent orb bottom-left */}
+      <div
+        className="absolute bottom-1/4 left-1/4 w-64 h-64 rounded-full pointer-events-none"
+        style={{
+          background: "radial-gradient(circle, oklch(0.6 0.27 0 / 6%) 0%, transparent 70%)",
+          filter: "blur(50px)",
         }}
       />
 
