@@ -142,7 +142,7 @@ export default function HeroSection() {
           {/* Stats row */}
           <div className="hero-item opacity-0 mt-16 flex flex-wrap gap-8">
             {[
-              { value: "7", label: "Premium Peptides" },
+              { value: "8", label: "Premium Peptides" },
               { value: "3", label: "Signature Stacks" },
               { value: "100%", label: "Research Grade" },
             ].map((stat) => (

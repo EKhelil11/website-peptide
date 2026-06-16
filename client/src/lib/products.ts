@@ -237,7 +237,7 @@ export const products: Product[] = [
       "Improves mood and emotional well-being",
       "Activates GnRH pathway — the root of hormonal health",
     ],
-    price: null,
+    price: "$80",
     badge: "Hormone",
   },
 ];
