@@ -213,6 +213,33 @@ export const products: Product[] = [
     price: "$70",
     badge: "Longevity",
   },
+  {
+    id: "kisspeptin-10mg",
+    name: "Kisspeptin",
+    dose: "10mg",
+    cycle: "4–6 week cycle",
+    category: "Hormone Support",
+    isStack: false,
+    tagline: "The master switch of reproductive hormones",
+    synopsis:
+      "A naturally occurring neuropeptide that regulates reproductive hormones, boosts libido, supports fertility, and enhances natural testosterone and estrogen production.",
+    plainEnglish:
+      "Kisspeptin is a naturally occurring neuropeptide — a small protein your brain already produces — that acts as the master switch for your entire reproductive hormone system. Think of it as the conductor of an orchestra: without it, the hormones responsible for libido, fertility, testosterone, and estrogen simply don't get the signal to perform. Scientists discovered it relatively recently, and research has exploded because of its remarkable ability to reawaken hormonal pathways that have become sluggish or suppressed — whether from age, stress, or hormonal imbalance.",
+    howItWorks:
+      "Kisspeptin binds to a receptor called GPR54 in the hypothalamus — the brain region that controls your hormonal thermostat. When it activates this receptor, it triggers the release of GnRH (Gonadotropin-Releasing Hormone), which then signals the pituitary gland to release LH and FSH — the hormones that drive testosterone production in men and estrogen/ovulation in women. In plain terms: Kisspeptin turns on the upstream signal that tells your body to produce its own sex hormones naturally, without replacing them artificially.",
+    whoIsItFor:
+      "Men and women experiencing low libido, hormonal imbalances, or declining reproductive health. Particularly valuable for those with low testosterone or estrogen, fertility challenges, or anyone looking to restore natural hormone signaling. Also studied for its role in mood, attraction, and sexual brain processing.",
+    benefits: [
+      "Stimulates natural testosterone and estrogen production",
+      "Enhances libido and sexual function in men and women",
+      "Supports fertility and reproductive hormone balance",
+      "Prevents testicular atrophy during hormone therapy",
+      "Improves mood and emotional well-being",
+      "Activates GnRH pathway — the root of hormonal health",
+    ],
+    price: null,
+    badge: "Hormone",
+  },
 ];
 
 export const categories = [
