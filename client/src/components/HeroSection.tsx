@@ -6,7 +6,7 @@
 import { useEffect, useRef } from "react";
 import { ChevronDown } from "lucide-react";
 
-const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663765469010/KeqNR4QdNviNNDWK3S7923/hero-banner-XDEFNB893LdvEywz852XU3.webp";
+const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663765469010/KeqNR4QdNviNNDWK3S7923/hero-new-v2-DfBwUaxsg7ZSRm6yZqwbRR.webp";
 
 export default function HeroSection() {
   const contentRef = useRef<HTMLDivElement>(null);
@@ -31,109 +31,29 @@ export default function HeroSection() {
       className="relative min-h-screen flex items-center overflow-hidden"
       style={{ background: "oklch(0.09 0.05 255)" }}
     >
-      {/* ── MOBILE: single DNA image on the right (≤ md) ── */}
+      {/* ── Full-cover hero background (all screen sizes) ── */}
       <div
-        className="absolute inset-y-0 right-0 pointer-events-none md:hidden"
-        style={{ width: "65%" }}
-      >
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `url(${HERO_BG})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center top",
-            backgroundRepeat: "no-repeat",
-          }}
-        />
-        {/* Fade left edge */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(to right, oklch(0.09 0.05 255) 0%, oklch(0.09 0.05 255 / 60%) 30%, transparent 65%)",
-          }}
-        />
-        {/* Fade bottom edge */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background: "linear-gradient(to top, oklch(0.09 0.05 255) 0%, transparent 30%)",
-          }}
-        />
-      </div>
-      {/* Mobile dark left fill */}
-      <div
-        className="absolute inset-0 pointer-events-none md:hidden"
+        className="absolute inset-0 pointer-events-none"
         style={{
-          background:
-            "linear-gradient(120deg, oklch(0.08 0.06 255) 0%, oklch(0.1 0.05 255 / 90%) 45%, transparent 75%)",
+          backgroundImage: `url(${HERO_BG})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center center",
+          backgroundRepeat: "no-repeat",
         }}
       />
-
-      {/* ── DESKTOP: mirrored DNA on both sides (≥ md) ── */}
-      {/* Right side */}
+      {/* Dark overlay so text stays readable — heavier on left where text lives */}
       <div
-        className="absolute inset-y-0 right-0 pointer-events-none hidden md:block"
-        style={{ width: "50%" }}
-      >
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `url(${HERO_BG})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center top",
-            backgroundRepeat: "no-repeat",
-          }}
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(to right, oklch(0.09 0.05 255) 0%, transparent 35%)",
-          }}
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            background: "linear-gradient(to top, oklch(0.09 0.05 255) 0%, transparent 30%)",
-          }}
-        />
-      </div>
-      {/* Left side — mirrored */}
-      <div
-        className="absolute inset-y-0 left-0 pointer-events-none hidden md:block"
-        style={{ width: "50%" }}
-      >
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage: `url(${HERO_BG})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center top",
-            backgroundRepeat: "no-repeat",
-            transform: "scaleX(-1)",
-          }}
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(to left, oklch(0.09 0.05 255) 0%, transparent 35%)",
-          }}
-        />
-        <div
-          className="absolute inset-0"
-          style={{
-            background: "linear-gradient(to top, oklch(0.09 0.05 255) 0%, transparent 30%)",
-          }}
-        />
-      </div>
-      {/* Desktop center vignette for text readability */}
-      <div
-        className="absolute inset-0 pointer-events-none hidden md:block"
+        className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse 60% 100% at 50% 50%, oklch(0.08 0.06 255 / 75%) 0%, transparent 100%)",
+            "linear-gradient(105deg, oklch(0.06 0.05 255 / 88%) 0%, oklch(0.08 0.05 255 / 65%) 45%, oklch(0.06 0.05 255 / 30%) 100%)",
+        }}
+      />
+      {/* Bottom fade into next section */}
+      <div
+        className="absolute inset-x-0 bottom-0 h-32 pointer-events-none"
+        style={{
+          background: "linear-gradient(to top, oklch(0.09 0.05 255) 0%, transparent 100%)",
         }}
       />
 
