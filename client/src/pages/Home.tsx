@@ -11,11 +11,18 @@ import AboutSection from "@/components/AboutSection";
 import ShippingSection from "@/components/ShippingSection";
 import Footer from "@/components/Footer";
 
+const INTRO_SEEN_KEY = "elitela_intro_seen";
+
 export default function Home() {
-  const [introComplete, setIntroComplete] = useState(false);
-  const [mainVisible, setMainVisible] = useState(false);
+  // Skip intro if already seen this session (e.g. navigating back from a product page)
+  const alreadySeen = typeof sessionStorage !== "undefined" && sessionStorage.getItem(INTRO_SEEN_KEY) === "1";
+  const [introComplete, setIntroComplete] = useState(alreadySeen);
+  const [mainVisible, setMainVisible] = useState(alreadySeen);
 
   const handleIntroComplete = () => {
+    if (typeof sessionStorage !== "undefined") {
+      sessionStorage.setItem(INTRO_SEEN_KEY, "1");
+    }
     setIntroComplete(true);
     // Slight delay before fading in main content for a polished transition
     setTimeout(() => setMainVisible(true), 50);

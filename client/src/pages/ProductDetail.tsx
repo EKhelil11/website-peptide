@@ -9,6 +9,7 @@ import { products } from "@/lib/products";
 
 const VIAL_IMG =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663765469010/KeqNR4QdNviNNDWK3S7923/peptide-vial-KdSBvv2H7a9bZfeH52wPjY.webp";
+const LOGO_URL = "/manus-storage/elite-la-peptides-logo_e9ec855c.png";
 
 export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
@@ -56,16 +57,45 @@ export default function ProductDetail() {
             className="h-10 w-auto"
           />
         </Link>
-        <Link href="/#products">
+        <Link href="/">
           <button
             className="flex items-center gap-2 text-white/60 hover:text-[#00BFFF] transition-colors text-sm"
             style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600, letterSpacing: "0.08em" }}
           >
             <ArrowLeft size={16} />
-            ALL PRODUCTS
+            BACK TO HOME
           </button>
         </Link>
       </nav>
+
+      {/* Prominent back button bar */}
+      <div
+        className="px-6 py-3 flex items-center gap-3"
+        style={{ background: "oklch(0.14 0.05 255 / 0.7)", borderBottom: "1px solid rgba(0,191,255,0.1)" }}
+      >
+        <Link href="/">
+          <button
+            className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+            style={{
+              fontFamily: "'Rajdhani', sans-serif",
+              fontWeight: 700,
+              letterSpacing: "0.08em",
+              background: "rgba(0,191,255,0.12)",
+              border: "1px solid rgba(0,191,255,0.3)",
+              color: "#00BFFF",
+            }}
+          >
+            <ArrowLeft size={15} />
+            ← BACK TO HOMEPAGE
+          </button>
+        </Link>
+        <span
+          className="text-white/30 text-xs tracking-widest"
+          style={{ fontFamily: "'Rajdhani', sans-serif" }}
+        >
+          {product.name} — Product Details
+        </span>
+      </div>
 
       {/* Hero band */}
       <div
@@ -93,9 +123,9 @@ export default function ProductDetail() {
         />
 
         <div className="max-w-5xl mx-auto px-6 py-16 relative z-10 flex flex-col md:flex-row gap-10 items-center">
-          {/* Vial image */}
+          {/* Vial image with logo overlay */}
           <div
-            className="flex-shrink-0 w-40 h-40 md:w-52 md:h-52 rounded-2xl overflow-hidden"
+            className="relative flex-shrink-0 w-40 h-40 md:w-52 md:h-52 rounded-2xl overflow-hidden"
             style={{
               background: "oklch(0.2 0.07 240)",
               boxShadow: "0 0 40px oklch(0.6 0.18 220 / 0.3)",
@@ -103,6 +133,18 @@ export default function ProductDetail() {
             }}
           >
             <img src={VIAL_IMG} alt={product.name} className="w-full h-full object-cover opacity-80" />
+            {/* Logo overlay — bottom center */}
+            <div
+              className="absolute inset-0 flex items-end justify-center pb-3"
+              style={{ background: "linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 55%)" }}
+            >
+              <img
+                src={LOGO_URL}
+                alt="Elite LA Peptides"
+                className="w-24 md:w-28 object-contain drop-shadow-lg"
+                style={{ filter: "drop-shadow(0 2px 8px rgba(0,0,0,0.7))" }}
+              />
+            </div>
           </div>
 
           {/* Title block */}
@@ -403,13 +445,20 @@ export default function ProductDetail() {
         className="border-t border-white/8 py-8 text-center"
         style={{ background: "oklch(0.1 0.03 255)" }}
       >
-        <Link href="/#products">
+        <Link href="/">
           <button
-            className="text-white/40 hover:text-[#00BFFF] transition-colors text-sm flex items-center gap-2 mx-auto"
-            style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600, letterSpacing: "0.08em" }}
+            className="flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] mx-auto"
+            style={{
+              fontFamily: "'Rajdhani', sans-serif",
+              fontWeight: 700,
+              letterSpacing: "0.08em",
+              background: "rgba(0,191,255,0.12)",
+              border: "1px solid rgba(0,191,255,0.3)",
+              color: "#00BFFF",
+            }}
           >
-            <ArrowLeft size={14} />
-            BACK TO ALL PRODUCTS
+            <ArrowLeft size={15} />
+            BACK TO HOMEPAGE
           </button>
         </Link>
       </div>
