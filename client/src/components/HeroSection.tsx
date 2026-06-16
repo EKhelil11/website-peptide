@@ -31,10 +31,10 @@ export default function HeroSection() {
       className="relative min-h-screen flex items-center overflow-hidden"
       style={{ background: "oklch(0.09 0.05 255)" }}
     >
-      {/* DNA image — pinned to right half, full height, fades left */}
+      {/* DNA image — RIGHT side */}
       <div
         className="absolute inset-y-0 right-0 pointer-events-none"
-        style={{ width: "65%" }}
+        style={{ width: "50%" }}
       >
         <div
           className="absolute inset-0"
@@ -45,30 +45,61 @@ export default function HeroSection() {
             backgroundRepeat: "no-repeat",
           }}
         />
-        {/* Fade the image into the dark bg on the left edge */}
+        {/* Fade left edge into center */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to right, oklch(0.09 0.05 255) 0%, oklch(0.09 0.05 255 / 60%) 30%, transparent 65%)",
+              "linear-gradient(to right, oklch(0.09 0.05 255) 0%, transparent 35%)",
           }}
         />
         {/* Fade bottom edge */}
         <div
           className="absolute inset-0"
           style={{
-            background:
-              "linear-gradient(to top, oklch(0.09 0.05 255) 0%, transparent 30%)",
+            background: "linear-gradient(to top, oklch(0.09 0.05 255) 0%, transparent 30%)",
           }}
         />
       </div>
 
-      {/* Full-width dark base gradient so left side is never empty */}
+      {/* DNA image — LEFT side (horizontally mirrored) */}
+      <div
+        className="absolute inset-y-0 left-0 pointer-events-none"
+        style={{ width: "50%" }}
+      >
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `url(${HERO_BG})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center top",
+            backgroundRepeat: "no-repeat",
+            transform: "scaleX(-1)",
+          }}
+        />
+        {/* Fade right edge into center */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(to left, oklch(0.09 0.05 255) 0%, transparent 35%)",
+          }}
+        />
+        {/* Fade bottom edge */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: "linear-gradient(to top, oklch(0.09 0.05 255) 0%, transparent 30%)",
+          }}
+        />
+      </div>
+
+      {/* Dark center vignette so text stays readable over both images */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "linear-gradient(120deg, oklch(0.08 0.06 255) 0%, oklch(0.1 0.05 255 / 90%) 45%, transparent 75%)",
+            "radial-gradient(ellipse 60% 100% at 50% 50%, oklch(0.08 0.06 255 / 75%) 0%, transparent 100%)",
         }}
       />
 
