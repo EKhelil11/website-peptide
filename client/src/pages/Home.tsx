@@ -1,25 +1,66 @@
-import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
-import { Streamdown } from 'streamdown';
+// === ELITE LA PEPTIDES — Home Page ===
+// Assembles: VideoIntro → Navbar → Hero → Products → About/Science → Footer
+// Design: Midnight Clinic — dark navy + cyan + hot pink
 
-/**
- * All content in this page are only for example, replace with your own feature implementation
- * When building pages, remember your instructions in Frontend Best Practices, Design Guide and Common Pitfalls
- */
+import { useState, useEffect } from "react";
+import VideoIntro from "@/components/VideoIntro";
+import Navbar from "@/components/Navbar";
+import HeroSection from "@/components/HeroSection";
+import ProductsSection from "@/components/ProductsSection";
+import AboutSection from "@/components/AboutSection";
+import Footer from "@/components/Footer";
+
 export default function Home() {
-  // If theme is switchable in App.tsx, we can implement theme toggling like this:
-  // const { theme, toggleTheme } = useTheme();
+  const [introComplete, setIntroComplete] = useState(false);
+  const [mainVisible, setMainVisible] = useState(false);
+
+  const handleIntroComplete = () => {
+    setIntroComplete(true);
+    // Slight delay before fading in main content for a polished transition
+    setTimeout(() => setMainVisible(true), 50);
+  };
+
+  // Scroll animation observer for the whole page
+  useEffect(() => {
+    if (!mainVisible) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      },
+      { threshold: 0.08, rootMargin: "0px 0px -40px 0px" }
+    );
+
+    const items = document.querySelectorAll(".animate-on-scroll");
+    items.forEach((item) => observer.observe(item));
+
+    return () => observer.disconnect();
+  }, [mainVisible]);
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <main>
-        {/* Example: lucide-react for icons */}
-        <Loader2 className="animate-spin" />
-        Example Page
-        {/* Example: Streamdown for markdown rendering */}
-        <Streamdown>Any **markdown** content</Streamdown>
-        <Button variant="default">Example Button</Button>
-      </main>
-    </div>
+    <>
+      {/* Video intro splash — unmounts after completion */}
+      {!introComplete && <VideoIntro onComplete={handleIntroComplete} />}
+
+      {/* Main site — fades in after intro */}
+      <div
+        style={{
+          opacity: mainVisible ? 1 : 0,
+          transition: "opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1)",
+        }}
+      >
+        <Navbar />
+        <main>
+          <HeroSection />
+          <ProductsSection />
+          <AboutSection />
+        </main>
+        <Footer />
+      </div>
+    </>
   );
 }
