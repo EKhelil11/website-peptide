@@ -2,6 +2,7 @@
 // Full subpage for each product: plain English, how it works, who it's for, benefits, cycle, price
 // Design: Midnight Clinic — dark navy, electric cyan, hot pink
 
+import { useEffect } from "react";
 import { useParams } from "wouter";
 import { Link } from "wouter";
 import { ArrowLeft, Clock, FlaskConical, Users, CheckCircle2, ShoppingCart, AlertTriangle } from "lucide-react";
@@ -14,6 +15,11 @@ const LOGO_URL = "/manus-storage/elite-la-peptides-logo_e9ec855c.png";
 export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
   const product = products.find((p) => p.id === id);
+
+  // Always land at the top of the page
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "instant" });
+  }, [id]);
 
   if (!product) {
     return (
