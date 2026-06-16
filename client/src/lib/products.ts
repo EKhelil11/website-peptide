@@ -32,7 +32,7 @@ export const products: Product[] = [
       "Appetite regulation via GLP-1 pathway",
       "Glucagon-mediated energy expenditure",
     ],
-    price: null,
+    price: "$140",
     badge: "Advanced",
   },
   {
@@ -51,7 +51,7 @@ export const products: Product[] = [
       "Cognitive clarity and neuroprotection",
       "Anti-aging and longevity support",
     ],
-    price: null,
+    price: "$100",
     badge: "Longevity",
   },
   {
@@ -71,7 +71,7 @@ export const products: Product[] = [
       "Enhanced angiogenesis and blood flow",
       "Joint and ligament recovery support",
     ],
-    price: null,
+    price: "$100",
     badge: "Stack",
   },
   {
@@ -90,7 +90,7 @@ export const products: Product[] = [
       "Wound healing and tissue remodeling",
       "Antioxidant and anti-inflammatory activity",
     ],
-    price: null,
+    price: "$80",
     badge: "Regenerative",
   },
   {
@@ -110,7 +110,7 @@ export const products: Product[] = [
       "Improved deep sleep and recovery",
       "No cortisol or prolactin elevation",
     ],
-    price: null,
+    price: "$80",
     badge: "Stack",
   },
   {
@@ -130,7 +130,7 @@ export const products: Product[] = [
       "Accelerated wound healing and scar reduction",
       "Full-body regenerative synergy",
     ],
-    price: null,
+    price: "$120",
     badge: "Signature Stack",
   },
   {
@@ -149,7 +149,7 @@ export const products: Product[] = [
       "Exercise performance and endurance support",
       "Longevity and healthspan extension research",
     ],
-    price: null,
+    price: "$70",
     badge: "Longevity",
   },
 ];
