@@ -1,9 +1,10 @@
 // === ELITE LA PEPTIDES — Product Card ===
 // Dark card with cyan glow on hover, badge, synopsis, price placeholder
 // Interaction: translateY(-4px) + cyan glow on hover
+// Links to /product/:id for full detail subpage
 
-import { useState } from "react";
-import { ChevronDown, ChevronUp, ShoppingCart } from "lucide-react";
+import { Link } from "wouter";
+import { ShoppingCart, ArrowRight, Clock } from "lucide-react";
 import type { Product } from "@/lib/products";
 
 const VIAL_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663765469010/KeqNR4QdNviNNDWK3S7923/peptide-vial-KdSBvv2H7a9bZfeH52wPjY.webp";
@@ -14,8 +15,6 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product, index }: ProductCardProps) {
-  const [expanded, setExpanded] = useState(false);
-
   const animationDelay = `${index * 80}ms`;
 
   return (
@@ -33,7 +32,7 @@ export default function ProductCard({ product, index }: ProductCardProps) {
         <img
           src={VIAL_IMG}
           alt={product.name}
-          className="absolute inset-0 w-full h-full object-cover opacity-60 transition-transform duration-500 group-hover:scale-105"
+          className="absolute inset-0 w-full h-full object-cover opacity-60 transition-transform duration-500"
           style={{ objectPosition: "center 20%" }}
         />
         {/* Gradient overlay */}
@@ -86,6 +85,15 @@ export default function ProductCard({ product, index }: ProductCardProps) {
           </div>
         </div>
 
+        {/* Cycle info */}
+        <div
+          className="flex items-center gap-1 text-white/35 text-xs mb-3"
+          style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
+        >
+          <Clock size={11} className="text-white/30" />
+          <span>{product.cycle}</span>
+        </div>
+
         {/* Tagline */}
         <p
           className="text-white/60 text-sm mb-3 leading-snug"
@@ -94,48 +102,23 @@ export default function ProductCard({ product, index }: ProductCardProps) {
           {product.tagline}
         </p>
 
-        {/* Synopsis — collapsible */}
+        {/* Synopsis — 3 lines clamped */}
         <div className="mb-4 flex-1">
           <p
-            className={`text-white/70 text-sm leading-relaxed transition-all duration-300 ${
-              expanded ? "" : "line-clamp-3"
-            }`}
+            className="text-white/70 text-sm leading-relaxed line-clamp-3"
             style={{ fontFamily: "'Inter', sans-serif" }}
           >
             {product.synopsis}
           </p>
-          <button
-            onClick={() => setExpanded(!expanded)}
-            className="mt-2 flex items-center gap-1 text-[#00BFFF] text-xs font-semibold tracking-wide uppercase hover:text-[#00BFFF]/80 transition-colors"
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
-          >
-            {expanded ? (
-              <>
-                <ChevronUp size={14} /> Read Less
-              </>
-            ) : (
-              <>
-                <ChevronDown size={14} /> Read More
-              </>
-            )}
-          </button>
+          <Link href={`/product/${product.id}`}>
+            <button
+              className="mt-2 flex items-center gap-1 text-[#00BFFF] text-xs font-semibold tracking-wide uppercase hover:text-[#00BFFF]/80 transition-colors"
+              style={{ fontFamily: "'Rajdhani', sans-serif" }}
+            >
+              <ArrowRight size={13} /> Full Details
+            </button>
+          </Link>
         </div>
-
-        {/* Benefits (shown when expanded) */}
-        {expanded && (
-          <ul className="mb-4 space-y-1">
-            {product.benefits.map((benefit) => (
-              <li
-                key={benefit}
-                className="flex items-start gap-2 text-xs text-white/60"
-                style={{ fontFamily: "'Inter', sans-serif" }}
-              >
-                <span className="text-[#00BFFF] mt-0.5 flex-shrink-0">▸</span>
-                {benefit}
-              </li>
-            ))}
-          </ul>
-        )}
 
         {/* Divider */}
         <div className="border-t border-white/8 pt-4 mt-auto">
@@ -168,15 +151,12 @@ export default function ProductCard({ product, index }: ProductCardProps) {
             </div>
 
             {/* CTA Button */}
-            <button
-              className="btn-primary flex items-center gap-2 px-4 py-2 rounded text-xs"
-              onClick={() => {
-                // Price coming soon — show toast or placeholder behavior
-              }}
-            >
-              <ShoppingCart size={14} />
-              Order Now
-            </button>
+            <a href="/#contact">
+              <button className="btn-primary flex items-center gap-2 px-4 py-2 rounded text-xs">
+                <ShoppingCart size={14} />
+                Order Now
+              </button>
+            </a>
           </div>
         </div>
       </div>

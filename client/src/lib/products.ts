@@ -1,17 +1,21 @@
 // === ELITE LA PEPTIDES — Product Data ===
-// All 7 products with synopses. Prices are placeholders — update when ready.
+// Enriched with detailed subpage content. Prices set.
 
 export interface Product {
   id: string;
   name: string;
   dose: string;
+  cycle: string;
   category: string;
   isStack: boolean;
   stackName?: string;
   tagline: string;
   synopsis: string;
+  plainEnglish: string;
+  howItWorks: string;
+  whoIsItFor: string;
   benefits: string[];
-  price: string | null; // null = "Coming Soon"
+  price: string | null;
   badge?: string;
 }
 
@@ -20,17 +24,24 @@ export const products: Product[] = [
     id: "retatrutide-30mg",
     name: "Retatrutide",
     dose: "30mg",
-    category: "Metabolic",
+    cycle: "6–7 week cycle",
+    category: "Weight Loss",
     isStack: false,
     tagline: "Triple-receptor metabolic powerhouse",
     synopsis:
-      "Retatrutide is a next-generation triple agonist targeting GIP, GLP-1, and glucagon receptors simultaneously — making it one of the most advanced metabolic peptides available. Originally developed for obesity and metabolic syndrome, it has demonstrated remarkable results in clinical research for weight reduction, improved insulin sensitivity, and lipid regulation. Its tri-receptor mechanism provides a synergistic effect that surpasses dual-agonist compounds, positioning Retatrutide at the forefront of metabolic optimization science.",
+      "Triple-hormone receptor agonist for significant weight loss, appetite control, and improved metabolic health.",
+    plainEnglish:
+      "Retatrutide is one of the most advanced weight management peptides available, designed to mimic three natural hormones in your body simultaneously. While you may have heard of GLP-1 drugs like Ozempic or Wegovy, Retatrutide takes it a step further by also activating GIP and glucagon receptors. This triple-action approach makes it significantly more powerful for weight loss and metabolic improvement than single-hormone options.",
+    howItWorks:
+      "Retatrutide works by activating three hormone receptors at once: GLP-1 (which reduces appetite and slows digestion), GIP (which improves insulin response and fat metabolism), and glucagon (which increases fat burning and energy expenditure). This combination creates a powerful metabolic effect — you feel fuller faster, eat less, burn more fat, and your body processes blood sugar more efficiently.",
+    whoIsItFor:
+      "Adults with obesity or those dealing with metabolic challenges who are looking for significant, sustained weight loss and improved metabolic health. Best used as part of a comprehensive health plan.",
     benefits: [
-      "Significant body weight reduction",
-      "Improved insulin sensitivity",
-      "Enhanced lipid metabolism",
-      "Appetite regulation via GLP-1 pathway",
-      "Glucagon-mediated energy expenditure",
+      "Significant weight loss via triple-receptor action",
+      "Appetite control — feel fuller faster, eat less",
+      "Improved metabolic health and energy processing",
+      "Blood sugar regulation and insulin response",
+      "Increased fat burning and glycemic control",
     ],
     price: "$140",
     badge: "Advanced",
@@ -39,17 +50,25 @@ export const products: Product[] = [
     id: "nad-500mg",
     name: "NAD+",
     dose: "500mg",
-    category: "Longevity",
+    cycle: "1 month cycle",
+    category: "Cellular Health",
     isStack: false,
     tagline: "The cellular energy currency of longevity",
     synopsis:
-      "Nicotinamide Adenine Dinucleotide (NAD+) is a coenzyme found in every living cell and is fundamental to mitochondrial energy production, DNA repair, and the activation of sirtuins — proteins closely linked to longevity and cellular resilience. NAD+ levels naturally decline with age, and supplementation has been shown in research to restore mitochondrial function, enhance cognitive clarity, support neuroprotection, and accelerate recovery. At 500mg, this formulation is designed for those seeking meaningful cellular rejuvenation and sustained vitality.",
+      "Coenzyme essential for cellular energy, DNA repair, and healthy aging — supports metabolism, focus, and recovery.",
+    plainEnglish:
+      "NAD+ (Nicotinamide Adenine Dinucleotide) is a molecule found in every single cell of your body, and it's absolutely essential for life. Think of it as the fuel that powers your cellular machinery. It's involved in hundreds of biological processes — from converting food into energy to repairing damaged DNA. The problem is that NAD+ levels naturally decline with age, which is one reason why we feel less energetic and recover more slowly as we get older.",
+    howItWorks:
+      "NAD+ works like a molecular shuttle inside your cells, carrying electrons during the process of turning food into usable energy. It also activates a family of proteins called sirtuins — often called 'longevity proteins' — that regulate aging, inflammation, and DNA repair. When NAD+ levels are high, your cells run efficiently; when they drop, cellular function deteriorates.",
+    whoIsItFor:
+      "Anyone looking to support overall cellular health, boost energy levels, sharpen mental focus, and potentially slow age-related decline in bodily functions. Particularly valuable for those over 35 as natural NAD+ levels begin to drop.",
     benefits: [
-      "Mitochondrial energy optimization",
-      "DNA repair and cellular resilience",
-      "Sirtuin pathway activation",
-      "Cognitive clarity and neuroprotection",
-      "Anti-aging and longevity support",
+      "DNA repair — keeps cells healthy and functioning properly",
+      "Improved metabolism and nutrient-to-energy conversion",
+      "Cell protection from stress and aging byproducts",
+      "Increased energy and stamina — reduced fatigue",
+      "Cognitive function — improved thinking and memory",
+      "Organ function support for muscles, brain, and heart",
     ],
     price: "$100",
     badge: "Longevity",
@@ -57,19 +76,27 @@ export const products: Product[] = [
   {
     id: "bpc157-tb500-wolverine",
     name: "BPC-157 + TB-500",
-    dose: "Wolverine Stack",
+    dose: "20mg",
+    cycle: "3–4 week cycle",
     category: "Recovery",
     isStack: true,
     stackName: "Wolverine Stack",
     tagline: "Accelerated healing. Wolverine-grade recovery.",
     synopsis:
-      "The Wolverine Stack combines two of the most researched healing peptides in existence. BPC-157 (Body Protection Compound-157) is a 15-amino-acid peptide derived from a human gastric protein, renowned for its ability to accelerate tissue repair, reduce inflammation, and protect the gut lining. TB-500 (Thymosin Beta-4) is a naturally occurring peptide that promotes angiogenesis, cell migration, and systemic tissue regeneration. Together, they create a synergistic healing cascade that targets muscle, tendon, ligament, and joint recovery with a speed and depth that neither peptide achieves alone.",
+      "Recovery-focused peptide stack for tissue repair, reducing inflammation, and speeding recovery from injuries.",
+    plainEnglish:
+      "The Wolverine Stack is a combination of two powerful peptides — BPC-157 and TB-500 — designed to supercharge your body's natural healing. Think of it like giving your body a turbo boost for repairing damaged muscles, tendons, and ligaments. BPC-157 comes from a protein naturally found in your stomach, while TB-500 mimics a protein your body already uses to repair cells. Together, they make a formidable recovery duo.",
+    howItWorks:
+      "BPC-157 acts like a repair signal, telling your body to fix damaged tissues and calm down inflammation. TB-500 helps cells move to where they're needed most and encourages the growth of new blood vessels — essentially building new highways to rush repair crews to the injury site. Together, they work on multiple levels to get you healing faster than your body could on its own.",
+    whoIsItFor:
+      "Athletes, active individuals, or anyone recovering from soft-tissue injuries, surgery, or chronic inflammation who wants to heal faster and get back to peak performance.",
     benefits: [
-      "Accelerated muscle and tendon repair",
-      "Systemic tissue regeneration via TB-500",
-      "Anti-inflammatory and gut protection via BPC-157",
-      "Enhanced angiogenesis and blood flow",
-      "Joint and ligament recovery support",
+      "Faster muscle and tendon healing after strain or injury",
+      "Reduces inflammation and swelling — less pain",
+      "Speeds up injury recovery and post-surgery healing",
+      "Tissue regeneration — grows new, healthy tissue",
+      "Improved flexibility and range of motion via TB-500",
+      "Gut health support — BPC-157 repairs gut lining",
     ],
     price: "$100",
     badge: "Stack",
@@ -78,17 +105,26 @@ export const products: Product[] = [
     id: "ghk-cu-50mg",
     name: "GHK-CU",
     dose: "50mg",
-    category: "Regeneration",
+    cycle: "2 month cycle",
+    category: "Anti-Aging",
     isStack: false,
     tagline: "Copper peptide for skin, hair, and cellular renewal",
     synopsis:
-      "GHK-Cu (Copper Peptide GHK-Cu) is a naturally occurring copper complex with a profound ability to stimulate collagen and elastin synthesis, activate stem cells, and modulate over 4,000 human genes. Extensively studied for its role in wound healing, skin regeneration, and anti-aging, GHK-Cu promotes the production of glycosaminoglycans, reduces oxidative stress, and supports hair follicle health. Its systemic regenerative properties make it a cornerstone peptide for those pursuing both aesthetic rejuvenation and deeper cellular repair.",
+      "Supports skin repair, collagen production, wound healing, and hair health — popular in anti-aging and cosmetic wellness.",
+    plainEnglish:
+      "GHK-Cu is a naturally occurring peptide that your body actually produces on its own — but its levels drop significantly as you age. It's a copper-binding peptide, meaning it carries copper (an essential mineral) directly to your cells where it's needed most. Think of it as your body's built-in skin repair and anti-aging signal. It's been used in high-end skincare for decades, and now it's available in a more potent lab-synthesized form.",
+    howItWorks:
+      "GHK-Cu works by acting as a messenger that tells your body to ramp up collagen and elastin production — the two proteins responsible for keeping your skin firm, smooth, and elastic. It also activates genes involved in tissue repair, wound healing, and even hair follicle stimulation. Essentially, it flips the switch on your body's own regenerative machinery.",
+    whoIsItFor:
+      "Anyone looking to improve skin health, reduce visible signs of aging, speed up wound healing, or support hair growth. Particularly popular for cosmetic and anti-aging wellness protocols.",
     benefits: [
-      "Collagen and elastin synthesis stimulation",
-      "Skin tightening and anti-aging effects",
-      "Hair follicle activation and growth support",
-      "Wound healing and tissue remodeling",
-      "Antioxidant and anti-inflammatory activity",
+      "Skin repair — signals skin cells to heal and regenerate",
+      "Collagen production — keeps skin firm and plump",
+      "Wound healing — accelerates scar and damage repair",
+      "Elastin synthesis — gives skin its bounce-back flexibility",
+      "Hair health — supports follicle function for thicker hair",
+      "Anti-aging — reduces fine lines and wrinkles",
+      "Antioxidant protection from free radical damage",
     ],
     price: "$80",
     badge: "Regenerative",
@@ -97,18 +133,26 @@ export const products: Product[] = [
     id: "cjc1295-ipamorelin-10mg",
     name: "CJC-1295 + Ipamorelin",
     dose: "10mg",
-    category: "Growth",
+    cycle: "8–12 week cycle",
+    category: "Hormone Support",
     isStack: true,
     stackName: "GH Synergy",
     tagline: "Precision growth hormone optimization",
     synopsis:
-      "This synergistic combination pairs CJC-1295, a GHRH analogue that extends the half-life of growth hormone-releasing hormone, with Ipamorelin, a selective growth hormone secretagogue that mimics ghrelin without the cortisol or prolactin spikes associated with other GH peptides. The result is a clean, pulsatile release of growth hormone that mirrors the body's natural rhythm. Research indicates benefits including enhanced lean muscle development, accelerated fat metabolism, improved sleep quality, and faster recovery — all without suppressing the body's endogenous GH production.",
+      "Synergistic growth hormone stack for lean muscle, fat metabolism, improved sleep, and natural GH optimization.",
+    plainEnglish:
+      "This synergistic combination pairs CJC-1295, a GHRH analogue that extends the half-life of growth hormone-releasing hormone, with Ipamorelin, a selective growth hormone secretagogue that mimics ghrelin without the cortisol or prolactin spikes associated with other GH peptides. The result is a clean, pulsatile release of growth hormone that mirrors the body's natural rhythm.",
+    howItWorks:
+      "CJC-1295 extends the window during which your pituitary gland releases growth hormone, while Ipamorelin selectively triggers GH pulses without disturbing cortisol or prolactin levels. Together they create a sustained, natural-pattern GH elevation that drives lean muscle development, fat metabolism, and deep sleep quality — all without suppressing your body's own GH production.",
+    whoIsItFor:
+      "Those seeking lean body composition, improved recovery, better sleep quality, and natural GH optimization without the side effects of synthetic growth hormone. Ideal for athletes and those focused on body recomposition.",
     benefits: [
       "Pulsatile, natural-pattern GH release",
       "Lean muscle development and retention",
       "Accelerated fat metabolism",
       "Improved deep sleep and recovery",
       "No cortisol or prolactin elevation",
+      "Preserves endogenous GH production",
     ],
     price: "$80",
     badge: "Stack",
@@ -116,19 +160,28 @@ export const products: Product[] = [
   {
     id: "ghk-cu-bpc157-tb500-glow",
     name: "GHK-CU + BPC-157 + TB-500",
-    dose: "Glow Stack",
-    category: "Beauty & Recovery",
+    dose: "70mg",
+    cycle: "2 month cycle",
+    category: "Beauty & Wellness",
     isStack: true,
     stackName: "Glow Stack",
     tagline: "Radiance engineered from the inside out",
     synopsis:
-      "The Glow Stack is the ultimate convergence of regeneration and beauty science. GHK-Cu drives collagen synthesis and skin renewal at the cellular level, while BPC-157 provides powerful anti-inflammatory protection and gut-skin axis support. TB-500 completes the triad by promoting systemic tissue regeneration and angiogenesis, ensuring nutrients and oxygen reach skin cells efficiently. The combined effect is a comprehensive inside-out approach to radiant skin, accelerated healing, and whole-body rejuvenation — making this stack the definitive choice for those who demand both performance and aesthetics.",
+      "Beauty and wellness combo for skin repair, collagen production, hydration, hair quality, and overall radiance with recovery.",
+    plainEnglish:
+      "The Glow Stack combines three powerhouse peptides into one beauty and wellness protocol. GHK-Cu is a naturally occurring copper peptide that your body already produces — it's like a repair signal for your skin and hair. Add in BPC-157 and TB-500 for their tissue-healing and anti-inflammatory properties, and you have a comprehensive stack that works from the inside out to give you healthier skin, stronger hair, and a more radiant appearance.",
+    howItWorks:
+      "GHK-Cu tells your skin cells to produce more collagen and elastin — the proteins that keep skin firm, smooth, and youthful. BPC-157 and TB-500 then add their healing power to the mix, reducing inflammation, promoting new blood vessel growth (which feeds your skin and hair follicles), and accelerating tissue repair throughout the body. The result is a comprehensive beauty and recovery protocol.",
+    whoIsItFor:
+      "Anyone looking to improve their skin's appearance, boost hair quality, accelerate recovery from injuries, and reduce inflammation for a comprehensive wellness and beauty upgrade.",
     benefits: [
-      "Comprehensive skin collagen and elastin boost",
-      "Gut-skin axis optimization via BPC-157",
-      "Systemic angiogenesis and nutrient delivery",
-      "Accelerated wound healing and scar reduction",
-      "Full-body regenerative synergy",
+      "Skin repair and regeneration — healthier, more youthful appearance",
+      "Collagen and elastin boost — firm, plump, wrinkle-free skin",
+      "Accelerated healing of skin, muscles, and tendons",
+      "Reduced inflammation — improved skin clarity and less redness",
+      "Improved hair quality — thicker, stronger hair growth",
+      "Gut health support via BPC-157",
+      "Overall radiance — vibrant, glowing appearance",
     ],
     price: "$120",
     badge: "Signature Stack",
@@ -137,17 +190,25 @@ export const products: Product[] = [
     id: "mots-c-10mg",
     name: "MOTS-C",
     dose: "10mg",
-    category: "Metabolic & Longevity",
+    cycle: "20 day cycle",
+    category: "Metabolic",
     isStack: false,
     tagline: "Mitochondrial-encoded longevity peptide",
     synopsis:
-      "MOTS-C is a mitochondria-derived peptide encoded within the mitochondrial genome — a discovery that fundamentally changed our understanding of mitochondrial biology. It acts as a metabolic regulator that activates AMPK pathways, improves insulin sensitivity, and enhances the body's ability to utilize fatty acids for fuel. Research has demonstrated its potential in combating age-related metabolic decline, improving exercise capacity, and extending healthspan. MOTS-C represents the cutting edge of longevity science, bridging mitochondrial health with systemic metabolic optimization.",
+      "Mitochondrial-derived peptide for energy production, metabolic health, insulin sensitivity, and exercise performance.",
+    plainEnglish:
+      "MOTS-c is a fascinating peptide because it comes directly from your mitochondria — the tiny power plants inside every cell that generate your body's energy. Unlike most peptides that come from other parts of the body, this one is made by the very structures responsible for keeping you energized. It acts as a metabolic regulator, helping your body burn fat more efficiently, manage blood sugar better, and perform at a higher level during exercise.",
+    howItWorks:
+      "MOTS-c activates a key energy sensor in your cells called AMPK — think of it as the master switch for your metabolism. When AMPK is activated, your body shifts into an efficient energy mode: it burns fat for fuel, improves how cells absorb sugar from the blood, and even stimulates the growth of more mitochondria so you have more power-generating capacity overall.",
+    whoIsItFor:
+      "Individuals looking to improve metabolic health, enhance athletic performance and endurance, or support healthy aging. Particularly beneficial for those with insulin resistance or aiming for fat loss while maintaining muscle.",
     benefits: [
-      "AMPK pathway activation for metabolic regulation",
-      "Enhanced insulin sensitivity and glucose control",
-      "Improved fatty acid oxidation and energy",
-      "Exercise performance and endurance support",
-      "Longevity and healthspan extension research",
+      "Improved insulin sensitivity — better blood sugar control",
+      "Supports fat loss while preserving muscle",
+      "Enhanced endurance — burns fat more efficiently as fuel",
+      "Anti-aging properties — protects cells from damage",
+      "Better metabolic function and nutrient processing",
+      "Reduced inflammation for better cellular health",
     ],
     price: "$70",
     badge: "Longevity",
@@ -156,11 +217,11 @@ export const products: Product[] = [
 
 export const categories = [
   "All",
-  "Metabolic",
-  "Longevity",
+  "Weight Loss",
+  "Cellular Health",
   "Recovery",
-  "Regeneration",
-  "Growth",
-  "Beauty & Recovery",
-  "Metabolic & Longevity",
+  "Anti-Aging",
+  "Hormone Support",
+  "Beauty & Wellness",
+  "Metabolic",
 ];
