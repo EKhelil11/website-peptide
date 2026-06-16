@@ -213,7 +213,7 @@ export default function Footer() {
                 Quick Links
               </h5>
               <ul className="space-y-2">
-                {["Products", "About", "Science", "Contact"].map((link) => (
+                {["Products", "Shipping", "About", "Science", "Contact"].map((link) => (
                   <li key={link}>
                     <button
                       onClick={() => document.querySelector(`#${link.toLowerCase()}`)?.scrollIntoView({ behavior: "smooth" })}

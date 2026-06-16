@@ -8,6 +8,7 @@ import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import ProductsSection from "@/components/ProductsSection";
 import AboutSection from "@/components/AboutSection";
+import ShippingSection from "@/components/ShippingSection";
 import Footer from "@/components/Footer";
 
 export default function Home() {
@@ -57,6 +58,7 @@ export default function Home() {
         <main>
           <HeroSection />
           <ProductsSection />
+          <ShippingSection />
           <AboutSection />
         </main>
         <Footer />

@@ -9,6 +9,7 @@ const LOGO_URL = "/manus-storage/elite-la-peptides-logo_e9ec855c.png";
 
 const navLinks = [
   { label: "Products", href: "#products" },
+  { label: "Shipping", href: "#shipping" },
   { label: "About", href: "#about" },
   { label: "Science", href: "#science" },
   { label: "Contact", href: "#contact" },
