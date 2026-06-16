@@ -57,7 +57,7 @@ export default function Footer() {
                     <Mail size={14} style={{ color: "#00BFFF" }} />
                   </div>
                   <span style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.9rem" }}>
-                    info@elitelapeptides.com
+                    LAELITESPEPTIDES@gmail.com
                   </span>
                 </div>
                 <div className="flex items-center gap-3 text-white/60">
