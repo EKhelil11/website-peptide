@@ -240,6 +240,33 @@ export const products: Product[] = [
     price: "$80",
     badge: "Hormone",
   },
+  {
+    id: "semax-10mg",
+    name: "Semax",
+    dose: "10mg",
+    cycle: "2–4 week cycle",
+    category: "Cellular Health",
+    isStack: false,
+    tagline: "The brain's performance peptide",
+    synopsis:
+      "A synthetic nootropic neuropeptide that enhances BDNF expression, sharpens focus and memory, reduces brain fog, and provides powerful neuroprotective effects.",
+    plainEnglish:
+      "Semax is a synthetic peptide derived from a fragment of ACTH — a hormone your body naturally produces. Originally developed in Russia and used clinically for stroke recovery and cognitive disorders, it has gained global attention as one of the most effective nootropic peptides available. Think of it as a precision upgrade for your brain: it doesn't just stimulate you like caffeine, it actually supports the biological machinery that makes your brain work better — sharper thinking, stronger memory, faster processing, and a more resilient nervous system.",
+    howItWorks:
+      "Semax works primarily by boosting BDNF (Brain-Derived Neurotrophic Factor) — often called \"Miracle-Gro for the brain.\" BDNF promotes the growth, maintenance, and survival of neurons, and higher levels are associated with better learning, memory, and mood. Semax also modulates dopamine and serotonin pathways in the prefrontal cortex, the brain region responsible for focus, decision-making, and working memory. Additionally, it inhibits enzymes that break down key neuropeptides, extending their beneficial effects and providing antioxidant protection against neuronal damage.",
+    whoIsItFor:
+      "Anyone looking to sharpen cognitive performance, combat brain fog, improve focus and memory, or support long-term brain health. Particularly valuable for professionals, students, athletes seeking mental edge, or individuals recovering from neurological stress. Also researched for mood support and anxiety reduction.",
+    benefits: [
+      "Enhanced focus, clarity, and mental sharpness",
+      "Improved memory formation and recall",
+      "Boosts BDNF — the brain's growth and repair factor",
+      "Neuroprotective — shields neurons from oxidative stress",
+      "Modulates dopamine and serotonin for mood support",
+      "Reduces brain fog and mental fatigue",
+    ],
+    price: "$60",
+    badge: "Nootropic",
+  },
 ];
 
 export const categories = [

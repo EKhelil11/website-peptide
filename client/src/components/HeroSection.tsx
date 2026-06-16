@@ -119,7 +119,7 @@ export default function HeroSection() {
             className="hero-item opacity-0 text-white/75 mb-8 max-w-xl leading-relaxed"
             style={{ fontFamily: "'Inter', sans-serif", fontSize: "1.1rem", fontWeight: 300 }}
           >
-            Science-backed peptides formulated for the performance-driven. From metabolic optimization to cellular regeneration — Elite LA Peptides delivers pharmaceutical-grade compounds for those who demand the best.
+            Science-backed peptides formulated for the performance-driven. From metabolic optimization to cellular regeneration — LA Elite Peptides delivers pharmaceutical-grade compounds for those who demand the best.
           </p>
 
           {/* CTA Buttons */}
@@ -142,7 +142,7 @@ export default function HeroSection() {
           {/* Stats row */}
           <div className="hero-item opacity-0 mt-16 flex flex-wrap gap-8">
             {[
-              { value: "8", label: "Premium Peptides" },
+              { value: "9", label: "Premium Peptides" },
               { value: "3", label: "Signature Stacks" },
               { value: "100%", label: "Research Grade" },
             ].map((stat) => (

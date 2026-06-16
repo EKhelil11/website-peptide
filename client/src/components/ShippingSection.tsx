@@ -160,7 +160,7 @@ export default function ShippingSection() {
                 className="text-white/60 mb-6 leading-relaxed"
                 style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: "0.9rem" }}
               >
-                Elite LA Peptides offers direct local delivery throughout the greater Los Angeles area. Your order is handled personally — ensuring cold-chain integrity and same-day arrival.
+                LA Elite Peptides offers direct local delivery throughout the greater Los Angeles area. Your order is handled personally — ensuring cold-chain integrity and same-day arrival.
               </p>
               <ul className="space-y-3">
                 {localFeatures.map((item) => {
@@ -204,14 +204,24 @@ export default function ShippingSection() {
                       Contact us for rates
                     </div>
                   </div>
-                  <button
-                    onClick={() =>
-                      document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })
-                    }
-                    className="btn-pink px-5 py-2.5 rounded text-xs"
-                  >
-                    Order Local
-                  </button>
+                  <div className="flex flex-col gap-2 items-end">
+                    <a
+                      href="tel:+13109290403"
+                      className="btn-pink px-5 py-2.5 rounded text-xs flex items-center gap-2"
+                      style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", textDecoration: "none" }}
+                    >
+                      📞 (310) 929-0403
+                    </a>
+                    <button
+                      onClick={() =>
+                        document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })
+                      }
+                      className="text-[#FF2D78]/60 hover:text-[#FF2D78] text-xs transition-colors"
+                      style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase" }}
+                    >
+                      Or message us →
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

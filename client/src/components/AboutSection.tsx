@@ -101,7 +101,7 @@ export default function AboutSection() {
                 className="text-white/65 mb-6 leading-relaxed animate-on-scroll"
                 style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: "1rem" }}
               >
-                Elite LA Peptides was founded on a singular conviction: that the most advanced tools in human performance science should be accessible to those who are serious about optimizing their biology. We are not a supplement company — we are a precision peptide laboratory operating at the intersection of cutting-edge research and real-world application.
+                LA Elite Peptides was founded on a singular conviction: that the most advanced tools in human performance science should be accessible to those who are serious about optimizing their biology. We are not a supplement company — we are a precision peptide laboratory operating at the intersection of cutting-edge research and real-world application.
               </p>
 
               <p
@@ -135,7 +135,7 @@ export default function AboutSection() {
               >
                 <img
                   src={LAB_IMG}
-                  alt="Elite LA Peptides Laboratory"
+                  alt="LA Elite Peptides Laboratory"
                   className="w-full h-80 lg:h-96 object-cover"
                 />
               </div>

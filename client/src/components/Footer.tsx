@@ -2,7 +2,7 @@
 // Dark footer with brand logo, links, disclaimer
 // Contact section with simple form placeholder
 
-import { Mail, MapPin, Instagram } from "lucide-react";
+import { Mail, MapPin, Instagram, Phone } from "lucide-react";
 
 const LOGO_URL = "/manus-storage/elite-la-peptides-logo_e9ec855c.png";
 
@@ -57,8 +57,23 @@ export default function Footer() {
                     <Mail size={14} style={{ color: "#00BFFF" }} />
                   </div>
                   <span style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.9rem" }}>
-                    LAELITESPEPTIDES@gmail.com
+                    LaElitePeptides@gmail.com
                   </span>
+                </div>
+                <div className="flex items-center gap-3 text-white/60">
+                  <div
+                    className="w-8 h-8 rounded flex items-center justify-center flex-shrink-0"
+                    style={{ background: "oklch(0.72 0.18 210 / 12%)", border: "1px solid oklch(0.72 0.18 210 / 25%)" }}
+                  >
+                    <Phone size={14} style={{ color: "#00BFFF" }} />
+                  </div>
+                  <a
+                    href="tel:+13109290403"
+                    style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.9rem" }}
+                    className="hover:text-[#00BFFF] transition-colors"
+                  >
+                    (310) 929-0403
+                  </a>
                 </div>
                 <div className="flex items-center gap-3 text-white/60">
                   <div
@@ -195,7 +210,7 @@ export default function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             {/* Logo + tagline */}
             <div>
-              <img src={LOGO_URL} alt="Elite LA Peptides" className="h-12 w-auto mb-3" />
+              <img src={LOGO_URL} alt="LA Elite Peptides" className="h-12 w-auto mb-3" />
               <p
                 className="text-white/40 text-sm leading-relaxed"
                 style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300 }}
@@ -239,7 +254,7 @@ export default function Footer() {
                 className="text-white/30 text-xs leading-relaxed"
                 style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300 }}
               >
-                All products sold by Elite LA Peptides are intended for research purposes only. These products are not intended to diagnose, treat, cure, or prevent any disease. Not for human consumption. Must be 18+ to purchase.
+                All products sold by LA Elite Peptides are intended for research purposes only. These products are not intended to diagnose, treat, cure, or prevent any disease. Not for human consumption. Must be 18+ to purchase.
               </p>
             </div>
           </div>
@@ -253,7 +268,7 @@ export default function Footer() {
               className="text-white/25 text-xs"
               style={{ fontFamily: "'Inter', sans-serif" }}
             >
-              © {new Date().getFullYear()} Elite LA Peptides. All rights reserved.
+              © {new Date().getFullYear()} LA Elite Peptides. All rights reserved.
             </p>
             <div className="flex items-center gap-2">
               <div className="h-px w-8 bg-[#00BFFF]/30" />

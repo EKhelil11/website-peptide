@@ -48,7 +48,7 @@ export default function Navbar() {
             >
               <img
                 src={LOGO_URL}
-                alt="Elite LA Peptides"
+                alt="LA Elite Peptides"
                 className="h-10 lg:h-12 w-auto object-contain transition-opacity duration-200 group-hover:opacity-90"
                 style={{ filter: "drop-shadow(0 0 8px rgba(0, 191, 255, 0.3))" }}
               />
@@ -94,7 +94,7 @@ export default function Navbar() {
         style={{ background: "oklch(0.12 0.05 255 / 97%)", backdropFilter: "blur(20px)" }}
       >
         <div className="flex flex-col items-center justify-center h-full gap-8">
-          <img src={LOGO_URL} alt="Elite LA Peptides" className="h-16 w-auto mb-4" />
+          <img src={LOGO_URL} alt="LA Elite Peptides" className="h-16 w-auto mb-4" />
           {navLinks.map((link, i) => (
             <button
               key={link.href}
