@@ -63,13 +63,13 @@ export default function ProductDetail() {
             className="h-10 w-auto"
           />
         </Link>
-        <Link href="/">
+        <Link href="/#products">
           <button
             className="flex items-center gap-2 text-white/60 hover:text-[#00BFFF] transition-colors text-sm"
             style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600, letterSpacing: "0.08em" }}
           >
             <ArrowLeft size={16} />
-            BACK TO HOME
+            BACK TO PRODUCTS
           </button>
         </Link>
       </nav>
@@ -79,7 +79,7 @@ export default function ProductDetail() {
         className="px-6 py-3 flex items-center gap-3"
         style={{ background: "oklch(0.14 0.05 255 / 0.7)", borderBottom: "1px solid rgba(0,191,255,0.1)" }}
       >
-        <Link href="/">
+        <Link href="/#products">
           <button
             className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
             style={{
@@ -92,7 +92,7 @@ export default function ProductDetail() {
             }}
           >
             <ArrowLeft size={15} />
-            ← BACK TO HOMEPAGE
+            ← BACK TO PRODUCTS
           </button>
         </Link>
         <span
@@ -439,7 +439,7 @@ export default function ProductDetail() {
         className="border-t border-white/8 py-8 text-center"
         style={{ background: "oklch(0.1 0.03 255)" }}
       >
-        <Link href="/">
+        <Link href="/#products">
           <button
             className="flex items-center gap-2 px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] mx-auto"
             style={{
@@ -452,7 +452,7 @@ export default function ProductDetail() {
             }}
           >
             <ArrowLeft size={15} />
-            BACK TO HOMEPAGE
+            BACK TO PRODUCTS
           </button>
         </Link>
       </div>
