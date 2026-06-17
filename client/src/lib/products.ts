@@ -132,7 +132,7 @@ export const products: Product[] = [
   {
     id: "cjc1295-ipamorelin-10mg",
     name: "CJC-1295 + Ipamorelin",
-    dose: "10mg",
+    dose: "10 units/day",
     cycle: "8–12 week cycle",
     category: "Hormone Support",
     isStack: true,
