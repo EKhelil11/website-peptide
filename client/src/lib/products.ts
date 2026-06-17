@@ -243,7 +243,7 @@ export const products: Product[] = [
   {
     id: "semax-10mg",
     name: "Semax",
-    dose: "1.0 units — morning, as needed",
+    dose: "1.0 units / Morning",
     cycle: "2–4 week cycle",
     category: "Cellular Health",
     isStack: false,
