@@ -31,7 +31,7 @@ const faqs: FAQItem[] = [
   {
     category: "research",
     q: "Are your peptides tested before shipping?",
-    a: "Yes. Every product in our catalog is tested for purity and identity prior to fulfillment. We source only from verified, GMP-compliant manufacturers and maintain strict quality assurance protocols. Researchers can request a Certificate of Analysis (CoA) for any product by contacting us directly.",
+    a: "Yes. Every product in our catalog is tested for purity and identity prior to fulfillment. We source only from verified, GMP-compliant manufacturers and maintain strict quality assurance protocols.",
   },
   // Shipping
   {
@@ -247,51 +247,7 @@ export default function FAQSection() {
           })}
         </div>
 
-        {/* Bottom CTA */}
-        <div
-          className="mt-14 text-center rounded-2xl px-8 py-10"
-          style={{
-            background: "linear-gradient(135deg, oklch(0.14 0.06 255 / 0.8), oklch(0.12 0.04 255 / 0.8))",
-            border: "1px solid rgba(0,191,255,0.15)",
-          }}
-        >
-          <p
-            className="text-white/80 mb-2"
-            style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.5rem", letterSpacing: "0.05em" }}
-          >
-            Research Inquiry?
-          </p>
-          <p
-            className="text-white/40 text-sm mb-6"
-            style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300 }}
-          >
-            Our team is available to assist with product specifications, quality documentation, and research order inquiries.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <a
-              href="sms:+13109290403"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded text-sm font-bold tracking-widest uppercase transition-all duration-200 hover:opacity-90 active:scale-95"
-              style={{
-                background: "#FF2D78",
-                color: "white",
-                fontFamily: "'Rajdhani', sans-serif",
-              }}
-            >
-              Text Us: (310) 929-0403
-            </a>
-            <a
-              href="mailto:LaElitePeptides@gmail.com"
-              className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded text-sm font-bold tracking-widest uppercase transition-all duration-200 hover:border-[#00BFFF]/60 hover:text-[#00BFFF]"
-              style={{
-                border: "1px solid rgba(0,191,255,0.3)",
-                color: "rgba(255,255,255,0.7)",
-                fontFamily: "'Rajdhani', sans-serif",
-              }}
-            >
-              Email Us
-            </a>
-          </div>
-        </div>
+
       </div>
     </section>
   );
