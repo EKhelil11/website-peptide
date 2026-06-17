@@ -22,12 +22,12 @@ const pillars = [
   {
     icon: Zap,
     title: "Precision Dosing",
-    desc: "Exact dosages engineered for maximum efficacy, ensuring each compound delivers its full therapeutic potential.",
+    desc: "Precise concentrations formulated for reproducible research outcomes, ensuring each compound meets rigorous laboratory specifications.",
   },
   {
     icon: Award,
     title: "Elite Standards",
-    desc: "Born in Los Angeles, built for the performance-driven. We hold ourselves to the same standards as the athletes and professionals we serve.",
+    desc: "Born in Los Angeles, built for the research-driven. We hold ourselves to the same standards as the institutions and laboratories we supply.",
   },
 ];
 
@@ -101,14 +101,14 @@ export default function AboutSection() {
                 className="text-white/65 mb-6 leading-relaxed animate-on-scroll"
                 style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: "1rem" }}
               >
-                LA Elite Peptides was founded on a singular conviction: that the most advanced tools in human performance science should be accessible to those who are serious about optimizing their biology. We are not a supplement company — we are a precision peptide laboratory operating at the intersection of cutting-edge research and real-world application.
+                LA Elite Peptides was founded on a singular conviction: that the most advanced research compounds should be accessible to qualified researchers who are serious about advancing scientific understanding. We are not a supplement company — we are a precision peptide supplier operating at the intersection of cutting-edge science and rigorous quality standards. All products are strictly for research use only.
               </p>
 
               <p
                 className="text-white/65 mb-8 leading-relaxed animate-on-scroll"
                 style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: "1rem" }}
               >
-                Based in Los Angeles, our team curates and formulates compounds that represent the frontier of peptide science — from metabolic optimization and cellular regeneration to longevity and recovery. Every product in our catalog has been selected for its research depth, safety profile, and transformative potential.
+                Based in Los Angeles, our team curates and sources compounds that represent the frontier of peptide science — from metabolic pathway research and cellular biology to longevity studies and tissue repair mechanisms. Every product in our catalog has been selected for its research depth, documented purity, and scientific relevance.
               </p>
 
               <div className="flex items-center gap-4 animate-on-scroll">

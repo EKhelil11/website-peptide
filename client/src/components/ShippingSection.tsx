@@ -81,7 +81,7 @@ export default function ShippingSection() {
             className="text-white/55 max-w-xl mx-auto"
             style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, lineHeight: 1.7 }}
           >
-            Whether you're in Los Angeles or anywhere across the country, we get your peptides to you quickly and safely.
+            Whether your research lab is in Los Angeles or anywhere across the country, we fulfill research orders quickly, safely, and with full cold-chain integrity.
           </p>
         </div>
 
@@ -160,7 +160,7 @@ export default function ShippingSection() {
                 className="text-white/60 mb-6 leading-relaxed"
                 style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: "0.9rem" }}
               >
-                LA Elite Peptides offers direct local delivery throughout the greater Los Angeles area. Your order is handled personally — ensuring cold-chain integrity and same-day arrival.
+                LA Elite Peptides offers direct local delivery of research compounds throughout the greater Los Angeles area. Research orders are handled personally — ensuring cold-chain integrity and same-day arrival for qualified researchers.
               </p>
               <ul className="space-y-3">
                 {localFeatures.map((item) => {
@@ -299,7 +299,7 @@ export default function ShippingSection() {
                 className="text-white/60 mb-6 leading-relaxed"
                 style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: "0.9rem" }}
               >
-                We ship to all 50 states via insulated, temperature-controlled packaging. Every order is tracked end-to-end and dispatched within 24 hours of confirmation.
+                We ship research compounds to all 50 states via insulated, temperature-controlled packaging. Every research order is tracked end-to-end and dispatched within 24 hours of confirmation. All products are for research use only.
               </p>
               <ul className="space-y-3">
                 {shippingFeatures.map((item) => {
@@ -347,9 +347,9 @@ export default function ShippingSection() {
                     onClick={() =>
                       document.querySelector("#products")?.scrollIntoView({ behavior: "smooth" })
                     }
-                    className="btn-primary px-5 py-2.5 rounded text-xs"
-                  >
-                    Shop Now
+              className="btn-primary px-5 py-2.5 rounded text-xs"
+            >
+              Browse Research Catalog
                   </button>
                 </div>
               </div>

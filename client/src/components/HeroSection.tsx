@@ -119,7 +119,7 @@ export default function HeroSection() {
             className="hero-item opacity-0 text-white/75 mb-8 max-w-xl leading-relaxed"
             style={{ fontFamily: "'Inter', sans-serif", fontSize: "1.1rem", fontWeight: 300 }}
           >
-            Science-backed peptides formulated for the performance-driven. From metabolic optimization to cellular regeneration — LA Elite Peptides delivers pharmaceutical-grade compounds for those who demand the best.
+            Pharmaceutical-grade research peptides for qualified researchers and scientific study. From metabolic pathways to cellular regeneration — LA Elite Peptides supplies rigorously tested compounds for legitimate research purposes only.
           </p>
 
           {/* CTA Buttons */}
@@ -128,7 +128,7 @@ export default function HeroSection() {
               onClick={scrollToProducts}
               className="btn-primary px-8 py-3 rounded text-sm"
             >
-              Explore Products
+              Explore Compounds
             </button>
             <button
               onClick={() => document.querySelector("#science")?.scrollIntoView({ behavior: "smooth" })}

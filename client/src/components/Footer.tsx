@@ -37,15 +37,15 @@ export default function Footer() {
                   lineHeight: 1.05,
                 }}
               >
-                READY TO ELEVATE
+                READY TO START
                 <br />
-                <span style={{ color: "#00BFFF" }}>YOUR BIOLOGY?</span>
+                <span style={{ color: "#00BFFF" }}>YOUR RESEARCH?</span>
               </h2>
               <p
                 className="text-white/60 mb-8 leading-relaxed"
                 style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300 }}
               >
-                Have questions about our products, dosing protocols, or research applications? Our team is here to help. Reach out and we'll respond within 24 hours.
+                Have questions about our research compounds, product specifications, Certificates of Analysis, or ordering process? Our team is here to assist qualified researchers. Reach out and we'll respond within 24 hours.
               </p>
 
               <div className="space-y-4">
@@ -215,7 +215,7 @@ export default function Footer() {
                 className="text-white/40 text-sm leading-relaxed"
                 style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300 }}
               >
-                Premium research peptides for the performance-driven. Los Angeles, CA.
+                Pharmaceutical-grade research peptides for qualified researchers. Los Angeles, CA. All products for research use only.
               </p>
             </div>
 

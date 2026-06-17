@@ -230,7 +230,7 @@ export default function ProductDetail() {
               <a href="/#contact">
                 <button className="btn-primary flex items-center gap-2 px-6 py-3 rounded">
                   <ShoppingCart size={16} />
-                  ORDER NOW
+                  INQUIRE NOW
                 </button>
               </a>
             </div>
@@ -263,7 +263,7 @@ export default function ProductDetail() {
               className="text-white mb-4"
               style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.8rem", letterSpacing: "0.04em" }}
             >
-              In Plain English
+              Research Overview
             </h2>
             <p className="text-white/70 leading-relaxed text-base">
               {product.plainEnglish}
@@ -288,7 +288,7 @@ export default function ProductDetail() {
               className="text-white mb-4"
               style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.8rem", letterSpacing: "0.04em" }}
             >
-              Inside Your Body
+              Mechanism of Action
             </h2>
             <p className="text-white/70 leading-relaxed text-base">
               {product.howItWorks}
@@ -313,7 +313,7 @@ export default function ProductDetail() {
               className="text-white mb-4"
               style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.8rem", letterSpacing: "0.04em" }}
             >
-              Is This Right For You?
+              Research Applications
             </h2>
             <div
               className="rounded-xl p-5 border border-[#00BFFF]/20"
@@ -340,7 +340,7 @@ export default function ProductDetail() {
                 Research Use Only
               </p>
               <p className="text-white/50 text-sm leading-relaxed">
-                All peptides are for laboratory research use only. This information is for educational purposes and is not intended to diagnose, treat, cure, or prevent any disease. Consult a healthcare professional before use.
+                All peptides sold by LA Elite Peptides are strictly for in-vitro laboratory and scientific research purposes only. Not intended for human or animal consumption. Not evaluated or approved by the FDA for any therapeutic use. By purchasing, you confirm you are a qualified researcher.
               </p>
             </div>
           </section>
@@ -357,7 +357,7 @@ export default function ProductDetail() {
               className="text-white mb-4"
               style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.3rem", letterSpacing: "0.05em" }}
             >
-              Health Benefits
+              Research Benefits
             </h3>
             <ul className="space-y-3">
               {product.benefits.map((benefit) => (
@@ -415,20 +415,20 @@ export default function ProductDetail() {
               className="text-white/60 text-xs tracking-widest uppercase mb-2"
               style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
             >
-              Interested in This Product?
+              Interested in This Compound?
             </p>
             <p className="text-white/50 text-sm mb-4">
-              Product info, dosing help, or bulk orders
+              Research inquiries, compound specifications, or bulk orders
             </p>
             <a href="/#contact" className="block">
               <button className="btn-primary w-full flex items-center justify-center gap-2 px-4 py-3 rounded">
                 <ShoppingCart size={15} />
-                ORDER NOW
+                INQUIRE NOW
               </button>
             </a>
             <div className="mt-3 space-y-1 text-xs text-white/30" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
-              <div>📍 Local Delivery — Los Angeles</div>
-              <div>📦 Bulk Prices Available Upon Request</div>
+              <div>📍 Local Research Orders — Los Angeles</div>
+              <div>📦 Bulk Research Pricing Available</div>
             </div>
           </div>
         </div>

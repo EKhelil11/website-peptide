@@ -1,92 +1,87 @@
 // === LA ELITE PEPTIDES — FAQ Section ===
-// Accordion-style FAQ covering peptide usage, shipping, and safety
+// Research-use-only FAQ: ordering, shipping, storage, and compliance
 // Dark navy theme with cyan/pink brand accents
 
 import { useState } from "react";
-import { ChevronDown, MessageCircle, Truck, ShieldCheck } from "lucide-react";
+import { ChevronDown, MessageCircle, Truck, ShieldCheck, FlaskConical } from "lucide-react";
 
 interface FAQItem {
   q: string;
   a: string;
-  category: "usage" | "shipping" | "safety";
+  category: "research" | "shipping" | "compliance";
 }
 
 const faqs: FAQItem[] = [
-  // Usage
+  // Research
   {
-    category: "usage",
-    q: "What are peptides and how do they work?",
-    a: "Peptides are short chains of amino acids — the same building blocks that make up proteins in your body. They act as biological messengers, signaling your cells to perform specific functions like burning fat, repairing tissue, boosting growth hormone, or improving cognitive function. Because they mimic naturally occurring compounds, they tend to work with your body's own systems rather than overriding them.",
+    category: "research",
+    q: "What are research peptides?",
+    a: "Research peptides are synthetic amino acid chains produced for use in scientific and laboratory research settings. They are used by qualified researchers to study biological processes, cellular signaling pathways, and molecular mechanisms. All peptides sold by LA Elite Peptides are strictly for in-vitro and laboratory research purposes only and are not intended for human or animal consumption.",
   },
   {
-    category: "usage",
-    q: "How do I administer peptides?",
-    a: "Most peptides are administered via subcutaneous (under the skin) injection using a small insulin syringe. The most common sites are the abdomen, thigh, or upper arm. Each product page includes specific dosing guidance. We strongly recommend consulting a licensed healthcare professional before beginning any peptide protocol.",
+    category: "research",
+    q: "What purity and quality standards do your peptides meet?",
+    a: "All of our research peptides are manufactured to pharmaceutical-grade standards with a minimum purity of 98%+. Each batch undergoes rigorous quality control testing including HPLC (High-Performance Liquid Chromatography) and mass spectrometry analysis to verify identity, purity, and potency. Certificates of Analysis (CoA) are available upon request.",
   },
   {
-    category: "usage",
-    q: "How should I store my peptides?",
-    a: "Lyophilized (freeze-dried) peptides should be stored in a cool, dry place away from direct light — ideally in the refrigerator (2–8°C / 36–46°F). Once reconstituted with bacteriostatic water, keep refrigerated and use within 30 days. Never freeze reconstituted peptides, and always handle vials with clean hands or gloves.",
+    category: "research",
+    q: "How should research peptides be stored?",
+    a: "Lyophilized (freeze-dried) research peptides should be stored in a cool, dry environment away from direct light — ideally at 2–8°C (36–46°F) in a laboratory refrigerator. Once reconstituted with an appropriate solvent for research use, they should remain refrigerated and be used within the timeframe appropriate for your research protocol. Proper laboratory handling procedures should always be followed.",
   },
   {
-    category: "usage",
-    q: "Can I stack multiple peptides together?",
-    a: "Yes — many of our products are designed to work synergistically. Our Wolverine Stack (BPC-157 + TB-500) and Glow Stack (GHK-CU + BPC-157 + TB-500) are pre-curated combinations for maximum recovery and skin health. When stacking independently, we recommend starting one peptide at a time to assess your individual response before combining.",
-  },
-  {
-    category: "usage",
-    q: "How long before I see results?",
-    a: "Results vary by peptide and individual. Some compounds like Semax and MOTS-C can produce noticeable effects within days. Others, like GHK-CU for skin or CJC-1295 for growth hormone support, typically show meaningful results after 4–8 weeks of consistent use. Retatrutide for weight management generally shows significant progress within a 6–7 week cycle.",
+    category: "research",
+    q: "Are your peptides tested before shipping?",
+    a: "Yes. Every product in our catalog is tested for purity and identity prior to fulfillment. We source only from verified, GMP-compliant manufacturers and maintain strict quality assurance protocols. Researchers can request a Certificate of Analysis (CoA) for any product by contacting us directly.",
   },
   // Shipping
   {
     category: "shipping",
     q: "Do you offer local delivery in Los Angeles?",
-    a: "Yes! We offer same-day local delivery throughout the greater Los Angeles area. Simply contact us via text at (310) 929-0403 or email at LaElitePeptides@gmail.com to place your order. Local delivery orders placed before 2 PM are typically delivered the same day.",
+    a: "Yes. We offer same-day local delivery throughout the greater Los Angeles area for qualified researchers. Contact us via text at (310) 929-0403 or email at LaElitePeptides@gmail.com to place your research order. Local delivery orders placed before 2 PM are typically fulfilled the same day.",
   },
   {
     category: "shipping",
-    q: "Do you ship to other states?",
-    a: "Absolutely. We ship to all 50 states via 2-day priority shipping. All orders are packaged in discreet, unmarked packaging with no indication of contents on the outside. Orders are dispatched within 24 hours of confirmation and include full tracking information sent directly to you.",
+    q: "Do you ship research peptides to other states?",
+    a: "Yes, we ship to all 50 states via 2-day priority shipping. All research orders are packaged in discreet, unmarked packaging. Orders are dispatched within 24 hours of confirmation and include full tracking information. Peptides are shipped with appropriate cold-pack insulation to maintain compound integrity during transit.",
   },
   {
     category: "shipping",
-    q: "How is my order packaged?",
-    a: "All orders are shipped in discreet, plain packaging with no branding or product descriptions visible on the exterior. Peptides are packed with appropriate cold-pack insulation to maintain integrity during transit. We take privacy and product quality seriously at every step of the delivery process.",
+    q: "How do I place a research order?",
+    a: "Research orders can be placed by texting or calling (310) 929-0403, or by emailing LaElitePeptides@gmail.com. Please include the product name(s), quantity required, and your delivery address. We will confirm your order and provide payment and fulfillment details promptly.",
   },
   {
     category: "shipping",
-    q: "How do I place an order?",
-    a: "You can place an order by texting or calling us at (310) 929-0403, or by emailing LaElitePeptides@gmail.com. Include the product name(s), quantity, and your delivery address. We'll confirm your order and provide payment and delivery details promptly.",
+    q: "How is my research order packaged?",
+    a: "All research orders are shipped in plain, discreet packaging with no external branding or product descriptions. Peptides are packed with cold insulation to preserve compound stability during transit. We prioritize both discretion and product integrity at every step of the fulfillment process.",
   },
-  // Safety
+  // Compliance
   {
-    category: "safety",
-    q: "Are these products safe?",
-    a: "Our peptides are manufactured to pharmaceutical-grade standards with rigorous quality control. However, all peptides on this site are intended for research purposes only and are not approved by the FDA for human consumption. We strongly recommend consulting a licensed healthcare professional before beginning any peptide protocol, especially if you have pre-existing medical conditions or are taking medications.",
-  },
-  {
-    category: "safety",
-    q: "Are there any side effects?",
-    a: "Side effects vary by compound and individual. Common mild effects can include temporary injection site redness, water retention, or fatigue as your body adjusts. More specific effects depend on the peptide — for example, GLP-1 class peptides like Retatrutide may cause nausea initially. We recommend starting at the lower end of the suggested dose range and monitoring your response carefully.",
+    category: "compliance",
+    q: "Are these peptides intended for human consumption?",
+    a: "No. All peptides sold by LA Elite Peptides are strictly for laboratory and research purposes only. They are not intended for human or animal consumption, and they have not been evaluated or approved by the Food and Drug Administration (FDA) for any therapeutic use. By purchasing, you confirm that you are a qualified researcher and will use these compounds solely in a research context.",
   },
   {
-    category: "safety",
-    q: "Who should NOT use peptides?",
-    a: "Peptides are not recommended for pregnant or breastfeeding individuals, those under 18, or people with active cancer diagnoses (as some peptides can stimulate cell growth). Individuals with hormone-sensitive conditions should consult their doctor before use. Always disclose peptide use to your healthcare provider.",
+    category: "compliance",
+    q: "What is your research disclaimer policy?",
+    a: "All products sold by LA Elite Peptides are intended for in-vitro research and laboratory use only. These products are not drugs, supplements, or medical devices. They are not intended to diagnose, treat, cure, or prevent any disease or condition. These statements have not been evaluated by the FDA. Purchasers assume full responsibility for compliance with all applicable local, state, and federal laws and regulations.",
   },
   {
-    category: "safety",
-    q: "What is your disclaimer policy?",
-    a: "All products sold by LA Elite Peptides are intended strictly for research purposes only. They are not intended to diagnose, treat, cure, or prevent any disease. These statements have not been evaluated by the Food and Drug Administration. By purchasing, you confirm you are a qualified researcher and agree to use these products in compliance with all applicable laws and regulations.",
+    category: "compliance",
+    q: "Who is authorized to purchase research peptides?",
+    a: "Our research peptides are sold exclusively to qualified researchers, licensed laboratories, academic institutions, and other entities engaged in legitimate scientific research. By completing a purchase, the buyer confirms they are of legal age, are a qualified researcher, and will use the compounds strictly for lawful research purposes in compliance with all applicable regulations.",
+  },
+  {
+    category: "compliance",
+    q: "Do you comply with applicable laws and regulations?",
+    a: "Yes. LA Elite Peptides operates in full compliance with applicable federal and state laws governing the sale of research compounds. We do not sell to individuals who intend to use these compounds for personal consumption, and we reserve the right to refuse any order that we believe may not be for legitimate research purposes.",
   },
 ];
 
 const categories = [
   { key: "all", label: "All Questions", icon: MessageCircle },
-  { key: "usage", label: "Usage & Dosing", icon: MessageCircle },
-  { key: "shipping", label: "Shipping & Delivery", icon: Truck },
-  { key: "safety", label: "Safety & Disclaimers", icon: ShieldCheck },
+  { key: "research", label: "Research & Quality", icon: FlaskConical },
+  { key: "shipping", label: "Shipping & Orders", icon: Truck },
+  { key: "compliance", label: "Compliance & Legal", icon: ShieldCheck },
 ];
 
 export default function FAQSection() {
@@ -124,7 +119,7 @@ export default function FAQSection() {
               className="text-[#FF2D78] text-xs tracking-[0.3em] uppercase"
               style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
             >
-              Got Questions?
+              Research Inquiries
             </span>
             <div className="h-px w-12 bg-[#FF2D78]" />
           </div>
@@ -142,7 +137,25 @@ export default function FAQSection() {
             className="text-white/50 max-w-xl mx-auto text-sm"
             style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, lineHeight: 1.7 }}
           >
-            Everything you need to know about our peptides, ordering process, and safety guidelines.
+            Common questions about our research peptides, ordering process, quality standards, and compliance policies.
+          </p>
+        </div>
+
+        {/* Research-use banner */}
+        <div
+          className="mb-10 rounded-xl px-6 py-4 flex items-center gap-4"
+          style={{
+            background: "oklch(0.14 0.06 255 / 0.6)",
+            border: "1px solid rgba(0,191,255,0.2)",
+          }}
+        >
+          <FlaskConical size={20} className="text-[#00BFFF] flex-shrink-0" />
+          <p
+            className="text-white/70 text-xs leading-relaxed"
+            style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300 }}
+          >
+            <span className="text-[#00BFFF] font-semibold">Research Use Only.</span>{" "}
+            All products sold by LA Elite Peptides are strictly for in-vitro laboratory and scientific research purposes. Not for human or animal consumption. Not evaluated by the FDA.
           </p>
         </div>
 
@@ -172,7 +185,7 @@ export default function FAQSection() {
             const categoryColor =
               item.category === "shipping"
                 ? "#00BFFF"
-                : item.category === "safety"
+                : item.category === "compliance"
                 ? "#FF2D78"
                 : "#a78bfa";
 
@@ -196,7 +209,7 @@ export default function FAQSection() {
                 >
                   <div className="flex items-start gap-3">
                     <span
-                      className="mt-0.5 w-1.5 h-1.5 rounded-full flex-shrink-0"
+                      className="w-1.5 h-1.5 rounded-full flex-shrink-0"
                       style={{ background: categoryColor, marginTop: "7px" }}
                     />
                     <span
@@ -219,9 +232,7 @@ export default function FAQSection() {
                 {isOpen && (
                   <div
                     className="px-6 pb-5"
-                    style={{
-                      borderTop: `1px solid ${categoryColor}20`,
-                    }}
+                    style={{ borderTop: `1px solid ${categoryColor}20` }}
                   >
                     <p
                       className="text-white/60 text-sm leading-relaxed pt-4"
@@ -248,13 +259,13 @@ export default function FAQSection() {
             className="text-white/80 mb-2"
             style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.5rem", letterSpacing: "0.05em" }}
           >
-            Still Have Questions?
+            Research Inquiry?
           </p>
           <p
             className="text-white/40 text-sm mb-6"
             style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300 }}
           >
-            Our team is available to answer any questions about products, dosing, or ordering.
+            Our team is available to assist with product specifications, quality documentation, and research order inquiries.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a

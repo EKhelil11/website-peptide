@@ -114,7 +114,7 @@ export default function ProductsSection() {
             className="text-white/60 max-w-2xl mx-auto"
             style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, lineHeight: 1.7 }}
           >
-            Every compound in our catalog is rigorously sourced and formulated to pharmaceutical-grade standards. Science-backed. LA-tested. Elite-approved.
+            Every compound in our catalog is rigorously sourced and formulated to pharmaceutical-grade standards for qualified research applications. All products are for in-vitro laboratory research use only.
           </p>
         </div>
 
@@ -137,7 +137,7 @@ export default function ProductsSection() {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search by name or benefit (e.g. weight loss, recovery, focus…)"
+              placeholder="Search by compound name or research area (e.g. metabolic, recovery, BDNF…)"
               className="w-full bg-transparent text-white placeholder-white/30 text-sm py-3.5 pl-11 pr-10 outline-none"
               style={{ fontFamily: "'Inter', sans-serif" }}
             />
@@ -215,7 +215,7 @@ export default function ProductsSection() {
           className="text-center text-white/30 text-xs mt-12 tracking-wide animate-on-scroll"
           style={{ fontFamily: "'Inter', sans-serif" }}
         >
-          * These products are intended for research purposes only. Not for human consumption. Consult a licensed healthcare professional.
+          * All compounds are strictly for in-vitro laboratory and scientific research use only. Not intended for human or animal consumption. Not evaluated by the FDA.
         </p>
       </div>
     </section>

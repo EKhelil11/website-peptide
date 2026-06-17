@@ -71,7 +71,7 @@ export default function Navbar() {
                 onClick={() => handleNavClick("#products")}
                 className="btn-primary px-5 py-2 rounded text-sm"
               >
-                Shop Now
+                View Compounds
               </button>
             </nav>
 
@@ -110,7 +110,7 @@ export default function Navbar() {
             onClick={() => handleNavClick("#products")}
             className="btn-primary px-8 py-3 rounded text-base mt-4"
           >
-            Shop Now
+            View Compounds
           </button>
         </div>
       </div>

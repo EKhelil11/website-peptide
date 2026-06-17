@@ -154,7 +154,7 @@ export default function ProductCard({ product, index }: ProductCardProps) {
             <a href="/#contact">
               <button className="btn-primary flex items-center gap-2 px-4 py-2 rounded text-xs">
                 <ShoppingCart size={14} />
-                Order Now
+                Inquire
               </button>
             </a>
           </div>
