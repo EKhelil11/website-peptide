@@ -9,6 +9,7 @@ import HeroSection from "@/components/HeroSection";
 import ProductsSection from "@/components/ProductsSection";
 import AboutSection from "@/components/AboutSection";
 import ShippingSection from "@/components/ShippingSection";
+import FAQSection from "@/components/FAQSection";
 import Footer from "@/components/Footer";
 
 const INTRO_SEEN_KEY = "elitela_intro_seen";
@@ -67,6 +68,7 @@ export default function Home() {
           <ProductsSection />
           <ShippingSection />
           <AboutSection />
+          <FAQSection />
         </main>
         <Footer />
       </div>
