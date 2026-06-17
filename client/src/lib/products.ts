@@ -189,7 +189,7 @@ export const products: Product[] = [
   {
     id: "mots-c-10mg",
     name: "MOTS-C",
-    dose: "10mg",
+    dose: "1.0 units — 30 min pre-workout",
     cycle: "20 day cycle",
     category: "Metabolic",
     isStack: false,
@@ -243,7 +243,7 @@ export const products: Product[] = [
   {
     id: "semax-10mg",
     name: "Semax",
-    dose: "10mg",
+    dose: "1.0 units — morning, as needed",
     cycle: "2–4 week cycle",
     category: "Cellular Health",
     isStack: false,
