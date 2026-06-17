@@ -215,7 +215,7 @@ export default function ProductsSection() {
           className="text-center text-white/30 text-xs mt-12 tracking-wide animate-on-scroll"
           style={{ fontFamily: "'Inter', sans-serif" }}
         >
-          * All compounds are strictly for in-vitro laboratory and scientific research use only. Not intended for human or animal consumption. Not evaluated by the FDA.
+          * All compounds are strictly for in-vitro laboratory and scientific research use only.
         </p>
       </div>
     </section>

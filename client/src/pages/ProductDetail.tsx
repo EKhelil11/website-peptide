@@ -340,7 +340,7 @@ export default function ProductDetail() {
                 Research Use Only
               </p>
               <p className="text-white/50 text-sm leading-relaxed">
-                All peptides sold by LA Elite Peptides are strictly for in-vitro laboratory and scientific research purposes only. Not intended for human or animal consumption. Not evaluated or approved by the FDA for any therapeutic use. By purchasing, you confirm you are a qualified researcher.
+                All peptides sold by LA Elite Peptides are strictly for in-vitro laboratory and scientific research purposes only.
               </p>
             </div>
           </section>
