@@ -23,7 +23,7 @@ export const products: Product[] = [
   {
     id: "retatrutide-30mg",
     name: "Retatrutide",
-    dose: "30mg",
+    dose: "20–40 units/week",
     cycle: "6–7 week cycle",
     category: "Weight Loss",
     isStack: false,
