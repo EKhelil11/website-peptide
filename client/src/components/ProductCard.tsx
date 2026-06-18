@@ -4,7 +4,7 @@
 // Links to /product/:id for full detail subpage
 
 import { Link } from "wouter";
-import { ShoppingCart, ArrowRight, Clock } from "lucide-react";
+import { ShoppingCart, ArrowRight } from "lucide-react";
 import type { Product } from "@/lib/products";
 
 const VIAL_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663765469010/KeqNR4QdNviNNDWK3S7923/peptide-vial-KdSBvv2H7a9bZfeH52wPjY.webp";
@@ -74,24 +74,14 @@ export default function ProductCard({ product, index }: ProductCardProps) {
           >
             {product.name}
           </h3>
-          <div
-            className="text-[#00BFFF] text-xs tracking-widest uppercase"
-            style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
-          >
-            {product.dose}
-            {product.isStack && product.stackName && (
-              <span className="ml-2 text-[#FF2D78]">— {product.stackName}</span>
-            )}
-          </div>
-        </div>
-
-        {/* Cycle info */}
-        <div
-          className="flex items-center gap-1 text-white/35 text-xs mb-3"
-          style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
-        >
-          <Clock size={11} className="text-white/30" />
-          <span>{product.cycle}</span>
+          {product.isStack && product.stackName && (
+            <div
+              className="text-[#FF2D78] text-xs tracking-widest uppercase"
+              style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
+            >
+              {product.stackName}
+            </div>
+          )}
         </div>
 
         {/* Tagline */}

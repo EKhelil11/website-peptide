@@ -5,7 +5,7 @@
 import { useEffect } from "react";
 import { useParams } from "wouter";
 import { Link } from "wouter";
-import { ArrowLeft, Clock, FlaskConical, Users, CheckCircle2, ShoppingCart, AlertTriangle } from "lucide-react";
+import { ArrowLeft, FlaskConical, Users, CheckCircle2, ShoppingCart, AlertTriangle } from "lucide-react";
 import { products } from "@/lib/products";
 
 const VIAL_IMG =
@@ -192,23 +192,7 @@ export default function ProductDetail() {
               {product.synopsis}
             </p>
 
-            {/* Quick facts row */}
-            <div className="flex flex-wrap gap-4 mb-6">
-              <div
-                className="flex items-center gap-2 text-white/50 text-sm"
-                style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
-              >
-                <FlaskConical size={15} className="text-[#00BFFF]" />
-                <span>Dose: <span className="text-white">{product.dose}</span></span>
-              </div>
-              <div
-                className="flex items-center gap-2 text-white/50 text-sm"
-                style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
-              >
-                <Clock size={15} className="text-[#00BFFF]" />
-                <span>Cycle: <span className="text-white">{product.cycle}</span></span>
-              </div>
-            </div>
+
 
             {/* Price + CTA */}
             <div className="flex items-center gap-4">
@@ -384,8 +368,6 @@ export default function ProductDetail() {
               {[
                 { label: "Product", value: product.name },
                 { label: "Category", value: product.category },
-                { label: "Dose", value: product.dose },
-                { label: "Cycle Length", value: product.cycle },
                 { label: "Price", value: product.price || "Coming Soon" },
               ].map(({ label, value }) => (
                 <div key={label} className="flex justify-between items-center border-b border-white/5 pb-2">
