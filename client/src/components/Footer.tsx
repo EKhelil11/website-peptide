@@ -3,6 +3,7 @@
 // Contact section with simple form placeholder
 
 import { Mail, MapPin, Instagram, Phone } from "lucide-react";
+import { Link } from "wouter";
 
 const LOGO_URL = "/manus-storage/elite-la-peptides-logo_e9ec855c.png";
 
@@ -228,7 +229,7 @@ export default function Footer() {
                 Quick Links
               </h5>
               <ul className="space-y-2">
-                {["Products", "Shipping", "About", "Science", "Contact"].map((link) => (
+                {["Products", "Shipping", "About", "Science", "FAQ", "Contact"].map((link) => (
                   <li key={link}>
                     <button
                       onClick={() => document.querySelector(`#${link.toLowerCase()}`)?.scrollIntoView({ behavior: "smooth" })}
@@ -251,11 +252,19 @@ export default function Footer() {
                 Disclaimer
               </h5>
               <p
-                className="text-white/30 text-xs leading-relaxed"
+                className="text-white/30 text-xs leading-relaxed mb-3"
                 style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300 }}
               >
                 All products sold by LA Elite Peptides are strictly for in-vitro laboratory and scientific research purposes only. These compounds are not intended for human or animal consumption and have not been evaluated by the FDA for any therapeutic use.
               </p>
+              <Link href="/terms">
+                <span
+                  className="text-[#00BFFF]/50 hover:text-[#00BFFF] text-xs transition-colors cursor-pointer"
+                  style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600, letterSpacing: "0.06em", textTransform: "uppercase" }}
+                >
+                  View Full Terms of Sale →
+                </span>
+              </Link>
             </div>
           </div>
 
