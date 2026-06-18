@@ -6,6 +6,7 @@ export interface Product {
   name: string;
   dose: string;
   cycle: string;
+  content: string;
   category: string;
   isStack: boolean;
   stackName?: string;
@@ -25,6 +26,7 @@ export const products: Product[] = [
     name: "Retatrutide",
     dose: "20–40 units/week",
     cycle: "6–7 week cycle",
+    content: "30 mg per vial",
     category: "Weight Loss",
     isStack: false,
     tagline: "Triple-receptor metabolic research compound",
@@ -51,6 +53,7 @@ export const products: Product[] = [
     name: "NAD+",
     dose: "500mg",
     cycle: "1 month cycle",
+    content: "500 mg per vial",
     category: "Cellular Health",
     isStack: false,
     tagline: "Cellular energy coenzyme for longevity research",
@@ -78,6 +81,7 @@ export const products: Product[] = [
     name: "BPC-157 + TB-500",
     dose: "20mg",
     cycle: "3–4 week cycle",
+    content: "20 mg per vial",
     category: "Recovery",
     isStack: true,
     stackName: "Wolverine Stack",
@@ -106,6 +110,7 @@ export const products: Product[] = [
     name: "GHK-CU",
     dose: "50mg",
     cycle: "2 month cycle",
+    content: "100 mg per vial",
     category: "Anti-Aging",
     isStack: false,
     tagline: "Copper-binding peptide for regenerative research",
@@ -134,6 +139,7 @@ export const products: Product[] = [
     name: "CJC-1295 + Ipamorelin",
     dose: "10 units/day",
     cycle: "8–12 week cycle",
+    content: "10 mg per vial",
     category: "Hormone Support",
     isStack: true,
     stackName: "GH Synergy",
@@ -162,6 +168,7 @@ export const products: Product[] = [
     name: "GHK-CU + BPC-157 + TB-500",
     dose: "70mg",
     cycle: "2 month cycle",
+    content: "20 mg per vial",
     category: "Beauty & Wellness",
     isStack: true,
     stackName: "Glow Stack",
@@ -191,6 +198,7 @@ export const products: Product[] = [
     name: "MOTS-C",
     dose: "1.0 units — 30 min pre-workout",
     cycle: "20 day cycle",
+    content: "10 mg per vial",
     category: "Metabolic",
     isStack: false,
     tagline: "Mitochondrial-encoded metabolic research peptide",
@@ -218,6 +226,7 @@ export const products: Product[] = [
     name: "Kisspeptin",
     dose: "10mg",
     cycle: "4–6 week cycle",
+    content: "10 mg per vial",
     category: "Hormone Support",
     isStack: false,
     tagline: "GPR54 agonist for reproductive axis research",
@@ -245,6 +254,7 @@ export const products: Product[] = [
     name: "Semax",
     dose: "1.0 units / Morning",
     cycle: "2–4 week cycle",
+    content: "10 mg per vial",
     category: "Cellular Health",
     isStack: false,
     tagline: "ACTH-derived neuropeptide for cognitive research",

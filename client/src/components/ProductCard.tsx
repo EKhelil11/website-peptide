@@ -84,6 +84,16 @@ export default function ProductCard({ product, index }: ProductCardProps) {
           )}
         </div>
 
+        {/* Content */}
+        {product.content && (
+          <div
+            className="text-[#00BFFF] text-xs tracking-wide mb-1"
+            style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
+          >
+            Content: {product.content}
+          </div>
+        )}
+
         {/* Tagline */}
         <p
           className="text-white/60 text-sm mb-3 leading-snug"
