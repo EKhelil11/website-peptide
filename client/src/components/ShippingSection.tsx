@@ -204,24 +204,15 @@ export default function ShippingSection() {
                       Contact us for rates
                     </div>
                   </div>
-                  <div className="flex flex-col gap-2 items-end">
-                    <a
-                      href="tel:+13109290403"
-                      className="btn-pink px-5 py-2.5 rounded text-xs flex items-center gap-2"
-                      style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", textDecoration: "none" }}
-                    >
-                      📞 (310) 929-0403
-                    </a>
-                    <button
+                  <button
                       onClick={() =>
                         document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" })
                       }
-                      className="text-[#FF2D78]/60 hover:text-[#FF2D78] text-xs transition-colors"
-                      style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600, letterSpacing: "0.08em", textTransform: "uppercase" }}
+                      className="btn-pink px-5 py-2.5 rounded text-xs"
+                      style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase" }}
                     >
-                      Or message us →
+                      Contact Us →
                     </button>
-                  </div>
                 </div>
               </div>
             </div>

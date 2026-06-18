@@ -21,7 +21,7 @@ const pillars = [
   },
   {
     icon: Zap,
-    title: "Precision Dosing",
+    title: "Formulation Precision",
     desc: "Precise concentrations formulated for reproducible research outcomes, ensuring each compound meets rigorous laboratory specifications.",
   },
   {

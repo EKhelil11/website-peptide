@@ -37,9 +37,9 @@ export default function Footer() {
                   lineHeight: 1.05,
                 }}
               >
-                READY TO START
+                RESEARCH
                 <br />
-                <span style={{ color: "#00BFFF" }}>YOUR RESEARCH?</span>
+                <span style={{ color: "#00BFFF" }}>INQUIRIES</span>
               </h2>
               <p
                 className="text-white/60 mb-8 leading-relaxed"
@@ -254,7 +254,7 @@ export default function Footer() {
                 className="text-white/30 text-xs leading-relaxed"
                 style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300 }}
               >
-                All products sold by LA Elite Peptides are intended for research purposes only. These products are not intended to diagnose, treat, cure, or prevent any disease. Not for human consumption. Must be 18+ to purchase.
+                All products sold by LA Elite Peptides are strictly for in-vitro laboratory and scientific research purposes only. These compounds are not intended for human or animal consumption and have not been evaluated by the FDA for any therapeutic use.
               </p>
             </div>
           </div>

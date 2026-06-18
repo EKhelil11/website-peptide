@@ -290,7 +290,7 @@ export default function ProductDetail() {
                 className="text-[#00BFFF] text-xs tracking-widest uppercase"
                 style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
               >
-                Who Is It Best For?
+                Research Applications
               </span>
             </div>
             <h2
