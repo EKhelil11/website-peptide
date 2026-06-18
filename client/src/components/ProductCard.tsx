@@ -123,20 +123,31 @@ export default function ProductCard({ product, index }: ProductCardProps) {
         {/* Divider */}
         <div className="border-t border-white/8 pt-4 mt-auto">
           <div className="flex items-center justify-between">
-            {/* Price — hidden until launch */}
+            {/* Price */}
             <div>
-              <span
-                className="text-white/30 text-xs tracking-widest uppercase"
-                style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
-              >
-                Price
-              </span>
-              <div
-                className="text-white/50 text-sm"
-                style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
-              >
-                Coming Soon
-              </div>
+              {product.price ? (
+                <span
+                  className="text-[#00BFFF]"
+                  style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.4rem" }}
+                >
+                  {product.price}
+                </span>
+              ) : (
+                <div>
+                  <span
+                    className="text-white/30 text-xs tracking-widest uppercase"
+                    style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
+                  >
+                    Price
+                  </span>
+                  <div
+                    className="text-white/50 text-sm"
+                    style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
+                  >
+                    Coming Soon
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* CTA Button */}
