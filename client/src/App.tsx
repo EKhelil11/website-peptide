@@ -9,6 +9,7 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import ProductDetail from "./pages/ProductDetail";
+import AgeVerification from "./components/AgeVerification";
 
 function Router() {
   return (
@@ -27,6 +28,7 @@ function App() {
       <ThemeProvider defaultTheme="dark">
         <TooltipProvider>
           <Toaster />
+          <AgeVerification />
           <Router />
         </TooltipProvider>
       </ThemeProvider>
