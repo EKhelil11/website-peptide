@@ -1,12 +1,69 @@
-// === ELITE LA PEPTIDES — Footer & Contact Section ===
+// === LA ELITE PEPTIDES — Footer & Contact Section ===
 // Dark footer with brand logo, links, disclaimer
-// Contact section with simple form placeholder
+// Contact form wired to Formspree → forwards to Support@laelitepeps.com
 
-import { Mail, MapPin, Instagram, Phone } from "lucide-react";
+import { useState } from "react";
+import { Mail, MapPin, Instagram, Phone, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
 
 const LOGO_URL = "/manus-storage/elite-la-peptides-logo_e9ec855c.png";
 
+// Formspree endpoint — replace YOUR_FORM_ID with the ID from formspree.io after creating a free form
+// To set up: go to https://formspree.io, sign up free, create a form pointed to Support@laelitepeps.com
+// Then replace "YOUR_FORM_ID" below with your actual form ID (e.g. "xpwzgkqr")
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/YOUR_FORM_ID";
+
+type FormState = "idle" | "submitting" | "success" | "error";
+
 export default function Footer() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [formState, setFormState] = useState<FormState>("idle");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!firstName || !email || !message) return;
+
+    setFormState("submitting");
+
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          name: `${firstName} ${lastName}`.trim(),
+          email,
+          message,
+          _subject: `New Research Inquiry from ${firstName} ${lastName}`,
+        }),
+      });
+
+      if (res.ok) {
+        setFormState("success");
+        setFirstName("");
+        setLastName("");
+        setEmail("");
+        setMessage("");
+      } else {
+        setFormState("error");
+      }
+    } catch {
+      setFormState("error");
+    }
+  };
+
+  const inputStyle = {
+    background: "oklch(0.14 0.05 255)",
+    border: "1px solid oklch(1 0 0 / 10%)",
+    fontFamily: "'Inter', sans-serif",
+  };
+
+  const labelStyle = {
+    fontFamily: "'Rajdhani', sans-serif",
+    fontWeight: 600,
+  } as React.CSSProperties;
+
   return (
     <>
       {/* Contact Section */}
@@ -45,7 +102,7 @@ export default function Footer() {
                 className="text-white/60 mb-8 leading-relaxed"
                 style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300 }}
               >
-                Have questions about our research compounds, product specifications, Certificates of Analysis, or ordering process? Our team is here to assist qualified researchers. Reach out and we'll respond within 24 hours.
+                Have questions about our research compounds, product specifications, or ordering process? Our team is here to assist. Reach out and we'll respond within 24 hours.
               </p>
 
               <div className="space-y-4">
@@ -56,9 +113,13 @@ export default function Footer() {
                   >
                     <Mail size={14} style={{ color: "#00BFFF" }} />
                   </div>
-                  <span style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.9rem" }}>
-                    Laelitepeptides@gmail.com
-                  </span>
+                  <a
+                    href="mailto:Support@laelitepeps.com"
+                    className="hover:text-[#00BFFF] transition-colors"
+                    style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.9rem" }}
+                  >
+                    Support@laelitepeps.com
+                  </a>
                 </div>
                 <div className="flex items-center gap-3 text-white/60">
                   <div
@@ -93,9 +154,15 @@ export default function Footer() {
                   >
                     <Instagram size={14} style={{ color: "#00BFFF" }} />
                   </div>
-                  <span style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.9rem" }}>
+                  <a
+                    href="https://instagram.com/laelitepeptides"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-[#00BFFF] transition-colors"
+                    style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.9rem" }}
+                  >
                     @laelitepeptides
-                  </span>
+                  </a>
                 </div>
               </div>
             </div>
@@ -114,85 +181,137 @@ export default function Footer() {
               >
                 Send Us a Message
               </h4>
-              <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+              {/* Success state */}
+              {formState === "success" ? (
+                <div
+                  className="flex flex-col items-center justify-center py-12 text-center gap-4"
+                  style={{ minHeight: "320px" }}
+                >
+                  <CheckCircle size={48} style={{ color: "#00BFFF" }} />
+                  <h5
+                    className="text-white text-lg"
+                    style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
+                  >
+                    Message Sent!
+                  </h5>
+                  <p
+                    className="text-white/50 text-sm"
+                    style={{ fontFamily: "'Inter', sans-serif" }}
+                  >
+                    Thank you for reaching out. We'll respond to your inquiry within 24 hours at {email || "your email"}.
+                  </p>
+                  <button
+                    onClick={() => setFormState("idle")}
+                    className="mt-2 text-[#00BFFF] text-sm underline underline-offset-4 hover:text-white transition-colors"
+                    style={{ fontFamily: "'Inter', sans-serif" }}
+                  >
+                    Send another message
+                  </button>
+                </div>
+              ) : (
+                <form className="space-y-4" onSubmit={handleSubmit}>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label
+                        className="block text-white/50 text-xs tracking-widest uppercase mb-1"
+                        style={labelStyle}
+                      >
+                        First Name <span className="text-[#FF2D78]">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        required
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                        placeholder="John"
+                        className="w-full px-4 py-3 rounded text-sm text-white placeholder-white/30 outline-none focus:border-[#00BFFF]/50 transition-colors"
+                        style={inputStyle}
+                      />
+                    </div>
+                    <div>
+                      <label
+                        className="block text-white/50 text-xs tracking-widest uppercase mb-1"
+                        style={labelStyle}
+                      >
+                        Last Name
+                      </label>
+                      <input
+                        type="text"
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                        placeholder="Doe"
+                        className="w-full px-4 py-3 rounded text-sm text-white placeholder-white/30 outline-none focus:border-[#00BFFF]/50 transition-colors"
+                        style={inputStyle}
+                      />
+                    </div>
+                  </div>
                   <div>
                     <label
                       className="block text-white/50 text-xs tracking-widest uppercase mb-1"
-                      style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
+                      style={labelStyle}
                     >
-                      First Name
+                      Email <span className="text-[#FF2D78]">*</span>
                     </label>
                     <input
-                      type="text"
-                      placeholder="John"
+                      type="email"
+                      required
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="john@example.com"
                       className="w-full px-4 py-3 rounded text-sm text-white placeholder-white/30 outline-none focus:border-[#00BFFF]/50 transition-colors"
-                      style={{
-                        background: "oklch(0.14 0.05 255)",
-                        border: "1px solid oklch(1 0 0 / 10%)",
-                        fontFamily: "'Inter', sans-serif",
-                      }}
+                      style={inputStyle}
                     />
                   </div>
                   <div>
                     <label
                       className="block text-white/50 text-xs tracking-widest uppercase mb-1"
-                      style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
+                      style={labelStyle}
                     >
-                      Last Name
+                      Message <span className="text-[#FF2D78]">*</span>
                     </label>
-                    <input
-                      type="text"
-                      placeholder="Doe"
-                      className="w-full px-4 py-3 rounded text-sm text-white placeholder-white/30 outline-none focus:border-[#00BFFF]/50 transition-colors"
-                      style={{
-                        background: "oklch(0.14 0.05 255)",
-                        border: "1px solid oklch(1 0 0 / 10%)",
-                        fontFamily: "'Inter', sans-serif",
-                      }}
+                    <textarea
+                      rows={4}
+                      required
+                      value={message}
+                      onChange={(e) => setMessage(e.target.value)}
+                      placeholder="Tell us how we can help..."
+                      className="w-full px-4 py-3 rounded text-sm text-white placeholder-white/30 outline-none focus:border-[#00BFFF]/50 transition-colors resize-none"
+                      style={inputStyle}
                     />
                   </div>
-                </div>
-                <div>
-                  <label
-                    className="block text-white/50 text-xs tracking-widest uppercase mb-1"
-                    style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
+
+                  {/* Error message */}
+                  {formState === "error" && (
+                    <div className="flex items-center gap-2 text-red-400 text-sm" style={{ fontFamily: "'Inter', sans-serif" }}>
+                      <AlertCircle size={16} />
+                      <span>Something went wrong. Please try again or email us directly.</span>
+                    </div>
+                  )}
+
+                  <button
+                    type="submit"
+                    disabled={formState === "submitting"}
+                    className="btn-primary w-full py-3 rounded text-sm flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
                   >
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    placeholder="john@example.com"
-                    className="w-full px-4 py-3 rounded text-sm text-white placeholder-white/30 outline-none focus:border-[#00BFFF]/50 transition-colors"
-                    style={{
-                      background: "oklch(0.14 0.05 255)",
-                      border: "1px solid oklch(1 0 0 / 10%)",
-                      fontFamily: "'Inter', sans-serif",
-                    }}
-                  />
-                </div>
-                <div>
-                  <label
-                    className="block text-white/50 text-xs tracking-widest uppercase mb-1"
-                    style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
+                    {formState === "submitting" ? (
+                      <>
+                        <Loader2 size={16} className="animate-spin" />
+                        Sending...
+                      </>
+                    ) : (
+                      "Send Message"
+                    )}
+                  </button>
+
+                  <p
+                    className="text-white/25 text-xs text-center"
+                    style={{ fontFamily: "'Inter', sans-serif" }}
                   >
-                    Message
-                  </label>
-                  <textarea
-                    rows={4}
-                    placeholder="Tell us how we can help..."
-                    className="w-full px-4 py-3 rounded text-sm text-white placeholder-white/30 outline-none focus:border-[#00BFFF]/50 transition-colors resize-none"
-                    style={{
-                      background: "oklch(0.14 0.05 255)",
-                      border: "1px solid oklch(1 0 0 / 10%)",
-                      fontFamily: "'Inter', sans-serif",
-                    }}
-                  />
-                </div>
-                <button type="submit" className="btn-primary w-full py-3 rounded text-sm">
-                  Send Message
-                </button>
-              </form>
+                    Your message will be sent to Support@laelitepeps.com
+                  </p>
+                </form>
+              )}
             </div>
           </div>
         </div>
@@ -228,7 +347,7 @@ export default function Footer() {
                 Quick Links
               </h5>
               <ul className="space-y-2">
-                {["Products", "Shipping", "About", "Science", "Contact"].map((link) => (
+                {["Products", "Shipping", "About", "Science", "FAQ", "Contact"].map((link) => (
                   <li key={link}>
                     <button
                       onClick={() => document.querySelector(`#${link.toLowerCase()}`)?.scrollIntoView({ behavior: "smooth" })}
