@@ -306,7 +306,7 @@ export const products: Product[] = [
       "Body composition and lean tissue metabolism research",
       "Pituitary function and cAMP signaling pathway studies",
     ],
-    price: "$70",
+    price: "$75",
     badge: "Hormone",
   },
 ];
