@@ -7,6 +7,7 @@ export interface Product {
   dose: string;
   cycle: string;
   content: string;
+  detailContent?: string;
   category: string;
   isStack: boolean;
   stackName?: string;
@@ -82,6 +83,7 @@ export const products: Product[] = [
     dose: "20mg",
     cycle: "3–4 week cycle",
     content: "20 mg per vial",
+    detailContent: "10 mg BPC-157 / 10 mg TB-500",
     category: "Recovery",
     isStack: true,
     stackName: "Wolverine Stack",

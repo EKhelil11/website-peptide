@@ -367,7 +367,7 @@ export default function ProductDetail() {
             <div className="space-y-3 text-sm">
               {[
                 { label: "Product", value: product.name },
-                { label: "Content", value: product.content },
+                { label: "Content", value: product.detailContent || product.content },
                 { label: "Category", value: product.category },
                 { label: "Price", value: product.price || "Coming Soon" },
               ].map(({ label, value }) => (
