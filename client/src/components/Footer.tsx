@@ -3,16 +3,13 @@
 // Contact form wired to Formspree → forwards to Support@laelitepeps.com
 
 import { useState } from "react";
-import { Mail, MapPin, Instagram, Phone, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
+import { Mail, MapPin, Instagram, Phone, CheckCircle } from "lucide-react";
 
 const LOGO_URL = "/manus-storage/elite-la-peptides-logo_e9ec855c.png";
 
-// Formspree endpoint — replace YOUR_FORM_ID with the ID from formspree.io after creating a free form
-// To set up: go to https://formspree.io, sign up free, create a form pointed to Support@laelitepeps.com
-// Then replace "YOUR_FORM_ID" below with your actual form ID (e.g. "xpwzgkqr")
-const FORMSPREE_ENDPOINT = "https://formspree.io/f/YOUR_FORM_ID";
+const CONTACT_EMAIL = "support@laelitepeps.com";
 
-type FormState = "idle" | "submitting" | "success" | "error";
+type FormState = "idle" | "success";
 
 export default function Footer() {
   const [firstName, setFirstName] = useState("");
@@ -21,36 +18,23 @@ export default function Footer() {
   const [message, setMessage] = useState("");
   const [formState, setFormState] = useState<FormState>("idle");
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!firstName || !email || !message) return;
 
-    setFormState("submitting");
+    const fullName = `${firstName} ${lastName}`.trim();
+    const subject = encodeURIComponent(`Research Inquiry from ${fullName}`);
+    const body = encodeURIComponent(
+      `Name: ${fullName}\nEmail: ${email}\n\nMessage:\n${message}`
+    );
 
-    try {
-      const res = await fetch(FORMSPREE_ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({
-          name: `${firstName} ${lastName}`.trim(),
-          email,
-          message,
-          _subject: `New Research Inquiry from ${firstName} ${lastName}`,
-        }),
-      });
+    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
 
-      if (res.ok) {
-        setFormState("success");
-        setFirstName("");
-        setLastName("");
-        setEmail("");
-        setMessage("");
-      } else {
-        setFormState("error");
-      }
-    } catch {
-      setFormState("error");
-    }
+    setFormState("success");
+    setFirstName("");
+    setLastName("");
+    setEmail("");
+    setMessage("");
   };
 
   const inputStyle = {
@@ -281,34 +265,18 @@ export default function Footer() {
                     />
                   </div>
 
-                  {/* Error message */}
-                  {formState === "error" && (
-                    <div className="flex items-center gap-2 text-red-400 text-sm" style={{ fontFamily: "'Inter', sans-serif" }}>
-                      <AlertCircle size={16} />
-                      <span>Something went wrong. Please try again or email us directly.</span>
-                    </div>
-                  )}
-
                   <button
                     type="submit"
-                    disabled={formState === "submitting"}
-                    className="btn-primary w-full py-3 rounded text-sm flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+                    className="btn-primary w-full py-3 rounded text-sm flex items-center justify-center gap-2"
                   >
-                    {formState === "submitting" ? (
-                      <>
-                        <Loader2 size={16} className="animate-spin" />
-                        Sending...
-                      </>
-                    ) : (
-                      "Send Message"
-                    )}
+                    Send Message
                   </button>
 
                   <p
                     className="text-white/25 text-xs text-center"
                     style={{ fontFamily: "'Inter', sans-serif" }}
                   >
-                    Your message will be sent to Support@laelitepeps.com
+                    Clicking Send will open your email app addressed to support@laelitepeps.com
                   </p>
                 </form>
               )}
