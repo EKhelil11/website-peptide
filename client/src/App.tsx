@@ -10,6 +10,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import ProductDetail from "./pages/ProductDetail";
 import AgeVerification from "./components/AgeVerification";
+import FloatingTextButton from "./components/FloatingTextButton";
 
 function Router() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <TooltipProvider>
           <Toaster />
           <AgeVerification />
+          <FloatingTextButton />
           <Router />
         </TooltipProvider>
       </ThemeProvider>
