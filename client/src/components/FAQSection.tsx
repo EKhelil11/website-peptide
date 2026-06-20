@@ -21,7 +21,7 @@ const faqs: FAQItem[] = [
   {
     category: "research",
     q: "What purity and quality standards do your peptides meet?",
-    a: "All of our research peptides are manufactured to pharmaceutical-grade standards with a minimum purity of 98%+. Each batch undergoes rigorous quality control testing including HPLC (High-Performance Liquid Chromatography) and mass spectrometry analysis to verify identity, purity, and potency.",
+    a: "All of our research peptides are manufactured to pharmaceutical-grade standards with a minimum purity of 99%+. Each batch undergoes rigorous quality control testing including HPLC (High-Performance Liquid Chromatography) and mass spectrometry analysis to verify identity, purity, and potency.",
   },
   {
     category: "research",
@@ -42,7 +42,7 @@ const faqs: FAQItem[] = [
   {
     category: "shipping",
     q: "How do I place an order?",
-    a: "Orders can be placed by texting or calling (310) 929-0403, or by emailing LaElitePeptides@gmail.com. Please include the product name(s), quantity required, and your delivery address. We will confirm your order and provide payment and fulfillment details promptly.",
+    a: "Orders can be placed by texting or calling (310) 929-0403, or by emailing support@laelitepeps.com. Please include the product name(s), quantity required, and your delivery address. We will confirm your order and provide payment and fulfillment details promptly.",
   },
   {
     category: "shipping",
