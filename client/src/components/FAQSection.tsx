@@ -36,11 +36,6 @@ const faqs: FAQItem[] = [
   // Shipping
   {
     category: "shipping",
-    q: "Do you offer local delivery in Los Angeles?",
-    a: "Yes. We offer local delivery throughout the greater Los Angeles area. Contact us via text at (310) 929-0403 or email at LaElitePeptides@gmail.com to place your order.",
-  },
-  {
-    category: "shipping",
     q: "Do you ship to other states?",
     a: "Yes, we ship to all 50 states. Delivery typically takes 3–5 business days. All orders are packaged in discreet, unmarked packaging. Orders are dispatched within 24 hours of confirmation and include full tracking information. Peptides are shipped with appropriate cold-pack insulation to maintain compound integrity during transit.",
   },
