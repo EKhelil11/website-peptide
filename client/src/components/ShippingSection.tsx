@@ -14,11 +14,10 @@ const localFeatures = [
 ];
 
 const shippingFeatures = [
-  { icon: Truck, text: "2-Day Priority shipping to all 50 states" },
+  { icon: Truck, text: "3–5 day nationwide shipping to all 50 states" },
   { icon: Clock, text: "Orders ship within 24 hours of confirmation" },
   { icon: Package, text: "Insulated cold-pack packaging for temperature-sensitive peptides" },
   { icon: CheckCircle, text: "Full tracking provided on every shipment" },
-  { icon: Zap, text: "Overnight express available at checkout" },
 ];
 
 export default function ShippingSection() {
@@ -149,7 +148,7 @@ export default function ShippingSection() {
                     fontFamily: "'Rajdhani', sans-serif",
                   }}
                 >
-                  Same Day
+                  Local Delivery
                 </span>
               </div>
             </div>
@@ -160,7 +159,7 @@ export default function ShippingSection() {
                 className="text-white/60 mb-6 leading-relaxed"
                 style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: "0.9rem" }}
               >
-                LA Elite Peptides offers direct local delivery of research compounds throughout the greater Los Angeles area. Research orders are handled personally — ensuring cold-chain integrity and same-day arrival for qualified researchers.
+                LA Elite Peptides offers direct local delivery of research compounds throughout the greater Los Angeles area. Research orders are handled personally — ensuring cold-chain integrity and prompt arrival for qualified researchers.
               </p>
               <ul className="space-y-3">
                 {localFeatures.map((item) => {
@@ -279,7 +278,7 @@ export default function ShippingSection() {
                     fontFamily: "'Rajdhani', sans-serif",
                   }}
                 >
-                  2-Day Priority
+                  3–5 Days
                 </span>
               </div>
             </div>
