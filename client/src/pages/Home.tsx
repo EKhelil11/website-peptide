@@ -15,10 +15,12 @@ import Footer from "@/components/Footer";
 const INTRO_SEEN_KEY = "elitela_intro_seen";
 
 export default function Home() {
-  // Skip intro if already seen this session (e.g. navigating back from a product page)
+  // Skip intro on mobile (< 768px) or if already seen this session
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
   const alreadySeen = typeof sessionStorage !== "undefined" && sessionStorage.getItem(INTRO_SEEN_KEY) === "1";
-  const [introComplete, setIntroComplete] = useState(alreadySeen);
-  const [mainVisible, setMainVisible] = useState(alreadySeen);
+  const skipIntro = isMobile || alreadySeen;
+  const [introComplete, setIntroComplete] = useState(skipIntro);
+  const [mainVisible, setMainVisible] = useState(skipIntro);
 
   const handleIntroComplete = () => {
     if (typeof sessionStorage !== "undefined") {
@@ -52,7 +54,7 @@ export default function Home() {
 
   return (
     <>
-      {/* Video intro splash — unmounts after completion */}
+      {/* Video intro splash — desktop only, unmounts after completion */}
       {!introComplete && <VideoIntro onComplete={handleIntroComplete} />}
 
       {/* Main site — fades in after intro */}
