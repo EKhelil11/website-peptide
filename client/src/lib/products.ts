@@ -78,18 +78,18 @@ export const products: Product[] = [
   },
   {
     id: "bpc157-tb500-wolverine",
-    name: "BPC-157 + TB-500",
+    name: "BPC-157 / TB-500 Blend",
     dose: "20mg",
     cycle: "3–4 week cycle",
-    content: "20 mg per vial",
+    content: "10 mg BPC-157 + 10 mg TB-500 per vial",
     category: "Recovery",
     isStack: true,
     stackName: "Wolverine Stack",
-    tagline: "Dual-peptide tissue repair research stack",
+    tagline: "10mg / 10mg dual-peptide tissue repair research blend",
     synopsis:
-      "Research stack combining BPC-157 and TB-500 for investigation of tissue repair signaling, angiogenesis, and inflammatory pathway modulation.",
+      "Precision-blended research compound — 10mg BPC-157 + 10mg TB-500 per vial — for investigation of tissue repair signaling, angiogenesis, and inflammatory pathway modulation.",
     plainEnglish:
-      "The Wolverine Stack combines two well-studied research peptides — BPC-157 and TB-500 — into a dual-compound protocol for tissue repair and regeneration research. BPC-157 is a partial sequence of Body Protection Compound found in gastric juice, while TB-500 is a synthetic fragment of Thymosin Beta-4, a ubiquitous actin-sequestering protein. Together, they represent a comprehensive research tool for studying multiple aspects of tissue healing and repair signaling.",
+      "The Wolverine Stack is a precision-blended research compound containing 10mg BPC-157 and 10mg TB-500 per vial — a 1:1 ratio dual-peptide protocol for tissue repair and regeneration research. BPC-157 is a partial sequence of Body Protection Compound found in gastric juice, while TB-500 is a synthetic fragment of Thymosin Beta-4, a ubiquitous actin-sequestering protein. Together in a single vial, they represent a comprehensive research tool for studying multiple aspects of tissue healing and repair signaling.",
     howItWorks:
       "BPC-157 modulates growth factor signaling (including VEGF and EGF pathways) and exerts cytoprotective effects on gastrointestinal and musculoskeletal tissue in research models. TB-500 promotes actin polymerization, cell migration, and angiogenesis — the formation of new blood vessels essential for tissue repair. Combined, they engage complementary repair pathways studied in the context of musculoskeletal injury, inflammation, and wound healing research.",
     whoIsItFor:
