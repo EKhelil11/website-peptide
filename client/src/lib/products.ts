@@ -280,6 +280,35 @@ export const products: Product[] = [
     price: "$60",
     badge: "Nootropic",
   },
+  {
+    id: "sermorelin-10mg",
+    name: "Sermorelin",
+    dose: "10mg",
+    cycle: "3–6 month cycle",
+    content: "10 mg per vial",
+    category: "Hormone Support",
+    isStack: false,
+    tagline: "GHRH analogue for growth hormone axis research",
+    synopsis:
+      "Synthetic analogue of endogenous GHRH(1-29) studied for pituitary GH secretion stimulation, somatotropic axis regulation, and IGF-1 pathway research.",
+    plainEnglish:
+      "Sermorelin is a synthetic 29-amino acid analogue of endogenous Growth Hormone-Releasing Hormone (GHRH), representing the biologically active N-terminal fragment responsible for GH secretagogue activity. Unlike exogenous recombinant HGH, Sermorelin acts upstream at the pituitary level, stimulating the somatotroph cells to produce and secrete growth hormone through the body's own regulatory feedback mechanisms. This makes it a valuable research tool for studying the somatotropic axis, pituitary function, and the downstream IGF-1 signaling cascade in a physiologically relevant model.",
+    howItWorks:
+      "Sermorelin binds to the GHRH receptor (GHRHR) on pituitary somatotroph cells, activating adenylyl cyclase and increasing intracellular cAMP. This triggers GH synthesis and pulsatile secretion into circulation. Released GH then stimulates hepatic IGF-1 production, which mediates many of the downstream anabolic and metabolic effects studied in growth hormone research. Because Sermorelin preserves the natural negative feedback loop via somatostatin, it provides a more physiologically controlled model for somatotropic axis research compared to direct GH administration.",
+    whoIsItFor:
+      "Research applications include somatotropic axis studies, pituitary function research, GH secretagogue pharmacology, IGF-1 signaling pathway investigations, body composition biology, and age-related GH decline models. For use by qualified researchers in laboratory settings only.",
+    benefits: [
+      "GHRH receptor (GHRHR) binding and pituitary signaling research",
+      "Pulsatile GH secretion modeling via somatotroph stimulation",
+      "IGF-1 pathway activation and downstream signaling studies",
+      "Somatotropic axis regulation and feedback loop research",
+      "Age-related GH decline and longevity biology investigations",
+      "Body composition and lean tissue metabolism research",
+      "Pituitary function and cAMP signaling pathway studies",
+    ],
+    price: "$70",
+    badge: "Hormone",
+  },
 ];
 
 export const categories = [
