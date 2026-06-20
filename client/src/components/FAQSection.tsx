@@ -36,8 +36,8 @@ const faqs: FAQItem[] = [
   // Shipping
   {
     category: "shipping",
-    q: "Do you ship to other states?",
-    a: "Yes, we ship to all 50 states. Delivery typically takes 3–5 business days. All orders are packaged in discreet, unmarked packaging. Orders are dispatched within 24 hours of confirmation and include full tracking information. Peptides are shipped with appropriate cold-pack insulation to maintain compound integrity during transit.",
+    q: "How long does shipping take?",
+    a: "All orders ship nationwide to all 50 states. Delivery typically takes 3–5 business days from the date of dispatch. Orders are processed and shipped within 24 hours of confirmation. You will receive full tracking information once your order has been dispatched. All shipments are packaged in discreet, unmarked packaging with cold-pack insulation to maintain compound integrity during transit.",
   },
   {
     category: "shipping",
