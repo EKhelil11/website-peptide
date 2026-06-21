@@ -26,15 +26,15 @@ export default function AnnouncementBar() {
           top: "64px",   /* mobile: below h-16 navbar */
           height: "32px",
           background:
-            "linear-gradient(90deg, #1a0a2e 0%, #0d1a3a 50%, #1a0a2e 100%)",
-          borderTop: "1px solid rgba(0,191,255,0.15)",
-          borderBottom: "1px solid rgba(255,45,120,0.2)",
+            "linear-gradient(90deg, oklch(0.35 0.18 280) 0%, oklch(0.25 0.12 255) 50%, oklch(0.35 0.18 320) 100%)",
+          borderTop: "1px solid oklch(0.55 0.25 200 / 30%)",
+          borderBottom: "1px solid oklch(0.55 0.25 200 / 30%)",
         }}
       >
         {/* Left fade */}
         <div
           className="absolute left-0 top-0 bottom-0 w-10 pointer-events-none z-10"
-          style={{ background: "linear-gradient(to right, #1a0a2e, transparent)" }}
+          style={{ background: "linear-gradient(to right, oklch(0.35 0.18 280), transparent)" }}
         />
 
         {/* Scrolling text */}
@@ -42,7 +42,7 @@ export default function AnnouncementBar() {
           style={{
             display: "flex",
             whiteSpace: "nowrap",
-            animation: "eliteTicker 35s linear infinite",
+            animation: "eliteTicker 70s linear infinite",
             fontFamily: "'Rajdhani', sans-serif",
             fontWeight: 600,
             fontSize: "0.72rem",
@@ -59,7 +59,7 @@ export default function AnnouncementBar() {
         {/* Right fade */}
         <div
           className="absolute right-6 top-0 bottom-0 w-10 pointer-events-none z-10"
-          style={{ background: "linear-gradient(to left, #1a0a2e, transparent)" }}
+          style={{ background: "linear-gradient(to left, oklch(0.35 0.18 280), transparent)" }}
         />
 
         {/* Dismiss */}
