@@ -29,6 +29,6 @@
 - [x] Account dashboard (/account) — order history, order status
 - [x] ShipStation webhook endpoint (POST /api/shipstation/webhook)
 - [x] ShipStation API key stored in secrets
-- [ ] Zelle/ACH payment instructions (placeholder, activate later)
-- [ ] Admin order management view (mark paid, mark shipped)
+- [x] Zelle/ACH payment instructions (placeholder, activate later — bank account not yet set up)
+- [x] Admin order management view (mark paid, mark shipped)
 - [x] Nav bar: add Login / My Account links
