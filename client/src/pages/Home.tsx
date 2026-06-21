@@ -11,6 +11,7 @@ import AboutSection from "@/components/AboutSection";
 import ShippingSection from "@/components/ShippingSection";
 import FAQSection from "@/components/FAQSection";
 import Footer from "@/components/Footer";
+import AnnouncementBar from "@/components/AnnouncementBar";
 
 const INTRO_SEEN_KEY = "elitela_intro_seen";
 
@@ -65,6 +66,7 @@ export default function Home() {
         }}
       >
         <Navbar />
+        <AnnouncementBar />
         <main>
           <HeroSection />
           <ProductsSection />
