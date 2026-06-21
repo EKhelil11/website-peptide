@@ -163,6 +163,28 @@ export async function updateOrderPaymentStatus(
   }).where(eq(orders.id, orderId));
 }
 
+export async function getPaidOrdersWithItems() {
+  const db = await getDb();
+  if (!db) return [];
+
+  // Fetch all paid orders that haven't been pushed to ShipStation yet
+  const paidOrders = await db
+    .select()
+    .from(orders)
+    .where(eq(orders.paymentStatus, "paid"))
+    .orderBy(desc(orders.createdAt));
+
+  const results = [];
+  for (const order of paidOrders) {
+    const items = await db
+      .select()
+      .from(orderItems)
+      .where(eq(orderItems.orderId, order.id));
+    results.push({ ...order, items });
+  }
+  return results;
+}
+
 export async function updateOrderShipStation(
   orderId: number,
   shipstationOrderId: string,

@@ -1,5 +1,15 @@
 import { Express } from "express";
-import { updateOrderShipStation } from "./db";
+import { updateOrderShipStation, getPaidOrdersWithItems } from "./db";
+
+// Escape special XML characters to prevent malformed XML
+function escapeXml(str: string): string {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
+}
 
 /**
  * ShipStation webhook endpoint.
@@ -8,7 +18,99 @@ import { updateOrderShipStation } from "./db";
  * URL: https://laelitepeps.com/api/shipstation/webhook
  * Event: SHIP_NOTIFY
  */
+/**
+ * ShipStation Custom Store orders endpoint.
+ * ShipStation polls this URL every 15 minutes to pull new paid orders.
+ * Configure in ShipStation: Settings → Selling Channels → Connect a Store → Custom Store
+ * URL: https://laelitepeps.com/api/shipstation/orders
+ * Auth: Basic Auth using your ShipStation API key as username and secret as password.
+ */
 export function registerShipStationWebhook(app: Express) {
+  // Basic Auth middleware for ShipStation requests
+  const shipstationAuth = (req: any, res: any, next: any) => {
+    const authHeader = req.headers["authorization"] || "";
+    if (!authHeader.startsWith("Basic ")) {
+      res.set("WWW-Authenticate", 'Basic realm="ShipStation"');
+      return res.status(401).send("Unauthorized");
+    }
+    const decoded = Buffer.from(authHeader.slice(6), "base64").toString("utf8");
+    const [key, secret] = decoded.split(":");
+    const validKey = process.env.SHIPSTATION_API_KEY;
+    const validSecret = process.env.SHIPSTATION_API_SECRET;
+    if (key !== validKey || secret !== validSecret) {
+      return res.status(401).send("Unauthorized");
+    }
+    next();
+  };
+
+  app.get("/api/shipstation/orders", shipstationAuth, async (req, res) => {
+    try {
+      const paidOrders = await getPaidOrdersWithItems();
+
+      // Build ShipStation-compatible XML response
+      const orderXml = paidOrders.map(order => {
+        const itemsXml = order.items.map(item => `
+          <Item>
+            <LineItemKey>${item.id}</LineItemKey>
+            <SKU>${item.productId}</SKU>
+            <Name>${escapeXml(item.productName)}</Name>
+            <Quantity>${item.quantity}</Quantity>
+            <UnitPrice>${Number(item.unitPrice).toFixed(2)}</UnitPrice>
+          </Item>`).join("");
+
+        const [firstName, ...lastParts] = (order.shipName || "Customer").split(" ");
+        const lastName = lastParts.join(" ") || "";
+
+        return `
+        <Order>
+          <OrderID>${order.id}</OrderID>
+          <OrderNumber>${order.id}</OrderNumber>
+          <OrderDate>${order.createdAt.toISOString()}</OrderDate>
+          <OrderStatus>paid</OrderStatus>
+          <LastModified>${order.updatedAt.toISOString()}</LastModified>
+          <ShippingMethod>Standard</ShippingMethod>
+          <PaymentMethod>${escapeXml(order.paymentMethod || "manual")}</PaymentMethod>
+          <OrderTotal>${Number(order.totalAmount).toFixed(2)}</OrderTotal>
+          <TaxAmount>0.00</TaxAmount>
+          <ShippingAmount>0.00</ShippingAmount>
+          <CustomerNotes>${escapeXml(order.notes || "")}</CustomerNotes>
+          <Customer>
+            <CustomerCode>${escapeXml(order.shipEmail || "")}</CustomerCode>
+            <BillTo>
+              <Name>${escapeXml(order.shipName || "")}</Name>
+              <Email>${escapeXml(order.shipEmail || "")}</Email>
+              <Phone>${escapeXml(order.shipPhone || "")}</Phone>
+            </BillTo>
+            <ShipTo>
+              <Name>${escapeXml(order.shipName || "")}</Name>
+              <Company></Company>
+              <Address1>${escapeXml(order.shipAddress || "")}</Address1>
+              <Address2></Address2>
+              <City>${escapeXml(order.shipCity || "")}</City>
+              <State>${escapeXml(order.shipState || "")}</State>
+              <PostalCode>${escapeXml(order.shipZip || "")}</PostalCode>
+              <Country>US</Country>
+              <Phone>${escapeXml(order.shipPhone || "")}</Phone>
+              <Email>${escapeXml(order.shipEmail || "")}</Email>
+            </ShipTo>
+          </Customer>
+          <Items>${itemsXml}
+          </Items>
+        </Order>`;
+      }).join("");
+
+      const xml = `<?xml version="1.0" encoding="utf-8"?>
+<Orders pages="1">${orderXml}
+</Orders>`;
+
+      res.set("Content-Type", "application/xml");
+      res.status(200).send(xml);
+    } catch (error) {
+      console.error("[ShipStation] Orders endpoint error:", error);
+      res.status(500).send("Internal Server Error");
+    }
+  });
+
   app.post("/api/shipstation/webhook", async (req, res) => {
     try {
       const payload = req.body;
