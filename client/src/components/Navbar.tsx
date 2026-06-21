@@ -3,8 +3,7 @@
 // Colors: Navy bg + Cyan accents + Hot Pink for elite script
 
 import { useState, useEffect } from "react";
-import { Menu, X, ShoppingBag, User } from "lucide-react";
-import { useLocation } from "wouter";
+import { Menu, X } from "lucide-react";
 
 const LOGO_URL = "/manus-storage/elite-la-peptides-logo_e9ec855c.png";
 
@@ -68,21 +67,6 @@ export default function Navbar() {
                   {link.label}
                 </button>
               ))}
-              <a
-                href="/account"
-                className="flex items-center gap-1.5 text-sm font-medium tracking-widest uppercase transition-colors duration-200 text-white/70 hover:text-[#00BFFF]"
-                style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
-              >
-                <User size={14} />
-                Account
-              </a>
-              <a
-                href="/shop"
-                className="btn-primary px-5 py-2 rounded text-sm flex items-center gap-2"
-              >
-                <ShoppingBag size={14} />
-                Order Now
-              </a>
             </nav>
 
             {/* Mobile Menu Toggle */}
@@ -116,23 +100,6 @@ export default function Navbar() {
               {link.label}
             </button>
           ))}
-          <a
-            href="/account"
-            onClick={() => setMobileOpen(false)}
-            className="text-2xl font-bold tracking-widest uppercase text-white/80 hover:text-[#00BFFF] transition-colors flex items-center gap-3"
-            style={{ fontFamily: "'Bebas Neue', sans-serif" }}
-          >
-            <User size={22} />
-            My Account
-          </a>
-          <a
-            href="/shop"
-            onClick={() => setMobileOpen(false)}
-            className="btn-primary px-8 py-3 rounded text-base mt-4 flex items-center gap-2"
-          >
-            <ShoppingBag size={18} />
-            Order Now
-          </a>
         </div>
       </div>
     </>

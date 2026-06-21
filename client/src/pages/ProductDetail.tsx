@@ -5,10 +5,8 @@
 import { useEffect } from "react";
 import { useParams } from "wouter";
 import { Link } from "wouter";
-import { ArrowLeft, FlaskConical, Users, CheckCircle2, ShoppingCart, AlertTriangle, Check } from "lucide-react";
+import { ArrowLeft, FlaskConical, Users, CheckCircle2, ShoppingCart, AlertTriangle } from "lucide-react";
 import { products } from "@/lib/products";
-import { useAuth } from "@/_core/hooks/useAuth";
-import { useCart } from "@/contexts/CartContext";
 
 const VIAL_IMG =
   "https://d2xsxph8kpxj0f.cloudfront.net/310519663765469010/KeqNR4QdNviNNDWK3S7923/peptide-vial-KdSBvv2H7a9bZfeH52wPjY.webp";
@@ -17,22 +15,6 @@ const LOGO_URL = "/manus-storage/elite-la-peptides-logo_e9ec855c.png";
 export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
   const product = products.find((p) => p.id === id);
-  const { user } = useAuth();
-  const { addToCart, isInCart, getQty } = useCart();
-
-  const inCart = product ? isInCart(product.id) : false;
-  const qty = product ? getQty(product.id) : 0;
-
-  const handleAddToCart = () => {
-    if (!product?.price) return;
-    addToCart({
-      productId: product.id,
-      productName: product.name,
-      productCategory: product.category,
-      unitPrice: parseFloat(product.price),
-    });
-  };
-
   // Always land at the top of the page
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" });
@@ -228,36 +210,12 @@ export default function ProductDetail() {
                   Price Coming Soon
                 </span>
               )}
-              {user ? (
-                product?.price ? (
-                  <button
-                    onClick={handleAddToCart}
-                    className="flex items-center gap-2 px-6 py-3 rounded font-bold text-sm tracking-widest uppercase transition-all duration-200 hover:opacity-90 active:scale-[0.97]"
-                    style={{
-                      background: inCart
-                        ? "oklch(0.65 0.2 145 / 20%)"
-                        : "linear-gradient(135deg, oklch(0.6 0.27 0), oklch(0.55 0.25 355))",
-                      border: inCart ? "1px solid oklch(0.65 0.2 145 / 50%)" : "none",
-                      color: inCart ? "oklch(0.65 0.2 145)" : "white",
-                      fontFamily: "'Rajdhani', sans-serif",
-                      letterSpacing: "0.1em",
-                    }}
-                  >
-                    {inCart ? (
-                      <><Check size={16} /> IN CART ({qty})</>
-                    ) : (
-                      <><ShoppingCart size={16} /> ADD TO CART</>
-                    )}
-                  </button>
-                ) : null
-              ) : (
-                <a href="/#contact">
-                  <button className="btn-primary flex items-center gap-2 px-6 py-3 rounded">
-                    <ShoppingCart size={16} />
-                    INQUIRE NOW
-                  </button>
-                </a>
-              )}
+              <a href="/#contact">
+                <button className="btn-primary flex items-center gap-2 px-6 py-3 rounded">
+                  <ShoppingCart size={16} />
+                  INQUIRE NOW
+                </button>
+              </a>
             </div>
           </div>
         </div>

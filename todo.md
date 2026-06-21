@@ -34,7 +34,7 @@
 - [x] Nav bar: add Login / My Account links
 
 ## Cart Integration on Product Pages
-- [ ] Create global CartContext to share cart state across all pages
-- [ ] ProductsSection: show "Add to Cart" instead of "Inquire" when user is logged in
-- [ ] ProductDetail: show "Add to Cart" instead of "Inquire" when user is logged in
-- [ ] Floating cart icon/drawer visible on all pages when logged in (links to /checkout)
+- [x] Create global CartContext to share cart state across all pages
+- [x] ProductsSection: show "Add to Cart" instead of "Inquire" when user is logged in
+- [x] ProductDetail: show "Add to Cart" instead of "Inquire" when user is logged in
+- [x] Floating cart icon/drawer visible on all pages when logged in (links to /checkout)
