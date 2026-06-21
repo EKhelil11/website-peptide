@@ -13,7 +13,7 @@ export default function FloatingTextButton() {
       className="floating-text-btn"
       style={{
         position: "fixed",
-        bottom: "1.75rem",
+        bottom: "5.5rem",
         right: "1.5rem",
         zIndex: 9999,
         display: "flex",
