@@ -16,6 +16,8 @@ import Account from "./pages/Account";
 import AdminOrders from "./pages/AdminOrders";
 import AgeVerification from "./components/AgeVerification";
 import FloatingTextButton from "./components/FloatingTextButton";
+import { CartProvider } from "./contexts/CartContext";
+import FloatingCart from "./components/FloatingCart";
 
 function Router() {
   return (
@@ -39,9 +41,12 @@ function App() {
       <ThemeProvider defaultTheme="dark">
         <TooltipProvider>
           <Toaster />
-          <AgeVerification />
-          <FloatingTextButton />
-          <Router />
+          <CartProvider>
+            <AgeVerification />
+            <Router />
+            <FloatingCart />
+            <FloatingTextButton />
+          </CartProvider>
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>
