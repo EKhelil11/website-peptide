@@ -4,8 +4,17 @@
 // Pulse ring animation to draw attention
 
 import { MessageCircle } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export default function FloatingTextButton() {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    // Delay fade-in by 2s to let the page settle after intro
+    const t = setTimeout(() => setVisible(true), 2000);
+    return () => clearTimeout(t);
+  }, []);
+
   return (
     <a
       href="sms:+13109290403"
@@ -30,7 +39,11 @@ export default function FloatingTextButton() {
         textTransform: "uppercase",
         textDecoration: "none",
         boxShadow: "0 4px 24px rgba(255, 45, 120, 0.45), 0 2px 8px rgba(0,0,0,0.3)",
-        transition: "transform 150ms cubic-bezier(0.23,1,0.32,1), box-shadow 150ms ease",
+        opacity: visible ? 1 : 0,
+        transform: visible ? "translateY(0) scale(1)" : "translateY(12px) scale(0.95)",
+        transition:
+          "opacity 500ms cubic-bezier(0.23,1,0.32,1), transform 500ms cubic-bezier(0.23,1,0.32,1), box-shadow 150ms ease",
+        pointerEvents: visible ? "auto" : "none",
       }}
       onMouseEnter={(e) => {
         (e.currentTarget as HTMLAnchorElement).style.transform = "scale(1.06)";

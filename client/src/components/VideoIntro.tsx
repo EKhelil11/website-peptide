@@ -98,9 +98,9 @@ export default function VideoIntro({ onComplete }: VideoIntroProps) {
           color: "rgba(255,255,255,0.7)",
           backdropFilter: "blur(8px)",
           opacity: showSkip ? 1 : 0,
-          transform: showSkip ? "translateY(0)" : "translateY(10px)",
+          transform: showSkip ? "translateY(0) scale(1)" : "translateY(14px) scale(0.96)",
           pointerEvents: showSkip ? "auto" : "none",
-          transition: "opacity 0.4s ease, transform 0.4s ease",
+          transition: "opacity 0.55s cubic-bezier(0.23,1,0.32,1), transform 0.55s cubic-bezier(0.23,1,0.32,1)",
         }}
         onMouseEnter={(e) => {
           (e.currentTarget as HTMLButtonElement).style.color = "#00BFFF";
