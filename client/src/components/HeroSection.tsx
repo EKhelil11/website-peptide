@@ -6,7 +6,7 @@
 import { useEffect, useRef } from "react";
 import { ChevronDown } from "lucide-react";
 
-const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663765469010/KeqNR4QdNviNNDWK3S7923/hero-new-v2-DfBwUaxsg7ZSRm6yZqwbRR.webp";
+const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663765469010/KeqNR4QdNviNNDWK3S7923/hero-lab-v1-MpwjhNoxPjv6x5LEznRSix.webp";
 
 export default function HeroSection() {
   const contentRef = useRef<HTMLDivElement>(null);
@@ -37,16 +37,24 @@ export default function HeroSection() {
         style={{
           backgroundImage: `url(${HERO_BG})`,
           backgroundSize: "cover",
-          backgroundPosition: "center center",
+          backgroundPosition: "center 30%",
           backgroundRepeat: "no-repeat",
         }}
       />
-      {/* Dark overlay so text stays readable — heavier on left where text lives */}
+      {/* Dark navy gradient overlay — heavier on left where text lives, lighter on right to reveal lab */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "linear-gradient(105deg, oklch(0.06 0.05 255 / 88%) 0%, oklch(0.08 0.05 255 / 65%) 45%, oklch(0.06 0.05 255 / 30%) 100%)",
+            "linear-gradient(110deg, rgba(5,10,30,0.92) 0%, rgba(5,10,30,0.78) 40%, rgba(5,10,30,0.45) 70%, rgba(5,10,30,0.25) 100%)",
+        }}
+      />
+      {/* Additional bottom-to-top navy fade for seamless section transition */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "linear-gradient(to bottom, rgba(5,10,30,0.3) 0%, transparent 20%, transparent 75%, rgba(5,10,30,0.6) 100%)",
         }}
       />
       {/* Bottom fade into next section */}
@@ -79,13 +87,13 @@ export default function HeroSection() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-16">
         <div className="max-w-3xl" ref={contentRef}>
           {/* Eyebrow */}
-          <div className="hero-item opacity-0 mb-4 flex items-center gap-3">
+          <div className="hero-item opacity-0 mb-5 flex items-center gap-3">
             <div className="h-px w-12 bg-[#00BFFF]" />
             <span
-              className="text-[#00BFFF] text-xs tracking-[0.3em] uppercase"
+              className="text-[#00BFFF] text-xs tracking-[0.35em] uppercase"
               style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
             >
-              Premium Research Peptides
+              Advanced Peptide Research Institute
             </span>
           </div>
 
@@ -96,10 +104,10 @@ export default function HeroSection() {
               fontFamily: "'Bebas Neue', sans-serif",
               fontSize: "clamp(3.5rem, 9vw, 7rem)",
               letterSpacing: "0.03em",
-              textShadow: "0 2px 40px rgba(0,0,0,0.5)",
+              textShadow: "0 2px 60px rgba(0,0,0,0.7)",
             }}
           >
-            YOUR EDGE,
+            PRECISION-CRAFTED
           </h1>
           <h1
             className="hero-item opacity-0 leading-none mb-6"
@@ -108,18 +116,18 @@ export default function HeroSection() {
               fontSize: "clamp(3.5rem, 9vw, 7rem)",
               letterSpacing: "0.03em",
               color: "#00BFFF",
-              textShadow: "0 0 40px rgba(0, 191, 255, 0.4)",
+              textShadow: "0 0 60px rgba(0, 191, 255, 0.5)",
             }}
           >
-            ENGINEERED.
+            RESEARCH COMPOUNDS.
           </h1>
 
           {/* Subheading */}
           <p
-            className="hero-item opacity-0 text-white/75 mb-8 max-w-xl leading-relaxed"
-            style={{ fontFamily: "'Inter', sans-serif", fontSize: "1.1rem", fontWeight: 300 }}
+            className="hero-item opacity-0 text-white/80 mb-8 max-w-xl leading-relaxed"
+            style={{ fontFamily: "'Inter', sans-serif", fontSize: "1.1rem", fontWeight: 300, letterSpacing: "0.01em" }}
           >
-            Pharmaceutical-grade research peptides for qualified researchers and scientific study. From metabolic pathways to cellular regeneration — LA Elite Peptides supplies rigorously tested compounds for legitimate research purposes only.
+            Pharmaceutical-grade peptides formulated in certified research facilities. Every compound is rigorously third-party tested for purity, potency, and sterility — delivering the standard that serious researchers demand.
           </p>
 
           {/* CTA Buttons */}

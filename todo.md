@@ -38,3 +38,9 @@
 - [x] ProductsSection: show "Add to Cart" instead of "Inquire" when user is logged in
 - [x] ProductDetail: show "Add to Cart" instead of "Inquire" when user is logged in
 - [x] Floating cart icon/drawer visible on all pages when logged in (links to /checkout)
+
+## Hero Image Enhancement
+- [x] Generate custom blue cinematic research lab hero image
+- [x] Upload hero image to webdev static assets
+- [x] Implement hero background with dark navy gradient overlay
+- [x] Update hero headline text to premium medical institution copy
