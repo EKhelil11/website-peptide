@@ -120,7 +120,7 @@ export default function AboutSection() {
                   className="text-[#FF2D78] text-sm italic"
                   style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300 }}
                 >
-                  Precise. Potent. Elite.
+                  Trusted. Tested. United States Of America.
                 </span>
               </div>
             </div>
