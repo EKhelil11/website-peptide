@@ -5,7 +5,7 @@
 import { useEffect, useRef } from "react";
 import { FlaskConical, Shield, Zap, Award } from "lucide-react";
 
-const LAB_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663765469010/KeqNR4QdNviNNDWK3S7923/science-lab-WrA6vdVVJB4GzUBf3Bwts5.webp";
+const LAB_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663765469010/KeqNR4QdNviNNDWK3S7923/about-scientists-v1-NHCXEyFNneGg4CdCu92UiX.webp";
 const MOLECULE_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663765469010/KeqNR4QdNviNNDWK3S7923/molecule-abstract-D8GXN86BQ2hV2UhBYkNif2.webp";
 
 const pillars = [
@@ -135,8 +135,9 @@ export default function AboutSection() {
               >
                 <img
                   src={LAB_IMG}
-                  alt="LA Elite Peptides Laboratory"
-                  className="w-full h-80 lg:h-96 object-cover"
+                  alt="LA Elite Peptides Research Team"
+                  className="w-full h-80 lg:h-[420px] object-cover object-center"
+                  style={{ objectPosition: "center 20%" }}
                 />
               </div>
               {/* Floating accent card */}
