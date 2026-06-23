@@ -128,7 +128,7 @@ export default function AboutSection() {
             {/* Image */}
             <div className="relative animate-on-scroll">
               <div
-                className="rounded-lg overflow-hidden"
+                className="rounded-lg overflow-hidden group"
                 style={{
                   boxShadow: "0 20px 80px oklch(0.72 0.18 210 / 15%), 0 0 0 1px oklch(0.72 0.18 210 / 15%)",
                 }}
@@ -136,8 +136,14 @@ export default function AboutSection() {
                 <img
                   src={LAB_IMG}
                   alt="LA Elite Peptides Research Team"
-                  className="w-full h-80 lg:h-[420px] object-cover object-center"
-                  style={{ objectPosition: "center 20%" }}
+                  className="w-full h-80 lg:h-[420px] object-cover object-center transition-transform duration-700"
+                  style={{
+                    objectPosition: "center 20%",
+                    transform: "scale(1)",
+                    transitionTimingFunction: "cubic-bezier(0.23, 1, 0.32, 1)",
+                  }}
+                  onMouseEnter={e => (e.currentTarget.style.transform = "scale(1.06)")}
+                  onMouseLeave={e => (e.currentTarget.style.transform = "scale(1)")}
                 />
               </div>
               {/* Floating accent card */}
