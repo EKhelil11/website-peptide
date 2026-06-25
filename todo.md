@@ -77,5 +77,5 @@
 - [x] Related products carousel at bottom
 
 ## Molecular Data Population (Peptides Collective)
-- [ ] Scrape Peptides Collective for molecular data on all 10 products
-- [ ] Add Sequence, Molecular Formula, Molecular Weight, PubChem CID, CAS # to all products in products.ts
+- [x] Scrape Peptides Collective for molecular data on all 10 products
+- [x] Add Sequence, Molecular Formula, Molecular Weight, PubChem CID, CAS # to all products in products.ts
