@@ -79,3 +79,10 @@
 ## Molecular Data Population (Peptides Collective)
 - [x] Scrape Peptides Collective for molecular data on all 10 products
 - [x] Add Sequence, Molecular Formula, Molecular Weight, PubChem CID, CAS # to all products in products.ts
+
+## Compliance Login Wall (Peptides Collective Style)
+- [ ] Save checkpoint before compliance login wall changes
+- [ ] Add termsAcceptedAt timestamp field to users table in drizzle schema and push migration
+- [ ] Build registration page with inline scrollable T&C box and acceptance checkbox
+- [ ] Gate product pricing and Add to Cart behind login — show "Login to View Pricing" to unauthenticated visitors
+- [ ] Record timestamped terms acceptance in database on registration
