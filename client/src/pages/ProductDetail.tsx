@@ -492,12 +492,12 @@ export default function ProductDetail() {
 
           {/* Trust signals */}
           <div
-            className="grid grid-cols-3 gap-3 pt-2"
+            className="grid grid-cols-2 gap-3 pt-2"
           >
             {[
-              { icon: "🔬", label: "≥99.5% Purity" },
+              { icon: "🔬", label: "≥99% Purity" },
               { icon: "🇺🇸", label: "US Research" },
-              { icon: "📋", label: "COA Available" },
+              // { icon: "📋", label: "COA Available" }, // Hidden until COAs are ready
             ].map(({ icon, label }) => (
               <div
                 key={label}
