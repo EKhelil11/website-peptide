@@ -20,7 +20,6 @@ export interface MolecularData {
 export interface Product {
   id: string;
   name: string;
-  dose: string;
   cycle: string;
   content: string;
   detailContent?: string;
@@ -45,7 +44,6 @@ export const products: Product[] = [
   {
     id: "retatrutide-30mg",
     name: "Retatrutide",
-    dose: "Research model dosing varies — see literature",
     cycle: "6–7 week cycle",
     content: "30 mg per vial",
     category: "GLP",
@@ -87,7 +85,6 @@ export const products: Product[] = [
   {
     id: "nad-500mg",
     name: "NAD+",
-    dose: "500mg",
     cycle: "1 month cycle",
     content: "500 mg per vial",
     category: "Metabolics",
@@ -115,7 +112,6 @@ export const products: Product[] = [
   {
     id: "bpc157-tb500-wolverine",
     name: "BPC-157 / TB-500 Blend",
-    dose: "20mg",
     cycle: "3–4 week cycle",
     content: "20 mg per vial",
     detailContent: "10 mg BPC-157 / 10 mg TB-500",
@@ -145,7 +141,6 @@ export const products: Product[] = [
   {
     id: "ghk-cu-50mg",
     name: "GHK-CU",
-    dose: "50mg",
     cycle: "2 month cycle",
     content: "100 mg per vial",
     category: "Peptides",
@@ -174,7 +169,6 @@ export const products: Product[] = [
   {
     id: "cjc1295-ipamorelin-10mg",
     name: "CJC-1295 + Ipamorelin",
-    dose: "10 units/day",
     cycle: "8–12 week cycle",
     content: "10 mg per vial",
     category: "Blends",
@@ -203,7 +197,6 @@ export const products: Product[] = [
   {
     id: "ghk-cu-bpc157-tb500-glow",
     name: "GHK-CU + BPC-157 + TB-500",
-    dose: "100mg",
     cycle: "2 month cycle",
     content: "100 mg per vial",
     detailContent: "~72 mg GHK-Cu / ~14 mg BPC-157 / ~14 mg TB-500",
@@ -234,7 +227,6 @@ export const products: Product[] = [
   {
     id: "mots-c-10mg",
     name: "MOTS-C",
-    dose: "1.0 units — 30 min pre-workout",
     cycle: "20 day cycle",
     content: "10 mg per vial",
     category: "Metabolics",
@@ -262,7 +254,6 @@ export const products: Product[] = [
   {
     id: "kisspeptin-10mg",
     name: "Kisspeptin",
-    dose: "10mg",
     cycle: "4–6 week cycle",
     content: "10 mg per vial",
     category: "Peptides",
@@ -290,7 +281,6 @@ export const products: Product[] = [
   {
     id: "semax-10mg",
     name: "Semax",
-    dose: "1.0 units / Morning",
     cycle: "2–4 week cycle",
     content: "10 mg per vial",
     category: "Peptides",
@@ -318,7 +308,6 @@ export const products: Product[] = [
   {
     id: "sermorelin-10mg",
     name: "Sermorelin",
-    dose: "10mg",
     cycle: "3–6 month cycle",
     content: "10 mg per vial",
     category: "Peptides",
