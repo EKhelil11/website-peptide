@@ -28,7 +28,7 @@ export const products: Product[] = [
     dose: "Research model dosing varies — see literature",
     cycle: "6–7 week cycle",
     content: "30 mg per vial",
-    category: "GLP / Metabolic",
+    category: "GLP",
     isStack: false,
     tagline: "Tri-agonist peptide for multi-pathway metabolic research",
     synopsis:
@@ -55,7 +55,7 @@ export const products: Product[] = [
     dose: "500mg",
     cycle: "1 month cycle",
     content: "500 mg per vial",
-    category: "Cellular Health",
+    category: "Metabolics",
     isStack: false,
     tagline: "Cellular energy coenzyme for longevity research",
     synopsis:
@@ -84,7 +84,7 @@ export const products: Product[] = [
     cycle: "3–4 week cycle",
     content: "20 mg per vial",
     detailContent: "10 mg BPC-157 / 10 mg TB-500",
-    category: "Recovery",
+    category: "Blends",
     isStack: true,
     stackName: "Wolverine Stack",
     tagline: "Dual-peptide tissue repair research stack",
@@ -113,7 +113,7 @@ export const products: Product[] = [
     dose: "50mg",
     cycle: "2 month cycle",
     content: "100 mg per vial",
-    category: "Anti-Aging",
+    category: "Peptides",
     isStack: false,
     tagline: "Copper-binding peptide for regenerative research",
     synopsis:
@@ -142,7 +142,7 @@ export const products: Product[] = [
     dose: "10 units/day",
     cycle: "8–12 week cycle",
     content: "10 mg per vial",
-    category: "Hormone Support",
+    category: "Blends",
     isStack: true,
     stackName: "GH Synergy",
     tagline: "Dual-pathway growth hormone secretagogue research",
@@ -172,7 +172,7 @@ export const products: Product[] = [
     cycle: "2 month cycle",
     content: "100 mg per vial",
     detailContent: "~72 mg GHK-Cu / ~14 mg BPC-157 / ~14 mg TB-500",
-    category: "Beauty & Wellness",
+    category: "Blends",
     isStack: true,
     stackName: "Glow Stack",
     tagline: "Triple-compound regenerative research protocol",
@@ -202,7 +202,7 @@ export const products: Product[] = [
     dose: "1.0 units — 30 min pre-workout",
     cycle: "20 day cycle",
     content: "10 mg per vial",
-    category: "Metabolic",
+    category: "Metabolics",
     isStack: false,
     tagline: "Mitochondrial-encoded metabolic research peptide",
     synopsis:
@@ -230,7 +230,7 @@ export const products: Product[] = [
     dose: "10mg",
     cycle: "4–6 week cycle",
     content: "10 mg per vial",
-    category: "Hormone Support",
+    category: "Peptides",
     isStack: false,
     tagline: "GPR54 agonist for reproductive axis research",
     synopsis:
@@ -258,7 +258,7 @@ export const products: Product[] = [
     dose: "1.0 units / Morning",
     cycle: "2–4 week cycle",
     content: "10 mg per vial",
-    category: "Cellular Health",
+    category: "Peptides",
     isStack: false,
     tagline: "ACTH-derived neuropeptide for cognitive research",
     synopsis:
@@ -286,7 +286,7 @@ export const products: Product[] = [
     dose: "10mg",
     cycle: "3–6 month cycle",
     content: "10 mg per vial",
-    category: "Hormone Support",
+    category: "Peptides",
     isStack: false,
     tagline: "GHRH analogue for growth hormone axis research",
     synopsis:
@@ -313,11 +313,8 @@ export const products: Product[] = [
 
 export const categories = [
   "All",
-  "GLP / Metabolic",
-  "Cellular Health",
-  "Recovery",
-  "Anti-Aging",
-  "Hormone Support",
-  "Beauty & Wellness",
-  "Metabolic",
+  "GLP",
+  "Metabolics",
+  "Peptides",
+  "Blends",
 ];

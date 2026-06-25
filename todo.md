@@ -53,3 +53,11 @@
 - [x] Audit all GLP product descriptions for non-compliant language (weight loss, weight reduction, human use)
 - [x] Rewrite all GLP product descriptions with compliant metabolic signaling / energy regulation language
 - [x] Add standard research-use-only disclaimer block to all GLP product pages
+
+## GLP Disclaimer Block
+- [x] Add Peptides Collective verbatim disclaimer block to Retatrutide product page and all GLP product descriptions
+
+## Product Filter Tab Redesign (Peptides Collective Style)
+- [x] Remap all product categories to: GLP, Metabolics, Peptides, Blends
+- [x] Update ProductsSection.tsx filter tabs to: All / GLP / Metabolics / Peptides / Blends
+- [x] Update categories array in products.ts to match new tab structure

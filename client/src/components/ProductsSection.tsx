@@ -11,12 +11,10 @@ const PRODUCT_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663765469010/Keq
 
 const filterTabs = [
   { label: "All", value: "All" },
-  { label: "GLP / Metabolic", value: "GLP / Metabolic" },
-  { label: "Longevity", value: "Longevity" },
-  { label: "Recovery", value: "Recovery" },
-  { label: "Cellular Health", value: "Cellular Health" },
-  { label: "Hormone Support", value: "Hormone Support" },
-  { label: "Stacks", value: "stack" },
+  { label: "GLP", value: "GLP" },
+  { label: "Metabolics", value: "Metabolics" },
+  { label: "Peptides", value: "Peptides" },
+  { label: "Blends", value: "Blends" },
 ];
 
 export default function ProductsSection() {

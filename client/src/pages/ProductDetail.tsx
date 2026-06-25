@@ -320,11 +320,17 @@ export default function ProductDetail() {
                 className="text-[#FF2D78] text-xs tracking-widest uppercase mb-1"
                 style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
               >
-                Research Use Only
+                Research Use Only — Important Notice
               </p>
-              <p className="text-white/50 text-sm leading-relaxed">
-                All peptides sold by LA Elite Peptides are strictly for in-vitro laboratory and scientific research purposes only.
-              </p>
+              {product.category === "GLP / Metabolic" ? (
+                <p className="text-white/60 text-sm leading-relaxed">
+                  {product.name} is sold strictly for in-vitro laboratory research use only. It is not a drug, food additive, cosmetic, or dietary supplement. This material is not approved by the FDA or any regulatory authority for human or veterinary use, and any discussion of clinical application is for scientific context only — not product endorsement. Any references to metabolic signaling, energy regulation, or pathway coordination describe observed biological mechanisms in controlled research settings and do not constitute claims of efficacy for human use.
+                </p>
+              ) : (
+                <p className="text-white/60 text-sm leading-relaxed">
+                  {product.name} is sold strictly for in-vitro laboratory research use only. It is not a drug, food additive, cosmetic, or dietary supplement. This material is not approved by the FDA or any regulatory authority for human or veterinary use, and any discussion of clinical application is for scientific context only — not product endorsement.
+                </p>
+              )}
             </div>
           </section>
         </div>
