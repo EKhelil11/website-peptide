@@ -71,7 +71,6 @@ export const products: Product[] = [
     badge: "Advanced",
     variants: [
       { label: "30mg", price: "$140", content: "30 mg per vial" },
-      { label: "60mg", price: "$240", content: "60 mg per vial" },
     ],
     molecularData: {
       molecularFormula: "C₂₅₇H₄₀₇N₆₅O₇₂",

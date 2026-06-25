@@ -590,7 +590,6 @@ export default function ProductDetail() {
                   {[
                     { label: "Compound", value: product.name },
                     { label: "Content", value: displayContent },
-                    { label: "Research Cycle", value: product.cycle },
                     { label: "Category", value: product.category },
                     { label: "Price", value: displayPrice },
                   ].map(({ label, value }, i) => (
