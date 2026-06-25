@@ -11,6 +11,7 @@ export interface MolecularData {
   molecularFormula?: string;
   molecularWeight?: string;
   casNumber?: string;
+  pubchemCid?: string;
   sequence?: string;
   purity?: string;
   storage?: string;
@@ -105,6 +106,16 @@ export const products: Product[] = [
     ],
     price: "$100",
     badge: "Longevity",
+    molecularData: {
+      molecularFormula: "C21H27N7O14P2",
+      molecularWeight: "663.4 g/mol",
+      casNumber: "53-84-9",
+      pubchemCid: "5892",
+      sequence: "N/A — coenzyme (non-peptide)",
+      purity: "≥99% (HPLC)",
+      storage: "Lyophilized: −20°C. Reconstituted: 2–8°C, use within 28 days.",
+      form: "Lyophilized powder",
+    },
   },
   {
     id: "bpc157-tb500-wolverine",
@@ -133,6 +144,16 @@ export const products: Product[] = [
     ],
     price: "$100",
     badge: "Stack",
+    molecularData: {
+      molecularFormula: "C62H98N16O22",
+      molecularWeight: "1419.5 g/mol",
+      casNumber: "137525-51-0",
+      pubchemCid: "9941957",
+      sequence: "Gly-Glu-Pro-Pro-Pro-Gly-Lys-Pro-Ala-Asp-Asp-Ala-Gly-Leu-Val",
+      purity: "≥99% (HPLC)",
+      storage: "Lyophilized: −20°C. Reconstituted: 2–8°C, use within 28 days.",
+      form: "Lyophilized powder",
+    },
   },
   {
     id: "ghk-cu-50mg",
@@ -160,6 +181,16 @@ export const products: Product[] = [
     ],
     price: "$80",
     badge: "Regenerative",
+    molecularData: {
+      molecularFormula: "C28H48CuN12O8",
+      molecularWeight: "744.3 g/mol",
+      casNumber: "300801-03-0",
+      pubchemCid: "133697840",
+      sequence: "Glycyl-L-Histidyl-L-Lysine",
+      purity: "≥99% (HPLC)",
+      storage: "Lyophilized: −20°C. Reconstituted: 2–8°C, use within 28 days.",
+      form: "Lyophilized powder",
+    },
   },
   {
     id: "cjc1295-ipamorelin-10mg",
@@ -187,6 +218,16 @@ export const products: Product[] = [
     ],
     price: "$80",
     badge: "Stack",
+    molecularData: {
+      molecularFormula: "CJC-1295: C165H269N47O46 / Ipamorelin: C38H49N9O5",
+      molecularWeight: "CJC-1295: 3647.2 Da / Ipamorelin: 711.9 g/mol",
+      casNumber: "CJC-1295: 446262-90-4 / Ipamorelin: 170851-70-4",
+      pubchemCid: "CJC-1295: 91971820 / Ipamorelin: 9831659",
+      sequence: "Ipamorelin: Aib-His-D-2-Nal-D-Phe-Lys-NH2",
+      purity: "≥99% (HPLC)",
+      storage: "Lyophilized: −20°C. Reconstituted: 2–8°C, use within 28 days.",
+      form: "Lyophilized powder",
+    },
   },
   {
     id: "ghk-cu-bpc157-tb500-glow",
@@ -242,6 +283,16 @@ export const products: Product[] = [
     ],
     price: "$70",
     badge: "Longevity",
+    molecularData: {
+      molecularFormula: "C101H152N28O22S2",
+      molecularWeight: "2174.6 g/mol",
+      casNumber: "1627580-64-6",
+      pubchemCid: "146675088",
+      sequence: "MRWQEMGYIFYPRKLR",
+      purity: "≥99% (HPLC)",
+      storage: "Lyophilized: −20°C. Reconstituted: 2–8°C, use within 28 days.",
+      form: "Lyophilized powder",
+    },
   },
   {
     id: "kisspeptin-10mg",
@@ -268,6 +319,16 @@ export const products: Product[] = [
     ],
     price: "$80",
     badge: "Hormone",
+    molecularData: {
+      molecularFormula: "C63H83N17O14",
+      molecularWeight: "1302.4 g/mol",
+      casNumber: "374675-21-5",
+      pubchemCid: "25240297",
+      sequence: "YNWNSFGLRF",
+      purity: "≥99% (HPLC)",
+      storage: "Lyophilized: −20°C. Reconstituted: 2–8°C, use within 28 days.",
+      form: "Lyophilized powder",
+    },
   },
   {
     id: "semax-10mg",
@@ -294,6 +355,16 @@ export const products: Product[] = [
     ],
     price: "$60",
     badge: "Nootropic",
+    molecularData: {
+      molecularFormula: "C37H51N9O10S",
+      molecularWeight: "813.9 g/mol",
+      casNumber: "80714-61-0",
+      pubchemCid: "9811102",
+      sequence: "Met-Glu-His-Phe-Pro-Gly-Pro (MEHFPGP)",
+      purity: "≥99% (HPLC)",
+      storage: "Lyophilized: −20°C. Reconstituted: 2–8°C, use within 28 days.",
+      form: "Lyophilized powder",
+    },
   },
   {
     id: "sermorelin-10mg",

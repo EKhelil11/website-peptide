@@ -42,10 +42,11 @@ function MolecularTable({ product }: { product: Product }) {
     );
   }
   const rows = [
+    { label: "Sequence", value: md.sequence },
     { label: "Molecular Formula", value: md.molecularFormula },
     { label: "Molecular Weight", value: md.molecularWeight },
+    { label: "PubChem CID", value: md.pubchemCid },
     { label: "CAS Number", value: md.casNumber },
-    { label: "Sequence / Type", value: md.sequence },
     { label: "Purity", value: md.purity },
     { label: "Form", value: md.form },
     { label: "Storage", value: md.storage },

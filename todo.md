@@ -75,3 +75,7 @@
 - [x] Dual CTA buttons: Add to Cart + Buy Now
 - [x] Tabbed description section with molecular data table
 - [x] Related products carousel at bottom
+
+## Molecular Data Population (Peptides Collective)
+- [ ] Scrape Peptides Collective for molecular data on all 10 products
+- [ ] Add Sequence, Molecular Formula, Molecular Weight, PubChem CID, CAS # to all products in products.ts
