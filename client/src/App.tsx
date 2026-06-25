@@ -9,6 +9,8 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import ProductDetail from "./pages/ProductDetail";
+import ResearchAccess from "./pages/ResearchAccess";
+import Shop from "./pages/Shop";
 import AgeVerification from "./components/AgeVerification";
 import FloatingTextButton from "./components/FloatingTextButton";
 
@@ -17,6 +19,8 @@ function Router() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/product/:id" component={ProductDetail} />
+      <Route path="/research-access" component={ResearchAccess} />
+      <Route path="/shop" component={Shop} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>

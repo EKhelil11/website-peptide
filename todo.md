@@ -81,8 +81,8 @@
 - [x] Add Sequence, Molecular Formula, Molecular Weight, PubChem CID, CAS # to all products in products.ts
 
 ## Compliance Login Wall (Peptides Collective Style)
-- [ ] Save checkpoint before compliance login wall changes
-- [ ] Add termsAcceptedAt timestamp field to users table in drizzle schema and push migration
-- [ ] Build registration page with inline scrollable T&C box and acceptance checkbox
-- [ ] Gate product pricing and Add to Cart behind login — show "Login to View Pricing" to unauthenticated visitors
-- [ ] Record timestamped terms acceptance in database on registration
+- [x] Save checkpoint before compliance login wall changes
+- [x] Add termsAcceptedAt timestamp field to users table in drizzle schema and push migration
+- [x] Build registration page with inline scrollable T&C box and acceptance checkbox
+- [x] Gate product pricing and Add to Cart behind login — show "Login to View Pricing" to unauthenticated visitors
+- [x] Record timestamped terms acceptance in database on registration

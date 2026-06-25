@@ -15,6 +15,9 @@ export const users = mysqlTable("users", {
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
   lastSignedIn: timestamp("lastSignedIn").defaultNow().notNull(),
+  // Compliance: timestamped record of Research Use Only terms acceptance
+  termsAcceptedAt: timestamp("termsAcceptedAt"),
+  termsVersion: varchar("termsVersion", { length: 16 }),
   // Extended profile fields for order portal
   phone: varchar("phone", { length: 32 }),
   shippingAddress: text("shippingAddress"),

@@ -132,6 +132,12 @@ export async function getOrderWithItems(orderId: number) {
   return { ...order, items };
 }
 
+export async function acceptTerms(userId: number, termsVersion: string): Promise<void> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  await db.update(users).set({ termsAcceptedAt: new Date(), termsVersion }).where(eq(users.id, userId));
+}
+
 export async function getAllOrders() {
   const db = await getDb();
   if (!db) return [];

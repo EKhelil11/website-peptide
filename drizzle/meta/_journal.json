@@ -8,6 +8,13 @@
       "when": 1782081707991,
       "tag": "0000_yielding_talon",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1782422373832,
+      "tag": "0001_outstanding_black_crow",
+      "breakpoints": true
     }
   ]
 }

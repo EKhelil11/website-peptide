@@ -3,7 +3,8 @@
 // Image carousel | Variant selector | Quantity stepper | Dual CTA | Tabbed description | Molecular data | Related products
 
 import { useState, useEffect } from "react";
-import { useParams, Link } from "wouter";
+import { useParams, Link, useLocation } from "wouter";
+import { useAuth } from "@/_core/hooks/useAuth";
 import {
   ArrowLeft,
   FlaskConical,
@@ -15,6 +16,7 @@ import {
   ChevronRight,
   Minus,
   Plus,
+  Lock,
 } from "lucide-react";
 import { products, type Product } from "@/lib/products";
 
@@ -157,6 +159,9 @@ export default function ProductDetail() {
   const [activeImg, setActiveImg] = useState(0);
   const [selectedVariant, setSelectedVariant] = useState(0);
   const [qty, setQty] = useState(1);
+  const [, navigate] = useLocation();
+  const { isAuthenticated, user } = useAuth();
+  const hasAcceptedTerms = isAuthenticated && Boolean((user as any)?.termsAcceptedAt);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" });
@@ -383,21 +388,32 @@ export default function ProductDetail() {
             {product.tagline}
           </p>
 
-          {/* Price */}
-          <div className="flex items-baseline gap-3">
-            <span
-              className="text-[#00BFFF]"
-              style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "2.8rem", letterSpacing: "0.04em" }}
+          {/* Price — gated behind login */}
+          {hasAcceptedTerms ? (
+            <div className="flex items-baseline gap-3">
+              <span
+                className="text-[#00BFFF]"
+                style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "2.8rem", letterSpacing: "0.04em" }}
+              >
+                {displayPrice}
+              </span>
+              <span
+                className="text-white/35 text-sm"
+                style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
+              >
+                {displayContent}
+              </span>
+            </div>
+          ) : (
+            <button
+              onClick={() => navigate("/research-access")}
+              className="flex items-center gap-2 py-3 px-5 rounded-lg border border-cyan-500/40 text-cyan-400 text-sm tracking-widest uppercase hover:bg-cyan-500/10 hover:border-cyan-400 transition-all duration-200"
+              style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
             >
-              {displayPrice}
-            </span>
-            <span
-              className="text-white/35 text-sm"
-              style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
-            >
-              {displayContent}
-            </span>
-          </div>
+              <Lock size={15} />
+              Login to View Pricing
+            </button>
+          )}
 
           {/* Variant selector */}
           {product.variants && product.variants.length > 1 && (
@@ -459,39 +475,50 @@ export default function ProductDetail() {
             </div>
           </div>
 
-          {/* Dual CTA buttons */}
-          <div className="flex gap-3 flex-wrap">
-            <a href="/#contact" className="flex-1 min-w-[140px]">
-              <button
-                className="w-full flex items-center justify-center gap-2 px-5 py-3.5 rounded-lg font-bold tracking-widest uppercase text-sm transition-all duration-200 hover:scale-[1.02] active:scale-[0.97]"
-                style={{
-                  fontFamily: "'Rajdhani', sans-serif",
-                  fontWeight: 700,
-                  background: "rgba(0,191,255,0.15)",
-                  border: "1.5px solid rgba(0,191,255,0.5)",
-                  color: "#00BFFF",
-                }}
-              >
-                <ShoppingCart size={16} />
-                ADD TO CART
-              </button>
-            </a>
-            <a href="/#contact" className="flex-1 min-w-[140px]">
-              <button
-                className="w-full flex items-center justify-center gap-2 px-5 py-3.5 rounded-lg font-bold tracking-widest uppercase text-sm transition-all duration-200 hover:scale-[1.02] active:scale-[0.97]"
-                style={{
-                  fontFamily: "'Rajdhani', sans-serif",
-                  fontWeight: 700,
-                  background: "linear-gradient(135deg, #00BFFF 0%, #0080FF 100%)",
-                  border: "none",
-                  color: "#000",
-                }}
-              >
-                <Zap size={16} />
-                BUY NOW
-              </button>
-            </a>
-          </div>
+          {/* Dual CTA buttons — gated behind login */}
+          {hasAcceptedTerms ? (
+            <div className="flex gap-3 flex-wrap">
+              <Link href="/shop" className="flex-1 min-w-[140px]">
+                <button
+                  className="w-full flex items-center justify-center gap-2 px-5 py-3.5 rounded-lg font-bold tracking-widest uppercase text-sm transition-all duration-200 hover:scale-[1.02] active:scale-[0.97]"
+                  style={{
+                    fontFamily: "'Rajdhani', sans-serif",
+                    fontWeight: 700,
+                    background: "rgba(0,191,255,0.15)",
+                    border: "1.5px solid rgba(0,191,255,0.5)",
+                    color: "#00BFFF",
+                  }}
+                >
+                  <ShoppingCart size={16} />
+                  ADD TO CART
+                </button>
+              </Link>
+              <Link href="/shop" className="flex-1 min-w-[140px]">
+                <button
+                  className="w-full flex items-center justify-center gap-2 px-5 py-3.5 rounded-lg font-bold tracking-widest uppercase text-sm transition-all duration-200 hover:scale-[1.02] active:scale-[0.97]"
+                  style={{
+                    fontFamily: "'Rajdhani', sans-serif",
+                    fontWeight: 700,
+                    background: "linear-gradient(135deg, #00BFFF 0%, #0080FF 100%)",
+                    border: "none",
+                    color: "#000",
+                  }}
+                >
+                  <Zap size={16} />
+                  BUY NOW
+                </button>
+              </Link>
+            </div>
+          ) : (
+            <button
+              onClick={() => navigate("/research-access")}
+              className="w-full flex items-center justify-center gap-2 py-3.5 rounded-lg border border-cyan-500/40 text-cyan-400 text-sm tracking-widest uppercase hover:bg-cyan-500/10 hover:border-cyan-400 transition-all duration-200"
+              style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
+            >
+              <Lock size={15} />
+              Login to View Pricing & Order
+            </button>
+          )}
 
           {/* Trust signals */}
           <div

@@ -2,9 +2,10 @@
 // Dark card with cyan glow on hover, badge, synopsis, price placeholder
 // CTA: "Inquire" button linking to contact section
 
-import { Link } from "wouter";
-import { ShoppingCart, ArrowRight } from "lucide-react";
+import { Link, useLocation } from "wouter";
+import { ShoppingCart, ArrowRight, Lock } from "lucide-react";
 import type { Product } from "@/lib/products";
+import { useAuth } from "@/_core/hooks/useAuth";
 
 const VIAL_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663765469010/KeqNR4QdNviNNDWK3S7923/peptide-vial-KdSBvv2H7a9bZfeH52wPjY.webp";
 
@@ -15,6 +16,13 @@ interface ProductCardProps {
 
 export default function ProductCard({ product, index }: ProductCardProps) {
   const animationDelay = `${index * 80}ms`;
+  const [, navigate] = useLocation();
+  const { isAuthenticated, user } = useAuth();
+  const hasAcceptedTerms = isAuthenticated && Boolean((user as any)?.termsAcceptedAt);
+
+  const handleLoginGate = () => {
+    navigate("/research-access");
+  };
 
   return (
     <div
@@ -121,51 +129,49 @@ export default function ProductCard({ product, index }: ProductCardProps) {
 
         {/* Divider */}
         <div className="border-t border-white/8 pt-4 mt-auto">
-          <div className="flex items-center justify-between">
-            {/* Price */}
-            <div>
-              {product.price ? (
-                <span
-                  className="text-[#00BFFF]"
-                  style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.4rem" }}
-                >
-                  {product.price}
-                </span>
-              ) : (
-                <div>
+          {hasAcceptedTerms ? (
+            /* Authenticated + terms accepted: show real price and Add to Cart */
+            <div className="flex items-center justify-between">
+              <div>
+                {product.price ? (
                   <span
-                    className="text-white/30 text-xs tracking-widest uppercase"
-                    style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
+                    className="text-[#00BFFF]"
+                    style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.4rem" }}
                   >
-                    Price
+                    {product.price}
                   </span>
-                  <div
-                    className="text-white/50 text-sm"
-                    style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
-                  >
+                ) : (
+                  <span className="text-white/30 text-xs tracking-widest uppercase"
+                    style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}>
                     Coming Soon
-                  </div>
-                </div>
+                  </span>
+                )}
+              </div>
+              {product.price ? (
+                <Link href={`/product/${product.id}`}>
+                  <button className="btn-primary flex items-center gap-2 px-4 py-2 rounded text-xs">
+                    <ShoppingCart size={14} />
+                    Add to Cart
+                  </button>
+                </Link>
+              ) : (
+                <span className="text-white/30 text-xs tracking-widest uppercase"
+                  style={{ fontFamily: "'Rajdhani', sans-serif" }}>
+                  Coming Soon
+                </span>
               )}
             </div>
-
-            {/* CTA — Inquire */}
-            {product.price ? (
-              <a href="/#contact">
-                <button className="btn-primary flex items-center gap-2 px-4 py-2 rounded text-xs">
-                  <ShoppingCart size={14} />
-                  Inquire
-                </button>
-              </a>
-            ) : (
-              <span
-                className="text-white/30 text-xs tracking-widest uppercase"
-                style={{ fontFamily: "'Rajdhani', sans-serif" }}
-              >
-                Coming Soon
-              </span>
-            )}
-          </div>
+          ) : (
+            /* Unauthenticated or terms not accepted: show login gate */
+            <button
+              onClick={handleLoginGate}
+              className="w-full flex items-center justify-center gap-2 py-2.5 rounded border border-cyan-500/40 text-cyan-400 text-xs tracking-widest uppercase hover:bg-cyan-500/10 hover:border-cyan-400 transition-all duration-200"
+              style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
+            >
+              <Lock size={13} />
+              Login to View Pricing
+            </button>
+          )}
         </div>
       </div>
     </div>
