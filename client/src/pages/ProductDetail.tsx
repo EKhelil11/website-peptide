@@ -245,8 +245,10 @@ export default function ProductDetail() {
         <div className="space-y-4">
           {/* Main image */}
           <div
-            className="relative w-full rounded-2xl overflow-hidden aspect-square"
+            className="relative rounded-2xl overflow-hidden aspect-square"
             style={{
+              maxWidth: '75%',
+              margin: '0 auto',
               background: "oklch(0.18 0.07 240)",
               border: "1px solid oklch(0.4 0.15 220 / 0.25)",
               boxShadow: "0 0 60px oklch(0.6 0.18 220 / 0.2)",
