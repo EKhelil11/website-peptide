@@ -25,24 +25,24 @@ export const products: Product[] = [
   {
     id: "retatrutide-30mg",
     name: "Retatrutide",
-    dose: "20–40 units/week",
+    dose: "Research model dosing varies — see literature",
     cycle: "6–7 week cycle",
     content: "30 mg per vial",
-    category: "Weight Loss",
+    category: "GLP / Metabolic",
     isStack: false,
-    tagline: "Triple-receptor metabolic research compound",
+    tagline: "Tri-agonist peptide for multi-pathway metabolic research",
     synopsis:
-      "Triple-hormone receptor agonist studied for metabolic regulation, adipose tissue reduction, and glycemic control in research models.",
+      "Tri-agonist peptide studied for coordinated metabolic signaling, energy regulation, and glycemic pathway research in laboratory models.",
     plainEnglish:
-      "Retatrutide is one of the most advanced metabolic research peptides available, designed to simultaneously engage three hormone receptor pathways. While GLP-1 agonists have been widely studied, Retatrutide extends this research by also targeting GIP and glucagon receptors. This triple-receptor approach makes it a significant subject of investigation for metabolic research, adipose regulation, and energy homeostasis studies.",
+      "Retatrutide is one of the most advanced metabolic research peptides available, designed to simultaneously engage three hormone receptor pathways. While GLP-1 agonists have been widely studied, Retatrutide extends this research by also targeting GIP and glucagon receptors. This tri-agonist profile makes it a significant subject of investigation in experimental models focused on integrated metabolic signaling, energy balance, and multi-pathway metabolic coordination.",
     howItWorks:
-      "Retatrutide activates three hormone receptors simultaneously: GLP-1 (which modulates appetite signaling and gastric motility), GIP (which influences insulin response and lipid metabolism), and glucagon (which drives lipolysis and energy expenditure). This combination produces a multifaceted metabolic effect studied in the context of obesity research, type 2 diabetes models, and energy balance regulation.",
+      "Retatrutide activates three hormone receptors simultaneously: GLP-1 (which modulates nutrient handling and gastric motility), GIP (which influences insulin response and lipid metabolism), and glucagon (which drives energy expenditure and fatty acid oxidation). This combination produces a multifaceted metabolic signaling effect studied in the context of metabolic syndrome research, glycemic pathway models, and system-wide energy regulation.",
     whoIsItFor:
-      "Research applications include metabolic syndrome studies, obesity pharmacology, glycemic control research, and investigations into multi-receptor agonism for adipose tissue regulation. For use by qualified researchers in laboratory settings only.",
+      "Research applications include metabolic syndrome studies, multi-receptor agonism pharmacology, glycemic pathway research, and investigations into coordinated metabolic signaling across GLP-1, GIP, and glucagon receptor systems. For use by qualified researchers in laboratory settings only.",
     benefits: [
-      "Triple-receptor agonism — GLP-1, GIP, and glucagon pathways",
-      "Studied for adipose tissue reduction in research models",
-      "Appetite signaling modulation in preclinical studies",
+      "Tri-agonist receptor engagement — GLP-1, GIP, and glucagon pathways",
+      "Coordinated metabolic signaling and energy regulation research",
+      "Nutrient handling and gastric motility modulation in preclinical studies",
       "Glycemic control and insulin response research",
       "Energy expenditure and lipolysis pathway investigation",
     ],
@@ -313,7 +313,7 @@ export const products: Product[] = [
 
 export const categories = [
   "All",
-  "Weight Loss",
+  "GLP / Metabolic",
   "Cellular Health",
   "Recovery",
   "Anti-Aging",

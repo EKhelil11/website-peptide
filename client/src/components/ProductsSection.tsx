@@ -11,8 +11,7 @@ const PRODUCT_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663765469010/Keq
 
 const filterTabs = [
   { label: "All", value: "All" },
-  { label: "Weight Loss", value: "Weight Loss" },
-  { label: "Metabolic", value: "Metabolic" },
+  { label: "GLP / Metabolic", value: "GLP / Metabolic" },
   { label: "Longevity", value: "Longevity" },
   { label: "Recovery", value: "Recovery" },
   { label: "Cellular Health", value: "Cellular Health" },

@@ -48,3 +48,8 @@
 ## About Section Enhancement
 - [x] Generate warm collaborative scientist team image (Option 2)
 - [x] Implement image in About Our Research section with split layout
+
+## GLP Product Description Compliance Update
+- [x] Audit all GLP product descriptions for non-compliant language (weight loss, weight reduction, human use)
+- [x] Rewrite all GLP product descriptions with compliant metabolic signaling / energy regulation language
+- [x] Add standard research-use-only disclaimer block to all GLP product pages
