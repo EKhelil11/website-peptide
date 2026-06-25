@@ -61,3 +61,17 @@
 - [x] Remap all product categories to: GLP, Metabolics, Peptides, Blends
 - [x] Update ProductsSection.tsx filter tabs to: All / GLP / Metabolics / Peptides / Blends
 - [x] Update categories array in products.ts to match new tab structure
+
+## GLP Full Wording Overhaul (Peptides Collective Approved Language)
+- [x] Replace all "appetite suppression" language with peptide-mediated endocrine communication wording
+- [x] Replace all GLP-1 agonist weight reduction language with tri-agonist multi-receptor research wording
+- [x] Add verbatim Peptides Collective disclaimer block to all GLP product descriptions
+
+## Product Detail Page Rebuild (Peptides Collective Style)
+- [x] Two-column layout: image left, details right
+- [x] Thumbnail image carousel
+- [x] Size/variant selector dropdown
+- [x] Quantity stepper (+/-)
+- [x] Dual CTA buttons: Add to Cart + Buy Now
+- [x] Tabbed description section with molecular data table
+- [x] Related products carousel at bottom
