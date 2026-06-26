@@ -96,3 +96,8 @@
 - [x] Register all three routes in App.tsx
 - [x] Add Legal section to main site footer with links to all three policy pages
 - [x] Update footer copyright to La Elits Sales LLC
+
+## Custom Vial Product Images
+- [x] Generate white-background vial images with La Elite Peptides label for all 10 products
+- [x] Upload all 10 vial images to webdev static assets
+- [x] Update products.ts with new image URLs for all 10 products
