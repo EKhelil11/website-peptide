@@ -86,3 +86,13 @@
 - [x] Build registration page with inline scrollable T&C box and acceptance checkbox
 - [x] Gate product pricing and Add to Cart behind login — show "Login to View Pricing" to unauthenticated visitors
 - [x] Record timestamped terms acceptance in database on registration
+
+## Policy Pages (Live on Site)
+- [x] Update policy documents with legal entity name La Elits Sales LLC
+- [x] Update policy documents with phone number (310) 929-0403
+- [x] Build /terms page (Terms & Conditions)
+- [x] Build /shipping-returns page (Shipping & Returns Policy)
+- [x] Build /privacy-policy page (Privacy Policy)
+- [x] Register all three routes in App.tsx
+- [x] Add Legal section to main site footer with links to all three policy pages
+- [x] Update footer copyright to La Elits Sales LLC

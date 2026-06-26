@@ -3,6 +3,7 @@
 // Contact form wired to Formspree → forwards to Support@laelitepeps.com
 
 import { useState } from "react";
+import { Link } from "wouter";
 import { Mail, MapPin, Instagram, Phone, CheckCircle } from "lucide-react";
 
 const LOGO_URL = "/manus-storage/elite-la-peptides-logo_e9ec855c.png";
@@ -329,6 +330,33 @@ export default function Footer() {
               </ul>
             </div>
 
+            {/* Legal links */}
+            <div>
+              <h5
+                className="text-white/70 text-xs tracking-widest uppercase mb-4"
+                style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
+              >
+                Legal
+              </h5>
+              <ul className="space-y-2">
+                <li>
+                  <Link href="/terms">
+                    <span className="text-white/40 text-sm hover:text-[#00BFFF] transition-colors cursor-pointer" style={{ fontFamily: "'Inter', sans-serif" }}>Terms &amp; Conditions</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/shipping-returns">
+                    <span className="text-white/40 text-sm hover:text-[#00BFFF] transition-colors cursor-pointer" style={{ fontFamily: "'Inter', sans-serif" }}>Shipping &amp; Returns</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/privacy-policy">
+                    <span className="text-white/40 text-sm hover:text-[#00BFFF] transition-colors cursor-pointer" style={{ fontFamily: "'Inter', sans-serif" }}>Privacy Policy</span>
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
             {/* Disclaimer */}
             <div>
               <h5
@@ -355,7 +383,7 @@ export default function Footer() {
               className="text-white/25 text-xs"
               style={{ fontFamily: "'Inter', sans-serif" }}
             >
-              © {new Date().getFullYear()} LA Elite Peptides. All rights reserved.
+              © {new Date().getFullYear()} La Elits Sales LLC. All rights reserved. Operating as La Elite Peptides.
             </p>
             <div className="flex items-center gap-2">
               <div className="h-px w-8 bg-[#00BFFF]/30" />

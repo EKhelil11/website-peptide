@@ -13,6 +13,9 @@ import ResearchAccess from "./pages/ResearchAccess";
 import Shop from "./pages/Shop";
 import AgeVerification from "./components/AgeVerification";
 import FloatingTextButton from "./components/FloatingTextButton";
+import TermsPage from "./pages/TermsPage";
+import ShippingReturnsPage from "./pages/ShippingReturnsPage";
+import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 
 function Router() {
   return (
@@ -21,6 +24,9 @@ function Router() {
       <Route path="/product/:id" component={ProductDetail} />
       <Route path="/research-access" component={ResearchAccess} />
       <Route path="/shop" component={Shop} />
+      <Route path="/terms" component={TermsPage} />
+      <Route path="/shipping-returns" component={ShippingReturnsPage} />
+      <Route path="/privacy-policy" component={PrivacyPolicyPage} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>
