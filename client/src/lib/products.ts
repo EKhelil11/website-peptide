@@ -66,7 +66,7 @@ export const products: Product[] = [
     ],
     price: "$140",
     badge: "Advanced",
-    images: ["/manus-storage/vial_retatrutide_e37d06b1.png"],
+    images: ["/manus-storage/vial_v3_retatrutide_5f0ad783.png"],
     variants: [
       { label: "30mg", price: "$140", content: "30 mg per vial" },
     ],
@@ -108,7 +108,7 @@ export const products: Product[] = [
     ],
     price: "$100",
     badge: "Longevity",
-    images: ["/manus-storage/vial_nad_f21f417e.png"],
+    images: ["/manus-storage/vial_v3_nad_bee40352.png"],
     molecularData: {
       molecularFormula: "C21H27N7O14P2",
       molecularWeight: "663.4 g/mol",
@@ -147,7 +147,7 @@ export const products: Product[] = [
     ],
     price: "$100",
     badge: "Stack",
-    images: ["/manus-storage/vial_bpc_tb_fbe6e96d.png"],
+    images: ["/manus-storage/vial_v3_bpc_tb_77531443.png"],
     molecularData: {
       molecularFormula: "C62H98N16O22",
       molecularWeight: "1419.5 g/mol",
@@ -185,7 +185,7 @@ export const products: Product[] = [
     ],
     price: "$80",
     badge: "Regenerative",
-    images: ["/manus-storage/vial_ghk_cu_2673891d.png"],
+    images: ["/manus-storage/vial_v3_ghk_cu_3843c407.png"],
     molecularData: {
       molecularFormula: "C28H48CuN12O8",
       molecularWeight: "744.3 g/mol",
@@ -223,7 +223,7 @@ export const products: Product[] = [
     ],
     price: "$80",
     badge: "Stack",
-    images: ["/manus-storage/vial_cjc_ipa_372d7773.png"],
+    images: ["/manus-storage/vial_v3_cjc_ipa_1e463f0f.png"],
     molecularData: {
       molecularFormula: "CJC-1295: C165H269N47O46 / Ipamorelin: C38H49N9O5",
       molecularWeight: "CJC-1295: 3647.2 Da / Ipamorelin: 711.9 g/mol",
@@ -263,7 +263,7 @@ export const products: Product[] = [
     ],
     price: "$120",
     badge: "Signature Stack",
-    images: ["/manus-storage/vial_glow_3bdc46ac.png"],
+    images: ["/manus-storage/vial_v3_glow_07c7b905.png"],
     molecularData: {
       sequence: "BPC-157: H-Gly-Glu-Pro-Pro-Pro-Gly-Lys-Pro-Ala-Asp-Asp-Ala-Gly-Leu-Val-OH | TB-500: Ac-Ser-Asp-Lys-Pro-Asp-Met-Ala-Glu-Ile-Glu-Lys-Phe-Asp-Lys-Ser-Lys-Leu-Lys-Lys-Thr-Glu-Thr-Glu-Lys-Asp-Lys-OH | GHK-Cu: Gly-His-Lys complexed with Cu²⁺",
       molecularFormula: "C₂₂₂H₃₇₉N₆₉O₁₂₄S₁Cu₁ (combined range)",
@@ -300,7 +300,7 @@ export const products: Product[] = [
     ],
     price: "$70",
     badge: "Longevity",
-    images: ["/manus-storage/vial_mots_c_e020d873.png"],
+    images: ["/manus-storage/vial_v3_mots_c_b0f92997.png"],
     molecularData: {
       molecularFormula: "C101H152N28O22S2",
       molecularWeight: "2174.6 g/mol",
@@ -337,7 +337,7 @@ export const products: Product[] = [
     ],
     price: "$80",
     badge: "Hormone",
-    images: ["/manus-storage/vial_kisspeptin_e6e85241.png"],
+    images: ["/manus-storage/vial_v3_kisspeptin_81f0724b.png"],
     molecularData: {
       molecularFormula: "C63H83N17O14",
       molecularWeight: "1302.4 g/mol",
@@ -374,7 +374,7 @@ export const products: Product[] = [
     ],
     price: "$60",
     badge: "Nootropic",
-    images: ["/manus-storage/vial_semax_aa7d567d.png"],
+    images: ["/manus-storage/vial_v3_semax_8e8e469f.png"],
     molecularData: {
       molecularFormula: "C37H51N9O10S",
       molecularWeight: "813.9 g/mol",
@@ -412,7 +412,7 @@ export const products: Product[] = [
     ],
     price: "$75",
     badge: "Hormone",
-    images: ["/manus-storage/vial_sermorelin_fb10ae82.png"],
+    images: ["/manus-storage/vial_v3_sermorelin_a3094784.png"],
     molecularData: {
       sequence: "Tyr-Ala-Asp-Ala-Ile-Phe-Thr-Asn-Ser-Tyr-Arg-Lys-Val-Leu-Gly-Gln-Leu-Ser-Ala-Arg-Lys-Leu-Leu-Gln-Asp-Ile-Met-Ser-Arg-NH₂",
       molecularFormula: "C₁₄₉H₂₄₆N₄₄O₄₂S",
