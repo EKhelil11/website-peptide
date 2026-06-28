@@ -5,7 +5,7 @@
 import { Resend } from "resend";
 import { ENV } from "./_core/env";
 
-const FROM_ADDRESS = "La Elite Peptides <onboarding@resend.dev>";
+const FROM_ADDRESS = "La Elite Peptides <noreply@laelitepeps.com>";
 const TO_ADDRESS = "support@laelitepeps.com";
 
 function getResend(): Resend | null {
