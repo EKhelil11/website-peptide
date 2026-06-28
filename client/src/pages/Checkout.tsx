@@ -587,7 +587,7 @@ export default function Checkout() {
                   <ShoppingBag size={20} style={{ color: "oklch(0.72 0.18 210)", flexShrink: 0 }} />
                   <div>
                     <p className="text-white font-bold text-base uppercase tracking-widest" style={{ fontFamily: "'Rajdhani', sans-serif" }}>Payment via Zelle</p>
-                    <p className="text-white/70 font-semibold text-base" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}>Send to {ZELLE_PHONE} after ordering</p>
+                    <p className="text-white/70 font-semibold text-base" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}>Send to {ZELLE_PHONE} after ordering. Any orders placed after 8 p.m. will be processed the next day.</p>
                   </div>
                 </div>
                 <div
