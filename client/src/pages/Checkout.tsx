@@ -54,9 +54,9 @@ export default function Checkout() {
         shipEmail: prev.shipEmail || user.email || "",
       }));
     }
-    // Redirect to shop if cart is empty (and not loading)
+    // Redirect to homepage products if cart is empty (and not loading)
     if (!loading && user && cart.length === 0 && !submitted) {
-      setLocation("/shop");
+      setLocation("/#products");
     }
   }, [user, loading, cart.length, submitted]);
 
@@ -312,7 +312,7 @@ export default function Checkout() {
                 My Orders
               </button>
               <button
-                onClick={() => setLocation("/shop")}
+                onClick={() => setLocation("/#products")}
                 className="flex-1 py-2.5 rounded-lg text-sm font-bold tracking-widest uppercase transition-all hover:opacity-90"
                 style={{
                   background: "linear-gradient(135deg, oklch(0.6 0.27 0), oklch(0.55 0.25 355))",
@@ -342,7 +342,7 @@ export default function Checkout() {
         }}
       >
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center gap-4">
-          <button onClick={() => setLocation("/shop")} className="text-white/50 hover:text-[#00BFFF] transition-colors">
+          <button onClick={() => window.history.back()} className="text-white/50 hover:text-[#00BFFF] transition-colors">
             <ArrowLeft size={20} />
           </button>
           <img src={LOGO_URL} alt="LA Elite Peptides" className="h-9 w-auto" />

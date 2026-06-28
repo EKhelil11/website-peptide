@@ -10,7 +10,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import ProductDetail from "./pages/ProductDetail";
 import ResearchAccess from "./pages/ResearchAccess";
-import Shop from "./pages/Shop";
+import { Redirect } from "wouter";
 import AgeVerification from "./components/AgeVerification";
 import FloatingTextButton from "./components/FloatingTextButton";
 import FloatingCart from "./components/FloatingCart";
@@ -28,7 +28,7 @@ function Router() {
       <Route path="/" component={Home} />
       <Route path="/product/:id" component={ProductDetail} />
       <Route path="/research-access" component={ResearchAccess} />
-      <Route path="/shop" component={Shop} />
+      <Route path="/shop"><Redirect to="/#products" /></Route>
       <Route path="/terms" component={TermsPage} />
       <Route path="/shipping-returns" component={ShippingReturnsPage} />
       <Route path="/privacy-policy" component={PrivacyPolicyPage} />
