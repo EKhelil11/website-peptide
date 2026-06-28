@@ -114,4 +114,4 @@
 - [x] Admin mark paid: notes input + green confirm button per order
 - [x] Admin route guard: only role=admin can access /admin
 - [x] Routes registered in App.tsx: /checkout, /account, /admin
-- [ ] Promote owner account to admin role in database (manual step — see instructions below)
+- [x] Promote owner account to admin role in database
