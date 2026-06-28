@@ -247,15 +247,14 @@ export default function ProductDetail() {
             className="h-10 w-auto"
           />
         </Link>
-        <Link href="/#products">
-          <button
+        <button
+            onClick={() => { navigate('/'); setTimeout(() => { document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' }); }, 150); }}
             className="flex items-center gap-2 text-white/60 hover:text-[#00BFFF] transition-colors text-sm"
             style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600, letterSpacing: "0.08em" }}
           >
             <ArrowLeft size={16} />
             BACK TO PRODUCTS
           </button>
-        </Link>
       </nav>
 
       {/* ── Breadcrumb ── */}
