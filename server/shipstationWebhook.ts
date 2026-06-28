@@ -1,5 +1,6 @@
 import { Express } from "express";
-import { updateOrderShipStation, getPaidOrdersWithItems } from "./db";
+import { updateOrderShipStation, getPaidOrdersWithItems, getOrderByNumber } from "./db";
+import { sendShippingConfirmationEmail } from "./email";
 
 // Escape special XML characters to prevent malformed XML
 function escapeXml(str: string): string {
@@ -142,11 +143,37 @@ export function registerShipStationWebhook(app: Express) {
             const service = shipment?.serviceCode;
 
             if (orderNumber && trackingNumber) {
-              // Try numeric ID first, then orderNumber string
-              const numericId = parseInt(orderNumber, 10);
-              if (!isNaN(numericId)) {
-                await updateOrderShipStation(numericId, shipstationOrderId, trackingNumber, carrier, service);
-                console.log(`[ShipStation] Updated order #${numericId} with tracking: ${trackingNumber}`);
+              // Look up order by orderNumber (LAP-XXXXX format) to get customer details
+              const orderRecord = await getOrderByNumber(orderNumber);
+              if (orderRecord) {
+                await updateOrderShipStation(orderRecord.id, shipstationOrderId, trackingNumber, carrier, service);
+                console.log(`[ShipStation] Updated order ${orderNumber} (#${orderRecord.id}) with tracking: ${trackingNumber}`);
+
+                // Send shipping confirmation email to the customer
+                if (orderRecord.shipEmail) {
+                  await sendShippingConfirmationEmail({
+                    orderNumber,
+                    customerName: orderRecord.shipName ?? "Valued Customer",
+                    customerEmail: orderRecord.shipEmail,
+                    trackingNumber,
+                    carrier,
+                    service,
+                    shipCity: orderRecord.shipCity ?? "",
+                    shipState: orderRecord.shipState ?? "",
+                    shipZip: orderRecord.shipZip ?? "",
+                    items: orderRecord.items.map(i => ({
+                      name: i.productName + (i.variantLabel ? ` (${i.variantLabel})` : ""),
+                      quantity: i.quantity,
+                    })),
+                  }).catch(err => console.warn("[ShipStation] Failed to send shipping email:", err));
+                }
+              } else {
+                // Fallback: try numeric ID for legacy orders
+                const numericId = parseInt(orderNumber, 10);
+                if (!isNaN(numericId)) {
+                  await updateOrderShipStation(numericId, shipstationOrderId, trackingNumber, carrier, service);
+                  console.log(`[ShipStation] Updated order #${numericId} with tracking: ${trackingNumber}`);
+                }
               }
             }
           }

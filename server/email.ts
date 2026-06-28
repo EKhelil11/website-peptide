@@ -351,3 +351,148 @@ export async function sendCustomerOrderConfirmation(params: NewOrderEmailParams)
     console.warn("[Email] Failed to send customer confirmation email:", err);
   }
 }
+
+// ─── Shipping Confirmation Email ────────────────────────────────────────────
+
+export interface ShippingConfirmationEmailParams {
+  orderNumber: string;
+  customerName: string;
+  customerEmail: string;
+  trackingNumber: string;
+  carrier?: string;
+  service?: string;
+  shipCity: string;
+  shipState: string;
+  shipZip: string;
+  items: Array<{ name: string; quantity: number }>;
+}
+
+function getTrackingUrl(carrier: string | undefined, trackingNumber: string): string {
+  const c = (carrier || "").toLowerCase();
+  if (c.includes("ups")) return `https://www.ups.com/track?tracknum=${trackingNumber}`;
+  if (c.includes("fedex")) return `https://www.fedex.com/fedextrack/?tracknumbers=${trackingNumber}`;
+  if (c.includes("usps") || c.includes("stamps")) return `https://tools.usps.com/go/TrackConfirmAction?tLabels=${trackingNumber}`;
+  if (c.includes("dhl")) return `https://www.dhl.com/us-en/home/tracking.html?tracking-id=${trackingNumber}`;
+  // Generic fallback — 17track covers most carriers
+  return `https://t.17track.net/en#nums=${trackingNumber}`;
+}
+
+function formatCarrierName(carrier: string | undefined): string {
+  if (!carrier) return "Carrier";
+  const c = carrier.toLowerCase();
+  if (c.includes("ups")) return "UPS";
+  if (c.includes("fedex")) return "FedEx";
+  if (c.includes("usps") || c.includes("stamps")) return "USPS";
+  if (c.includes("dhl")) return "DHL";
+  return carrier.toUpperCase();
+}
+
+export async function sendShippingConfirmationEmail(params: ShippingConfirmationEmailParams): Promise<void> {
+  const resend = getResend();
+  if (!resend) {
+    console.warn("[Email] RESEND_API_KEY not set — skipping shipping confirmation email");
+    return;
+  }
+
+  const trackingUrl = getTrackingUrl(params.carrier, params.trackingNumber);
+  const carrierName = formatCarrierName(params.carrier);
+
+  const itemsHtml = params.items
+    .map(
+      (item) =>
+        `<tr>
+          <td style="padding:6px 12px;border-bottom:1px solid #e5e7eb;font-size:14px;color:#374151;">${item.name}</td>
+          <td style="padding:6px 12px;border-bottom:1px solid #e5e7eb;text-align:center;font-size:14px;color:#374151;">${item.quantity}</td>
+        </tr>`
+    )
+    .join("");
+
+  const html = `
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="font-family:Arial,sans-serif;background:#f3f4f6;margin:0;padding:20px;">
+  <div style="max-width:600px;margin:0 auto;background:#ffffff;border-radius:8px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.1);">
+
+    <!-- Header -->
+    <div style="background:#0f172a;padding:28px 32px;text-align:center;">
+      <h1 style="color:#06b6d4;font-size:24px;margin:0;letter-spacing:3px;font-weight:900;">LA ELITE PEPTIDES</h1>
+      <p style="color:#94a3b8;margin:6px 0 0;font-size:13px;letter-spacing:1px;">ADVANCED PEPTIDE RESEARCH</p>
+    </div>
+
+    <!-- Shipped Banner -->
+    <div style="background:#0f172a;border-bottom:3px solid #06b6d4;padding:24px 32px;text-align:center;">
+      <p style="font-size:32px;margin:0;">📦</p>
+      <h2 style="color:#ffffff;font-size:22px;margin:8px 0 4px;letter-spacing:1px;">Your Order Has Shipped!</h2>
+      <p style="color:#94a3b8;margin:0;font-size:14px;">Order ${params.orderNumber} is on its way to you.</p>
+    </div>
+
+    <!-- Body -->
+    <div style="padding:32px;">
+
+      <!-- Tracking Box -->
+      <div style="background:#f0f9ff;border:2px solid #06b6d4;border-radius:8px;padding:24px;margin-bottom:28px;text-align:center;">
+        <p style="margin:0 0 4px;font-size:12px;text-transform:uppercase;letter-spacing:1px;color:#6b7280;">${carrierName} Tracking Number</p>
+        <p style="margin:0 0 16px;font-size:22px;font-weight:900;color:#0f172a;font-family:monospace;letter-spacing:2px;">${params.trackingNumber}</p>
+        <a href="${trackingUrl}" style="display:inline-block;background:#06b6d4;color:#ffffff;font-weight:700;font-size:14px;padding:12px 28px;border-radius:6px;text-decoration:none;letter-spacing:1px;">TRACK MY ORDER →</a>
+      </div>
+
+      <!-- Delivery Estimate -->
+      <div style="background:#f8fafc;border-radius:6px;padding:16px 20px;margin-bottom:28px;display:flex;align-items:center;">
+        <div>
+          <p style="margin:0 0 2px;font-size:13px;font-weight:600;color:#374151;">Estimated Delivery</p>
+          <p style="margin:0;font-size:13px;color:#6b7280;">3–5 business days · Nationwide shipping</p>
+        </div>
+      </div>
+
+      <!-- Shipping To -->
+      <h3 style="font-size:12px;text-transform:uppercase;letter-spacing:1px;color:#6b7280;margin:0 0 8px;">Shipping To</h3>
+      <p style="font-size:14px;color:#374151;margin:0 0 2px;">${params.customerName}</p>
+      <p style="font-size:14px;color:#6b7280;margin:0 0 24px;">${params.shipCity}, ${params.shipState} ${params.shipZip}</p>
+
+      <!-- Items -->
+      <h3 style="font-size:12px;text-transform:uppercase;letter-spacing:1px;color:#6b7280;margin:0 0 10px;">Items Shipped</h3>
+      <table style="width:100%;border-collapse:collapse;margin-bottom:28px;">
+        <thead>
+          <tr style="background:#f8fafc;">
+            <th style="padding:8px 12px;text-align:left;font-size:12px;font-weight:600;color:#6b7280;border-bottom:2px solid #e5e7eb;">Product</th>
+            <th style="padding:8px 12px;text-align:center;font-size:12px;font-weight:600;color:#6b7280;border-bottom:2px solid #e5e7eb;">Qty</th>
+          </tr>
+        </thead>
+        <tbody>${itemsHtml}</tbody>
+      </table>
+
+      <!-- Help -->
+      <div style="background:#f8fafc;border-radius:6px;padding:16px 20px;font-size:13px;color:#374151;">
+        <p style="margin:0 0 6px;font-weight:600;color:#0f172a;">Questions about your shipment?</p>
+        <p style="margin:0;color:#6b7280;">Reply to this email or contact us at <a href="mailto:support@laelitepeps.com" style="color:#06b6d4;text-decoration:none;">support@laelitepeps.com</a> or <strong>(310) 975-9289</strong>.</p>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div style="background:#0f172a;padding:20px 32px;text-align:center;">
+      <p style="margin:0 0 4px;font-size:12px;color:#94a3b8;">La Elite Peptides · <a href="mailto:support@laelitepeps.com" style="color:#06b6d4;text-decoration:none;">support@laelitepeps.com</a> · (310) 975-9289</p>
+      <p style="margin:0;font-size:11px;color:#475569;">For research use only</p>
+    </div>
+  </div>
+</body>
+</html>`;
+
+  try {
+    const { error } = await resend.emails.send({
+      from: FROM_ADDRESS,
+      to: params.customerEmail,
+      replyTo: "support@laelitepeps.com",
+      subject: `Your Order ${params.orderNumber} Has Shipped! 📦 — La Elite Peptides`,
+      html,
+    });
+
+    if (error) {
+      console.warn("[Email] Resend error sending shipping confirmation:", error);
+    } else {
+      console.log(`[Email] Shipping confirmation sent to ${params.customerEmail} for ${params.orderNumber}`);
+    }
+  } catch (err) {
+    console.warn("[Email] Failed to send shipping confirmation email:", err);
+  }
+}
