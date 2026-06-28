@@ -11,6 +11,7 @@ import {
   getOrderStats,
 } from "./db";
 import { notifyOwner } from "./_core/notification";
+import { sendNewOrderEmail, sendPaymentConfirmedEmail } from "./email";
 
 const TAX_RATE = 0.09;       // 9% flat
 const SHIPPING_CENTS = 700;  // $7.00 flat
@@ -89,6 +90,28 @@ export const orderRouter = router({
         content: `Order: ${orderNumber}\nCustomer: ${input.shipName} (${input.shipEmail})\nPhone: ${input.shipPhone || "N/A"}\nShip to: ${input.shipAddress}, ${input.shipCity}, ${input.shipState} ${input.shipZip}\n\nItems:\n${itemsSummary}\n\nSubtotal: $${(subtotalCents / 100).toFixed(2)}\nShipping: $${(SHIPPING_CENTS / 100).toFixed(2)}\nTax (9%): $${(taxCents / 100).toFixed(2)}\nTotal: $${(totalCents / 100).toFixed(2)}\n\nZelle: (310) 975-9289 — Memo: ${orderNumber}`,
       }).catch(() => {});
 
+      // Send rich HTML email to support@laelitepeps.com via Resend
+      await sendNewOrderEmail({
+        orderNumber,
+        customerName: input.shipName,
+        customerEmail: input.shipEmail,
+        customerPhone: input.shipPhone,
+        shipAddress: input.shipAddress,
+        shipAddress2: input.shipAddress2,
+        shipCity: input.shipCity,
+        shipState: input.shipState,
+        shipZip: input.shipZip,
+        items: input.items.map(i => ({
+          name: i.productName + (i.variantLabel ? ` (${i.variantLabel})` : ""),
+          quantity: i.quantity,
+          unitPrice: Math.round(i.unitPrice * 100),
+        })),
+        subtotalCents,
+        shippingCents: SHIPPING_CENTS,
+        taxCents,
+        totalCents,
+      }).catch(() => {});
+
       return { orderId, orderNumber, totalCents, success: true };
     }),
 
@@ -140,12 +163,19 @@ export const orderRouter = router({
     .mutation(async ({ ctx, input }) => {
       await markOrderPaid(input.orderId, ctx.user.id, input.paymentNotes);
 
-      // Notify customer (via owner notification for now)
+      // Notify owner via Manus notification + Resend email
       const order = await getOrderWithItems(input.orderId);
       if (order) {
         await notifyOwner({
           title: `✅ Payment Confirmed — ${order.orderNumber}`,
           content: `Order ${order.orderNumber} marked as paid.\nCustomer: ${order.shipName} (${order.shipEmail})\nTotal: $${(order.totalCents / 100).toFixed(2)}\n\nOrder is now queued for ShipStation pickup.`,
+        }).catch(() => {});
+
+        await sendPaymentConfirmedEmail({
+          orderNumber: order.orderNumber ?? "",
+          customerName: order.shipName ?? "",
+          customerEmail: order.shipEmail ?? "",
+          totalCents: order.totalCents,
         }).catch(() => {});
       }
 
