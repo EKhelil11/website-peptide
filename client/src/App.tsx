@@ -50,7 +50,7 @@ function App() {
           <CartProvider>
             <AgeVerification />
             <Router />
-            <FloatingTextButton />
+            {/* <FloatingTextButton /> */}
             <FloatingCart />
           </CartProvider>
         </TooltipProvider>
