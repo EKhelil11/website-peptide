@@ -11,7 +11,7 @@ import {
   getOrderStats,
 } from "./db";
 import { notifyOwner } from "./_core/notification";
-import { sendNewOrderEmail, sendPaymentConfirmedEmail } from "./email";
+import { sendNewOrderEmail, sendPaymentConfirmedEmail, sendCustomerOrderConfirmation } from "./email";
 
 const TAX_RATE = 0.09;       // 9% flat
 const SHIPPING_CENTS = 700;  // $7.00 flat
@@ -90,8 +90,30 @@ export const orderRouter = router({
         content: `Order: ${orderNumber}\nCustomer: ${input.shipName} (${input.shipEmail})\nPhone: ${input.shipPhone || "N/A"}\nShip to: ${input.shipAddress}, ${input.shipCity}, ${input.shipState} ${input.shipZip}\n\nItems:\n${itemsSummary}\n\nSubtotal: $${(subtotalCents / 100).toFixed(2)}\nShipping: $${(SHIPPING_CENTS / 100).toFixed(2)}\nTax (9%): $${(taxCents / 100).toFixed(2)}\nTotal: $${(totalCents / 100).toFixed(2)}\n\nZelle: (310) 975-9289 — Memo: ${orderNumber}`,
       }).catch(() => {});
 
-      // Send rich HTML email to support@laelitepeps.com via Resend
+      // Send rich HTML email to support@laelitepeps.com (owner notification)
       await sendNewOrderEmail({
+        orderNumber,
+        customerName: input.shipName,
+        customerEmail: input.shipEmail,
+        customerPhone: input.shipPhone,
+        shipAddress: input.shipAddress,
+        shipAddress2: input.shipAddress2,
+        shipCity: input.shipCity,
+        shipState: input.shipState,
+        shipZip: input.shipZip,
+        items: input.items.map(i => ({
+          name: i.productName + (i.variantLabel ? ` (${i.variantLabel})` : ""),
+          quantity: i.quantity,
+          unitPrice: Math.round(i.unitPrice * 100),
+        })),
+        subtotalCents,
+        shippingCents: SHIPPING_CENTS,
+        taxCents,
+        totalCents,
+      }).catch(() => {});
+
+      // Send order confirmation email directly to the customer
+      await sendCustomerOrderConfirmation({
         orderNumber,
         customerName: input.shipName,
         customerEmail: input.shipEmail,

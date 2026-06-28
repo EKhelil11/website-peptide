@@ -207,3 +207,147 @@ export async function sendPaymentConfirmedEmail(params: {
     console.warn("[Email] Failed to send payment confirmed email:", err);
   }
 }
+
+// ─── Customer Order Confirmation Email ─────────────────────────────────────
+
+export async function sendCustomerOrderConfirmation(params: NewOrderEmailParams): Promise<void> {
+  const resend = getResend();
+  if (!resend) {
+    console.warn("[Email] RESEND_API_KEY not set — skipping customer confirmation email");
+    return;
+  }
+
+  const itemsHtml = params.items
+    .map(
+      (item) =>
+        `<tr>
+          <td style="padding:8px 12px;border-bottom:1px solid #e5e7eb;font-size:14px;color:#374151;">${item.name}</td>
+          <td style="padding:8px 12px;border-bottom:1px solid #e5e7eb;text-align:center;font-size:14px;color:#374151;">${item.quantity}</td>
+          <td style="padding:8px 12px;border-bottom:1px solid #e5e7eb;text-align:right;font-size:14px;color:#374151;">$${((item.unitPrice * item.quantity) / 100).toFixed(2)}</td>
+        </tr>`
+    )
+    .join("");
+
+  const shippingLine = params.shipAddress2
+    ? `${params.shipAddress}, ${params.shipAddress2}`
+    : params.shipAddress;
+
+  const html = `
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="font-family:Arial,sans-serif;background:#f3f4f6;margin:0;padding:20px;">
+  <div style="max-width:600px;margin:0 auto;background:#ffffff;border-radius:8px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.1);">
+
+    <!-- Header -->
+    <div style="background:#0f172a;padding:28px 32px;text-align:center;">
+      <h1 style="color:#06b6d4;font-size:24px;margin:0;letter-spacing:3px;font-weight:900;">LA ELITE PEPTIDES</h1>
+      <p style="color:#94a3b8;margin:6px 0 0;font-size:13px;letter-spacing:1px;">ADVANCED PEPTIDE RESEARCH</p>
+    </div>
+
+    <!-- Confirmation Banner -->
+    <div style="background:#f0fdf4;border-bottom:2px solid #bbf7d0;padding:20px 32px;text-align:center;">
+      <p style="font-size:22px;margin:0;color:#166534;">✅ Order Confirmed</p>
+      <p style="color:#166534;margin:6px 0 0;font-size:14px;">Thank you, ${params.customerName}. We've received your order.</p>
+    </div>
+
+    <!-- Body -->
+    <div style="padding:32px;">
+
+      <!-- Order Number + Zelle Instructions -->
+      <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:6px;padding:20px;margin-bottom:28px;">
+        <h2 style="font-size:15px;color:#1e40af;margin:0 0 12px;text-transform:uppercase;letter-spacing:1px;">Next Step: Send Zelle Payment</h2>
+        <table style="width:100%;border-collapse:collapse;font-size:15px;">
+          <tr>
+            <td style="padding:4px 0;color:#374151;width:120px;">Send to:</td>
+            <td style="padding:4px 0;font-weight:700;color:#0f172a;">(310) 975-9289</td>
+          </tr>
+          <tr>
+            <td style="padding:4px 0;color:#374151;">Amount:</td>
+            <td style="padding:4px 0;font-weight:700;color:#06b6d4;font-size:18px;">$${(params.totalCents / 100).toFixed(2)}</td>
+          </tr>
+          <tr>
+            <td style="padding:4px 0;color:#374151;">Memo:</td>
+            <td style="padding:4px 0;font-weight:700;color:#0f172a;font-family:monospace;font-size:16px;">${params.orderNumber}</td>
+          </tr>
+        </table>
+        <p style="margin:12px 0 0;font-size:12px;color:#6b7280;">Orders placed after 8 PM will be processed the next business day.</p>
+      </div>
+
+      <!-- Order Summary -->
+      <h3 style="font-size:12px;text-transform:uppercase;letter-spacing:1px;color:#6b7280;margin:0 0 10px;">Order Summary — ${params.orderNumber}</h3>
+      <table style="width:100%;border-collapse:collapse;margin-bottom:20px;">
+        <thead>
+          <tr style="background:#f8fafc;">
+            <th style="padding:8px 12px;text-align:left;font-size:12px;font-weight:600;color:#6b7280;border-bottom:2px solid #e5e7eb;">Product</th>
+            <th style="padding:8px 12px;text-align:center;font-size:12px;font-weight:600;color:#6b7280;border-bottom:2px solid #e5e7eb;">Qty</th>
+            <th style="padding:8px 12px;text-align:right;font-size:12px;font-weight:600;color:#6b7280;border-bottom:2px solid #e5e7eb;">Total</th>
+          </tr>
+        </thead>
+        <tbody>${itemsHtml}</tbody>
+      </table>
+
+      <!-- Totals -->
+      <table style="width:100%;border-collapse:collapse;margin-bottom:28px;font-size:14px;">
+        <tr>
+          <td style="padding:3px 0;color:#6b7280;">Subtotal</td>
+          <td style="padding:3px 0;text-align:right;color:#374151;">$${(params.subtotalCents / 100).toFixed(2)}</td>
+        </tr>
+        <tr>
+          <td style="padding:3px 0;color:#6b7280;">Shipping</td>
+          <td style="padding:3px 0;text-align:right;color:#374151;">$${(params.shippingCents / 100).toFixed(2)}</td>
+        </tr>
+        <tr>
+          <td style="padding:3px 0;color:#6b7280;">Tax (9%)</td>
+          <td style="padding:3px 0;text-align:right;color:#374151;">$${(params.taxCents / 100).toFixed(2)}</td>
+        </tr>
+        <tr style="border-top:2px solid #e5e7eb;">
+          <td style="padding:10px 0 4px;font-weight:700;color:#0f172a;font-size:16px;">Total Due</td>
+          <td style="padding:10px 0 4px;text-align:right;font-weight:700;color:#06b6d4;font-size:18px;">$${(params.totalCents / 100).toFixed(2)}</td>
+        </tr>
+      </table>
+
+      <!-- Shipping Address -->
+      <h3 style="font-size:12px;text-transform:uppercase;letter-spacing:1px;color:#6b7280;margin:0 0 8px;">Ships To</h3>
+      <p style="font-size:14px;color:#374151;margin:0 0 4px;">${params.customerName}</p>
+      <p style="font-size:14px;color:#6b7280;margin:0 0 2px;">${shippingLine}</p>
+      <p style="font-size:14px;color:#6b7280;margin:0 0 24px;">${params.shipCity}, ${params.shipState} ${params.shipZip}</p>
+
+      <!-- What Happens Next -->
+      <div style="background:#f8fafc;border-radius:6px;padding:16px;font-size:13px;color:#374151;">
+        <p style="margin:0 0 8px;font-weight:600;color:#0f172a;">What happens next:</p>
+        <ol style="margin:0;padding-left:20px;line-height:1.8;">
+          <li>Send your Zelle payment to <strong>(310) 975-9289</strong> with memo <strong>${params.orderNumber}</strong></li>
+          <li>We'll confirm your payment and begin processing your order</li>
+          <li>You'll receive a shipping notification with tracking once dispatched</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div style="background:#0f172a;padding:20px 32px;text-align:center;">
+      <p style="margin:0 0 4px;font-size:12px;color:#94a3b8;">Questions? Contact us at <a href="mailto:support@laelitepeps.com" style="color:#06b6d4;text-decoration:none;">support@laelitepeps.com</a></p>
+      <p style="margin:0;font-size:11px;color:#475569;">La Elite Peptides · (310) 975-9289 · For research use only</p>
+    </div>
+  </div>
+</body>
+</html>`;
+
+  try {
+    const { error } = await resend.emails.send({
+      from: FROM_ADDRESS,
+      to: params.customerEmail,
+      replyTo: "support@laelitepeps.com",
+      subject: `Order Confirmed — ${params.orderNumber} | La Elite Peptides`,
+      html,
+    });
+
+    if (error) {
+      console.warn("[Email] Resend error sending customer confirmation:", error);
+    } else {
+      console.log(`[Email] Customer confirmation sent to ${params.customerEmail} for ${params.orderNumber}`);
+    }
+  } catch (err) {
+    console.warn("[Email] Failed to send customer confirmation email:", err);
+  }
+}
