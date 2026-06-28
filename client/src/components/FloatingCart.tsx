@@ -31,11 +31,11 @@ export default function FloatingCart() {
         onClick={() => setOpen(true)}
         className="fixed bottom-6 left-6 z-40 flex items-center gap-2 px-4 py-3 rounded-full font-bold text-sm tracking-widest uppercase transition-all duration-200 hover:opacity-90 active:scale-[0.97]"
         style={{
-          background: "linear-gradient(135deg, oklch(0.6 0.27 0), oklch(0.55 0.25 355))",
+          background: "linear-gradient(135deg, oklch(0.65 0.22 210), oklch(0.55 0.25 230))",
           color: "white",
           fontFamily: "'Rajdhani', sans-serif",
           letterSpacing: "0.1em",
-          boxShadow: "0 4px 24px oklch(0.6 0.27 0 / 40%)",
+          boxShadow: "0 4px 24px oklch(0.65 0.22 210 / 40%)",
         }}
         aria-label="Open cart"
       >
@@ -182,7 +182,7 @@ export default function FloatingCart() {
                     className="text-3xl font-bold"
                     style={{
                       fontFamily: "'Bebas Neue', sans-serif",
-                      color: "oklch(0.6 0.27 0)",
+                      color: "oklch(0.72 0.18 210)",
                     }}
                   >
                     ${cartTotal.toFixed(2)}
@@ -192,11 +192,11 @@ export default function FloatingCart() {
                   onClick={handleCheckout}
                   className="w-full py-3 rounded-lg font-bold text-sm tracking-widest uppercase transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
                   style={{
-                    background: "linear-gradient(135deg, oklch(0.6 0.27 0), oklch(0.55 0.25 355))",
+                    background: "linear-gradient(135deg, oklch(0.65 0.22 210), oklch(0.55 0.25 230))",
                     color: "white",
                     fontFamily: "'Rajdhani', sans-serif",
                     letterSpacing: "0.12em",
-                    boxShadow: "0 4px 20px oklch(0.6 0.27 0 / 30%)",
+                    boxShadow: "0 4px 20px oklch(0.65 0.22 210 / 30%)",
                   }}
                 >
                   Proceed to Checkout
