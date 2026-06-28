@@ -68,8 +68,8 @@ export default function Checkout() {
 
   const submitOrder = trpc.orders.submit.useMutation({
     onSuccess: (data) => {
-      setOrderNumber(data.orderNumber);
-      setOrderTotal(data.totalCents / 100);
+      setOrderNumber(data.orderNumber ?? "");
+      setOrderTotal((data.totalCents ?? 0) / 100);
       setSubmitted(true);
       sessionStorage.removeItem("elitela_cart");
     },
