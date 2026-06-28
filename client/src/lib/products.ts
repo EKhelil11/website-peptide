@@ -147,7 +147,7 @@ export const products: Product[] = [
     ],
     price: "$100",
     badge: "Stack",
-    images: ["/manus-storage/vial_v6_bpc_tb_3ba20720.png"],
+    images: ["/manus-storage/vial_v8_bpc_tb_2d185b46.png"],
     molecularData: {
       molecularFormula: "C62H98N16O22",
       molecularWeight: "1419.5 g/mol",
@@ -223,7 +223,7 @@ export const products: Product[] = [
     ],
     price: "$80",
     badge: "Stack",
-    images: ["/manus-storage/vial_v6_cjc_ipa_c205afb6.png"],
+    images: ["/manus-storage/vial_v8_cjc_ipa_a4d06efb.png"],
     molecularData: {
       molecularFormula: "CJC-1295: C165H269N47O46 / Ipamorelin: C38H49N9O5",
       molecularWeight: "CJC-1295: 3647.2 Da / Ipamorelin: 711.9 g/mol",
@@ -374,7 +374,7 @@ export const products: Product[] = [
     ],
     price: "$60",
     badge: "Nootropic",
-    images: ["/manus-storage/vial_v7_semax_3c171289.png"],
+    images: ["/manus-storage/vial_v8_semax_ca9fb16b.png"],
     molecularData: {
       molecularFormula: "C37H51N9O10S",
       molecularWeight: "813.9 g/mol",
