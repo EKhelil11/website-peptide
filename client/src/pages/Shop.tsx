@@ -60,7 +60,7 @@ export default function Shop() {
         productName: product.name,
         productCategory: product.category,
         quantity: 1,
-        unitPrice: parseFloat(product.price ?? "0"),
+        unitPrice: parseFloat((product.price ?? "0").replace(/[^0-9.]/g, "")),
       }];
     });
   };

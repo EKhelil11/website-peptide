@@ -57,7 +57,17 @@ export default function Checkout() {
     const stored = sessionStorage.getItem("elitela_cart");
     if (stored) {
       try {
-        setCart(JSON.parse(stored));
+        const parsed = JSON.parse(stored);
+        // Sanitize: ensure unitPrice is always a valid number
+        const sanitized = parsed.map((item: CartItem) => ({
+          ...item,
+          unitPrice: typeof item.unitPrice === "number" && !isNaN(item.unitPrice)
+            ? item.unitPrice
+            : parseFloat(String(item.unitPrice ?? "0").replace(/[^0-9.]/g, "")) || 0,
+          quantity: Math.max(1, parseInt(String(item.quantity ?? "1")) || 1),
+        }));
+        if (sanitized.length === 0) { setLocation("/shop"); return; }
+        setCart(sanitized);
       } catch {
         setLocation("/shop");
       }
