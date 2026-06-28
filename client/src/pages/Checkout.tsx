@@ -6,7 +6,7 @@ import { useLocation } from "wouter";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { getLoginUrl } from "@/const";
 import { trpc } from "@/lib/trpc";
-import { CartItem } from "./Shop";
+import { useCart } from "@/contexts/CartContext";
 import { ArrowLeft, CheckCircle, Copy, Check } from "lucide-react";
 
 const LOGO_URL = "/manus-storage/elite-la-peptides-logo_e9ec855c.png";
@@ -24,7 +24,7 @@ const US_STATES = [
 export default function Checkout() {
   const { user, loading } = useAuth();
   const [, setLocation] = useLocation();
-  const [cart, setCart] = useState<CartItem[]>([]);
+  const { cart, clearCart } = useCart();
   const [submitted, setSubmitted] = useState(false);
   const [orderNumber, setOrderNumber] = useState<string>("");
   const [orderTotal, setOrderTotal] = useState<number>(0);
@@ -54,40 +54,18 @@ export default function Checkout() {
         shipEmail: prev.shipEmail || user.email || "",
       }));
     }
-    const stored = sessionStorage.getItem("elitela_cart");
-    if (stored) {
-      try {
-        const parsed = JSON.parse(stored);
-        // Sanitize: ensure unitPrice is always a valid number
-        const sanitized = parsed.map((item: CartItem) => ({
-          ...item,
-          unitPrice: typeof item.unitPrice === "number" && !isNaN(item.unitPrice)
-            ? item.unitPrice
-            : parseFloat(String(item.unitPrice ?? "0").replace(/[^0-9.]/g, "")) || 0,
-          quantity: Math.max(1, parseInt(String(item.quantity ?? "1")) || 1),
-        }));
-        if (sanitized.length === 0) { setLocation("/shop"); return; }
-        // If any item still has an invalid price after sanitization, clear and redirect
-        if (sanitized.some((item: CartItem) => !item.unitPrice || item.unitPrice <= 0)) {
-          sessionStorage.removeItem("elitela_cart");
-          setLocation("/shop");
-          return;
-        }
-        setCart(sanitized);
-      } catch {
-        setLocation("/shop");
-      }
-    } else {
+    // Redirect to shop if cart is empty (and not loading)
+    if (!loading && user && cart.length === 0 && !submitted) {
       setLocation("/shop");
     }
-  }, [user, loading]);
+  }, [user, loading, cart.length, submitted]);
 
   const submitOrder = trpc.orders.submit.useMutation({
     onSuccess: (data) => {
       setOrderNumber(data.orderNumber ?? "");
       setOrderTotal((data.totalCents ?? 0) / 100);
       setSubmitted(true);
-      sessionStorage.removeItem("elitela_cart");
+      clearCart();
     },
   });
 

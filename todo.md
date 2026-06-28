@@ -115,3 +115,12 @@
 - [x] Admin route guard: only role=admin can access /admin
 - [x] Routes registered in App.tsx: /checkout, /account, /admin
 - [x] Promote owner account to admin role in database
+
+## Floating Cart & Checkout Redesign
+
+- [ ] Global CartContext — shared cart state across all pages
+- [ ] FloatingCart drawer component — dark blue, Bebas Neue + Rajdhani fonts, matching site aesthetic
+- [ ] Cart icon in main nav with item count badge
+- [ ] ProductDetail Add to Cart wired to CartContext
+- [ ] Shop page Add to Cart wired to CartContext (remove separate order portal)
+- [ ] Checkout page redesigned to match site fonts, colors, button styles

@@ -5,6 +5,8 @@
 import { useState, useEffect } from "react";
 import { useParams, Link, useLocation } from "wouter";
 import { useAuth } from "@/_core/hooks/useAuth";
+import { useCart } from "@/contexts/CartContext";
+import { toast } from "sonner";
 import {
   ArrowLeft,
   FlaskConical,
@@ -161,6 +163,7 @@ export default function ProductDetail() {
   const [qty, setQty] = useState(1);
   const [, navigate] = useLocation();
   const { isAuthenticated, user } = useAuth();
+  const { addToCart, cartCount } = useCart();
   const hasAcceptedTerms = isAuthenticated && Boolean((user as any)?.termsAcceptedAt);
 
   useEffect(() => {
@@ -201,6 +204,31 @@ export default function ProductDetail() {
   const currentVariant = product.variants?.[selectedVariant];
   const displayPrice = currentVariant?.price ?? product.price ?? "Inquire";
   const displayContent = currentVariant?.content ?? product.detailContent ?? product.content;
+
+  const handleAddToCart = () => {
+    const priceStr = currentVariant?.price ?? product.price ?? "0";
+    const unitPrice = parseFloat(priceStr.replace(/[^0-9.]/g, "")) || 0;
+    const itemId = product.id + (currentVariant ? `-${currentVariant.label}` : "");
+    const itemName = product.name + (currentVariant ? ` (${currentVariant.label})` : "");
+    for (let i = 0; i < qty; i++) {
+      addToCart({ productId: itemId, productName: itemName, productCategory: product.category, unitPrice });
+    }
+    toast.success(`${qty}\u00d7 ${product.name} added to cart`, {
+      description: "Open your cart to checkout",
+      duration: 2500,
+    });
+  };
+
+  const handleBuyNow = () => {
+    const priceStr = currentVariant?.price ?? product.price ?? "0";
+    const unitPrice = parseFloat(priceStr.replace(/[^0-9.]/g, "")) || 0;
+    const itemId = product.id + (currentVariant ? `-${currentVariant.label}` : "");
+    const itemName = product.name + (currentVariant ? ` (${currentVariant.label})` : "");
+    for (let i = 0; i < qty; i++) {
+      addToCart({ productId: itemId, productName: itemName, productCategory: product.category, unitPrice });
+    }
+    setTimeout(() => navigate("/checkout"), 200);
+  };
 
   return (
     <div
@@ -478,36 +506,34 @@ export default function ProductDetail() {
           {/* Dual CTA buttons — gated behind login */}
           {hasAcceptedTerms ? (
             <div className="flex gap-3 flex-wrap">
-              <Link href="/shop" className="flex-1 min-w-[140px]">
-                <button
-                  className="w-full flex items-center justify-center gap-2 px-5 py-3.5 rounded-lg font-bold tracking-widest uppercase text-sm transition-all duration-200 hover:scale-[1.02] active:scale-[0.97]"
-                  style={{
-                    fontFamily: "'Rajdhani', sans-serif",
-                    fontWeight: 700,
-                    background: "rgba(0,191,255,0.15)",
-                    border: "1.5px solid rgba(0,191,255,0.5)",
-                    color: "#00BFFF",
-                  }}
-                >
-                  <ShoppingCart size={16} />
-                  ADD TO CART
-                </button>
-              </Link>
-              <Link href="/shop" className="flex-1 min-w-[140px]">
-                <button
-                  className="w-full flex items-center justify-center gap-2 px-5 py-3.5 rounded-lg font-bold tracking-widest uppercase text-sm transition-all duration-200 hover:scale-[1.02] active:scale-[0.97]"
-                  style={{
-                    fontFamily: "'Rajdhani', sans-serif",
-                    fontWeight: 700,
-                    background: "linear-gradient(135deg, #00BFFF 0%, #0080FF 100%)",
-                    border: "none",
-                    color: "#000",
-                  }}
-                >
-                  <Zap size={16} />
-                  BUY NOW
-                </button>
-              </Link>
+              <button
+                onClick={handleAddToCart}
+                className="flex-1 min-w-[140px] flex items-center justify-center gap-2 px-5 py-3.5 rounded-lg font-bold tracking-widest uppercase text-sm transition-all duration-200 hover:scale-[1.02] active:scale-[0.97]"
+                style={{
+                  fontFamily: "'Rajdhani', sans-serif",
+                  fontWeight: 700,
+                  background: "rgba(0,191,255,0.15)",
+                  border: "1.5px solid rgba(0,191,255,0.5)",
+                  color: "#00BFFF",
+                }}
+              >
+                <ShoppingCart size={16} />
+                ADD TO CART
+              </button>
+              <button
+                onClick={handleBuyNow}
+                className="flex-1 min-w-[140px] flex items-center justify-center gap-2 px-5 py-3.5 rounded-lg font-bold tracking-widest uppercase text-sm transition-all duration-200 hover:scale-[1.02] active:scale-[0.97]"
+                style={{
+                  fontFamily: "'Rajdhani', sans-serif",
+                  fontWeight: 700,
+                  background: "linear-gradient(135deg, #00BFFF 0%, #0080FF 100%)",
+                  border: "none",
+                  color: "#000",
+                }}
+              >
+                <Zap size={16} />
+                BUY NOW
+              </button>
             </div>
           ) : (
             <button

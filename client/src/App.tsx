@@ -13,6 +13,8 @@ import ResearchAccess from "./pages/ResearchAccess";
 import Shop from "./pages/Shop";
 import AgeVerification from "./components/AgeVerification";
 import FloatingTextButton from "./components/FloatingTextButton";
+import FloatingCart from "./components/FloatingCart";
+import { CartProvider } from "./contexts/CartContext";
 import TermsPage from "./pages/TermsPage";
 import ShippingReturnsPage from "./pages/ShippingReturnsPage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
@@ -45,9 +47,12 @@ function App() {
       <ThemeProvider defaultTheme="dark">
         <TooltipProvider>
           <Toaster />
-          <AgeVerification />
-          <Router />
-          <FloatingTextButton />
+          <CartProvider>
+            <AgeVerification />
+            <Router />
+            <FloatingTextButton />
+            <FloatingCart />
+          </CartProvider>
         </TooltipProvider>
       </ThemeProvider>
     </ErrorBoundary>
