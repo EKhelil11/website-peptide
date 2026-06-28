@@ -6,6 +6,8 @@ import { Link, useLocation } from "wouter";
 import { ShoppingCart, ArrowRight, Lock } from "lucide-react";
 import type { Product } from "@/lib/products";
 import { useAuth } from "@/_core/hooks/useAuth";
+import { useCart } from "@/contexts/CartContext";
+import { toast } from "sonner";
 
 const VIAL_IMG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663765469010/KeqNR4QdNviNNDWK3S7923/peptide-vial-KdSBvv2H7a9bZfeH52wPjY.webp";
 
@@ -18,10 +20,28 @@ export default function ProductCard({ product, index }: ProductCardProps) {
   const animationDelay = `${index * 80}ms`;
   const [, navigate] = useLocation();
   const { isAuthenticated, user } = useAuth();
+  const { addToCart } = useCart();
   const hasAcceptedTerms = isAuthenticated && Boolean((user as any)?.termsAcceptedAt);
 
   const handleLoginGate = () => {
     navigate("/research-access");
+  };
+
+  const handleAddToCartAndNavigate = () => {
+    if (!product.price) return;
+    // Parse price string like "$100" → 100
+    const numericPrice = parseFloat(product.price.replace(/[^0-9.]/g, ""));
+    addToCart({
+      productId: product.id,
+      productName: product.name,
+      productCategory: product.category,
+      unitPrice: numericPrice,
+    });
+    toast.success(`${product.name} added to cart`, {
+      description: "Navigating to product details…",
+      duration: 2000,
+    });
+    navigate(`/product/${product.id}`);
   };
 
   return (
@@ -148,12 +168,13 @@ export default function ProductCard({ product, index }: ProductCardProps) {
                 )}
               </div>
               {product.price ? (
-                <Link href={`/product/${product.id}`}>
-                  <button className="btn-primary flex items-center gap-2 px-4 py-2 rounded text-xs">
-                    <ShoppingCart size={14} />
-                    Add to Cart
-                  </button>
-                </Link>
+                <button
+                  onClick={handleAddToCartAndNavigate}
+                  className="btn-primary flex items-center gap-2 px-4 py-2 rounded text-xs"
+                >
+                  <ShoppingCart size={14} />
+                  Add to Cart
+                </button>
               ) : (
                 <span className="text-white/30 text-xs tracking-widest uppercase"
                   style={{ fontFamily: "'Rajdhani', sans-serif" }}>
