@@ -21,6 +21,7 @@ import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import Checkout from "./pages/Checkout";
 import Account from "./pages/Account";
 import AdminOrders from "./pages/AdminOrders";
+import Blends from "./pages/Blends";
 
 function Router() {
   return (
@@ -35,6 +36,7 @@ function Router() {
       <Route path="/checkout" component={Checkout} />
       <Route path="/account" component={Account} />
       <Route path="/admin" component={AdminOrders} />
+      <Route path="/blends" component={Blends} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>
