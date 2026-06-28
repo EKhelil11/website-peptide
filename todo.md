@@ -118,12 +118,12 @@
 
 ## Floating Cart & Checkout Redesign
 
-- [ ] Global CartContext — shared cart state across all pages
-- [ ] FloatingCart drawer component — dark blue, Bebas Neue + Rajdhani fonts, matching site aesthetic
-- [ ] Cart icon in main nav with item count badge
-- [ ] ProductDetail Add to Cart wired to CartContext
-- [ ] Shop page Add to Cart wired to CartContext (remove separate order portal)
-- [ ] Checkout page redesigned to match site fonts, colors, button styles
+- [x] Global CartContext — shared cart state across all pages
+- [x] FloatingCart drawer component — dark blue, Bebas Neue + Rajdhani fonts, matching site aesthetic
+- [x] Cart icon in main nav with item count badge
+- [x] ProductDetail Add to Cart wired to CartContext
+- [x] Shop page Add to Cart wired to CartContext (remove separate order portal)
+- [x] Checkout page redesigned to match site fonts, colors, button styles
 
 ## BPC-157/TB-500 Vial Image Fix
 

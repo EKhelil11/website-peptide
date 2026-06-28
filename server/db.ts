@@ -100,7 +100,10 @@ export async function acceptTerms(userId: number, termsVersion: string): Promise
 // ─── Order number generation ────────────────────────────────────────────────
 
 export function generateOrderNumber(id: number): string {
-  return `LAP-${String(id).padStart(6, "0")}`;
+  // Offset by 9999 so the first order (id=1) becomes LAP-10000, id=2 → LAP-10001, etc.
+  // To start at LAP-10001 for the very first real order, offset = 10000
+  const displayNum = id + 10000;
+  return `LAP-${displayNum}`;
 }
 
 // ─── Orders ────────────────────────────────────────────────────────────────
