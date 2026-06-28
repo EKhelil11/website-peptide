@@ -67,6 +67,12 @@ export default function Checkout() {
           quantity: Math.max(1, parseInt(String(item.quantity ?? "1")) || 1),
         }));
         if (sanitized.length === 0) { setLocation("/shop"); return; }
+        // If any item still has an invalid price after sanitization, clear and redirect
+        if (sanitized.some((item: CartItem) => !item.unitPrice || item.unitPrice <= 0)) {
+          sessionStorage.removeItem("elitela_cart");
+          setLocation("/shop");
+          return;
+        }
         setCart(sanitized);
       } catch {
         setLocation("/shop");
