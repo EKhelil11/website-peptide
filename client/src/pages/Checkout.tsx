@@ -12,7 +12,7 @@ import { ArrowLeft, CheckCircle, Copy, Check, ShoppingBag, Truck, Shield } from 
 const LOGO_URL = "/manus-storage/elite-la-peptides-logo_e9ec855c.png";
 const ZELLE_PHONE = "(310) 975-9289";
 const SHIPPING_FLAT = 7.00;
-const TAX_RATE = 0.09;
+const TAX_RATE = 0.08;
 
 const US_STATES = [
   "AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA",
@@ -204,19 +204,7 @@ export default function Checkout() {
                     ${orderTotal.toFixed(2)}
                   </p>
                 </div>
-                <button
-                  onClick={() => handleCopy("amount", orderTotal.toFixed(2))}
-                  className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold uppercase tracking-widest transition-all"
-                  style={{
-                    background: copied === "amount" ? "oklch(0.5 0.2 145 / 20%)" : "oklch(0.65 0.22 210 / 20%)",
-                    border: `1px solid ${copied === "amount" ? "oklch(0.5 0.2 145 / 50%)" : "oklch(0.65 0.22 210 / 40%)"}`,
-                    color: copied === "amount" ? "oklch(0.7 0.2 145)" : "oklch(0.72 0.18 210)",
-                    fontFamily: "'Rajdhani', sans-serif",
-                  }}
-                >
-                  {copied === "amount" ? <Check size={16} /> : <Copy size={16} />}
-                  {copied === "amount" ? "Copied!" : "Copy"}
-                </button>
+
               </div>
 
               {/* Memo */}
@@ -232,19 +220,7 @@ export default function Checkout() {
                     {orderNumber}
                   </p>
                 </div>
-                <button
-                  onClick={() => handleCopy("memo", orderNumber)}
-                  className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold uppercase tracking-widest transition-all"
-                  style={{
-                    background: copied === "memo" ? "oklch(0.5 0.2 145 / 20%)" : "oklch(0.65 0.22 210 / 20%)",
-                    border: `1px solid ${copied === "memo" ? "oklch(0.5 0.2 145 / 50%)" : "oklch(0.65 0.22 210 / 40%)"}`,
-                    color: copied === "memo" ? "oklch(0.7 0.2 145)" : "oklch(0.72 0.18 210)",
-                    fontFamily: "'Rajdhani', sans-serif",
-                  }}
-                >
-                  {copied === "memo" ? <Check size={16} /> : <Copy size={16} />}
-                  {copied === "memo" ? "Copied!" : "Copy"}
-                </button>
+
               </div>
 
               <p className="text-white/50 text-base text-center" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}>
@@ -298,8 +274,7 @@ export default function Checkout() {
                 <span className="text-white font-bold">${shipping.toFixed(2)}</span>
               </div>
               <div className="flex justify-between text-lg" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
-                <span className="text-white/60 font-semibold">Tax (9%)</span>
-                <span className="text-white font-bold">${tax.toFixed(2)}</span>
+{/* Tax hidden from customer view — included in total */}
               </div>
               <div className="flex justify-between items-center pt-3 border-t" style={{ borderColor: "oklch(0.28 0.08 255 / 40%)" }}>
                 <span className="text-white text-2xl font-bold uppercase tracking-widest" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>Total Due</span>
@@ -567,8 +542,7 @@ export default function Checkout() {
                   <span className="text-white text-lg font-bold" style={{ fontFamily: "'Rajdhani', sans-serif" }}>${shipping.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-white/60 text-lg font-semibold" style={{ fontFamily: "'Rajdhani', sans-serif" }}>Tax (9%)</span>
-                  <span className="text-white text-lg font-bold" style={{ fontFamily: "'Rajdhani', sans-serif" }}>${tax.toFixed(2)}</span>
+{/* Tax hidden from customer view — included in total */}
                 </div>
                 <div className="flex justify-between items-center pt-3 border-t" style={{ borderColor: "oklch(0.28 0.08 255 / 40%)" }}>
                   <span className="text-white text-2xl font-bold uppercase" style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "0.06em" }}>Total</span>
