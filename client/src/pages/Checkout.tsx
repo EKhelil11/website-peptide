@@ -129,7 +129,7 @@ export default function Checkout() {
             Order #{orderId} has been submitted successfully.
           </p>
           <p className="text-white/50 text-sm mb-6" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
-            We'll reach out to <strong className="text-white/70">{form.shipEmail}</strong> or text you at <strong className="text-white/70">{form.shipPhone || "(310) 929-0403"}</strong> to arrange payment and confirm your order.
+            We'll reach out to <strong className="text-white/70">{form.shipEmail}</strong> or text you at <strong className="text-white/70">{form.shipPhone || "(310) 975-9289"}</strong> to arrange payment and confirm your order.
           </p>
 
           {/* Order summary */}

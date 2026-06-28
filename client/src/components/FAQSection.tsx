@@ -42,7 +42,7 @@ const faqs: FAQItem[] = [
   {
     category: "shipping",
     q: "How do I place an order?",
-    a: "Orders can be placed by texting or calling (310) 929-0403, or by emailing support@laelitepeps.com. Please include the product name(s), quantity required, and your delivery address. We will confirm your order and provide payment and fulfillment details promptly.",
+    a: "Orders can be placed by texting or calling (310) 975-9289, or by emailing support@laelitepeps.com. Please include the product name(s), quantity required, and your delivery address. We will confirm your order and provide payment and fulfillment details promptly.",
   },
   {
     category: "shipping",

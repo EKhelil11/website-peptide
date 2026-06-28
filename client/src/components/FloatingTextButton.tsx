@@ -1,6 +1,6 @@
 // === LA ELITE PEPTIDES — Floating "Text Us" SMS Button ===
 // Sticky hot-pink pill button fixed to bottom-right corner
-// Links to sms:(310)929-0403 for one-tap mobile contact
+// Links to sms:(310)975-9289 for one-tap mobile contact
 // Pulse ring animation to draw attention
 
 import { MessageCircle } from "lucide-react";
@@ -17,8 +17,8 @@ export default function FloatingTextButton() {
 
   return (
     <a
-      href="sms:+13109290403"
-      aria-label="Text us at (310) 929-0403"
+      href="sms:+13109759289"
+      aria-label="Text us at (310) 975-9289"
       className="floating-text-btn"
       style={{
         position: "fixed",

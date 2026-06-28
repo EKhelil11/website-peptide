@@ -128,9 +128,9 @@ function RelatedGrid({ items, title }: { items: Product[]; title: string }) {
                 style={{ background: "oklch(0.2 0.07 240)" }}
               >
                 <img
-                  src={VIAL_IMG}
+                  src={p.images?.[0] || VIAL_IMG}
                   alt={p.name}
-                  className="w-full h-full object-cover opacity-70 group-hover:opacity-90 transition-opacity duration-300"
+                  className="w-full h-full object-cover opacity-80 transition-transform duration-500 ease-out group-hover:scale-110"
                 />
               </div>
               <p
@@ -251,7 +251,7 @@ export default function ProductDetail() {
         <div className="space-y-4">
           {/* Main image */}
           <div
-            className="relative rounded-2xl overflow-hidden aspect-square"
+            className="relative rounded-2xl overflow-hidden aspect-square group/mainimg"
             style={{
               maxWidth: '75%',
               margin: '0 auto',
@@ -263,7 +263,7 @@ export default function ProductDetail() {
             <img
               src={images[activeImg]}
               alt={product.name}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover/mainimg:scale-110"
             />
             {/* Prev/Next arrows — only show if multiple images */}
             {images.length > 1 && (

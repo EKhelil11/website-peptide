@@ -120,7 +120,7 @@ export default function Login() {
 
       {/* Footer note */}
       <p className="mt-8 text-white/25 text-xs text-center" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
-        Questions? Text us at (310) 929-0403 or email support@laelitepeps.com
+        Questions? Text us at (310) 975-9289 or email support@laelitepeps.com
       </p>
     </div>
   );

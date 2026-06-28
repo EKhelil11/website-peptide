@@ -138,7 +138,7 @@ export default function PrivacyPolicyPage() {
             <p>
               📧 <a href="mailto:Support@laelitepeps.com" className="text-[#00BFFF] hover:underline">Support@laelitepeps.com</a>
               <br />
-              📞 <a href="tel:+13109290403" className="text-[#00BFFF] hover:underline">(310) 929-0403</a>
+              📞 <a href="tel:+13109759289" className="text-[#00BFFF] hover:underline">(310) 975-9289</a>
               <br />
               🌐 <a href="https://laelitepeps.com" className="text-[#00BFFF] hover:underline">laelitepeps.com</a>
             </p>

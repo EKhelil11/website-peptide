@@ -138,7 +138,7 @@ export default function Account() {
                 {orders.length} Total Orders
               </p>
               <p className="text-white/40 text-xs" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
-                Questions? Text (310) 929-0403
+                Questions? Text (310) 975-9289
               </p>
             </div>
           </div>
@@ -284,8 +284,8 @@ export default function Account() {
         <div className="mt-10 text-center">
           <p className="text-white/30 text-xs" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
             Questions about your order? Text us at{" "}
-            <a href="sms:(310)929-0403" className="text-white/50 hover:text-[#00BFFF] transition-colors">
-              (310) 929-0403
+            <a href="sms:(310)975-9289" className="text-white/50 hover:text-[#00BFFF] transition-colors">
+              (310) 975-9289
             </a>{" "}
             or email{" "}
             <a href="mailto:support@laelitepeps.com" className="text-white/50 hover:text-[#00BFFF] transition-colors">

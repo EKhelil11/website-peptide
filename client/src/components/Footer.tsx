@@ -114,11 +114,11 @@ export default function Footer() {
                     <Phone size={14} style={{ color: "#00BFFF" }} />
                   </div>
                   <a
-                    href="tel:+13109290403"
+                    href="tel:+13109759289"
                     style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.9rem" }}
                     className="hover:text-[#00BFFF] transition-colors"
                   >
-                    (310) 929-0403
+                    (310) 975-9289
                   </a>
                 </div>
                 <div className="flex items-center gap-3 text-white/60">

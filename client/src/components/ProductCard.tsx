@@ -31,15 +31,15 @@ export default function ProductCard({ product, index }: ProductCardProps) {
     >
       {/* Card image area */}
       <div
-        className="relative h-44 overflow-hidden flex-shrink-0"
+        className="relative h-44 overflow-hidden flex-shrink-0 group/cardimg"
         style={{
           background: "linear-gradient(135deg, oklch(0.14 0.055 255) 0%, oklch(0.2 0.07 240) 100%)",
         }}
       >
         <img
-          src={VIAL_IMG}
+          src={product.images?.[0] || VIAL_IMG}
           alt={product.name}
-          className="absolute inset-0 w-full h-full object-cover opacity-60 transition-transform duration-500"
+          className="absolute inset-0 w-full h-full object-cover opacity-80 transition-transform duration-500 ease-out group-hover/cardimg:scale-110"
           style={{ objectPosition: "center 20%" }}
         />
         {/* Gradient overlay */}

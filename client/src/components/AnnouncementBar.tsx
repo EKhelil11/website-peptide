@@ -6,7 +6,7 @@ import { X } from "lucide-react";
 
 // Repeat the message so the scroll loop is seamless
 const SEGMENT =
-  "\u2756 COMING SOON \u2014 Online Ordering Launching Soon  \u2756  Text us at (310) 929-0403 to place your order today  \u00a0\u00a0\u00a0\u00a0";
+  "\u2756 COMING SOON \u2014 Online Ordering Launching Soon  \u2756  Text us at (310) 975-9289 to place your order today  \u00a0\u00a0\u00a0\u00a0";
 const TICKER = SEGMENT.repeat(6);
 
 export default function AnnouncementBar() {
