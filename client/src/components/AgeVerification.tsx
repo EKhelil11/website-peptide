@@ -3,14 +3,28 @@
 // Stores result in sessionStorage so it only shows once per session
 
 import { useState, useEffect } from "react";
+import { useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 
 const LOGO_URL = "/manus-storage/elite-la-peptides-logo_e9ec855c.png";
 
+// Routes that bypass age verification entirely
+const BYPASS_ROUTES = ["/admin", "/account", "/checkout", "/api"];
+
 export default function AgeVerification() {
   const [visible, setVisible] = useState(false);
+  const [location] = useLocation();
 
   useEffect(() => {
+    // Skip age gate for admin/account/checkout routes
+    const isBypassRoute = BYPASS_ROUTES.some((r) => location.startsWith(r));
+    if (isBypassRoute) {
+      // Auto-verify so the gate never shows on protected routes
+      sessionStorage.setItem("age_verified", "true");
+      setVisible(false);
+      return;
+    }
+
     // Show only if not already verified this session
     const verified = sessionStorage.getItem("age_verified");
     if (!verified) {
@@ -18,7 +32,7 @@ export default function AgeVerification() {
       const timer = setTimeout(() => setVisible(true), 200);
       return () => clearTimeout(timer);
     }
-  }, []);
+  }, [location]);
 
   const handleConfirm = () => {
     sessionStorage.setItem("age_verified", "true");
