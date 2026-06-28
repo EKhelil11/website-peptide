@@ -147,7 +147,7 @@ export const products: Product[] = [
     ],
     price: "$100",
     badge: "Stack",
-    images: ["/manus-storage/norm_bpc_tb_28eeb28c.png"],
+    images: ["https://d2xsxph8kpxj0f.cloudfront.net/310519663765469010/KeqNR4QdNviNNDWK3S7923/vial_v9_bpc_tb-58nL9wRAVRag95tehuGDWx.webp"],
     molecularData: {
       molecularFormula: "C62H98N16O22",
       molecularWeight: "1419.5 g/mol",

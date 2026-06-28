@@ -124,3 +124,8 @@
 - [ ] ProductDetail Add to Cart wired to CartContext
 - [ ] Shop page Add to Cart wired to CartContext (remove separate order portal)
 - [ ] Checkout page redesigned to match site fonts, colors, button styles
+
+## BPC-157/TB-500 Vial Image Fix
+
+- [x] Regenerate BPC-157/TB-500 vial image (v9) — grounded on surface with natural drop shadow, matching Retatrutide master style
+- [x] Apply v9 image URL to products.ts for BPC-157/TB-500 Wolverine Stack product
