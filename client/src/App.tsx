@@ -16,6 +16,9 @@ import FloatingTextButton from "./components/FloatingTextButton";
 import TermsPage from "./pages/TermsPage";
 import ShippingReturnsPage from "./pages/ShippingReturnsPage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
+import Checkout from "./pages/Checkout";
+import Account from "./pages/Account";
+import AdminOrders from "./pages/AdminOrders";
 
 function Router() {
   return (
@@ -27,6 +30,9 @@ function Router() {
       <Route path="/terms" component={TermsPage} />
       <Route path="/shipping-returns" component={ShippingReturnsPage} />
       <Route path="/privacy-policy" component={PrivacyPolicyPage} />
+      <Route path="/checkout" component={Checkout} />
+      <Route path="/account" component={Account} />
+      <Route path="/admin" component={AdminOrders} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>

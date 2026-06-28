@@ -10,19 +10,13 @@ import { ShoppingBag, Package, Clock, CheckCircle, Truck, XCircle, ArrowLeft, Lo
 
 const LOGO_URL = "/manus-storage/elite-la-peptides-logo_e9ec855c.png";
 
-const STATUS_CONFIG = {
-  pending: { label: "Pending", icon: Clock, color: "oklch(0.75 0.15 80)" },
-  confirmed: { label: "Confirmed", icon: CheckCircle, color: "oklch(0.72 0.18 210)" },
-  processing: { label: "Processing", icon: Package, color: "oklch(0.72 0.18 210)" },
-  shipped: { label: "Shipped", icon: Truck, color: "oklch(0.65 0.2 145)" },
-  delivered: { label: "Delivered", icon: CheckCircle, color: "oklch(0.65 0.2 145)" },
-  cancelled: { label: "Cancelled", icon: XCircle, color: "oklch(0.6 0.15 25)" },
-};
-
-const PAYMENT_CONFIG = {
-  awaiting_payment: { label: "Awaiting Payment", color: "oklch(0.75 0.15 80)" },
-  paid: { label: "Paid", color: "oklch(0.65 0.2 145)" },
-  refunded: { label: "Refunded", color: "oklch(0.6 0.15 25)" },
+const STATUS_CONFIG: Record<string, { label: string; icon: any; color: string }> = {
+  pending_payment: { label: "Pending Payment", icon: Clock, color: "oklch(0.75 0.15 80)" },
+  paid:            { label: "Paid", icon: CheckCircle, color: "oklch(0.65 0.2 145)" },
+  processing:      { label: "Processing", icon: Package, color: "oklch(0.72 0.18 210)" },
+  shipped:         { label: "Shipped", icon: Truck, color: "oklch(0.65 0.2 145)" },
+  delivered:       { label: "Delivered", icon: CheckCircle, color: "oklch(0.65 0.2 145)" },
+  cancelled:       { label: "Cancelled", icon: XCircle, color: "oklch(0.6 0.15 25)" },
 };
 
 export default function Account() {
@@ -184,8 +178,7 @@ export default function Account() {
           ) : (
             <div className="space-y-4">
               {orders.map((order) => {
-                const statusCfg = STATUS_CONFIG[order.status] ?? STATUS_CONFIG.pending;
-                const paymentCfg = PAYMENT_CONFIG[order.paymentStatus] ?? PAYMENT_CONFIG.awaiting_payment;
+                const statusCfg = STATUS_CONFIG[order.status] ?? STATUS_CONFIG.pending_payment;
                 const StatusIcon = statusCfg.icon;
 
                 return (
@@ -203,7 +196,7 @@ export default function Account() {
                           className="text-white font-bold text-lg"
                           style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "0.05em" }}
                         >
-                          Order #{order.id}
+                          {order.orderNumber || `Order #${order.id}`}
                         </p>
                         <p className="text-white/40 text-xs" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
                           {new Date(order.createdAt).toLocaleDateString("en-US", {
@@ -225,18 +218,7 @@ export default function Account() {
                           <StatusIcon size={11} />
                           {statusCfg.label}
                         </span>
-                        {/* Payment status badge */}
-                        <span
-                          className="px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest"
-                          style={{
-                            background: `${paymentCfg.color}18`,
-                            border: `1px solid ${paymentCfg.color}40`,
-                            color: paymentCfg.color,
-                            fontFamily: "'Rajdhani', sans-serif",
-                          }}
-                        >
-                          {paymentCfg.label}
-                        </span>
+  
                       </div>
                     </div>
 
@@ -270,7 +252,7 @@ export default function Account() {
                         className="text-white font-bold text-xl"
                         style={{ fontFamily: "'Bebas Neue', sans-serif" }}
                       >
-                        ${Number(order.totalAmount).toFixed(2)}
+                        ${((order.totalCents ?? 0) / 100).toFixed(2)}
                       </span>
                     </div>
                   </div>

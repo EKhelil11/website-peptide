@@ -4,22 +4,28 @@ import {
   createOrder,
   getOrdersByUserId,
   getOrderWithItems,
-  getAllOrders,
-  updateOrderStatus,
-  updateOrderPaymentStatus,
+  getAllOrdersWithItems,
+  markOrderPaid,
+  cancelOrder,
+  updateOrderAdminNotes,
+  getOrderStats,
 } from "./db";
 import { notifyOwner } from "./_core/notification";
+
+const TAX_RATE = 0.09;       // 9% flat
+const SHIPPING_CENTS = 700;  // $7.00 flat
 
 const cartItemSchema = z.object({
   productId: z.string(),
   productName: z.string(),
+  variantLabel: z.string().optional(),
   productCategory: z.string().optional(),
   quantity: z.number().int().min(1),
-  unitPrice: z.number().positive(),
+  unitPrice: z.number().positive(), // dollars
 });
 
 export const orderRouter = router({
-  // Submit a new order
+  // ─── Customer: Submit a new order ────────────────────────────────────────
   submit: protectedProcedure
     .input(
       z.object({
@@ -28,101 +34,136 @@ export const orderRouter = router({
         shipEmail: z.string().email(),
         shipPhone: z.string().optional(),
         shipAddress: z.string().min(1),
+        shipAddress2: z.string().optional(),
         shipCity: z.string().min(1),
-        shipState: z.string().min(1),
-        shipZip: z.string().min(1),
+        shipState: z.string().min(2).max(4),
+        shipZip: z.string().min(5),
         notes: z.string().optional(),
       })
     )
     .mutation(async ({ ctx, input }) => {
-      const totalAmount = input.items.reduce(
-        (sum, item) => sum + item.unitPrice * item.quantity,
-        0
+      const subtotalCents = Math.round(
+        input.items.reduce((sum, item) => sum + item.unitPrice * item.quantity, 0) * 100
       );
+      const taxCents = Math.round(subtotalCents * TAX_RATE);
+      const totalCents = subtotalCents + taxCents + SHIPPING_CENTS;
 
-      const orderId = await createOrder(
+      const { orderId, orderNumber } = await createOrder(
         {
           userId: ctx.user.id,
-          totalAmount: totalAmount.toFixed(2) as any,
+          status: "pending_payment",
+          subtotalCents,
+          shippingCents: SHIPPING_CENTS,
+          taxCents,
+          totalCents,
+          zellePhone: "(310) 975-9289",
           shipName: input.shipName,
           shipEmail: input.shipEmail,
           shipPhone: input.shipPhone,
           shipAddress: input.shipAddress,
+          shipAddress2: input.shipAddress2,
           shipCity: input.shipCity,
           shipState: input.shipState,
           shipZip: input.shipZip,
-          notes: input.notes,
-          status: "pending",
-          paymentStatus: "awaiting_payment",
+          shipCountry: "US",
         },
         input.items.map(item => ({
-          orderId: 0, // will be set in createOrder
+          orderId: 0, // set in createOrder
           productId: item.productId,
           productName: item.productName,
+          variantLabel: item.variantLabel,
           productCategory: item.productCategory,
           quantity: item.quantity,
-          unitPrice: item.unitPrice.toFixed(2) as any,
-          lineTotal: (item.unitPrice * item.quantity).toFixed(2) as any,
+          unitPriceCents: Math.round(item.unitPrice * 100),
+          lineTotalCents: Math.round(item.unitPrice * item.quantity * 100),
         }))
       );
 
-      // Notify owner via Manus notification
+      // Notify owner
       const itemsSummary = input.items
-        .map(i => `  • ${i.productName} x${i.quantity} — $${(i.unitPrice * i.quantity).toFixed(2)}`)
+        .map(i => `  • ${i.productName}${i.variantLabel ? ` (${i.variantLabel})` : ""} x${i.quantity} — $${(i.unitPrice * i.quantity).toFixed(2)}`)
         .join("\n");
 
       await notifyOwner({
-        title: `🛒 New Order #${orderId} — $${totalAmount.toFixed(2)}`,
-        content: `Customer: ${input.shipName} (${input.shipEmail})\nPhone: ${input.shipPhone || "N/A"}\nShip to: ${input.shipAddress}, ${input.shipCity}, ${input.shipState} ${input.shipZip}\n\nItems:\n${itemsSummary}\n\nTotal: $${totalAmount.toFixed(2)}\n\nNotes: ${input.notes || "None"}\n\nReply to customer at: ${input.shipEmail}`,
-      }).catch(() => {}); // don't fail order if notification fails
+        title: `🛒 New Order ${orderNumber} — $${(totalCents / 100).toFixed(2)}`,
+        content: `Order: ${orderNumber}\nCustomer: ${input.shipName} (${input.shipEmail})\nPhone: ${input.shipPhone || "N/A"}\nShip to: ${input.shipAddress}, ${input.shipCity}, ${input.shipState} ${input.shipZip}\n\nItems:\n${itemsSummary}\n\nSubtotal: $${(subtotalCents / 100).toFixed(2)}\nShipping: $${(SHIPPING_CENTS / 100).toFixed(2)}\nTax (9%): $${(taxCents / 100).toFixed(2)}\nTotal: $${(totalCents / 100).toFixed(2)}\n\nZelle: (310) 975-9289 — Memo: ${orderNumber}`,
+      }).catch(() => {});
 
-      return { orderId, success: true };
+      return { orderId, orderNumber, totalCents, success: true };
     }),
 
-  // Get current user's orders
+  // ─── Customer: Get my orders ─────────────────────────────────────────────
   myOrders: protectedProcedure.query(async ({ ctx }) => {
     return getOrdersByUserId(ctx.user.id);
   }),
 
-  // Get a specific order with items (user can only see their own)
+  // ─── Customer: Get a specific order with items ───────────────────────────
   getOrder: protectedProcedure
     .input(z.object({ orderId: z.number() }))
     .query(async ({ ctx, input }) => {
       const order = await getOrderWithItems(input.orderId);
       if (!order) return null;
-      // Users can only see their own orders; admins can see all
       if (order.userId !== ctx.user.id && ctx.user.role !== "admin") return null;
       return order;
     }),
 
-  // Admin: get all orders
-  adminListOrders: adminProcedure.query(async () => {
-    return getAllOrders();
-  }),
-
-  // Admin: update order status
-  adminUpdateStatus: adminProcedure
-    .input(
-      z.object({
-        orderId: z.number(),
-        status: z.enum(["pending", "confirmed", "processing", "shipped", "delivered", "cancelled"]),
-      })
-    )
-    .mutation(async ({ input }) => {
-      await updateOrderStatus(input.orderId, input.status);
+  // ─── Customer: Cancel a pending order ───────────────────────────────────
+  cancelOrder: protectedProcedure
+    .input(z.object({ orderId: z.number() }))
+    .mutation(async ({ ctx, input }) => {
+      const order = await getOrderWithItems(input.orderId);
+      if (!order) throw new Error("Order not found");
+      if (order.userId !== ctx.user.id && ctx.user.role !== "admin") throw new Error("Forbidden");
+      if (order.status !== "pending_payment") throw new Error("Only pending orders can be cancelled");
+      await cancelOrder(input.orderId, String(ctx.user.id));
       return { success: true };
     }),
 
-  // Admin: mark as paid
+  // ─── Admin: Get all orders with items ───────────────────────────────────
+  adminListOrders: adminProcedure.query(async () => {
+    return getAllOrdersWithItems();
+  }),
+
+  // ─── Admin: Get order stats ──────────────────────────────────────────────
+  adminStats: adminProcedure.query(async () => {
+    return getOrderStats();
+  }),
+
+  // ─── Admin: Mark order as paid ───────────────────────────────────────────
   adminMarkPaid: adminProcedure
     .input(
       z.object({
         orderId: z.number(),
-        paymentMethod: z.string().optional(),
+        paymentNotes: z.string().optional(),
       })
     )
-    .mutation(async ({ input }) => {
-      await updateOrderPaymentStatus(input.orderId, "paid", input.paymentMethod);
+    .mutation(async ({ ctx, input }) => {
+      await markOrderPaid(input.orderId, ctx.user.id, input.paymentNotes);
+
+      // Notify customer (via owner notification for now)
+      const order = await getOrderWithItems(input.orderId);
+      if (order) {
+        await notifyOwner({
+          title: `✅ Payment Confirmed — ${order.orderNumber}`,
+          content: `Order ${order.orderNumber} marked as paid.\nCustomer: ${order.shipName} (${order.shipEmail})\nTotal: $${(order.totalCents / 100).toFixed(2)}\n\nOrder is now queued for ShipStation pickup.`,
+        }).catch(() => {});
+      }
+
       return { success: true };
+    }),
+
+  // ─── Admin: Update admin notes ───────────────────────────────────────────
+  adminUpdateNotes: adminProcedure
+    .input(z.object({ orderId: z.number(), adminNotes: z.string() }))
+    .mutation(async ({ input }) => {
+      await updateOrderAdminNotes(input.orderId, input.adminNotes);
+      return { success: true };
+    }),
+
+  // ─── Admin: Get single order detail ─────────────────────────────────────
+  adminGetOrder: adminProcedure
+    .input(z.object({ orderId: z.number() }))
+    .query(async ({ input }) => {
+      return getOrderWithItems(input.orderId);
     }),
 });

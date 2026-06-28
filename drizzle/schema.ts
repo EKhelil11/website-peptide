@@ -1,4 +1,4 @@
-import { decimal, int, mysqlEnum, mysqlTable, text, timestamp, varchar } from "drizzle-orm/mysql-core";
+import { decimal, int, mysqlEnum, mysqlTable, text, timestamp, varchar, bigint } from "drizzle-orm/mysql-core";
 
 /**
  * Core user table backing auth flow.
@@ -33,24 +33,49 @@ export type InsertUser = typeof users.$inferInsert;
 
 export const orders = mysqlTable("orders", {
   id: int("id").autoincrement().primaryKey(),
+  // Human-readable order ID e.g. LAP-000123
+  orderNumber: varchar("orderNumber", { length: 32 }).unique(),
   userId: int("userId").notNull(),
-  status: mysqlEnum("status", ["pending", "confirmed", "processing", "shipped", "delivered", "cancelled"]).default("pending").notNull(),
-  paymentStatus: mysqlEnum("paymentStatus", ["awaiting_payment", "paid", "refunded"]).default("awaiting_payment").notNull(),
-  paymentMethod: varchar("paymentMethod", { length: 64 }).default("pending"),
-  totalAmount: decimal("totalAmount", { precision: 10, scale: 2 }).notNull(),
+  status: mysqlEnum("status", [
+    "pending_payment",
+    "paid",
+    "processing",
+    "shipped",
+    "delivered",
+    "cancelled",
+  ]).default("pending_payment").notNull(),
+  // Financials (stored in cents to avoid float issues)
+  subtotalCents: int("subtotalCents").notNull().default(0),
+  shippingCents: int("shippingCents").notNull().default(700), // $7.00 flat
+  taxCents: int("taxCents").notNull().default(0),
+  totalCents: int("totalCents").notNull().default(0),
+  // Payment
+  zellePhone: varchar("zellePhone", { length: 32 }).default("(310) 975-9289"),
+  paymentConfirmedAt: bigint("paymentConfirmedAt", { mode: "number" }),
+  paymentConfirmedBy: int("paymentConfirmedBy"), // admin user id
+  paymentNotes: text("paymentNotes"),
   // Shipping info captured at time of order
   shipName: varchar("shipName", { length: 256 }),
   shipEmail: varchar("shipEmail", { length: 320 }),
   shipPhone: varchar("shipPhone", { length: 32 }),
   shipAddress: text("shipAddress"),
+  shipAddress2: varchar("shipAddress2", { length: 256 }),
   shipCity: varchar("shipCity", { length: 128 }),
-  shipState: varchar("shipState", { length: 64 }),
+  shipState: varchar("shipState", { length: 4 }),
   shipZip: varchar("shipZip", { length: 20 }),
+  shipCountry: varchar("shipCountry", { length: 4 }).default("US"),
   // ShipStation integration
   shipstationOrderId: varchar("shipstationOrderId", { length: 128 }),
+  shipstationOrderKey: varchar("shipstationOrderKey", { length: 256 }),
+  shipstationSyncedAt: bigint("shipstationSyncedAt", { mode: "number" }),
+  // Tracking (populated by ShipStation webhook)
   trackingNumber: varchar("trackingNumber", { length: 256 }),
-  // Customer notes
-  notes: text("notes"),
+  trackingCarrier: varchar("trackingCarrier", { length: 64 }),
+  trackingService: varchar("trackingService", { length: 128 }),
+  shippedAt: bigint("shippedAt", { mode: "number" }),
+  estimatedDelivery: bigint("estimatedDelivery", { mode: "number" }),
+  // Internal admin notes
+  adminNotes: text("adminNotes"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
@@ -65,12 +90,27 @@ export const orderItems = mysqlTable("order_items", {
   orderId: int("orderId").notNull(),
   productId: varchar("productId", { length: 128 }).notNull(),
   productName: varchar("productName", { length: 256 }).notNull(),
+  variantLabel: varchar("variantLabel", { length: 128 }),
   productCategory: varchar("productCategory", { length: 128 }),
   quantity: int("quantity").notNull().default(1),
-  unitPrice: decimal("unitPrice", { precision: 10, scale: 2 }).notNull(),
-  lineTotal: decimal("lineTotal", { precision: 10, scale: 2 }).notNull(),
+  unitPriceCents: int("unitPriceCents").notNull(),
+  lineTotalCents: int("lineTotalCents").notNull(),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
 export type OrderItem = typeof orderItems.$inferSelect;
 export type InsertOrderItem = typeof orderItems.$inferInsert;
+
+// ─── Order Status History ───────────────────────────────────────────────────
+
+export const orderStatusHistory = mysqlTable("order_status_history", {
+  id: int("id").autoincrement().primaryKey(),
+  orderId: int("orderId").notNull(),
+  fromStatus: varchar("fromStatus", { length: 64 }),
+  toStatus: varchar("toStatus", { length: 64 }).notNull(),
+  changedBy: varchar("changedBy", { length: 64 }).default("system"), // "system" or admin user id
+  note: text("note"),
+  createdAt: bigint("createdAt", { mode: "number" }).notNull(),
+});
+
+export type OrderStatusHistory = typeof orderStatusHistory.$inferSelect;

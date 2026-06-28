@@ -1,5 +1,5 @@
 // === ELITE LA PEPTIDES — Checkout Page ===
-// Order submission form — collects shipping info and submits order request
+// Order submission with $7 flat shipping, 9% tax, Zelle payment instructions
 
 import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
@@ -7,9 +7,12 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { getLoginUrl } from "@/const";
 import { trpc } from "@/lib/trpc";
 import { CartItem } from "./Shop";
-import { ArrowLeft, CheckCircle } from "lucide-react";
+import { ArrowLeft, CheckCircle, Copy, Check } from "lucide-react";
 
 const LOGO_URL = "/manus-storage/elite-la-peptides-logo_e9ec855c.png";
+const ZELLE_PHONE = "(310) 975-9289";
+const SHIPPING_FLAT = 7.00;
+const TAX_RATE = 0.09;
 
 const US_STATES = [
   "AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA",
@@ -23,13 +26,16 @@ export default function Checkout() {
   const [, setLocation] = useLocation();
   const [cart, setCart] = useState<CartItem[]>([]);
   const [submitted, setSubmitted] = useState(false);
-  const [orderId, setOrderId] = useState<number | null>(null);
+  const [orderNumber, setOrderNumber] = useState<string>("");
+  const [orderTotal, setOrderTotal] = useState<number>(0);
+  const [copied, setCopied] = useState(false);
 
   const [form, setForm] = useState({
     shipName: "",
     shipEmail: "",
     shipPhone: "",
     shipAddress: "",
+    shipAddress2: "",
     shipCity: "",
     shipState: "",
     shipZip: "",
@@ -41,7 +47,6 @@ export default function Checkout() {
       window.location.href = getLoginUrl();
       return;
     }
-    // Pre-fill email and name from user
     if (user) {
       setForm(prev => ({
         ...prev,
@@ -49,7 +54,6 @@ export default function Checkout() {
         shipEmail: prev.shipEmail || user.email || "",
       }));
     }
-    // Load cart from sessionStorage
     const stored = sessionStorage.getItem("elitela_cart");
     if (stored) {
       try {
@@ -64,7 +68,8 @@ export default function Checkout() {
 
   const submitOrder = trpc.orders.submit.useMutation({
     onSuccess: (data) => {
-      setOrderId(data.orderId);
+      setOrderNumber(data.orderNumber);
+      setOrderTotal(data.totalCents / 100);
       setSubmitted(true);
       sessionStorage.removeItem("elitela_cart");
     },
@@ -80,7 +85,16 @@ export default function Checkout() {
 
   if (!user) return null;
 
-  const cartTotal = cart.reduce((sum, item) => sum + item.unitPrice * item.quantity, 0);
+  const subtotal = cart.reduce((sum, item) => sum + item.unitPrice * item.quantity, 0);
+  const shipping = SHIPPING_FLAT;
+  const tax = subtotal * TAX_RATE;
+  const total = subtotal + shipping + tax;
+
+  const handleCopyPhone = () => {
+    navigator.clipboard.writeText(ZELLE_PHONE.replace(/\D/g, ""));
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -108,84 +122,220 @@ export default function Checkout() {
     color: "oklch(0.72 0.18 210)",
   };
 
+  // ─── Order Confirmed / Zelle Instructions ───────────────────────────────────
   if (submitted) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center px-4" style={{ background: "oklch(0.12 0.05 255)" }}>
+      <div className="min-h-screen flex flex-col items-center justify-center px-4 py-12" style={{ background: "oklch(0.12 0.05 255)" }}>
         <div
-          className="w-full max-w-md rounded-2xl p-8 text-center"
-          style={{
-            background: "oklch(0.17 0.055 255)",
-            border: "1px solid oklch(0.28 0.08 255 / 60%)",
-          }}
+          className="w-full max-w-lg rounded-2xl overflow-hidden"
+          style={{ border: "1px solid oklch(0.28 0.08 255 / 60%)" }}
         >
-          <CheckCircle size={48} className="mx-auto mb-4" style={{ color: "oklch(0.72 0.18 210)" }} />
-          <h1
-            className="text-4xl text-white mb-3"
-            style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "0.06em" }}
-          >
-            Order Received!
-          </h1>
-          <p className="text-white/60 mb-2" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
-            Order #{orderId} has been submitted successfully.
-          </p>
-          <p className="text-white/50 text-sm mb-6" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
-            We'll reach out to <strong className="text-white/70">{form.shipEmail}</strong> or text you at <strong className="text-white/70">{form.shipPhone || "(310) 975-9289"}</strong> to arrange payment and confirm your order.
-          </p>
-
-          {/* Order summary */}
+          {/* Header */}
           <div
-            className="rounded-lg p-4 mb-6 text-left"
-            style={{ background: "oklch(0.19 0.06 255)" }}
+            className="px-8 py-6 text-center"
+            style={{ background: "oklch(0.17 0.055 255)" }}
           >
-            <p className="text-white/40 text-xs mb-3 uppercase tracking-widest" style={{ fontFamily: "'Rajdhani', sans-serif" }}>Order Summary</p>
-            {cart.map(item => (
-              <div key={item.productId} className="flex justify-between text-sm mb-1">
-                <span className="text-white/70" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
-                  {item.productName} × {item.quantity}
-                </span>
-                <span className="text-white" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
-                  ${(item.unitPrice * item.quantity).toFixed(2)}
-                </span>
-              </div>
-            ))}
-            <div className="border-t mt-3 pt-3 flex justify-between" style={{ borderColor: "oklch(0.28 0.08 255 / 40%)" }}>
-              <span className="text-white/60 font-bold text-sm uppercase tracking-widest" style={{ fontFamily: "'Rajdhani', sans-serif" }}>Total</span>
-              <span className="text-white font-bold" style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.2rem" }}>
-                ${cartTotal.toFixed(2)}
-              </span>
-            </div>
+            <CheckCircle size={48} className="mx-auto mb-3" style={{ color: "oklch(0.72 0.18 210)" }} />
+            <h1
+              className="text-4xl text-white mb-1"
+              style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "0.06em" }}
+            >
+              Order Confirmed!
+            </h1>
+            <p className="text-white/50 text-sm" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
+              Order <strong className="text-white/80">{orderNumber}</strong> has been placed
+            </p>
           </div>
 
-          <div className="flex gap-3">
-            <button
-              onClick={() => setLocation("/account")}
-              className="flex-1 py-2.5 rounded-lg text-sm font-bold tracking-widest uppercase transition-all hover:opacity-90"
+          {/* Zelle Payment Instructions */}
+          <div
+            className="px-8 py-6"
+            style={{ background: "oklch(0.14 0.05 255)" }}
+          >
+            <div
+              className="rounded-xl p-5 mb-5"
               style={{
                 background: "oklch(0.19 0.06 255)",
-                border: "1px solid oklch(0.28 0.08 255 / 60%)",
-                color: "oklch(0.72 0.18 210)",
-                fontFamily: "'Rajdhani', sans-serif",
+                border: "2px solid oklch(0.72 0.18 210 / 40%)",
               }}
             >
-              My Orders
-            </button>
-            <button
-              onClick={() => setLocation("/shop")}
-              className="flex-1 py-2.5 rounded-lg text-sm font-bold tracking-widest uppercase transition-all hover:opacity-90"
+              <p
+                className="text-xs uppercase tracking-widest mb-3"
+                style={{ fontFamily: "'Rajdhani', sans-serif", color: "oklch(0.72 0.18 210)" }}
+              >
+                Step 1 — Send Zelle Payment
+              </p>
+              <p className="text-white/60 text-sm mb-4" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
+                Open your bank's Zelle app and send the exact amount below to:
+              </p>
+
+              {/* Zelle phone */}
+              <div
+                className="flex items-center justify-between rounded-lg px-4 py-3 mb-3"
+                style={{ background: "oklch(0.22 0.07 255)", border: "1px solid oklch(0.35 0.1 255 / 50%)" }}
+              >
+                <div>
+                  <p className="text-white/40 text-xs mb-0.5" style={{ fontFamily: "'Rajdhani', sans-serif" }}>Zelle to</p>
+                  <p className="text-white font-bold text-lg" style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "0.05em" }}>
+                    {ZELLE_PHONE}
+                  </p>
+                </div>
+                <button
+                  onClick={handleCopyPhone}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-widest transition-all"
+                  style={{
+                    background: copied ? "oklch(0.5 0.2 145 / 20%)" : "oklch(0.72 0.18 210 / 15%)",
+                    border: `1px solid ${copied ? "oklch(0.5 0.2 145 / 40%)" : "oklch(0.72 0.18 210 / 30%)"}`,
+                    color: copied ? "oklch(0.7 0.2 145)" : "oklch(0.72 0.18 210)",
+                    fontFamily: "'Rajdhani', sans-serif",
+                  }}
+                >
+                  {copied ? <Check size={12} /> : <Copy size={12} />}
+                  {copied ? "Copied!" : "Copy"}
+                </button>
+              </div>
+
+              {/* Amount */}
+              <div
+                className="flex items-center justify-between rounded-lg px-4 py-3 mb-3"
+                style={{ background: "oklch(0.22 0.07 255)", border: "1px solid oklch(0.35 0.1 255 / 50%)" }}
+              >
+                <div>
+                  <p className="text-white/40 text-xs mb-0.5" style={{ fontFamily: "'Rajdhani', sans-serif" }}>Amount</p>
+                  <p className="text-white font-bold text-2xl" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+                    ${orderTotal.toFixed(2)}
+                  </p>
+                </div>
+                <span
+                  className="text-xs px-2 py-1 rounded-full"
+                  style={{
+                    background: "oklch(0.6 0.27 0 / 15%)",
+                    border: "1px solid oklch(0.6 0.27 0 / 30%)",
+                    color: "oklch(0.75 0.2 25)",
+                    fontFamily: "'Rajdhani', sans-serif",
+                  }}
+                >
+                  Exact amount
+                </span>
+              </div>
+
+              {/* Memo */}
+              <div
+                className="flex items-center justify-between rounded-lg px-4 py-3"
+                style={{ background: "oklch(0.22 0.07 255)", border: "1px solid oklch(0.35 0.1 255 / 50%)" }}
+              >
+                <div>
+                  <p className="text-white/40 text-xs mb-0.5" style={{ fontFamily: "'Rajdhani', sans-serif" }}>Memo / Note</p>
+                  <p className="text-white font-bold" style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "0.05em" }}>
+                    {orderNumber}
+                  </p>
+                </div>
+                <span
+                  className="text-xs px-2 py-1 rounded-full"
+                  style={{
+                    background: "oklch(0.72 0.18 210 / 10%)",
+                    border: "1px solid oklch(0.72 0.18 210 / 25%)",
+                    color: "oklch(0.72 0.18 210)",
+                    fontFamily: "'Rajdhani', sans-serif",
+                  }}
+                >
+                  Include this
+                </span>
+              </div>
+            </div>
+
+            {/* Step 2 */}
+            <div
+              className="rounded-xl p-4 mb-5"
               style={{
-                background: "linear-gradient(135deg, oklch(0.6 0.27 0), oklch(0.55 0.25 355))",
-                color: "white",
-                fontFamily: "'Rajdhani', sans-serif",
+                background: "oklch(0.19 0.06 255)",
+                border: "1px solid oklch(0.28 0.08 255 / 50%)",
               }}
             >
-              Shop More
-            </button>
+              <p
+                className="text-xs uppercase tracking-widest mb-2"
+                style={{ fontFamily: "'Rajdhani', sans-serif", color: "oklch(0.72 0.18 210)" }}
+              >
+                Step 2 — Wait for Confirmation
+              </p>
+              <p className="text-white/60 text-sm" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
+                Once we receive your Zelle payment, your order status will update to <strong className="text-white/80">Paid</strong> and we'll begin preparing your shipment. You'll receive a tracking number via email at <strong className="text-white/80">{form.shipEmail}</strong>.
+              </p>
+            </div>
+
+            {/* Order summary */}
+            <div
+              className="rounded-xl p-4 mb-5"
+              style={{
+                background: "oklch(0.19 0.06 255)",
+                border: "1px solid oklch(0.28 0.08 255 / 50%)",
+              }}
+            >
+              <p className="text-white/40 text-xs mb-3 uppercase tracking-widest" style={{ fontFamily: "'Rajdhani', sans-serif" }}>Order Summary</p>
+              {cart.map(item => (
+                <div key={item.productId} className="flex justify-between text-sm mb-1.5">
+                  <span className="text-white/70" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
+                    {item.productName} × {item.quantity}
+                  </span>
+                  <span className="text-white" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
+                    ${(item.unitPrice * item.quantity).toFixed(2)}
+                  </span>
+                </div>
+              ))}
+              <div className="border-t mt-3 pt-3 space-y-1.5" style={{ borderColor: "oklch(0.28 0.08 255 / 40%)" }}>
+                <div className="flex justify-between text-sm">
+                  <span className="text-white/50" style={{ fontFamily: "'Rajdhani', sans-serif" }}>Subtotal</span>
+                  <span className="text-white/70" style={{ fontFamily: "'Rajdhani', sans-serif" }}>${subtotal.toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-white/50" style={{ fontFamily: "'Rajdhani', sans-serif" }}>Shipping</span>
+                  <span className="text-white/70" style={{ fontFamily: "'Rajdhani', sans-serif" }}>${shipping.toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between text-sm">
+                  <span className="text-white/50" style={{ fontFamily: "'Rajdhani', sans-serif" }}>Tax (9%)</span>
+                  <span className="text-white/70" style={{ fontFamily: "'Rajdhani', sans-serif" }}>${tax.toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between items-center pt-1.5 border-t" style={{ borderColor: "oklch(0.28 0.08 255 / 40%)" }}>
+                  <span className="text-white font-bold uppercase tracking-widest text-sm" style={{ fontFamily: "'Rajdhani', sans-serif" }}>Total Due</span>
+                  <span className="text-white font-bold text-2xl" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
+                    ${orderTotal.toFixed(2)}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex gap-3">
+              <button
+                onClick={() => setLocation("/account")}
+                className="flex-1 py-2.5 rounded-lg text-sm font-bold tracking-widest uppercase transition-all hover:opacity-90"
+                style={{
+                  background: "oklch(0.19 0.06 255)",
+                  border: "1px solid oklch(0.28 0.08 255 / 60%)",
+                  color: "oklch(0.72 0.18 210)",
+                  fontFamily: "'Rajdhani', sans-serif",
+                }}
+              >
+                My Orders
+              </button>
+              <button
+                onClick={() => setLocation("/shop")}
+                className="flex-1 py-2.5 rounded-lg text-sm font-bold tracking-widest uppercase transition-all hover:opacity-90"
+                style={{
+                  background: "linear-gradient(135deg, oklch(0.6 0.27 0), oklch(0.55 0.25 355))",
+                  color: "white",
+                  fontFamily: "'Rajdhani', sans-serif",
+                }}
+              >
+                Shop More
+              </button>
+            </div>
           </div>
         </div>
       </div>
     );
   }
 
+  // ─── Checkout Form ───────────────────────────────────────────────────────────
   return (
     <div className="min-h-screen" style={{ background: "oklch(0.12 0.05 255)" }}>
       {/* Top Nav */}
@@ -214,7 +364,7 @@ export default function Checkout() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10">
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
           {/* Form */}
-          <form onSubmit={handleSubmit} className="lg:col-span-3 space-y-6">
+          <form onSubmit={handleSubmit} className="lg:col-span-3 space-y-5">
             <div>
               <h2
                 className="text-3xl text-white mb-1"
@@ -223,7 +373,7 @@ export default function Checkout() {
                 Shipping Information
               </h2>
               <p className="text-white/40 text-xs" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
-                We'll contact you to arrange payment after reviewing your order.
+                After submitting, you'll receive Zelle payment instructions with your exact total.
               </p>
             </div>
 
@@ -273,7 +423,18 @@ export default function Checkout() {
                 onChange={e => setForm(p => ({ ...p, shipAddress: e.target.value }))}
                 className="w-full px-3 py-2.5 rounded-lg outline-none focus:ring-2 focus:ring-[#FF2D78]/40"
                 style={inputStyle}
-                placeholder="123 Main St, Apt 4B"
+                placeholder="123 Main St"
+              />
+            </div>
+
+            <div>
+              <label style={labelStyle} className="block mb-1.5">Apt / Suite / Unit (optional)</label>
+              <input
+                value={form.shipAddress2}
+                onChange={e => setForm(p => ({ ...p, shipAddress2: e.target.value }))}
+                className="w-full px-3 py-2.5 rounded-lg outline-none focus:ring-2 focus:ring-[#FF2D78]/40"
+                style={inputStyle}
+                placeholder="Apt 4B"
               />
             </div>
 
@@ -324,7 +485,7 @@ export default function Checkout() {
                 onChange={e => setForm(p => ({ ...p, notes: e.target.value }))}
                 className="w-full px-3 py-2.5 rounded-lg outline-none focus:ring-2 focus:ring-[#FF2D78]/40 resize-none"
                 style={inputStyle}
-                placeholder="Any special instructions or questions..."
+                placeholder="Any special instructions..."
               />
             </div>
 
@@ -346,11 +507,11 @@ export default function Checkout() {
                 boxShadow: "0 4px 20px oklch(0.6 0.27 0 / 30%)",
               }}
             >
-              {submitOrder.isPending ? "Submitting..." : `Submit Order — $${cartTotal.toFixed(2)}`}
+              {submitOrder.isPending ? "Placing Order..." : `Place Order — $${total.toFixed(2)}`}
             </button>
 
             <p className="text-center text-white/30 text-xs" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
-              No payment is collected now. We'll contact you to arrange payment after reviewing your order.
+              You'll receive Zelle payment instructions immediately after placing your order.
             </p>
           </form>
 
@@ -377,7 +538,7 @@ export default function Checkout() {
                         {item.productName}
                       </p>
                       <p className="text-white/40 text-xs" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
-                        Qty: {item.quantity} × ${item.unitPrice}
+                        Qty: {item.quantity} × ${item.unitPrice.toFixed(2)}
                       </p>
                     </div>
                     <span className="text-white text-sm font-medium shrink-0" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
@@ -386,26 +547,30 @@ export default function Checkout() {
                   </div>
                 ))}
               </div>
-              <div className="border-t pt-4" style={{ borderColor: "oklch(0.28 0.08 255 / 40%)" }}>
-                <div className="flex justify-between items-center mb-2">
+              <div className="border-t pt-4 space-y-2" style={{ borderColor: "oklch(0.28 0.08 255 / 40%)" }}>
+                <div className="flex justify-between items-center">
                   <span className="text-white/50 text-sm" style={{ fontFamily: "'Rajdhani', sans-serif" }}>Subtotal</span>
-                  <span className="text-white text-sm" style={{ fontFamily: "'Rajdhani', sans-serif" }}>${cartTotal.toFixed(2)}</span>
-                </div>
-                <div className="flex justify-between items-center mb-4">
-                  <span className="text-white/50 text-sm" style={{ fontFamily: "'Rajdhani', sans-serif" }}>Shipping</span>
-                  <span className="text-white/50 text-xs" style={{ fontFamily: "'Rajdhani', sans-serif" }}>Confirmed at payment</span>
+                  <span className="text-white text-sm" style={{ fontFamily: "'Rajdhani', sans-serif" }}>${subtotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-white font-bold uppercase tracking-widest text-sm" style={{ fontFamily: "'Rajdhani', sans-serif" }}>Order Total</span>
+                  <span className="text-white/50 text-sm" style={{ fontFamily: "'Rajdhani', sans-serif" }}>Shipping</span>
+                  <span className="text-white text-sm" style={{ fontFamily: "'Rajdhani', sans-serif" }}>${shipping.toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-white/50 text-sm" style={{ fontFamily: "'Rajdhani', sans-serif" }}>Tax (9%)</span>
+                  <span className="text-white text-sm" style={{ fontFamily: "'Rajdhani', sans-serif" }}>${tax.toFixed(2)}</span>
+                </div>
+                <div className="flex justify-between items-center pt-2 border-t" style={{ borderColor: "oklch(0.28 0.08 255 / 40%)" }}>
+                  <span className="text-white font-bold uppercase tracking-widest text-sm" style={{ fontFamily: "'Rajdhani', sans-serif" }}>Total</span>
                   <span className="text-white font-bold text-2xl" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>
-                    ${cartTotal.toFixed(2)}
+                    ${total.toFixed(2)}
                   </span>
                 </div>
               </div>
 
-              {/* Shipping note */}
+              {/* Payment method note */}
               <div
-                className="mt-4 rounded-lg px-3 py-2.5 text-xs"
+                className="mt-4 rounded-lg px-3 py-3 text-xs space-y-1"
                 style={{
                   background: "oklch(0.72 0.18 210 / 8%)",
                   border: "1px solid oklch(0.72 0.18 210 / 20%)",
@@ -413,7 +578,20 @@ export default function Checkout() {
                   fontFamily: "'Rajdhani', sans-serif",
                 }}
               >
-                🚚 Nationwide shipping — 3–5 business days
+                <p className="font-bold uppercase tracking-widest">💳 Payment via Zelle</p>
+                <p className="text-white/50">After placing your order, you'll receive instructions to send payment via Zelle to {ZELLE_PHONE}.</p>
+              </div>
+
+              <div
+                className="mt-3 rounded-lg px-3 py-2.5 text-xs"
+                style={{
+                  background: "oklch(0.19 0.06 255)",
+                  border: "1px solid oklch(0.28 0.08 255 / 40%)",
+                  color: "oklch(0.6 0.1 255)",
+                  fontFamily: "'Rajdhani', sans-serif",
+                }}
+              >
+                🚚 Flat-rate shipping $7.00 · 3–5 business days
               </div>
             </div>
           </div>

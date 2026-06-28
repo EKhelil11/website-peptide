@@ -12,18 +12,17 @@ function escapeXml(str: string): string {
 }
 
 /**
- * ShipStation webhook endpoint.
- * ShipStation sends a POST to this URL when order status changes (e.g., shipped).
- * Configure in ShipStation: Settings → Integrations → Webhooks → Add Webhook
- * URL: https://laelitepeps.com/api/shipstation/webhook
- * Event: SHIP_NOTIFY
- */
-/**
  * ShipStation Custom Store orders endpoint.
  * ShipStation polls this URL every 15 minutes to pull new paid orders.
  * Configure in ShipStation: Settings → Selling Channels → Connect a Store → Custom Store
  * URL: https://laelitepeps.com/api/shipstation/orders
  * Auth: Basic Auth using your ShipStation API key as username and secret as password.
+ *
+ * ShipStation webhook endpoint.
+ * ShipStation sends a POST to this URL when order status changes (e.g., shipped).
+ * Configure in ShipStation: Settings → Integrations → Webhooks → Add Webhook
+ * URL: https://laelitepeps.com/api/shipstation/webhook
+ * Event: SHIP_NOTIFY
  */
 export function registerShipStationWebhook(app: Express) {
   // Basic Auth middleware for ShipStation requests
@@ -43,19 +42,19 @@ export function registerShipStationWebhook(app: Express) {
     next();
   };
 
+  // ShipStation polls this to get new paid orders
   app.get("/api/shipstation/orders", shipstationAuth, async (req, res) => {
     try {
       const paidOrders = await getPaidOrdersWithItems();
 
-      // Build ShipStation-compatible XML response
       const orderXml = paidOrders.map(order => {
         const itemsXml = order.items.map(item => `
           <Item>
             <LineItemKey>${item.id}</LineItemKey>
-            <SKU>${item.productId}</SKU>
+            <SKU>${escapeXml(item.productId)}</SKU>
             <Name>${escapeXml(item.productName)}</Name>
             <Quantity>${item.quantity}</Quantity>
-            <UnitPrice>${Number(item.unitPrice).toFixed(2)}</UnitPrice>
+            <UnitPrice>${(item.unitPriceCents / 100).toFixed(2)}</UnitPrice>
           </Item>`).join("");
 
         const [firstName, ...lastParts] = (order.shipName || "Customer").split(" ");
@@ -64,16 +63,16 @@ export function registerShipStationWebhook(app: Express) {
         return `
         <Order>
           <OrderID>${order.id}</OrderID>
-          <OrderNumber>${order.id}</OrderNumber>
+          <OrderNumber>${escapeXml(order.orderNumber || String(order.id))}</OrderNumber>
           <OrderDate>${order.createdAt.toISOString()}</OrderDate>
           <OrderStatus>paid</OrderStatus>
           <LastModified>${order.updatedAt.toISOString()}</LastModified>
           <ShippingMethod>Standard</ShippingMethod>
-          <PaymentMethod>${escapeXml(order.paymentMethod || "manual")}</PaymentMethod>
-          <OrderTotal>${Number(order.totalAmount).toFixed(2)}</OrderTotal>
-          <TaxAmount>0.00</TaxAmount>
-          <ShippingAmount>0.00</ShippingAmount>
-          <CustomerNotes>${escapeXml(order.notes || "")}</CustomerNotes>
+          <PaymentMethod>Zelle</PaymentMethod>
+          <OrderTotal>${(order.totalCents / 100).toFixed(2)}</OrderTotal>
+          <TaxAmount>${(order.taxCents / 100).toFixed(2)}</TaxAmount>
+          <ShippingAmount>${(order.shippingCents / 100).toFixed(2)}</ShippingAmount>
+          <CustomerNotes>${escapeXml(order.adminNotes || "")}</CustomerNotes>
           <Customer>
             <CustomerCode>${escapeXml(order.shipEmail || "")}</CustomerCode>
             <BillTo>
@@ -85,11 +84,11 @@ export function registerShipStationWebhook(app: Express) {
               <Name>${escapeXml(order.shipName || "")}</Name>
               <Company></Company>
               <Address1>${escapeXml(order.shipAddress || "")}</Address1>
-              <Address2></Address2>
+              <Address2>${escapeXml(order.shipAddress2 || "")}</Address2>
               <City>${escapeXml(order.shipCity || "")}</City>
               <State>${escapeXml(order.shipState || "")}</State>
               <PostalCode>${escapeXml(order.shipZip || "")}</PostalCode>
-              <Country>US</Country>
+              <Country>${escapeXml(order.shipCountry || "US")}</Country>
               <Phone>${escapeXml(order.shipPhone || "")}</Phone>
               <Email>${escapeXml(order.shipEmail || "")}</Email>
             </ShipTo>
@@ -111,12 +110,11 @@ export function registerShipStationWebhook(app: Express) {
     }
   });
 
+  // ShipStation POSTs here when a label is created / order ships
   app.post("/api/shipstation/webhook", async (req, res) => {
     try {
       const payload = req.body;
 
-      // ShipStation sends resource_url on SHIP_NOTIFY events
-      // The resource_url contains the shipment details
       if (payload?.resource_type === "SHIP_NOTIFY" && payload?.resource_url) {
         const apiKey = process.env.SHIPSTATION_API_KEY;
         const apiSecret = process.env.SHIPSTATION_API_SECRET;
@@ -125,7 +123,6 @@ export function registerShipStationWebhook(app: Express) {
           return res.status(200).json({ received: true });
         }
 
-        // Fetch shipment details from ShipStation API
         const response = await fetch(payload.resource_url, {
           headers: {
             Authorization: `Basic ${Buffer.from(`${apiKey}:${apiSecret}`).toString("base64")}`,
@@ -141,12 +138,15 @@ export function registerShipStationWebhook(app: Express) {
             const orderNumber = shipment?.orderNumber;
             const trackingNumber = shipment?.trackingNumber;
             const shipstationOrderId = String(shipment?.orderId ?? "");
+            const carrier = shipment?.carrierCode || shipment?.carrier;
+            const service = shipment?.serviceCode;
 
             if (orderNumber && trackingNumber) {
-              const orderId = parseInt(orderNumber, 10);
-              if (!isNaN(orderId)) {
-                await updateOrderShipStation(orderId, shipstationOrderId, trackingNumber);
-                console.log(`[ShipStation] Updated order #${orderId} with tracking: ${trackingNumber}`);
+              // Try numeric ID first, then orderNumber string
+              const numericId = parseInt(orderNumber, 10);
+              if (!isNaN(numericId)) {
+                await updateOrderShipStation(numericId, shipstationOrderId, trackingNumber, carrier, service);
+                console.log(`[ShipStation] Updated order #${numericId} with tracking: ${trackingNumber}`);
               }
             }
           }

@@ -101,3 +101,17 @@
 - [x] Generate white-background vial images with La Elite Peptides label for all 10 products
 - [x] Upload all 10 vial images to webdev static assets
 - [x] Update products.ts with new image URLs for all 10 products
+
+## Zelle Order System (Full Build)
+
+- [x] Database schema: orders, order_items, shipments, order_status_history — all columns migrated
+- [x] tRPC: submit, myOrders, getOrder, cancelOrder (customer procedures)
+- [x] tRPC: adminListOrders, adminStats, adminMarkPaid, adminUpdateNotes, adminGetOrder (admin procedures)
+- [x] ShipStation webhook receiver: POST /api/webhooks/shipstation — auto-updates tracking number
+- [x] Checkout page: shipping address form, $7 flat shipping, 9% tax, Zelle instructions on confirmation
+- [x] Account page (/account): customer order history with status and tracking
+- [x] Admin dashboard (/admin): stats cards, orders table, search, filter tabs, expand/collapse detail
+- [x] Admin mark paid: notes input + green confirm button per order
+- [x] Admin route guard: only role=admin can access /admin
+- [x] Routes registered in App.tsx: /checkout, /account, /admin
+- [ ] Promote owner account to admin role in database (manual step — see instructions below)
