@@ -587,7 +587,7 @@ export default function Checkout() {
                   <ShoppingBag size={20} style={{ color: "oklch(0.72 0.18 210)", flexShrink: 0 }} />
                   <div>
                     <p className="text-white font-bold text-base uppercase tracking-widest" style={{ fontFamily: "'Rajdhani', sans-serif" }}>Payment via Zelle</p>
-                    <p className="text-white/60 text-sm" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}>Send to {ZELLE_PHONE} after ordering</p>
+                    <p className="text-white font-bold text-3xl" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}>Send to {ZELLE_PHONE} after ordering</p>
                   </div>
                 </div>
                 <div
@@ -599,15 +599,7 @@ export default function Checkout() {
                     Flat-rate shipping $7.00 · 3–5 business days
                   </p>
                 </div>
-                <div
-                  className="rounded-xl px-4 py-3 flex items-center gap-3"
-                  style={{ background: "oklch(0.19 0.06 255)", border: "1px solid oklch(0.28 0.08 255 / 40%)" }}
-                >
-                  <Shield size={20} style={{ color: "oklch(0.72 0.18 210)", flexShrink: 0 }} />
-                  <p className="text-white/70 text-base font-semibold" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
-                    ≥99% Purity · Small-batch tested
-                  </p>
-                </div>
+                {/* Purity badge hidden until product testing complete */}
               </div>
             </div>
           </div>
