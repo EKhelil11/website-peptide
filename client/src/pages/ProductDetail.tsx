@@ -51,7 +51,6 @@ function MolecularTable({ product }: { product: Product }) {
     { label: "Molecular Weight", value: md.molecularWeight },
     { label: "PubChem CID", value: md.pubchemCid },
     { label: "CAS Number", value: md.casNumber },
-    { label: "Purity", value: md.purity },
     { label: "Form", value: md.form },
     { label: "Storage", value: md.storage },
   ].filter((r) => r.value);
@@ -550,8 +549,8 @@ export default function ProductDetail() {
             className="grid grid-cols-2 gap-3 pt-2"
           >
             {[
-              { icon: "🔬", label: "≥99% Purity" },
               { icon: "🇺🇸", label: "US Research" },
+              // { icon: "🔬", label: "≥99% Purity" }, // Hidden until 3rd-party testing complete
               // { icon: "📋", label: "COA Available" }, // Hidden until COAs are ready
             ].map(({ icon, label }) => (
               <div

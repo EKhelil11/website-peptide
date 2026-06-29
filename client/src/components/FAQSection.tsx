@@ -21,7 +21,7 @@ const faqs: FAQItem[] = [
   {
     category: "research",
     q: "What purity and quality standards do your peptides meet?",
-    a: "All of our research peptides are manufactured to pharmaceutical-grade standards with a minimum purity of 99%+. Each batch undergoes rigorous quality control testing including HPLC (High-Performance Liquid Chromatography) and mass spectrometry analysis to verify identity, purity, and potency.",
+    a: "All of our research peptides are manufactured to pharmaceutical-grade standards. Each batch undergoes rigorous quality control testing including HPLC (High-Performance Liquid Chromatography) and mass spectrometry analysis to verify identity and potency. Third-party purity testing results will be published as Certificates of Analysis (COAs) and made available on each product page.",
   },
   {
     category: "research",
@@ -31,7 +31,7 @@ const faqs: FAQItem[] = [
   {
     category: "research",
     q: "Are your peptides tested before shipping?",
-    a: "Yes. Every product in our catalog is tested for purity and identity prior to fulfillment. We source only from verified, GMP-compliant manufacturers and maintain strict quality assurance protocols.",
+    a: "Yes. Every product in our catalog is tested for identity and potency prior to fulfillment. We source only from verified, GMP-compliant manufacturers and maintain strict quality assurance protocols. Certificates of Analysis (COAs) from third-party testing will be published on each product page as they become available.",
   },
   // Shipping
   {
