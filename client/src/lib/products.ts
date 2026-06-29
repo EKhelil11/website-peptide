@@ -42,6 +42,48 @@ export interface Product {
 
 export const products: Product[] = [
   {
+    id: "retatrutide-10mg",
+    name: "Retatrutide",
+    content: "10 mg per vial",
+    category: "GLP",
+    isStack: false,
+    tagline: "Multi-receptor peptide studied for activity across GLP-1, GIP, and glucagon pathways",
+    synopsis:
+      "Retatrutide is a tri-agonist research peptide whose unique profile makes it particularly relevant in experimental models focused on integrated pathway interactions, system-wide metabolic coordination, and multi-pathway metabolism.",
+    plainEnglish:
+      "Retatrutide is a multi-receptor peptide studied in research for its activity across GLP-1, GIP, and glucagon pathways simultaneously. While single-receptor GLP-1 peptides have been widely studied, Retatrutide extends this research by engaging all three pathways concurrently. This tri-agonist profile makes it particularly relevant in experimental models focused on integrated pathway interactions, coordinated metabolic signaling, and system-wide energy regulation. Overlapping receptor activation influences signaling efficiency, pathway balance, and downstream biological responses — making it a subject of considerable scientific interest.",
+    howItWorks:
+      "Retatrutide engages three hormone receptor pathways simultaneously: GLP-1 (which modulates nutrient handling and gastric motility via peptide-mediated endocrine communication), GIP (which influences insulin response and lipid metabolism), and glucagon (which drives energy expenditure and fatty acid oxidation). This combination produces a multifaceted metabolic signaling effect studied in the context of metabolic syndrome research, glycemic pathway models, and system-wide metabolic coordination.",
+    whoIsItFor:
+      "Research applications include metabolic syndrome studies, multi-receptor agonism pharmacology, glycemic pathway research, and investigations into coordinated metabolic signaling across GLP-1, GIP, and glucagon receptor systems. For use by qualified researchers in laboratory settings only.",
+    benefits: [
+      "Tri-agonist receptor engagement — GLP-1, GIP, and glucagon pathways",
+      "Coordinated metabolic signaling and system-wide energy regulation research",
+      "Nutrient handling and gastric motility modulation via peptide-mediated endocrine communication",
+      "Glycemic control and insulin response research",
+      "Energy balance and lipolysis pathway investigation",
+      "Overlapping receptor activation and pathway balance studies",
+    ],
+    price: "$150",
+    badge: "Advanced",
+    images: ["https://d2xsxph8kpxj0f.cloudfront.net/310519663765469010/KeqNR4QdNviNNDWK3S7923/vial_retatrutide_10mg-MU5Wv8SWVjk2HkaawwiL82.webp"],
+    variants: [
+      { label: "10mg", price: "$150", content: "10 mg per vial" },
+    ],
+    molecularData: {
+      molecularFormula: "C₂₅₇H₄₀₇N₆₅O₇₂",
+      molecularWeight: "5765.5 Da",
+      casNumber: "2381090-08-8",
+      pubchemCid: "485663353",
+      sequence: "Tri-agonist GLP-1/GIP/Glucagon receptor peptide",
+      purity: "≥99% (HPLC)",
+      storage: "Lyophilized: −20°C. Reconstituted: 2–8°C, use within 28 days.",
+      form: "Lyophilized powder",
+    },
+    disclaimer:
+      "Retatrutide is sold strictly for in-vitro laboratory research use only. It is not a drug, food additive, cosmetic, or dietary supplement. This material is not approved by the FDA or any regulatory authority for human or veterinary use, and any discussion of clinical application is for scientific context only — not product endorsement. For research use by qualified scientists only.",
+  },
+  {
     id: "retatrutide-30mg",
     name: "Retatrutide",
     content: "30 mg per vial",
@@ -64,11 +106,11 @@ export const products: Product[] = [
       "Energy balance and lipolysis pathway investigation",
       "Overlapping receptor activation and pathway balance studies",
     ],
-    price: "$140",
+    price: "$200",
     badge: "Advanced",
     images: ["/manus-storage/vial_v7_retatrutide_fb1a36af.png"],
     variants: [
-      { label: "30mg", price: "$140", content: "30 mg per vial" },
+      { label: "30mg", price: "$200", content: "30 mg per vial" },
     ],
     molecularData: {
       molecularFormula: "C₂₅₇H₄₀₇N₆₅O₇₂",
