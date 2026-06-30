@@ -103,7 +103,7 @@ export default function ProductCard({ product, index }: ProductCardProps) {
           </h3>
           {product.isStack && product.stackName && (
             <div
-              className="text-[#C9A84C] text-xs tracking-widest uppercase"
+              className="text-[#FF2D78] text-xs tracking-widest uppercase"
               style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
             >
               {product.stackName}
@@ -187,7 +187,7 @@ export default function ProductCard({ product, index }: ProductCardProps) {
             <div className="flex items-center justify-between gap-3">
               <button
                 onClick={handleLoginGate}
-                className="flex items-center gap-1.5 text-[#C9A84C] text-xs tracking-widest uppercase hover:text-[#C9A84C]/80 transition-colors"
+                className="flex items-center gap-1.5 text-[#FF2D78] text-xs tracking-widest uppercase hover:text-[#FF2D78]/80 transition-colors"
                 style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
               >
                 <Lock size={12} />

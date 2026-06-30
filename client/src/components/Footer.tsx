@@ -202,7 +202,7 @@ export default function Footer() {
                         className="block text-white/50 text-xs tracking-widest uppercase mb-1"
                         style={labelStyle}
                       >
-                        First Name <span className="text-[#C9A84C]">*</span>
+                        First Name <span className="text-[#FF2D78]">*</span>
                       </label>
                       <input
                         type="text"
@@ -236,7 +236,7 @@ export default function Footer() {
                       className="block text-white/50 text-xs tracking-widest uppercase mb-1"
                       style={labelStyle}
                     >
-                      Email <span className="text-[#C9A84C]">*</span>
+                      Email <span className="text-[#FF2D78]">*</span>
                     </label>
                     <input
                       type="email"
@@ -253,7 +253,7 @@ export default function Footer() {
                       className="block text-white/50 text-xs tracking-widest uppercase mb-1"
                       style={labelStyle}
                     >
-                      Message <span className="text-[#C9A84C]">*</span>
+                      Message <span className="text-[#FF2D78]">*</span>
                     </label>
                     <textarea
                       rows={4}
@@ -388,7 +388,7 @@ export default function Footer() {
             <div className="flex items-center gap-2">
               <div className="h-px w-8 bg-[#00BFFF]/30" />
               <span
-                className="text-[#C9A84C]/60 text-xs italic"
+                className="text-[#FF2D78]/60 text-xs italic"
                 style={{ fontFamily: "'Inter', sans-serif" }}
               >
                 Precise. Potent. Elite.

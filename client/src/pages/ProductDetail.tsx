@@ -104,7 +104,7 @@ function RelatedGrid({ items, title }: { items: Product[]; title: string }) {
       <div className="flex items-center gap-3 mb-6">
         <div
           className="w-1 h-6 rounded-full"
-          style={{ background: "linear-gradient(to bottom, #00BFFF, #C9A84C)" }}
+          style={{ background: "linear-gradient(to bottom, #00BFFF, #FF2D78)" }}
         />
         <h2
           className="text-white"
@@ -319,9 +319,9 @@ export default function ProductDetail() {
                 style={{
                   fontFamily: "'Rajdhani', sans-serif",
                   fontWeight: 700,
-                  background: product.isStack ? "rgba(201,168,76,0.25)" : "rgba(0,191,255,0.2)",
-                  border: product.isStack ? "1px solid rgba(201,168,76,0.4)" : "1px solid rgba(0,191,255,0.4)",
-                  color: product.isStack ? "#C9A84C" : "#00BFFF",
+                  background: product.isStack ? "rgba(255,45,120,0.25)" : "rgba(0,191,255,0.2)",
+                  border: product.isStack ? "1px solid rgba(255,45,120,0.4)" : "1px solid rgba(0,191,255,0.4)",
+                  color: product.isStack ? "#FF2D78" : "#00BFFF",
                 }}
               >
                 {product.badge}
@@ -350,12 +350,12 @@ export default function ProductDetail() {
 
           {/* Research-use-only trust badge */}
           <div
-            className="rounded-xl p-4 flex items-start gap-3 border border-[#C9A84C]/20"
+            className="rounded-xl p-4 flex items-start gap-3 border border-[#FF2D78]/20"
             style={{ background: "oklch(0.16 0.04 10 / 0.25)" }}
           >
-            <AlertTriangle size={16} className="text-[#C9A84C] flex-shrink-0 mt-0.5" />
+            <AlertTriangle size={16} className="text-[#FF2D78] flex-shrink-0 mt-0.5" />
             <p className="text-white/50 text-xs leading-relaxed">
-              <span className="text-[#C9A84C] font-semibold uppercase tracking-wide" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
+              <span className="text-[#FF2D78] font-semibold uppercase tracking-wide" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
                 Research Use Only.
               </span>{" "}
               {product.disclaimer ||
@@ -386,9 +386,9 @@ export default function ProductDetail() {
                 style={{
                   fontFamily: "'Rajdhani', sans-serif",
                   fontWeight: 700,
-                  background: "rgba(201,168,76,0.12)",
-                  border: "1px solid rgba(201,168,76,0.3)",
-                  color: "#C9A84C",
+                  background: "rgba(255,45,120,0.12)",
+                  border: "1px solid rgba(255,45,120,0.3)",
+                  color: "#FF2D78",
                 }}
               >
                 {product.stackName}
@@ -678,13 +678,13 @@ export default function ProductDetail() {
 
           {/* Disclaimer block — always visible below tabs */}
           <div
-            className="rounded-xl p-5 border border-[#C9A84C]/20 flex gap-4 mb-10"
+            className="rounded-xl p-5 border border-[#FF2D78]/20 flex gap-4 mb-10"
             style={{ background: "oklch(0.16 0.04 10 / 0.3)" }}
           >
-            <AlertTriangle size={18} className="text-[#C9A84C] flex-shrink-0 mt-0.5" />
+            <AlertTriangle size={18} className="text-[#FF2D78] flex-shrink-0 mt-0.5" />
             <div>
               <p
-                className="text-[#C9A84C] text-xs tracking-widest uppercase mb-1"
+                className="text-[#FF2D78] text-xs tracking-widest uppercase mb-1"
                 style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
               >
                 Research Use Only — Important Notice

@@ -38,12 +38,12 @@ export default function HowToOrderSection() {
       className="relative py-24 overflow-hidden"
       style={{ background: "oklch(0.11 0.05 255)" }}
     >
-      {/* Subtle gold glow top */}
+      {/* Subtle pink glow top */}
       <div
         className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px] pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse, oklch(0.74 0.12 75 / 8%) 0%, transparent 70%)",
+            "radial-gradient(ellipse, oklch(0.6 0.27 0 / 8%) 0%, transparent 70%)",
           filter: "blur(40px)",
         }}
       />
@@ -52,14 +52,14 @@ export default function HowToOrderSection() {
         {/* Section header */}
         <div className="text-center mb-16 animate-on-scroll">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="h-px w-12 bg-[#C9A84C]" />
+            <div className="h-px w-12 bg-[#00BFFF]" />
             <span
-              className="text-[#C9A84C] text-xs tracking-[0.35em] uppercase"
+              className="text-[#00BFFF] text-xs tracking-[0.35em] uppercase"
               style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
             >
               Simple Process
             </span>
-            <div className="h-px w-12 bg-[#C9A84C]" />
+            <div className="h-px w-12 bg-[#00BFFF]" />
           </div>
           <h2
             className="text-white mb-4"
@@ -105,21 +105,21 @@ export default function HowToOrderSection() {
                     className="w-28 h-28 rounded-full flex items-center justify-center"
                     style={{
                       background:
-                        "linear-gradient(135deg, oklch(0.74 0.12 75 / 15%) 0%, oklch(0.72 0.18 210 / 10%) 100%)",
-                      border: "1px solid oklch(0.74 0.12 75 / 35%)",
-                      boxShadow: "0 0 30px oklch(0.74 0.12 75 / 12%)",
+                        "linear-gradient(135deg, oklch(0.6 0.27 0 / 15%) 0%, oklch(0.72 0.18 210 / 10%) 100%)",
+                      border: "1px solid oklch(0.6 0.27 0 / 35%)",
+                      boxShadow: "0 0 30px oklch(0.6 0.27 0 / 12%)",
                     }}
                   >
-                    <Icon size={36} style={{ color: "#C9A84C" }} strokeWidth={1.5} />
+                    <Icon size={36} style={{ color: "#00BFFF" }} strokeWidth={1.5} />
                   </div>
                   {/* Step number badge */}
                   <div
                     className="absolute -top-2 -right-2 w-8 h-8 rounded-full flex items-center justify-center"
                     style={{
-                      background: "oklch(0.74 0.12 75)",
+                      background: "oklch(0.6 0.27 0)",
                       fontFamily: "'Bebas Neue', sans-serif",
                       fontSize: "1rem",
-                      color: "oklch(0.12 0.05 255)",
+                      color: "oklch(0.98 0 0)",
                       letterSpacing: "0.04em",
                     }}
                   >
@@ -149,8 +149,8 @@ export default function HowToOrderSection() {
 
                 {/* CTA tag */}
                 <span
-                  className="text-[#C9A84C] text-xs tracking-widest uppercase"
-                  style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
+                  className="text-[#FF2D78] text-xs tracking-widest uppercase"
+                  style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700, letterSpacing: "0.15em" }}
                 >
                   {step.cta}
                 </span>
@@ -169,7 +169,7 @@ export default function HowToOrderSection() {
           </p>
           <a
             href="sms:+13109759289"
-            className="text-[#C9A84C] font-bold tracking-wide hover:text-[#C9A84C]/80 transition-colors"
+            className="text-[#00BFFF] font-bold tracking-wide hover:text-[#00BFFF]/80 transition-colors"
             style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.8rem", letterSpacing: "0.06em" }}
           >
             (310) 975-9289

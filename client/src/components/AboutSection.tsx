@@ -117,7 +117,7 @@ export default function AboutSection() {
                   style={{ background: "linear-gradient(to right, oklch(0.72 0.18 210 / 50%), transparent)" }}
                 />
                 <span
-                  className="text-[#C9A84C] text-sm italic"
+                  className="text-[#FF2D78] text-sm italic"
                   style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300 }}
                 >
                   Trusted. Tested. United States Of America.
