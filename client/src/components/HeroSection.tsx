@@ -119,7 +119,7 @@ export default function HeroSection() {
               textShadow: "0 0 60px rgba(0, 191, 255, 0.5)",
             }}
           >
-            RESEARCH COMPOUNDS.
+            RESEARCH COMPOUNDS
           </h1>
 
           {/* Subheading */}
