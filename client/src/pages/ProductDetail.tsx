@@ -426,8 +426,8 @@ export default function ProductDetail() {
                 {displayPrice}
               </span>
               <span
-                className="text-white/35 text-sm"
-                style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
+                className="text-white/70 text-lg"
+                style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700, letterSpacing: "0.04em" }}
               >
                 {displayContent}
               </span>
@@ -562,8 +562,8 @@ export default function ProductDetail() {
               >
                 <div className="text-lg mb-1">{icon}</div>
                 <p
-                  className="text-white/55 text-xs tracking-wide"
-                  style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
+                  className="text-white/80 text-sm tracking-wide"
+                  style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
                 >
                   {label}
                 </p>
@@ -577,16 +577,16 @@ export default function ProductDetail() {
             style={{ background: "oklch(0.16 0.055 255 / 0.5)" }}
           >
             <p
-              className="text-white/50 text-xs tracking-widest uppercase mb-3"
-              style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
+              className="text-cyan-400 text-sm tracking-widest uppercase mb-3"
+              style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 800, letterSpacing: "0.12em" }}
             >
               Research Highlights
             </p>
-            <ul className="space-y-2">
+            <ul className="space-y-2.5">
               {product.benefits.map((b) => (
-                <li key={b} className="flex items-start gap-2">
-                  <CheckCircle2 size={14} className="text-[#00BFFF] flex-shrink-0 mt-0.5" />
-                  <span className="text-white/70 text-sm leading-snug">{b}</span>
+                <li key={b} className="flex items-start gap-2.5">
+                  <CheckCircle2 size={15} className="text-[#00BFFF] flex-shrink-0 mt-0.5" />
+                  <span className="text-white/90 text-base leading-snug" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}>{b}</span>
                 </li>
               ))}
             </ul>
@@ -653,13 +653,13 @@ export default function ProductDetail() {
                       style={{ background: i % 2 === 0 ? "rgba(255,255,255,0.02)" : "transparent" }}
                     >
                       <span
-                        className="text-white/40 uppercase tracking-widest text-xs"
-                        style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
+                        className="text-cyan-400/80 uppercase tracking-widest text-sm"
+                        style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
                       >
                         {label}
                       </span>
                       <span
-                        className="text-white font-bold"
+                        className="text-white text-base"
                         style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
                       >
                         {value}
