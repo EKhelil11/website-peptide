@@ -161,3 +161,9 @@
 - [x] Fix ProductDetail.tsx: switched from useAuth + hasAcceptedTerms gate to useCustomerAuth + isAuthenticated
 - [x] Fix ProductDetail.tsx: Buy Now and Login to View Pricing buttons now navigate to /login not /research-access
 - [x] Fix App.tsx: /research-access route now redirects to /login instead of loading ResearchAccess page
+
+## Root Cause Fix: Cookie-Parser Missing
+- [x] Identified root cause: Express server had no cookie-parser, so req.cookies was always undefined
+- [x] Installed cookie-parser and @types/cookie-parser packages
+- [x] Added cookieParser() middleware to server/_core/index.ts before tRPC mount
+- [x] Server restarted and all 14 tests pass — customer session cookies now readable by server
