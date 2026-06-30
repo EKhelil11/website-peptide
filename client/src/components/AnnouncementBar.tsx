@@ -55,9 +55,9 @@ export default function AnnouncementBar() {
             textTransform: "uppercase",
           }}
         >
-          <span style={{ color: "#FF2D78", fontSize: "1rem" }}>✦</span>
+          <span style={{ color: "#C9A84C", fontSize: "1rem" }}>✦</span>
           &nbsp;{TICKER}
-          <span style={{ color: "#FF2D78", fontSize: "1rem" }}>✦</span>
+          <span style={{ color: "#C9A84C", fontSize: "1rem" }}>✦</span>
           &nbsp;{TICKER}
         </div>
 

@@ -87,14 +87,14 @@ export default function FAQSection() {
         {/* Section header */}
         <div className="text-center mb-12">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="h-px w-12 bg-[#FF2D78]" />
+            <div className="h-px w-12 bg-[#C9A84C]" />
             <span
-              className="text-[#FF2D78] text-xs tracking-[0.3em] uppercase"
+              className="text-[#C9A84C] text-xs tracking-[0.3em] uppercase"
               style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
             >
               Got Questions?
             </span>
-            <div className="h-px w-12 bg-[#FF2D78]" />
+            <div className="h-px w-12 bg-[#C9A84C]" />
           </div>
           <h2
             className="text-white mb-4"
@@ -122,8 +122,8 @@ export default function FAQSection() {
               onClick={() => { setActiveCategory(key); setOpenIndex(null); }}
               className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs tracking-wider uppercase transition-all duration-200 ${
                 activeCategory === key
-                  ? "bg-[#FF2D78] text-white font-bold shadow-[0_0_20px_rgba(255,45,120,0.3)]"
-                  : "border border-white/15 text-white/50 hover:border-[#FF2D78]/40 hover:text-[#FF2D78]"
+                  ? "bg-[#C9A84C] text-white font-bold shadow-[0_0_20px_rgba(201,168,76,0.3)]"
+                  : "border border-white/15 text-white/50 hover:border-[#C9A84C]/40 hover:text-[#C9A84C]"
               }`}
               style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
             >

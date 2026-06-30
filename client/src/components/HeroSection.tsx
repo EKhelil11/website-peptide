@@ -74,11 +74,11 @@ export default function HeroSection() {
         }}
       />
 
-      {/* Hot pink accent orb bottom-left */}
+      {/* Gold accent orb bottom-left */}
       <div
         className="absolute bottom-1/4 left-1/4 w-64 h-64 rounded-full pointer-events-none"
         style={{
-          background: "radial-gradient(circle, oklch(0.6 0.27 0 / 6%) 0%, transparent 70%)",
+          background: "radial-gradient(circle, oklch(0.74 0.12 75 / 8%) 0%, transparent 70%)",
           filter: "blur(50px)",
         }}
       />

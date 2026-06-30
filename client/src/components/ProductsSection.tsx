@@ -141,7 +141,7 @@ export default function ProductsSection() {
             {searchQuery && (
               <button
                 onClick={clearSearch}
-                className="absolute right-3 text-white/40 hover:text-[#FF2D78] transition-colors p-1"
+                className="absolute right-3 text-white/40 hover:text-[#C9A84C] transition-colors p-1"
                 aria-label="Clear search"
               >
                 <X size={15} />
