@@ -23,7 +23,8 @@ export default function ProductCard({ product, index }: ProductCardProps) {
   const { addToCart } = useCart();
 
   const handleLoginGate = () => {
-    navigate("/login");
+    // Pass the product detail page as returnTo so login sends them back here
+    navigate(`/login?returnTo=/product/${product.id}`);
   };
 
   const handleAddToCartAndNavigate = () => {

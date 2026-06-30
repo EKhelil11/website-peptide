@@ -20,7 +20,8 @@ const redirectToLoginIfUnauthorized = (error: unknown) => {
   // Only redirect to /login if not already on an auth page
   const authPaths = ["/login", "/register", "/verify-email", "/forgot-password", "/reset-password", "/admin"];
   if (!authPaths.some(p => window.location.pathname.startsWith(p))) {
-    window.location.href = "/login";
+    const returnTo = encodeURIComponent(window.location.pathname + window.location.search);
+    window.location.href = `/login?returnTo=${returnTo}`;
   }
 };
 

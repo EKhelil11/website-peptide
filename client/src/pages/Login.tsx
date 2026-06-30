@@ -2,7 +2,7 @@
 // Typography matches Checkout.tsx: Bebas Neue headings, Rajdhani labels/inputs, cyan CTA buttons
 
 import { useState, useEffect } from "react";
-import { useLocation } from "wouter";
+import { useLocation, useSearch } from "wouter";
 import { Eye, EyeOff, CheckCircle, ArrowRight, ShieldCheck } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 
@@ -38,6 +38,9 @@ const INPUT_CLASS = "w-full px-4 py-3.5 rounded-xl outline-none focus:ring-2 foc
 
 export default function Login() {
   const [, setLocation] = useLocation();
+  const search = useSearch();
+  // Read ?returnTo= param so we can redirect back after login
+  const returnTo = new URLSearchParams(search).get("returnTo") || "/";
 
   // ── Login state ──────────────────────────────────────────────────────────
   const [loginForm, setLoginForm] = useState({ email: "", password: "", rememberMe: false });
@@ -58,14 +61,14 @@ export default function Login() {
   const utils = trpc.useUtils();
 
   useEffect(() => {
-    if (!checkingSession && customer) setLocation("/");
-  }, [customer, checkingSession, setLocation]);
+    if (!checkingSession && customer) setLocation(returnTo);
+  }, [customer, checkingSession, setLocation, returnTo]);
 
   // ── Mutations ─────────────────────────────────────────────────────────────
   const loginMutation = trpc.customer.login.useMutation({
     onSuccess: async () => {
       await utils.customer.me.invalidate();
-      setLocation("/");
+      setLocation(returnTo);
     },
     onError: (err) => setLoginError(err.message),
   });

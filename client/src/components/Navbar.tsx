@@ -22,7 +22,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { customer, isAuthenticated, logout } = useCustomerAuth();
-  const [, setLocation] = useLocation();
+  const [location, setLocation] = useLocation();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
@@ -96,7 +96,7 @@ export default function Navbar() {
                 </div>
               ) : (
                 <button
-                  onClick={() => setLocation("/login")}
+                  onClick={() => setLocation(`/login?returnTo=${encodeURIComponent(location)}`)}
                   className="text-sm font-medium tracking-widest uppercase px-4 py-1.5 rounded border border-[#00BFFF]/40 text-[#00BFFF] hover:bg-[#00BFFF]/10 transition-colors"
                   style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
                 >
@@ -158,7 +158,7 @@ export default function Navbar() {
               </>
             ) : (
               <button
-                onClick={() => { setMobileOpen(false); setLocation("/login"); }}
+                onClick={() => { setMobileOpen(false); setLocation(`/login?returnTo=${encodeURIComponent(location)}`); }}
                 className="text-xl font-bold tracking-widest uppercase text-[#00BFFF] hover:text-white transition-colors"
                 style={{ fontFamily: "'Bebas Neue', sans-serif" }}
               >
