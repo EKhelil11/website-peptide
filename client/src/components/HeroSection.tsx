@@ -107,7 +107,7 @@ export default function HeroSection() {
               textShadow: "0 2px 60px rgba(0,0,0,0.7)",
             }}
           >
-            PRECISION-CRAFTED
+            LONGEVITY ANALYTICS
           </h1>
           <h1
             className="hero-item opacity-0 leading-none mb-6"
