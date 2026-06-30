@@ -154,3 +154,10 @@
 - [x] Add getOrdersByCustomerId helper to server/db.ts
 - [x] Switch submit, myOrders, getOrder, cancelOrder to customerProtectedProcedure
 - [x] Fix TAX_RATE from 9% to 8% in orderRouter.ts
+
+## Auth Cross-Wiring Cleanup
+- [x] Fix main.tsx: global UNAUTHORIZED error now redirects to /login instead of Manus OAuth portal
+- [x] Fix FloatingCart.tsx: switched from useAuth (Manus OAuth) to useCustomerAuth
+- [x] Fix ProductDetail.tsx: switched from useAuth + hasAcceptedTerms gate to useCustomerAuth + isAuthenticated
+- [x] Fix ProductDetail.tsx: Buy Now and Login to View Pricing buttons now navigate to /login not /research-access
+- [x] Fix App.tsx: /research-access route now redirects to /login instead of loading ResearchAccess page

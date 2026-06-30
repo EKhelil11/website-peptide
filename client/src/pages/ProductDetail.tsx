@@ -4,7 +4,7 @@
 
 import { useState, useEffect } from "react";
 import { useParams, Link, useLocation } from "wouter";
-import { useAuth } from "@/_core/hooks/useAuth";
+import { useCustomerAuth } from "@/hooks/useCustomerAuth";
 import { useCart } from "@/contexts/CartContext";
 import { toast } from "sonner";
 import {
@@ -161,9 +161,8 @@ export default function ProductDetail() {
   const [selectedVariant, setSelectedVariant] = useState(0);
   const [qty, setQty] = useState(1);
   const [, navigate] = useLocation();
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated } = useCustomerAuth();
   const { addToCart, cartCount } = useCart();
-  const hasAcceptedTerms = isAuthenticated && Boolean((user as any)?.termsAcceptedAt);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "instant" });
@@ -415,7 +414,7 @@ export default function ProductDetail() {
           </p>
 
           {/* Price — gated behind login */}
-          {hasAcceptedTerms ? (
+          {isAuthenticated ? (
             <div className="flex items-baseline gap-3">
               <span
                 className="text-[#00BFFF]"
@@ -432,7 +431,7 @@ export default function ProductDetail() {
             </div>
           ) : (
             <button
-              onClick={() => navigate("/research-access")}
+              onClick={() => navigate("/login")}
               className="flex items-center gap-2 py-3 px-5 rounded-lg border border-cyan-500/40 text-cyan-400 text-sm tracking-widest uppercase hover:bg-cyan-500/10 hover:border-cyan-400 transition-all duration-200"
               style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
             >
@@ -502,7 +501,7 @@ export default function ProductDetail() {
           </div>
 
           {/* Dual CTA buttons — gated behind login */}
-          {hasAcceptedTerms ? (
+          {isAuthenticated ? (
             <div className="flex gap-3 flex-wrap">
               <button
                 onClick={handleAddToCart}
@@ -535,7 +534,7 @@ export default function ProductDetail() {
             </div>
           ) : (
             <button
-              onClick={() => navigate("/research-access")}
+              onClick={() => navigate("/login")}
               className="w-full flex items-center justify-center gap-2 py-3.5 rounded-lg border border-cyan-500/40 text-cyan-400 text-sm tracking-widest uppercase hover:bg-cyan-500/10 hover:border-cyan-400 transition-all duration-200"
               style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
             >

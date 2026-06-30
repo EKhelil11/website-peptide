@@ -9,7 +9,6 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import ProductDetail from "./pages/ProductDetail";
-import ResearchAccess from "./pages/ResearchAccess";
 import { Redirect } from "wouter";
 import AgeVerification from "./components/AgeVerification";
 import FloatingTextButton from "./components/FloatingTextButton";
@@ -33,7 +32,7 @@ function Router() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/product/:id" component={ProductDetail} />
-      <Route path="/research-access" component={ResearchAccess} />
+      <Route path="/research-access"><Redirect to="/login" /></Route>
       <Route path="/shop"><Redirect to="/#products" /></Route>
       <Route path="/terms" component={TermsPage} />
       <Route path="/shipping-returns" component={ShippingReturnsPage} />

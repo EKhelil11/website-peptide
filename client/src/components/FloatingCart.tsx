@@ -5,17 +5,17 @@
 import { useState } from "react";
 import { useLocation } from "wouter";
 import { ShoppingCart, X, Plus, Minus, Package } from "lucide-react";
-import { useAuth } from "@/_core/hooks/useAuth";
+import { useCustomerAuth } from "@/hooks/useCustomerAuth";
 import { useCart } from "@/contexts/CartContext";
 
 export default function FloatingCart() {
-  const { user } = useAuth();
+  const { isAuthenticated } = useCustomerAuth();
   const { cart, cartCount, cartTotal, updateQty, removeFromCart } = useCart();
   const [open, setOpen] = useState(false);
   const [, setLocation] = useLocation();
 
   // Only show when logged in
-  if (!user) return null;
+  if (!isAuthenticated) return null;
 
   const handleCheckout = () => {
     if (cart.length === 0) return;
