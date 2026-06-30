@@ -127,7 +127,7 @@ export default function HeroSection() {
             className="hero-item opacity-0 text-white/80 mb-8 max-w-xl leading-relaxed"
             style={{ fontFamily: "'Inter', sans-serif", fontSize: "1.1rem", fontWeight: 300, letterSpacing: "0.01em" }}
           >
-            Pharmaceutical-grade peptides formulated in certified research facilities. Every compound is rigorously third-party tested for purity, potency, and sterility — delivering the standard that serious researchers demand.
+            Research-grade peptides at the forefront of longevity science. Formulated for precision. Delivered with integrity.
           </p>
 
           {/* CTA Buttons */}
