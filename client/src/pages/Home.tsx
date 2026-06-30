@@ -9,7 +9,6 @@ import HeroSection from "@/components/HeroSection";
 import ProductsSection from "@/components/ProductsSection";
 import AboutSection from "@/components/AboutSection";
 import ShippingSection from "@/components/ShippingSection";
-import HowToOrderSection from "@/components/HowToOrderSection";
 import FAQSection from "@/components/FAQSection";
 import Footer from "@/components/Footer";
 import AnnouncementBar from "@/components/AnnouncementBar";
@@ -70,7 +69,6 @@ export default function Home() {
         <AnnouncementBar />
         <main>
           <HeroSection />
-          <HowToOrderSection />
           <ProductsSection />
           <ShippingSection />
           <AboutSection />

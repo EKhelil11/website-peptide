@@ -150,7 +150,7 @@ export default function ProductCard({ product, index }: ProductCardProps) {
         {/* Divider */}
         <div className="border-t border-white/8 pt-4 mt-auto">
           {isAuthenticated ? (
-            /* Authenticated: show real price and Add to Cart */
+            /* Authenticated + terms accepted: show real price and Add to Cart */
             <div className="flex items-center justify-between">
               <div>
                 {product.price ? (
@@ -183,24 +183,15 @@ export default function ProductCard({ product, index }: ProductCardProps) {
               )}
             </div>
           ) : (
-            /* Unauthenticated: show price gate with login prompt */
-            <div className="flex items-center justify-between gap-3">
-              <button
-                onClick={handleLoginGate}
-                className="flex items-center gap-1.5 text-[#FF2D78] text-xs tracking-widest uppercase hover:text-[#FF2D78]/80 transition-colors"
-                style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
-              >
-                <Lock size={12} />
-                Login to View Price
-              </button>
-              <button
-                onClick={handleLoginGate}
-                className="btn-primary flex items-center gap-2 px-4 py-2 rounded text-xs"
-              >
-                <ShoppingCart size={14} />
-                Add to Cart
-              </button>
-            </div>
+            /* Unauthenticated or terms not accepted: show login gate */
+            <button
+              onClick={handleLoginGate}
+              className="w-full flex items-center justify-center gap-2 py-2.5 rounded btn-primary text-xs tracking-widest uppercase transition-all duration-200"
+              style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
+            >
+              <ShoppingCart size={13} />
+              Add to Cart
+            </button>
           )}
         </div>
       </div>
