@@ -166,7 +166,7 @@ export default function Account() {
                 onClick={() => setLocation("/shop")}
                 className="px-6 py-2.5 rounded-lg font-bold text-sm tracking-widest uppercase transition-all hover:opacity-90"
                 style={{
-                  background: "linear-gradient(135deg, oklch(0.6 0.27 0), oklch(0.55 0.25 355))",
+                  background: "linear-gradient(135deg, oklch(0.65 0.22 210), oklch(0.55 0.20 230))",
                   color: "white",
                   fontFamily: "'Rajdhani', sans-serif",
                 }}
