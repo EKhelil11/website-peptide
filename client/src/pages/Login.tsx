@@ -30,14 +30,14 @@ export default function Login() {
   const utils = trpc.useUtils();
 
   useEffect(() => {
-    if (!checkingSession && customer) setLocation("/account");
+    if (!checkingSession && customer) setLocation("/");
   }, [customer, checkingSession, setLocation]);
 
   // ── Mutations ─────────────────────────────────────────────────────────────
   const loginMutation = trpc.customer.login.useMutation({
     onSuccess: async () => {
       await utils.customer.me.invalidate();
-      setLocation("/account");
+      setLocation("/");
     },
     onError: (err) => setLoginError(err.message),
   });
