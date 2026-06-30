@@ -185,11 +185,11 @@ export default function ProductCard({ product, index }: ProductCardProps) {
             /* Unauthenticated or terms not accepted: show login gate */
             <button
               onClick={handleLoginGate}
-              className="w-full flex items-center justify-center gap-2 py-2.5 rounded border border-cyan-500/40 text-cyan-400 text-xs tracking-widest uppercase hover:bg-cyan-500/10 hover:border-cyan-400 transition-all duration-200"
+              className="w-full flex items-center justify-center gap-2 py-2.5 rounded btn-primary text-xs tracking-widest uppercase transition-all duration-200"
               style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
             >
-              <Lock size={13} />
-              Login to View Pricing
+              <ShoppingCart size={13} />
+              Add to Cart
             </button>
           )}
         </div>
