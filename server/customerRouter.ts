@@ -115,12 +115,13 @@ export const customerRouter = router({
 
   // ─── Login ─────────────────────────────────────────────────────────────────
   login: publicProcedure
-    .input(z.object({ email: z.string().email(), password: z.string() }))
+    .input(z.object({ email: z.string().email(), password: z.string(), rememberMe: z.boolean().optional().default(false) }))
     .mutation(async ({ input, ctx }) => {
       try {
         const { customer, token, expiresAt } = await loginCustomer(
           input.email,
-          input.password
+          input.password,
+          input.rememberMe
         );
 
         setCustomerCookie(ctx.res, token, expiresAt);

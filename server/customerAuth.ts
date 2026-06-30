@@ -77,7 +77,7 @@ export async function verifyCustomerEmail(token: string) {
 
 // ─── Login ───────────────────────────────────────────────────────────────────
 
-export async function loginCustomer(email: string, password: string) {
+export async function loginCustomer(email: string, password: string, rememberMe = false) {
   const db = await getDb();
   if (!db) throw new Error("DB_UNAVAILABLE");
 
@@ -99,7 +99,9 @@ export async function loginCustomer(email: string, password: string) {
   if (!customer.emailVerified) throw new Error("EMAIL_NOT_VERIFIED");
 
   const token = crypto.randomBytes(48).toString("hex");
-  const expiresAt = Date.now() + SESSION_DURATION_MS;
+  // rememberMe = 30 days, otherwise 1 day session
+  const sessionDuration = rememberMe ? SESSION_DURATION_MS : 24 * 60 * 60 * 1000;
+  const expiresAt = Date.now() + sessionDuration;
 
   await db.insert(customerSessions).values({ customerId: customer.id, token, expiresAt });
 
