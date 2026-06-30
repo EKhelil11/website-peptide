@@ -8,7 +8,7 @@ import { useLocation } from "wouter";
 import { Package, CheckCircle, Truck, Clock, DollarSign, ArrowLeft, RefreshCw, ChevronDown, ChevronUp, Search } from "lucide-react";
 import { toast } from "sonner";
 
-const LOGO_URL = "/manus-storage/elite-la-peptides-logo_e9ec855c.png";
+const LOGO_URL = "/manus-storage/LAELITELOGONEW_dark_bg_2eaa3f51.png";
 
 const STATUS_CONFIG: Record<string, { label: string; color: string }> = {
   pending_payment: { label: "Pending Payment", color: "oklch(0.75 0.15 80)" },
@@ -118,7 +118,7 @@ export default function AdminOrders() {
             <button onClick={() => setLocation("/")} className="text-white/50 hover:text-[#00BFFF] transition-colors">
               <ArrowLeft size={20} />
             </button>
-            <img src={LOGO_URL} alt="LA Elite Peptides" className="h-9 w-auto" />
+            <img src={LOGO_URL} alt="LA Elite Peptides" className="h-14 w-auto max-w-[260px]" />
             <span
               className="text-xs font-bold tracking-widest uppercase px-2 py-0.5 rounded"
               style={{

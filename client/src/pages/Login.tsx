@@ -6,7 +6,7 @@ import { useLocation } from "wouter";
 import { Eye, EyeOff, CheckCircle, ArrowRight, ShieldCheck } from "lucide-react";
 import { trpc } from "@/lib/trpc";
 
-const LOGO_URL = "/manus-storage/elite-la-peptides-logo_e9ec855c.png";
+const LOGO_URL = "/manus-storage/LAELITELOGONEW_dark_bg_2eaa3f51.png";
 
 // Matches CYAN_BTN from Checkout.tsx exactly
 const CYAN_BTN: React.CSSProperties = {
@@ -111,11 +111,11 @@ export default function Login() {
         className="sticky top-0 z-50 border-b"
         style={{ background: "oklch(0.15 0.055 255 / 95%)", backdropFilter: "blur(20px)", borderColor: "oklch(0.28 0.08 255 / 40%)" }}
       >
-        <div className="max-w-5xl mx-auto px-6 h-16 flex items-center gap-4">
+        <div className="max-w-5xl mx-auto px-6 h-24 flex items-center gap-4">
           <a href="/" className="text-white/50 hover:text-[#00BFFF] transition-colors text-base font-bold uppercase tracking-widest" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
             ← Back to Site
           </a>
-          <img src={LOGO_URL} alt="LA Elite Peptides" className="h-10 w-auto ml-auto" />
+          <img src={LOGO_URL} alt="LA Elite Peptides" className="h-20 w-auto max-w-[380px] ml-auto" />
         </div>
       </header>
 

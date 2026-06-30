@@ -7,7 +7,7 @@ import { Menu, X, User, LogOut } from "lucide-react";
 import { useCustomerAuth } from "@/hooks/useCustomerAuth";
 import { useLocation } from "wouter";
 
-const LOGO_URL = "/manus-storage/elite-la-peptides-logo_e9ec855c.png";
+const LOGO_URL = "/manus-storage/LAELITELOGONEW_dark_bg_2eaa3f51.png";
 
 const navLinks = [
   { label: "Products", href: "#products" },
@@ -44,7 +44,7 @@ export default function Navbar() {
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 lg:h-20">
+          <div className="flex items-center justify-between h-20 lg:h-24">
             {/* Logo */}
             <a
               href="#"
@@ -54,7 +54,7 @@ export default function Navbar() {
               <img
                 src={LOGO_URL}
                 alt="LA Elite Peptides"
-                className="h-10 lg:h-12 w-auto object-contain transition-opacity duration-200 group-hover:opacity-90"
+                className="h-16 lg:h-20 w-auto max-w-[300px] lg:max-w-[420px] object-contain transition-opacity duration-200 group-hover:opacity-90"
                 style={{ filter: "drop-shadow(0 0 8px rgba(0, 191, 255, 0.3))" }}
               />
             </a>
@@ -125,7 +125,7 @@ export default function Navbar() {
         style={{ background: "oklch(0.12 0.05 255 / 97%)", backdropFilter: "blur(20px)" }}
       >
         <div className="flex flex-col items-center justify-center h-full gap-8">
-          <img src={LOGO_URL} alt="LA Elite Peptides" className="h-16 w-auto mb-4" />
+          <img src={LOGO_URL} alt="LA Elite Peptides" className="h-20 w-auto max-w-[320px] mb-4" />
           {navLinks.map((link, i) => (
             <button
               key={link.href}

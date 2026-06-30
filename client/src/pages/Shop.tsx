@@ -8,7 +8,7 @@ import { getLoginUrl } from "@/const";
 import { products } from "@/lib/products";
 import { ShoppingCart, Plus, Minus, X, Package, LogOut, User } from "lucide-react";
 
-const LOGO_URL = "/manus-storage/elite-la-peptides-logo_e9ec855c.png";
+const LOGO_URL = "/manus-storage/LAELITELOGONEW_dark_bg_2eaa3f51.png";
 
 export type CartItem = {
   productId: string;
@@ -97,7 +97,7 @@ export default function Shop() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <a href="/">
-            <img src={LOGO_URL} alt="LA Elite Peptides" className="h-9 w-auto" />
+            <img src={LOGO_URL} alt="LA Elite Peptides" className="h-14 w-auto max-w-[260px]" />
           </a>
 
           <div className="flex items-center gap-4">

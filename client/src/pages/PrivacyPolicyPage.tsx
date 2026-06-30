@@ -5,7 +5,7 @@
 import { Link } from "wouter";
 import { ArrowLeft } from "lucide-react";
 
-const LOGO_URL = "/manus-storage/elite-la-peptides-logo_e9ec855c.png";
+const LOGO_URL = "/manus-storage/LAELITELOGONEW_dark_bg_2eaa3f51.png";
 
 export default function PrivacyPolicyPage() {
   return (

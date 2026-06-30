@@ -6,7 +6,7 @@ import { useState } from "react";
 import { Link } from "wouter";
 import { Mail, MapPin, Instagram, Phone, CheckCircle } from "lucide-react";
 
-const LOGO_URL = "/manus-storage/elite-la-peptides-logo_e9ec855c.png";
+const LOGO_URL = "/manus-storage/LAELITELOGONEW_dark_bg_2eaa3f51.png";
 
 const CONTACT_EMAIL = "support@laelitepeps.com";
 
@@ -298,7 +298,7 @@ export default function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             {/* Logo + tagline */}
             <div>
-              <img src={LOGO_URL} alt="LA Elite Peptides" className="h-12 w-auto mb-3" />
+              <img src={LOGO_URL} alt="LA Elite Peptides" className="h-20 w-auto max-w-[320px] mb-3" />
               <p
                 className="text-white/40 text-sm leading-relaxed"
                 style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300 }}

@@ -240,7 +240,7 @@ export default function ProductDetail() {
       >
         <Link href="/">
           <img
-            src="/manus-storage/elite-la-peptides-logo_e9ec855c.png"
+            src="/manus-storage/LAELITELOGONEW_dark_bg_2eaa3f51.png"
             alt="LA Elite Peptides"
             className="h-10 w-auto"
           />

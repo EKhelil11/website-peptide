@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 
-const LOGO_URL = "/manus-storage/elite-la-peptides-logo_e9ec855c.png";
+const LOGO_URL = "/manus-storage/LAELITELOGONEW_dark_bg_2eaa3f51.png";
 
 // Routes that bypass age verification entirely
 const BYPASS_ROUTES = ["/admin", "/account", "/checkout", "/api", "/register", "/login", "/verify-email", "/forgot-password", "/reset-password"];
