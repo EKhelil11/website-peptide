@@ -7,7 +7,7 @@ import { useLocation } from "wouter";
 export function useCustomerAuth() {
   const { data: customer, isLoading, refetch } = trpc.customer.me.useQuery(undefined, {
     retry: false,
-    staleTime: 5 * 60 * 1000, // 5 minutes
+    staleTime: 0, // Always refetch when invalidated (e.g. after login)
   });
 
   const logoutMutation = trpc.customer.logout.useMutation({

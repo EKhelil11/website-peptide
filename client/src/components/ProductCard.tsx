@@ -5,7 +5,7 @@
 import { Link, useLocation } from "wouter";
 import { ShoppingCart, ArrowRight, Lock } from "lucide-react";
 import type { Product } from "@/lib/products";
-import { useAuth } from "@/_core/hooks/useAuth";
+import { useCustomerAuth } from "@/hooks/useCustomerAuth";
 import { useCart } from "@/contexts/CartContext";
 import { toast } from "sonner";
 
@@ -19,12 +19,11 @@ interface ProductCardProps {
 export default function ProductCard({ product, index }: ProductCardProps) {
   const animationDelay = `${index * 80}ms`;
   const [, navigate] = useLocation();
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated } = useCustomerAuth();
   const { addToCart } = useCart();
-  const hasAcceptedTerms = isAuthenticated && Boolean((user as any)?.termsAcceptedAt);
 
   const handleLoginGate = () => {
-    navigate("/research-access");
+    navigate("/login");
   };
 
   const handleAddToCartAndNavigate = () => {
@@ -149,7 +148,7 @@ export default function ProductCard({ product, index }: ProductCardProps) {
 
         {/* Divider */}
         <div className="border-t border-white/8 pt-4 mt-auto">
-          {hasAcceptedTerms ? (
+          {isAuthenticated ? (
             /* Authenticated + terms accepted: show real price and Add to Cart */
             <div className="flex items-center justify-between">
               <div>

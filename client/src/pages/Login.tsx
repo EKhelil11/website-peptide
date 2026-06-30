@@ -22,8 +22,14 @@ export default function Login() {
     }
   }, [customer, checkingSession, setLocation]);
 
+  const utils = trpc.useUtils();
+
   const loginMutation = trpc.customer.login.useMutation({
-    onSuccess: () => setLocation("/account"),
+    onSuccess: async () => {
+      // Invalidate the customer.me cache so Account page sees the new session
+      await utils.customer.me.invalidate();
+      setLocation("/account");
+    },
     onError: (err) => setError(err.message),
   });
 
