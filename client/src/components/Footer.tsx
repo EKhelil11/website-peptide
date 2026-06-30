@@ -391,7 +391,7 @@ export default function Footer() {
                 className="text-[#FF2D78]/60 text-xs italic"
                 style={{ fontFamily: "'Inter', sans-serif" }}
               >
-                Precise. Potent. Elite.
+                Trusted. Tested.
               </span>
               <div className="h-px w-8 bg-[#00BFFF]/30" />
             </div>
