@@ -10,6 +10,9 @@ const SEGMENT =
 const TICKER = SEGMENT.repeat(6);
 
 export default function AnnouncementBar() {
+  // Temporarily hidden — ShipStation integration in progress
+  return null;
+
   const [dismissed, setDismissed] = useState(false);
 
   if (dismissed) return null;
