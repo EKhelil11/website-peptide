@@ -254,29 +254,33 @@
   }
 
   .badge-stack {
-    background: oklch(0.6 0.27 0 / 15%);
-    border: 1px solid oklch(0.6 0.27 0 / 40%);
-    color: oklch(0.75 0.2 0);
+    background: oklch(0.6 0.27 0 / 30%);
+    border: 1.5px solid oklch(0.6 0.27 0 / 75%);
+    color: oklch(0.92 0.15 0);
     font-family: 'Rajdhani', sans-serif;
-    font-weight: 700;
-    letter-spacing: 0.1em;
+    font-weight: 800;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    font-size: 0.65rem;
-    padding: 0.2rem 0.6rem;
-    border-radius: 2px;
+    font-size: 0.72rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 3px;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+    backdrop-filter: blur(4px);
   }
 
   .badge-single {
-    background: oklch(0.72 0.18 210 / 12%);
-    border: 1px solid oklch(0.72 0.18 210 / 35%);
-    color: oklch(0.72 0.18 210);
+    background: oklch(0.72 0.18 210 / 28%);
+    border: 1.5px solid oklch(0.72 0.18 210 / 80%);
+    color: oklch(0.95 0.12 210);
     font-family: 'Rajdhani', sans-serif;
-    font-weight: 700;
-    letter-spacing: 0.1em;
+    font-weight: 800;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    font-size: 0.65rem;
-    padding: 0.2rem 0.6rem;
-    border-radius: 2px;
+    font-size: 0.72rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 3px;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+    backdrop-filter: blur(4px);
   }
 
   /* Fade-up animation */
