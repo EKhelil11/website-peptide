@@ -167,3 +167,13 @@
 - [x] Installed cookie-parser and @types/cookie-parser packages
 - [x] Added cookieParser() middleware to server/_core/index.ts before tRPC mount
 - [x] Server restarted and all 14 tests pass — customer session cookies now readable by server
+
+## ShipStation Integration
+- [x] Verify ShipStation API credentials (Status 200 confirmed)
+- [x] Add shipstationApiKey and shipstationApiSecret to ENV in server/_core/env.ts
+- [x] Create server/shipstation.ts with createOrUpdateSSOrder, getSSShipmentsForOrder, buildSSOrderPayload helpers
+- [x] Wire ShipStation push into adminMarkPaid — order auto-pushed when payment confirmed
+- [x] Add adminSyncTracking procedure to pull tracking from ShipStation back to DB
+- [x] Add "Sync Tracking from ShipStation" button to AdminOrders.tsx (appears after SS sync, before tracking is set)
+- [x] Tracking sync emails customer with carrier + tracking number via sendShippingConfirmationEmail
+- [x] All 14 tests pass including ShipStation API authentication test

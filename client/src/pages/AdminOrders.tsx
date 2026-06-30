@@ -57,6 +57,18 @@ export default function AdminOrders() {
     onError: () => toast.error("Failed to save notes"),
   });
 
+  const syncTracking = trpc.orders.adminSyncTracking.useMutation({
+    onSuccess: (data) => {
+      utils.orders.adminListOrders.invalidate();
+      if (data.success) {
+        toast.success(`📦 Tracking synced: ${data.trackingNumber} (${data.carrier})`);
+      } else {
+        toast.info("No shipment found in ShipStation yet — try again after printing the label");
+      }
+    },
+    onError: (e) => toast.error(e.message || "Failed to sync tracking"),
+  });
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center" style={{ background: "oklch(0.12 0.05 255)" }}>
@@ -450,6 +462,24 @@ export default function AdminOrders() {
                               {markPaid.isPending ? "Processing..." : `✓ Mark Paid — $${((order.totalCents ?? 0) / 100).toFixed(2)}`}
                             </button>
                           </div>
+                        )}
+
+                        {/* Sync Tracking from ShipStation */}
+                        {order.shipstationOrderId && !order.trackingNumber && (
+                          <button
+                            onClick={() => syncTracking.mutate({ orderId: order.id })}
+                            disabled={syncTracking.isPending}
+                            className="flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-sm font-bold uppercase tracking-widest transition-all hover:opacity-90 disabled:opacity-50"
+                            style={{
+                              background: "oklch(0.65 0.22 210 / 15%)",
+                              border: "1px solid oklch(0.65 0.22 210 / 40%)",
+                              color: "oklch(0.72 0.18 210)",
+                              fontFamily: "'Rajdhani', sans-serif",
+                            }}
+                          >
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 12a9 9 0 0 1-9 9m9-9a9 9 0 0 0-9-9m9 9H3m9 9a9 9 0 0 1-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9"/></svg>
+                            {syncTracking.isPending ? "Syncing..." : "Sync Tracking from ShipStation"}
+                          </button>
                         )}
 
                         {/* Payment confirmed info */}

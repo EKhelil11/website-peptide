@@ -12,7 +12,9 @@ import {
   getOrderStats,
 } from "./db";
 import { notifyOwner } from "./_core/notification";
-import { sendNewOrderEmail, sendPaymentConfirmedEmail, sendCustomerOrderConfirmation } from "./email";
+import { sendNewOrderEmail, sendPaymentConfirmedEmail, sendCustomerOrderConfirmation, sendShippingConfirmationEmail } from "./email";
+import { createOrUpdateSSOrder, buildSSOrderPayload, getSSShipmentsForOrder } from "./shipstation";
+import { updateOrderShipStation } from "./db";
 
 const TAX_RATE = 0.08;       // 8% flat
 const SHIPPING_CENTS = 700;  // $7.00 flat
@@ -203,7 +205,74 @@ export const orderRouter = router({
         }).catch(() => {});
       }
 
+      // ── Push to ShipStation now that payment is confirmed ──────────────
+      try {
+        const freshOrder = await getOrderWithItems(input.orderId);
+        if (freshOrder) {
+          const ssPayload = buildSSOrderPayload({
+            ...freshOrder,
+            orderNumber: freshOrder.orderNumber ?? "",
+            status: "paid",
+          });
+          const ssResponse = await createOrUpdateSSOrder(ssPayload);
+          await updateOrderShipStation(
+            input.orderId,
+            String(ssResponse.orderId)
+          );
+          await notifyOwner({
+            title: `📦 Order ${freshOrder.orderNumber} pushed to ShipStation`,
+            content: `ShipStation Order ID: ${ssResponse.orderId}\nStatus: ${ssResponse.orderStatus}\nReady for label printing.`,
+          }).catch(() => {});
+        }
+      } catch (ssErr) {
+        // Non-fatal — log but don't block the payment confirmation
+        console.error("[ShipStation] Failed to push order:", ssErr);
+      }
+
       return { success: true };
+    }),
+
+  // ─── Admin: Sync tracking from ShipStation ───────────────────────────────
+  adminSyncTracking: adminProcedure
+    .input(z.object({ orderId: z.number() }))
+    .mutation(async ({ input }) => {
+      const order = await getOrderWithItems(input.orderId);
+      if (!order) throw new Error("Order not found");
+      if (!order.shipstationOrderId) throw new Error("Order not yet synced to ShipStation");
+
+      const shipments = await getSSShipmentsForOrder(Number(order.shipstationOrderId));
+      const shipped = shipments.find(s => !s.voided && s.trackingNumber);
+      if (!shipped) return { success: false, message: "No shipment found yet in ShipStation" };
+
+      await updateOrderShipStation(
+        input.orderId,
+        order.shipstationOrderId,
+        shipped.trackingNumber,
+        shipped.carrierCode,
+        shipped.serviceCode,
+        undefined
+      );
+
+      // Email customer with tracking
+      if (order.shipEmail && order.orderNumber) {
+        await sendShippingConfirmationEmail({
+          orderNumber: order.orderNumber,
+          customerName: order.shipName ?? "Customer",
+          customerEmail: order.shipEmail,
+          trackingNumber: shipped.trackingNumber,
+          carrier: shipped.carrierCode,
+          service: shipped.serviceCode,
+          shipCity: order.shipCity ?? "",
+          shipState: order.shipState ?? "",
+          shipZip: order.shipZip ?? "",
+          items: order.items.map(i => ({
+            name: i.productName + (i.variantLabel ? ` (${i.variantLabel})` : ""),
+            quantity: i.quantity,
+          })),
+        }).catch(() => {});
+      }
+
+      return { success: true, trackingNumber: shipped.trackingNumber, carrier: shipped.carrierCode };
     }),
 
   // ─── Admin: Update admin notes ───────────────────────────────────────────
