@@ -659,12 +659,8 @@ export default function ProductDetail() {
                         {label}
                       </span>
                       <span
-                        className={label === "Content" ? "text-cyan-300 text-xl" : "text-white text-base"}
-                        style={{
-                          fontFamily: "'Rajdhani', sans-serif",
-                          fontWeight: label === "Content" ? 800 : 700,
-                          letterSpacing: label === "Content" ? "0.05em" : undefined,
-                        }}
+                        className="text-white text-base"
+                        style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
                       >
                         {value}
                       </span>
