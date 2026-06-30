@@ -146,6 +146,12 @@ export async function getOrdersByUserId(userId: number) {
   return db.select().from(orders).where(eq(orders.userId, userId)).orderBy(desc(orders.createdAt));
 }
 
+export async function getOrdersByCustomerId(customerId: number) {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(orders).where(eq(orders.customerId, customerId)).orderBy(desc(orders.createdAt));
+}
+
 export async function getOrderWithItems(orderId: number) {
   const db = await getDb();
   if (!db) return null;

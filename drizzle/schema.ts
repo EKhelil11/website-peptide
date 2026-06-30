@@ -35,7 +35,8 @@ export const orders = mysqlTable("orders", {
   id: int("id").autoincrement().primaryKey(),
   // Human-readable order ID e.g. LAP-000123
   orderNumber: varchar("orderNumber", { length: 32 }).unique(),
-  userId: int("userId").notNull(),
+  userId: int("userId").default(0).notNull(),
+  customerId: int("customerId"),  // custom email/password customer (nullable for legacy orders)
   status: mysqlEnum("status", [
     "pending_payment",
     "paid",

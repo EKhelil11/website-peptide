@@ -1,8 +1,9 @@
 import { z } from "zod";
-import { protectedProcedure, adminProcedure, router } from "./_core/trpc";
+import { customerProtectedProcedure, protectedProcedure, adminProcedure, router } from "./_core/trpc";
 import {
   createOrder,
   getOrdersByUserId,
+  getOrdersByCustomerId,
   getOrderWithItems,
   getAllOrdersWithItems,
   markOrderPaid,
@@ -13,7 +14,7 @@ import {
 import { notifyOwner } from "./_core/notification";
 import { sendNewOrderEmail, sendPaymentConfirmedEmail, sendCustomerOrderConfirmation } from "./email";
 
-const TAX_RATE = 0.09;       // 9% flat
+const TAX_RATE = 0.08;       // 8% flat
 const SHIPPING_CENTS = 700;  // $7.00 flat
 
 const cartItemSchema = z.object({
@@ -27,7 +28,7 @@ const cartItemSchema = z.object({
 
 export const orderRouter = router({
   // ─── Customer: Submit a new order ────────────────────────────────────────
-  submit: protectedProcedure
+  submit: customerProtectedProcedure
     .input(
       z.object({
         items: z.array(cartItemSchema).min(1),
@@ -51,7 +52,8 @@ export const orderRouter = router({
 
       const { orderId, orderNumber } = await createOrder(
         {
-          userId: ctx.user.id,
+          userId: 0,
+          customerId: ctx.customer.id,
           status: "pending_payment",
           subtotalCents,
           shippingCents: SHIPPING_CENTS,
@@ -87,7 +89,7 @@ export const orderRouter = router({
 
       await notifyOwner({
         title: `🛒 New Order ${orderNumber} — $${(totalCents / 100).toFixed(2)}`,
-        content: `Order: ${orderNumber}\nCustomer: ${input.shipName} (${input.shipEmail})\nPhone: ${input.shipPhone || "N/A"}\nShip to: ${input.shipAddress}, ${input.shipCity}, ${input.shipState} ${input.shipZip}\n\nItems:\n${itemsSummary}\n\nSubtotal: $${(subtotalCents / 100).toFixed(2)}\nShipping: $${(SHIPPING_CENTS / 100).toFixed(2)}\nTax (9%): $${(taxCents / 100).toFixed(2)}\nTotal: $${(totalCents / 100).toFixed(2)}\n\nZelle: (310) 975-9289 — Memo: ${orderNumber}`,
+        content: `Order: ${orderNumber}\nCustomer: ${input.shipName} (${input.shipEmail})\nPhone: ${input.shipPhone || "N/A"}\nShip to: ${input.shipAddress}, ${input.shipCity}, ${input.shipState} ${input.shipZip}\n\nItems:\n${itemsSummary}\n\nSubtotal: $${(subtotalCents / 100).toFixed(2)}\nShipping: $${(SHIPPING_CENTS / 100).toFixed(2)}\nTax (8%): $${(taxCents / 100).toFixed(2)}\nTotal: $${(totalCents / 100).toFixed(2)}\n\nZelle: (310) 975-9289 — Memo: ${orderNumber}`,
       }).catch(() => {});
 
       // Send rich HTML email to support@laelitepeps.com (owner notification)
@@ -138,29 +140,29 @@ export const orderRouter = router({
     }),
 
   // ─── Customer: Get my orders ─────────────────────────────────────────────
-  myOrders: protectedProcedure.query(async ({ ctx }) => {
-    return getOrdersByUserId(ctx.user.id);
+  myOrders: customerProtectedProcedure.query(async ({ ctx }) => {
+    return getOrdersByCustomerId(ctx.customer.id);
   }),
 
   // ─── Customer: Get a specific order with items ───────────────────────────
-  getOrder: protectedProcedure
+  getOrder: customerProtectedProcedure
     .input(z.object({ orderId: z.number() }))
     .query(async ({ ctx, input }) => {
       const order = await getOrderWithItems(input.orderId);
       if (!order) return null;
-      if (order.userId !== ctx.user.id && ctx.user.role !== "admin") return null;
+      if (order.customerId !== ctx.customer.id) return null;
       return order;
     }),
 
   // ─── Customer: Cancel a pending order ───────────────────────────────────
-  cancelOrder: protectedProcedure
+  cancelOrder: customerProtectedProcedure
     .input(z.object({ orderId: z.number() }))
     .mutation(async ({ ctx, input }) => {
       const order = await getOrderWithItems(input.orderId);
       if (!order) throw new Error("Order not found");
-      if (order.userId !== ctx.user.id && ctx.user.role !== "admin") throw new Error("Forbidden");
+      if (order.customerId !== ctx.customer.id) throw new Error("Forbidden");
       if (order.status !== "pending_payment") throw new Error("Only pending orders can be cancelled");
-      await cancelOrder(input.orderId, String(ctx.user.id));
+      await cancelOrder(input.orderId, String(ctx.customer.id));
       return { success: true };
     }),
 

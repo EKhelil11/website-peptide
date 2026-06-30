@@ -145,3 +145,12 @@
 - [x] Show customer name + logout in navbar when logged in
 - [x] Keep admin access via Manus OAuth on /admin only
 - [x] Write vitest tests for auth procedures
+
+## Checkout/Purchase Flow Fix (customerProtectedProcedure)
+- [x] Add customerId column to orders table in schema.ts (nullable int)
+- [x] Change userId to default(0) in orders table (backward compat)
+- [x] Run pnpm db:push to migrate schema
+- [x] Add customerProtectedProcedure to server/_core/trpc.ts (reads lap_customer_session cookie)
+- [x] Add getOrdersByCustomerId helper to server/db.ts
+- [x] Switch submit, myOrders, getOrder, cancelOrder to customerProtectedProcedure
+- [x] Fix TAX_RATE from 9% to 8% in orderRouter.ts
