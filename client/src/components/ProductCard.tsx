@@ -183,15 +183,38 @@ export default function ProductCard({ product, index }: ProductCardProps) {
               )}
             </div>
           ) : (
-            /* Unauthenticated or terms not accepted: show login gate */
-            <button
-              onClick={handleLoginGate}
-              className="w-full flex items-center justify-center gap-2 py-2.5 rounded btn-primary text-xs tracking-widest uppercase transition-all duration-200"
-              style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
-            >
-              <ShoppingCart size={13} />
-              Add to Cart
-            </button>
+            /* Unauthenticated: lock icon + price placeholder + subtle sign in */
+            <div className="flex items-center justify-between">
+              {/* Price placeholder */}
+              <div className="flex items-center gap-2">
+                <Lock
+                  size={14}
+                  className="text-[#00BFFF] flex-shrink-0"
+                  strokeWidth={2}
+                />
+                <span
+                  className="text-white/35 tracking-[0.25em]"
+                  style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.3rem", letterSpacing: "0.2em" }}
+                >
+                  — — —
+                </span>
+              </div>
+              {/* Sign in button */}
+              <button
+                onClick={handleLoginGate}
+                className="flex items-center gap-1.5 px-3 py-2 rounded text-xs tracking-widest uppercase transition-all duration-200 hover:opacity-80"
+                style={{
+                  fontFamily: "'Rajdhani', sans-serif",
+                  fontWeight: 700,
+                  background: "oklch(0.72 0.18 210 / 12%)",
+                  border: "1px solid oklch(0.72 0.18 210 / 35%)",
+                  color: "#00BFFF",
+                }}
+              >
+                <Lock size={11} strokeWidth={2} />
+                Sign In
+              </button>
+            </div>
           )}
         </div>
       </div>
