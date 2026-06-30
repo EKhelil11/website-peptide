@@ -649,7 +649,7 @@ export default function ProductDetail() {
                   ].map(({ label, value }, i) => (
                     <div
                       key={label}
-                      className="flex justify-between items-center px-5 py-3 border-b border-white/5 last:border-0"
+                      className="flex justify-between items-center px-5 py-3.5 border-b border-white/5 last:border-0"
                       style={{ background: i % 2 === 0 ? "rgba(255,255,255,0.02)" : "transparent" }}
                     >
                       <span
@@ -659,8 +659,12 @@ export default function ProductDetail() {
                         {label}
                       </span>
                       <span
-                        className="text-white text-base"
-                        style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
+                        className={label === "Content" ? "text-cyan-300 text-xl" : "text-white text-base"}
+                        style={{
+                          fontFamily: "'Rajdhani', sans-serif",
+                          fontWeight: label === "Content" ? 800 : 700,
+                          letterSpacing: label === "Content" ? "0.05em" : undefined,
+                        }}
                       >
                         {value}
                       </span>
