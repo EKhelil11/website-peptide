@@ -4,6 +4,7 @@ import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { protectedProcedure, publicProcedure, router } from "./_core/trpc";
 import { orderRouter } from "./orderRouter";
+import { customerRouter } from "./customerRouter";
 import { acceptTerms } from "./db";
 
 export const appRouter = router({
@@ -25,6 +26,7 @@ export const appRouter = router({
     }),
   }),
   orders: orderRouter,
+  customer: customerRouter,
 });
 
 export type AppRouter = typeof appRouter;

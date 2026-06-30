@@ -9,7 +9,7 @@ import { motion, AnimatePresence } from "framer-motion";
 const LOGO_URL = "/manus-storage/elite-la-peptides-logo_e9ec855c.png";
 
 // Routes that bypass age verification entirely
-const BYPASS_ROUTES = ["/admin", "/account", "/checkout", "/api"];
+const BYPASS_ROUTES = ["/admin", "/account", "/checkout", "/api", "/register", "/login", "/verify-email", "/forgot-password", "/reset-password"];
 
 export default function AgeVerification() {
   const [visible, setVisible] = useState(false);

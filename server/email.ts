@@ -496,3 +496,109 @@ export async function sendShippingConfirmationEmail(params: ShippingConfirmation
     console.warn("[Email] Failed to send shipping confirmation email:", err);
   }
 }
+
+// ─── Customer Email Verification ────────────────────────────────────────────
+
+export async function sendVerificationEmail(params: {
+  email: string;
+  firstName: string;
+  verificationToken: string;
+  origin: string;
+}): Promise<void> {
+  const resend = getResend();
+  if (!resend) {
+    console.warn("[Email] RESEND_API_KEY not set — skipping verification email");
+    return;
+  }
+
+  const verifyUrl = `${params.origin}/verify-email?token=${params.verificationToken}`;
+
+  const html = `
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="font-family:Arial,sans-serif;background:#f3f4f6;margin:0;padding:20px;">
+  <div style="max-width:560px;margin:0 auto;background:#ffffff;border-radius:8px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.1);">
+    <div style="background:#0f172a;padding:28px 32px;text-align:center;">
+      <h1 style="color:#06b6d4;font-size:24px;margin:0;letter-spacing:3px;font-weight:900;">LA ELITE PEPTIDES</h1>
+      <p style="color:#94a3b8;margin:6px 0 0;font-size:13px;letter-spacing:1px;">ADVANCED PEPTIDE RESEARCH</p>
+    </div>
+    <div style="padding:40px 32px;text-align:center;">
+      <div style="width:64px;height:64px;background:#eff6ff;border-radius:50%;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:28px;">✉️</div>
+      <h2 style="font-size:22px;color:#0f172a;margin:0 0 12px;">Verify Your Email</h2>
+      <p style="color:#6b7280;font-size:15px;margin:0 0 32px;">Hi ${params.firstName}, click the button below to verify your email address and activate your account.</p>
+      <a href="${verifyUrl}" style="display:inline-block;background:#06b6d4;color:#ffffff;font-weight:700;font-size:15px;padding:14px 36px;border-radius:8px;text-decoration:none;letter-spacing:1px;">VERIFY MY EMAIL →</a>
+      <p style="color:#9ca3af;font-size:12px;margin:24px 0 0;">This link expires in 24 hours. If you didn't create an account, you can safely ignore this email.</p>
+      <p style="color:#9ca3af;font-size:11px;margin:8px 0 0;word-break:break-all;">Or copy this link: ${verifyUrl}</p>
+    </div>
+    <div style="background:#0f172a;padding:16px 32px;text-align:center;">
+      <p style="margin:0;font-size:11px;color:#475569;">La Elite Peptides · support@laelitepeps.com · For research use only</p>
+    </div>
+  </div>
+</body>
+</html>`;
+
+  try {
+    const { error } = await resend.emails.send({
+      from: FROM_ADDRESS,
+      to: params.email,
+      replyTo: "support@laelitepeps.com",
+      subject: "Verify your email — La Elite Peptides",
+      html,
+    });
+    if (error) console.warn("[Email] Resend error sending verification email:", error);
+    else console.log(`[Email] Verification email sent to ${params.email}`);
+  } catch (err) {
+    console.warn("[Email] Failed to send verification email:", err);
+  }
+}
+
+// ─── Password Reset Email ────────────────────────────────────────────────────
+
+export async function sendPasswordResetEmail(params: {
+  email: string;
+  firstName: string;
+  resetToken: string;
+  origin: string;
+}): Promise<void> {
+  const resend = getResend();
+  if (!resend) return;
+
+  const resetUrl = `${params.origin}/reset-password?token=${params.resetToken}`;
+
+  const html = `
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
+<body style="font-family:Arial,sans-serif;background:#f3f4f6;margin:0;padding:20px;">
+  <div style="max-width:560px;margin:0 auto;background:#ffffff;border-radius:8px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,0.1);">
+    <div style="background:#0f172a;padding:28px 32px;text-align:center;">
+      <h1 style="color:#06b6d4;font-size:24px;margin:0;letter-spacing:3px;font-weight:900;">LA ELITE PEPTIDES</h1>
+    </div>
+    <div style="padding:40px 32px;text-align:center;">
+      <h2 style="font-size:22px;color:#0f172a;margin:0 0 12px;">Reset Your Password</h2>
+      <p style="color:#6b7280;font-size:15px;margin:0 0 32px;">Hi ${params.firstName}, click below to reset your password. This link expires in 2 hours.</p>
+      <a href="${resetUrl}" style="display:inline-block;background:#06b6d4;color:#ffffff;font-weight:700;font-size:15px;padding:14px 36px;border-radius:8px;text-decoration:none;letter-spacing:1px;">RESET PASSWORD →</a>
+      <p style="color:#9ca3af;font-size:12px;margin:24px 0 0;">If you didn't request this, you can safely ignore this email.</p>
+    </div>
+    <div style="background:#0f172a;padding:16px 32px;text-align:center;">
+      <p style="margin:0;font-size:11px;color:#475569;">La Elite Peptides · support@laelitepeps.com</p>
+    </div>
+  </div>
+</body>
+</html>`;
+
+  try {
+    const { error } = await resend.emails.send({
+      from: FROM_ADDRESS,
+      to: params.email,
+      replyTo: "support@laelitepeps.com",
+      subject: "Reset your password — La Elite Peptides",
+      html,
+    });
+    if (error) console.warn("[Email] Resend error sending password reset email:", error);
+    else console.log(`[Email] Password reset email sent to ${params.email}`);
+  } catch (err) {
+    console.warn("[Email] Failed to send password reset email:", err);
+  }
+}

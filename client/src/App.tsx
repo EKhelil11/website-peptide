@@ -22,6 +22,11 @@ import Checkout from "./pages/Checkout";
 import Account from "./pages/Account";
 import AdminOrders from "./pages/AdminOrders";
 import Blends from "./pages/Blends";
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import VerifyEmail from "./pages/VerifyEmail";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 
 function Router() {
   return (
@@ -37,6 +42,11 @@ function Router() {
       <Route path="/account" component={Account} />
       <Route path="/admin" component={AdminOrders} />
       <Route path="/blends" component={Blends} />
+      <Route path="/register" component={Register} />
+      <Route path="/login" component={Login} />
+      <Route path="/verify-email" component={VerifyEmail} />
+      <Route path="/forgot-password" component={ForgotPassword} />
+      <Route path="/reset-password" component={ResetPassword} />
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
     </Switch>

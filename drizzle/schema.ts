@@ -114,3 +114,33 @@ export const orderStatusHistory = mysqlTable("order_status_history", {
 });
 
 export type OrderStatusHistory = typeof orderStatusHistory.$inferSelect;
+
+// ─── Customer Auth (separate from Manus OAuth users) ────────────────────────
+
+export const customers = mysqlTable("customers", {
+  id: int("id").autoincrement().primaryKey(),
+  email: varchar("email", { length: 320 }).notNull().unique(),
+  passwordHash: varchar("passwordHash", { length: 256 }).notNull(),
+  firstName: varchar("firstName", { length: 128 }).notNull(),
+  lastName: varchar("lastName", { length: 128 }).notNull(),
+  emailVerified: int("emailVerified").default(0).notNull(), // 0=unverified, 1=verified
+  verificationToken: varchar("verificationToken", { length: 128 }),
+  tokenExpiry: bigint("tokenExpiry", { mode: "number" }),
+  resetToken: varchar("resetToken", { length: 128 }),
+  resetTokenExpiry: bigint("resetTokenExpiry", { mode: "number" }),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Customer = typeof customers.$inferSelect;
+export type InsertCustomer = typeof customers.$inferInsert;
+
+export const customerSessions = mysqlTable("customer_sessions", {
+  id: int("id").autoincrement().primaryKey(),
+  customerId: int("customerId").notNull(),
+  token: varchar("token", { length: 256 }).notNull().unique(),
+  expiresAt: bigint("expiresAt", { mode: "number" }).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type CustomerSession = typeof customerSessions.$inferSelect;

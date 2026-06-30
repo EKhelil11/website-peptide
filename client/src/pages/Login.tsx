@@ -1,127 +1,183 @@
-// === ELITE LA PEPTIDES — Login Page ===
-// Styled to match Midnight Clinic theme
+// === LA ELITE PEPTIDES — Customer Login Page ===
+// Custom email/password login — no Manus OAuth exposure
 
-import { useEffect } from "react";
-import { useLocation } from "wouter";
-import { useAuth } from "@/_core/hooks/useAuth";
-import { getLoginUrl } from "@/const";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "wouter";
+import { Mail, Lock, Eye, EyeOff, ArrowRight } from "lucide-react";
+import { trpc } from "@/lib/trpc";
 
 const LOGO_URL = "/manus-storage/elite-la-peptides-logo_e9ec855c.png";
 
 export default function Login() {
-  const { user, loading } = useAuth();
   const [, setLocation] = useLocation();
+  const [form, setForm] = useState({ email: "", password: "" });
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState("");
+
+  const { data: customer, isLoading: checkingSession } = trpc.customer.me.useQuery(undefined, { retry: false });
 
   useEffect(() => {
-    if (!loading && user) {
-      setLocation("/shop");
+    if (!checkingSession && customer) {
+      setLocation("/account");
     }
-  }, [user, loading, setLocation]);
+  }, [customer, checkingSession, setLocation]);
 
-  const handleLogin = () => {
-    window.location.href = getLoginUrl();
-  };
+  const loginMutation = trpc.customer.login.useMutation({
+    onSuccess: () => setLocation("/account"),
+    onError: (err) => setError(err.message),
+  });
 
-  const handleRegister = () => {
-    const url = new URL(getLoginUrl());
-    url.searchParams.set("type", "signUp");
-    window.location.href = url.toString();
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    loginMutation.mutate({ email: form.email, password: form.password });
   };
 
   return (
     <div
-      className="min-h-screen flex flex-col items-center justify-center px-4"
-      style={{ background: "oklch(0.12 0.05 255)" }}
+      className="min-h-screen flex flex-col items-center justify-center px-4 py-12"
+      style={{ background: "oklch(0.09 0.04 255)" }}
     >
+      {/* Background grid */}
+      <div
+        className="fixed inset-0 opacity-[0.025] pointer-events-none"
+        style={{
+          backgroundImage:
+            "linear-gradient(oklch(0.8 0.1 220) 1px, transparent 1px), linear-gradient(90deg, oklch(0.8 0.1 220) 1px, transparent 1px)",
+          backgroundSize: "40px 40px",
+        }}
+      />
+
       {/* Back to site */}
       <a
         href="/"
-        className="absolute top-6 left-6 text-white/50 hover:text-[#00BFFF] text-sm tracking-widest uppercase transition-colors"
+        className="absolute top-6 left-6 text-white/40 hover:text-white/70 text-sm tracking-widest uppercase transition-colors"
         style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
       >
         ← Back to Site
       </a>
 
-      <div
-        className="w-full max-w-md rounded-2xl p-8 sm:p-10"
-        style={{
-          background: "oklch(0.17 0.055 255)",
-          border: "1px solid oklch(0.28 0.08 255 / 60%)",
-          boxShadow: "0 0 40px oklch(0.72 0.18 210 / 8%)",
-        }}
-      >
+      <div className="relative z-10 w-full max-w-md">
         {/* Logo */}
         <div className="flex justify-center mb-8">
           <img src={LOGO_URL} alt="LA Elite Peptides" className="h-14 w-auto" />
         </div>
 
-        <h1
-          className="text-3xl text-center text-white mb-2"
-          style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "0.08em" }}
-        >
-          Member Access
-        </h1>
-        <p className="text-center text-white/50 text-sm mb-8" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
-          Sign in to your account to place orders
-        </p>
-
-        {/* Research use disclaimer */}
+        {/* Card */}
         <div
-          className="rounded-lg px-4 py-3 mb-8 text-xs text-center"
+          className="rounded-2xl p-8 border"
           style={{
-            background: "oklch(0.72 0.18 210 / 8%)",
-            border: "1px solid oklch(0.72 0.18 210 / 20%)",
-            color: "oklch(0.72 0.18 210)",
-            fontFamily: "'Rajdhani', sans-serif",
+            background: "oklch(0.13 0.055 255 / 0.95)",
+            borderColor: "oklch(0.72 0.18 210 / 0.2)",
+            boxShadow: "0 0 60px oklch(0.72 0.18 210 / 0.06)",
           }}
         >
-          All products are sold strictly for research use only. Must be 21+ to access.
+          <div className="mb-7">
+            <h1 className="text-white mb-1" style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "2rem", letterSpacing: "0.06em" }}>
+              SIGN IN
+            </h1>
+            <p className="text-white/45 text-sm" style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300 }}>
+              Access your LA Elite Peptides account.
+            </p>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Email */}
+            <div>
+              <label className="block text-white/55 text-xs mb-1.5 tracking-wider uppercase" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}>
+                Email Address
+              </label>
+              <div className="relative">
+                <Mail size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/25" />
+                <input
+                  type="email"
+                  placeholder="you@example.com"
+                  required
+                  autoComplete="email"
+                  value={form.email}
+                  onChange={(e) => setForm({ ...form, email: e.target.value })}
+                  className="w-full pl-9 pr-3 py-2.5 rounded-lg text-sm text-white placeholder-white/25 outline-none transition-all"
+                  style={{ background: "oklch(0.11 0.04 255)", border: "1px solid oklch(0.72 0.18 210 / 0.15)", fontFamily: "'Inter', sans-serif" }}
+                />
+              </div>
+            </div>
+
+            {/* Password */}
+            <div>
+              <div className="flex items-center justify-between mb-1.5">
+                <label className="text-white/55 text-xs tracking-wider uppercase" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}>
+                  Password
+                </label>
+                <Link href="/forgot-password">
+                  <span className="text-xs cursor-pointer hover:underline" style={{ color: "oklch(0.72 0.18 210)", fontFamily: "'Inter', sans-serif" }}>
+                    Forgot password?
+                  </span>
+                </Link>
+              </div>
+              <div className="relative">
+                <Lock size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/25" />
+                <input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Your password"
+                  required
+                  autoComplete="current-password"
+                  value={form.password}
+                  onChange={(e) => setForm({ ...form, password: e.target.value })}
+                  className="w-full pl-9 pr-10 py-2.5 rounded-lg text-sm text-white placeholder-white/25 outline-none transition-all"
+                  style={{ background: "oklch(0.11 0.04 255)", border: "1px solid oklch(0.72 0.18 210 / 0.15)", fontFamily: "'Inter', sans-serif" }}
+                />
+                <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60 transition-colors">
+                  {showPassword ? <EyeOff size={14} /> : <Eye size={14} />}
+                </button>
+              </div>
+            </div>
+
+            {/* Error */}
+            {error && (
+              <div className="rounded-lg p-3" style={{ background: "rgba(239,68,68,0.1)", border: "1px solid rgba(239,68,68,0.3)" }}>
+                <p className="text-red-400 text-sm" style={{ fontFamily: "'Inter', sans-serif" }}>{error}</p>
+              </div>
+            )}
+
+            {/* Submit */}
+            <button
+              type="submit"
+              disabled={loginMutation.isPending}
+              className="w-full flex items-center justify-center gap-2 py-3 rounded-xl font-bold tracking-wider uppercase text-sm transition-all duration-200 active:scale-[0.98] disabled:opacity-60"
+              style={{
+                background: loginMutation.isPending
+                  ? "oklch(0.72 0.18 210 / 0.5)"
+                  : "linear-gradient(135deg, oklch(0.72 0.18 210), oklch(0.65 0.2 220))",
+                color: "oklch(0.09 0.04 255)",
+                fontFamily: "'Rajdhani', sans-serif",
+                fontWeight: 700,
+                boxShadow: loginMutation.isPending ? "none" : "0 0 24px oklch(0.72 0.18 210 / 0.3)",
+              }}
+            >
+              {loginMutation.isPending ? (
+                <span className="animate-spin w-4 h-4 border-2 border-current border-t-transparent rounded-full" />
+              ) : (
+                <>SIGN IN <ArrowRight size={16} /></>
+              )}
+            </button>
+          </form>
+
+          <div className="mt-6 pt-5 border-t border-white/8 text-center">
+            <p className="text-white/35 text-xs" style={{ fontFamily: "'Inter', sans-serif" }}>
+              Don't have an account?{" "}
+              <Link href="/register">
+                <span className="hover:underline cursor-pointer transition-colors" style={{ color: "oklch(0.72 0.18 210)" }}>
+                  Create one
+                </span>
+              </Link>
+            </p>
+          </div>
         </div>
 
-        {/* Login Button */}
-        <button
-          onClick={handleLogin}
-          disabled={loading}
-          className="w-full py-3 rounded-lg font-bold text-sm tracking-widest uppercase mb-4 transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
-          style={{
-            background: "linear-gradient(135deg, oklch(0.6 0.27 0), oklch(0.55 0.25 355))",
-            color: "white",
-            fontFamily: "'Rajdhani', sans-serif",
-            letterSpacing: "0.12em",
-            boxShadow: "0 4px 20px oklch(0.6 0.27 0 / 30%)",
-          }}
-        >
-          {loading ? "Loading..." : "Sign In"}
-        </button>
-
-        {/* Register Button */}
-        <button
-          onClick={handleRegister}
-          disabled={loading}
-          className="w-full py-3 rounded-lg font-bold text-sm tracking-widest uppercase transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
-          style={{
-            background: "transparent",
-            border: "1px solid oklch(0.72 0.18 210 / 40%)",
-            color: "oklch(0.72 0.18 210)",
-            fontFamily: "'Rajdhani', sans-serif",
-            letterSpacing: "0.12em",
-          }}
-        >
-          Create Account
-        </button>
-
-        <p className="text-center text-white/30 text-xs mt-6" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
-          By signing in you agree to our{" "}
-          <a href="#" className="text-white/50 hover:text-[#00BFFF] underline transition-colors">
-            Terms of Service
-          </a>
+        <p className="text-center text-white/25 text-xs mt-6" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
+          Questions? Text us at (310) 975-9289 or email support@laelitepeps.com
         </p>
       </div>
-
-      {/* Footer note */}
-      <p className="mt-8 text-white/25 text-xs text-center" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
-        Questions? Text us at (310) 975-9289 or email support@laelitepeps.com
-      </p>
     </div>
   );
 }

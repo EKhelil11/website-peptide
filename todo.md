@@ -129,3 +129,19 @@
 
 - [x] Regenerate BPC-157/TB-500 vial image (v9) — grounded on surface with natural drop shadow, matching Retatrutide master style
 - [x] Apply v9 image URL to products.ts for BPC-157/TB-500 Wolverine Stack product
+
+## Custom Customer Auth System (Replacing Manus OAuth)
+- [ ] Add customers table to drizzle schema (id, email, passwordHash, firstName, lastName, emailVerified, verificationToken, tokenExpiry, createdAt)
+- [ ] Add customer sessions table (id, customerId, token, expiresAt)
+- [ ] Run pnpm db:push to migrate schema
+- [ ] Install bcryptjs for password hashing
+- [ ] Create server/customerAuth.ts with register, login, verify email, logout helpers
+- [ ] Create server/customerRouter.ts with tRPC procedures for all auth flows
+- [ ] Add customer verification email template to email.ts
+- [ ] Create Login.tsx page matching site design
+- [ ] Update Register.tsx to wire to backend
+- [ ] Create /verify-email page for token verification
+- [ ] Protect /account and /checkout routes — redirect to /login if not authenticated
+- [ ] Show customer name + logout in navbar when logged in
+- [ ] Keep admin access via Manus OAuth on /admin only
+- [ ] Write vitest tests for auth procedures
