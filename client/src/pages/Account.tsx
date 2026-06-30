@@ -3,8 +3,7 @@
 
 import { useEffect } from "react";
 import { useLocation } from "wouter";
-import { useAuth } from "@/_core/hooks/useAuth";
-import { getLoginUrl } from "@/const";
+import { useCustomerAuth } from "@/hooks/useCustomerAuth";
 import { trpc } from "@/lib/trpc";
 import { ShoppingBag, Package, Clock, CheckCircle, Truck, XCircle, ArrowLeft, LogOut } from "lucide-react";
 
@@ -20,20 +19,20 @@ const STATUS_CONFIG: Record<string, { label: string; icon: any; color: string }>
 };
 
 export default function Account() {
-  const { user, loading, logout } = useAuth();
+  const { customer, isLoading, logout } = useCustomerAuth();
   const [, setLocation] = useLocation();
 
   useEffect(() => {
-    if (!loading && !user) {
-      window.location.href = getLoginUrl();
+    if (!isLoading && !customer) {
+      setLocation("/login");
     }
-  }, [user, loading]);
+  }, [customer, isLoading]);
 
   const ordersQuery = trpc.orders.myOrders.useQuery(undefined, {
-    enabled: !!user,
+    enabled: !!customer,
   });
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center" style={{ background: "oklch(0.12 0.05 255)" }}>
         <div className="text-white/50 text-sm tracking-widest uppercase" style={{ fontFamily: "'Rajdhani', sans-serif" }}>Loading...</div>
@@ -41,7 +40,7 @@ export default function Account() {
     );
   }
 
-  if (!user) return null;
+  if (!customer) return null;
 
   const orders = ordersQuery.data ?? [];
 
@@ -84,7 +83,7 @@ export default function Account() {
             My Account
           </h1>
           <p className="text-white/50 text-sm" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
-            {user.name || user.email} · {user.email}
+            {customer.firstName} {customer.lastName} · {customer.email}
           </p>
         </div>
 

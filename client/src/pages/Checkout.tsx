@@ -3,8 +3,7 @@
 
 import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
-import { useAuth } from "@/_core/hooks/useAuth";
-import { getLoginUrl } from "@/const";
+import { useCustomerAuth } from "@/hooks/useCustomerAuth";
 import { trpc } from "@/lib/trpc";
 import { useCart } from "@/contexts/CartContext";
 import { ArrowLeft, CheckCircle, Copy, Check, ShoppingBag, Truck, Shield } from "lucide-react";
@@ -31,7 +30,7 @@ const CYAN_BTN = {
 };
 
 export default function Checkout() {
-  const { user, loading } = useAuth();
+  const { customer, isLoading } = useCustomerAuth();
   const [, setLocation] = useLocation();
   const { cart, clearCart } = useCart();
   const [submitted, setSubmitted] = useState(false);
@@ -52,31 +51,31 @@ export default function Checkout() {
   });
 
   useEffect(() => {
-    if (!loading && !user) {
-      window.location.href = getLoginUrl();
+    if (!isLoading && !customer) {
+      setLocation("/login");
       return;
     }
-    if (user) {
+    if (customer) {
       setForm(prev => ({
         ...prev,
-        shipName: prev.shipName || user.name || "",
-        shipEmail: prev.shipEmail || user.email || "",
+        shipName: prev.shipName || `${customer.firstName} ${customer.lastName}` || "",
+        shipEmail: prev.shipEmail || customer.email || "",
       }));
     }
-    if (!loading && user && cart.length === 0 && !submitted) {
+    if (!isLoading && customer && cart.length === 0 && !submitted) {
       setLocation("/#products");
     }
-  }, [user, loading, cart.length, submitted]);
+  }, [customer, isLoading, cart.length, submitted]);
 
   // Sanitize cart — redirect if any item has invalid price
   useEffect(() => {
-    if (!loading && cart.length > 0) {
+    if (!isLoading && cart.length > 0) {
       const hasInvalid = cart.some(item => !item.unitPrice || item.unitPrice <= 0 || isNaN(item.unitPrice));
       if (hasInvalid) {
         setLocation("/#products");
       }
     }
-  }, [cart, loading]);
+  }, [cart, isLoading]);
 
   const submitOrder = trpc.orders.submit.useMutation({
     onSuccess: (data) => {
@@ -87,7 +86,7 @@ export default function Checkout() {
     },
   });
 
-  if (loading) {
+  if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center" style={{ background: "oklch(0.12 0.05 255)" }}>
         <div className="text-white/50 text-xl tracking-widest uppercase" style={{ fontFamily: "'Rajdhani', sans-serif" }}>Loading...</div>
@@ -95,7 +94,7 @@ export default function Checkout() {
     );
   }
 
-  if (!user) return null;
+  if (!customer) return null;
 
   const subtotal = cart.reduce((sum, item) => sum + (item.unitPrice ?? 0) * item.quantity, 0);
   const shipping = SHIPPING_FLAT;

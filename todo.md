@@ -131,17 +131,17 @@
 - [x] Apply v9 image URL to products.ts for BPC-157/TB-500 Wolverine Stack product
 
 ## Custom Customer Auth System (Replacing Manus OAuth)
-- [ ] Add customers table to drizzle schema (id, email, passwordHash, firstName, lastName, emailVerified, verificationToken, tokenExpiry, createdAt)
-- [ ] Add customer sessions table (id, customerId, token, expiresAt)
-- [ ] Run pnpm db:push to migrate schema
-- [ ] Install bcryptjs for password hashing
-- [ ] Create server/customerAuth.ts with register, login, verify email, logout helpers
-- [ ] Create server/customerRouter.ts with tRPC procedures for all auth flows
-- [ ] Add customer verification email template to email.ts
-- [ ] Create Login.tsx page matching site design
-- [ ] Update Register.tsx to wire to backend
-- [ ] Create /verify-email page for token verification
-- [ ] Protect /account and /checkout routes — redirect to /login if not authenticated
-- [ ] Show customer name + logout in navbar when logged in
-- [ ] Keep admin access via Manus OAuth on /admin only
-- [ ] Write vitest tests for auth procedures
+- [x] Add customers table to drizzle schema (id, email, passwordHash, firstName, lastName, emailVerified, verificationToken, tokenExpiry, createdAt)
+- [x] Add customer sessions table (id, customerId, token, expiresAt)
+- [x] Run pnpm db:push to migrate schema
+- [x] Install bcryptjs for password hashing
+- [x] Create server/customerAuth.ts with register, login, verify email, logout helpers
+- [x] Create server/customerRouter.ts with tRPC procedures for all auth flows
+- [x] Add customer verification email template to email.ts
+- [x] Create Login.tsx page matching site design
+- [x] Update Register.tsx to wire to backend
+- [x] Create /verify-email page for token verification
+- [x] Protect /account and /checkout routes — redirect to /login if not authenticated
+- [x] Show customer name + logout in navbar when logged in
+- [x] Keep admin access via Manus OAuth on /admin only
+- [x] Write vitest tests for auth procedures

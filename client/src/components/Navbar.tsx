@@ -3,7 +3,9 @@
 // Colors: Navy bg + Cyan accents + Hot Pink for elite script
 
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, User, LogOut } from "lucide-react";
+import { useCustomerAuth } from "@/hooks/useCustomerAuth";
+import { useLocation } from "wouter";
 
 const LOGO_URL = "/manus-storage/elite-la-peptides-logo_e9ec855c.png";
 
@@ -19,6 +21,8 @@ const navLinks = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { customer, isAuthenticated, logout } = useCustomerAuth();
+  const [, setLocation] = useLocation();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
@@ -69,6 +73,38 @@ export default function Navbar() {
               ))}
             </nav>
 
+            {/* Auth CTA */}
+            <div className="hidden md:flex items-center gap-3">
+              {isAuthenticated ? (
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={() => setLocation("/account")}
+                    className="flex items-center gap-2 text-sm font-medium tracking-widest uppercase text-white/70 hover:text-[#00BFFF] transition-colors"
+                    style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
+                  >
+                    <User size={16} />
+                    <span>{customer?.firstName ?? "Account"}</span>
+                  </button>
+                  <button
+                    onClick={() => logout()}
+                    className="flex items-center gap-1 text-xs font-medium tracking-widest uppercase text-white/40 hover:text-red-400 transition-colors"
+                    style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                    title="Sign out"
+                  >
+                    <LogOut size={14} />
+                  </button>
+                </div>
+              ) : (
+                <button
+                  onClick={() => setLocation("/login")}
+                  className="text-sm font-medium tracking-widest uppercase px-4 py-1.5 rounded border border-[#00BFFF]/40 text-[#00BFFF] hover:bg-[#00BFFF]/10 transition-colors"
+                  style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
+                >
+                  Sign In
+                </button>
+              )}
+            </div>
+
             {/* Mobile Menu Toggle */}
             <button
               className="md:hidden text-white/80 hover:text-[#00BFFF] transition-colors"
@@ -100,6 +136,36 @@ export default function Navbar() {
               {link.label}
             </button>
           ))}
+          {/* Mobile Auth */}
+          <div className="flex flex-col items-center gap-3 pt-4 border-t border-white/10 w-48">
+            {isAuthenticated ? (
+              <>
+                <button
+                  onClick={() => { setMobileOpen(false); setLocation("/account"); }}
+                  className="flex items-center gap-2 text-xl font-bold tracking-widest uppercase text-white/80 hover:text-[#00BFFF] transition-colors"
+                  style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                >
+                  <User size={18} />
+                  {customer?.firstName ?? "Account"}
+                </button>
+                <button
+                  onClick={() => { setMobileOpen(false); logout(); }}
+                  className="flex items-center gap-2 text-sm font-medium tracking-widest uppercase text-white/40 hover:text-red-400 transition-colors"
+                  style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                >
+                  <LogOut size={14} /> Sign Out
+                </button>
+              </>
+            ) : (
+              <button
+                onClick={() => { setMobileOpen(false); setLocation("/login"); }}
+                className="text-xl font-bold tracking-widest uppercase text-[#00BFFF] hover:text-white transition-colors"
+                style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+              >
+                Sign In
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </>
