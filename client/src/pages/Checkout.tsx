@@ -273,7 +273,8 @@ export default function Checkout() {
                 <span className="text-white font-bold">${shipping.toFixed(2)}</span>
               </div>
               <div className="flex justify-between text-lg" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
-{/* Tax hidden from customer view — included in total */}
+                <span className="text-white/60 font-semibold">Tax</span>
+                <span className="text-white font-bold">${tax.toFixed(2)}</span>
               </div>
               <div className="flex justify-between items-center pt-3 border-t" style={{ borderColor: "oklch(0.28 0.08 255 / 40%)" }}>
                 <span className="text-white text-2xl font-bold uppercase tracking-widest" style={{ fontFamily: "'Bebas Neue', sans-serif" }}>Total Due</span>
@@ -541,7 +542,8 @@ export default function Checkout() {
                   <span className="text-white text-lg font-bold" style={{ fontFamily: "'Rajdhani', sans-serif" }}>${shipping.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between items-center">
-{/* Tax hidden from customer view — included in total */}
+                  <span className="text-white/60 text-lg font-semibold" style={{ fontFamily: "'Rajdhani', sans-serif" }}>Tax</span>
+                  <span className="text-white text-lg font-bold" style={{ fontFamily: "'Rajdhani', sans-serif" }}>${tax.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between items-center pt-3 border-t" style={{ borderColor: "oklch(0.28 0.08 255 / 40%)" }}>
                   <span className="text-white text-2xl font-bold uppercase" style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "0.06em" }}>Total</span>
