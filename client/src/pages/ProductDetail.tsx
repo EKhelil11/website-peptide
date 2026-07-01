@@ -320,21 +320,7 @@ export default function ProductDetail() {
                 </button>
               </>
             )}
-            {/* Badge */}
-            {product.badge && (
-              <span
-                className="absolute top-4 left-4 text-xs px-3 py-1 rounded-full tracking-widest uppercase"
-                style={{
-                  fontFamily: "'Rajdhani', sans-serif",
-                  fontWeight: 700,
-                  background: product.isStack ? "rgba(255,45,120,0.25)" : "rgba(0,191,255,0.2)",
-                  border: product.isStack ? "1px solid rgba(255,45,120,0.4)" : "1px solid rgba(0,191,255,0.4)",
-                  color: product.isStack ? "#FF2D78" : "#00BFFF",
-                }}
-              >
-                {product.badge}
-              </span>
-            )}
+
           </div>
 
           {/* Thumbnail strip */}
