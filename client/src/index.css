@@ -259,13 +259,14 @@
     color: oklch(0.92 0.15 0);
     font-family: 'Rajdhani', sans-serif;
     font-weight: 800;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
-    font-size: 0.72rem;
-    padding: 0.25rem 0.75rem;
+    font-size: 0.68rem;
+    padding: 0.25rem 0.55rem;
     border-radius: 3px;
     text-shadow: 0 1px 4px rgba(0,0,0,0.6);
     backdrop-filter: blur(4px);
+    white-space: nowrap;
   }
 
   .badge-single {

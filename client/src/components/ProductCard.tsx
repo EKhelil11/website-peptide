@@ -49,47 +49,49 @@ export default function ProductCard({ product, index }: ProductCardProps) {
       className="product-card rounded-lg overflow-hidden animate-on-scroll flex flex-col"
       style={{ animationDelay }}
     >
-      {/* Card image area */}
-      <div
-        className="relative h-56 overflow-hidden flex-shrink-0 flex items-center justify-center"
-        style={{
-          background: "linear-gradient(135deg, oklch(0.14 0.055 255) 0%, oklch(0.2 0.07 240) 100%)",
-        }}
-      >
-        {/* Cyan glow behind vial */}
+      {/* Card image area — wrapper allows badge to escape overflow-hidden */}
+      <div className="relative flex-shrink-0">
         <div
-          className="absolute inset-0 flex items-center justify-center pointer-events-none"
+          className="relative h-56 overflow-hidden flex items-center justify-center"
           style={{
-            background: "radial-gradient(ellipse 55% 60% at 50% 55%, oklch(0.65 0.18 200 / 0.18) 0%, transparent 70%)",
+            background: "linear-gradient(135deg, oklch(0.14 0.055 255) 0%, oklch(0.2 0.07 240) 100%)",
           }}
-        />
-        <img
-          src={product.images?.[0] || VIAL_IMG}
-          alt={product.name}
-          className="h-full w-auto max-w-full object-contain opacity-95 transition-opacity duration-300 py-2 relative z-10"
-          style={{ maxHeight: "100%", filter: "drop-shadow(0 0 18px oklch(0.7 0.2 200 / 0.45))" }}
-        />
-        {/* Gradient overlay */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(to bottom, transparent 30%, oklch(0.17 0.055 255) 100%)",
-          }}
-        />
-        {/* Badge */}
-        <div className="absolute top-3 left-3">
+        >
+          {/* Cyan glow behind vial */}
+          <div
+            className="absolute inset-0 flex items-center justify-center pointer-events-none"
+            style={{
+              background: "radial-gradient(ellipse 55% 60% at 50% 55%, oklch(0.65 0.18 200 / 0.18) 0%, transparent 70%)",
+            }}
+          />
+          <img
+            src={product.images?.[0] || VIAL_IMG}
+            alt={product.name}
+            className="h-full w-auto max-w-full object-contain opacity-95 transition-opacity duration-300 py-2 relative z-10"
+            style={{ maxHeight: "100%", filter: "drop-shadow(0 0 18px oklch(0.7 0.2 200 / 0.45))" }}
+          />
+          {/* Gradient overlay */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(to bottom, transparent 30%, oklch(0.17 0.055 255) 100%)",
+            }}
+          />
+          {/* Category */}
+          <div className="absolute top-3 right-3">
+            <span
+              className="text-white/50 text-xs tracking-widest uppercase"
+              style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
+            >
+              {product.category}
+            </span>
+          </div>
+        </div>
+        {/* Badge — outside overflow-hidden so it never clips */}
+        <div className="absolute top-3 left-3 z-20">
           <span className={product.isStack ? "badge-stack" : "badge-single"}>
             {product.badge || (product.isStack ? "Stack" : "Single")}
-          </span>
-        </div>
-        {/* Category */}
-        <div className="absolute top-3 right-3">
-          <span
-            className="text-white/50 text-xs tracking-widest uppercase"
-            style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
-          >
-            {product.category}
           </span>
         </div>
       </div>
