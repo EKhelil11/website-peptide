@@ -167,8 +167,20 @@ export default function HeroSection() {
                     {stat.stacks.map((s) => (
                       <span
                         key={s}
-                        className="text-white/60 text-xs"
-                        style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 500, letterSpacing: "0.04em" }}
+                        className="text-white/60 text-xs cursor-default transition-all duration-200 hover:text-[#00BFFF] hover:tracking-wider"
+                        style={{
+                          fontFamily: "'Rajdhani', sans-serif",
+                          fontWeight: 500,
+                          letterSpacing: "0.04em",
+                          textShadow: "none",
+                          display: "inline-block",
+                        }}
+                        onMouseEnter={e => {
+                          (e.currentTarget as HTMLElement).style.textShadow = "0 0 12px rgba(0,191,255,0.7)";
+                        }}
+                        onMouseLeave={e => {
+                          (e.currentTarget as HTMLElement).style.textShadow = "none";
+                        }}
                       >
                         · {s}
                       </span>
