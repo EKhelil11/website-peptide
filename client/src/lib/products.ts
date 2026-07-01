@@ -66,7 +66,7 @@ export const products: Product[] = [
     ],
     price: "$150",
     badge: "Advanced",
-    images: ["/manus-storage/vial_new_retatrutide_10mg_2af57172.png"],
+    images: ["/manus-storage/vial_new_retatrutide_10mg_3de5c08b.png"],
     variants: [
       { label: "10mg", price: "$150", content: "10 mg per vial" },
     ],
@@ -107,7 +107,7 @@ export const products: Product[] = [
     ],
     price: "$200",
     badge: "Advanced",
-    images: ["/manus-storage/vial_new_retatrutide_30mg_519b8b98.png"],
+    images: ["/manus-storage/vial_new_retatrutide_30mg_e0007269.png"],
     variants: [
       { label: "30mg", price: "$200", content: "30 mg per vial" },
     ],
@@ -148,7 +148,7 @@ export const products: Product[] = [
     ],
     price: "$100",
     badge: "Longevity",
-    images: ["/manus-storage/vial_new_nad_plus_d46e4fc6.png"],
+    images: ["/manus-storage/vial_new_nad_plus_8718b11e.png"],
     molecularData: {
       molecularFormula: "C21H27N7O14P2",
       molecularWeight: "663.4 g/mol",
@@ -186,7 +186,7 @@ export const products: Product[] = [
     ],
     price: "$100",
     badge: "Stack",
-    images: ["/manus-storage/vial_new_bpc157_tb500_3419a4ae.png"],
+    images: ["/manus-storage/vial_new_bpc157_tb500_65086a87.png"],
     molecularData: {
       molecularFormula: "C62H98N16O22",
       molecularWeight: "1419.5 g/mol",
@@ -223,7 +223,7 @@ export const products: Product[] = [
     ],
     price: "$80",
     badge: "Regenerative",
-    images: ["/manus-storage/vial_new_ghk_cu_ed9449bd.png"],
+    images: ["/manus-storage/vial_new_ghk_cu_4a237a28.png"],
     molecularData: {
       molecularFormula: "C28H48CuN12O8",
       molecularWeight: "744.3 g/mol",
@@ -260,7 +260,7 @@ export const products: Product[] = [
     ],
     price: "$80",
     badge: "Stack",
-    images: ["/manus-storage/vial_new_cjc1295_ipa_de9c6215.png"],
+    images: ["/manus-storage/vial_new_cjc1295_ipa_e95661a9.png"],
     molecularData: {
       molecularFormula: "CJC-1295: C165H269N47O46 / Ipamorelin: C38H49N9O5",
       molecularWeight: "CJC-1295: 3647.2 Da / Ipamorelin: 711.9 g/mol",
@@ -299,7 +299,7 @@ export const products: Product[] = [
     ],
     price: "$120",
     badge: "Signature Stack",
-    images: ["/manus-storage/vial_new_glow_1e6cb737.png"],
+    images: ["/manus-storage/vial_new_glow_f96088e4.png"],
     molecularData: {
       sequence: "BPC-157: H-Gly-Glu-Pro-Pro-Pro-Gly-Lys-Pro-Ala-Asp-Asp-Ala-Gly-Leu-Val-OH | TB-500: Ac-Ser-Asp-Lys-Pro-Asp-Met-Ala-Glu-Ile-Glu-Lys-Phe-Asp-Lys-Ser-Lys-Leu-Lys-Lys-Thr-Glu-Thr-Glu-Lys-Asp-Lys-OH | GHK-Cu: Gly-His-Lys complexed with Cu²⁺",
       molecularFormula: "C₂₂₂H₃₇₉N₆₉O₁₂₄S₁Cu₁ (combined range)",
@@ -335,7 +335,7 @@ export const products: Product[] = [
     ],
     price: "$70",
     badge: "Longevity",
-    images: ["/manus-storage/vial_new_mots_c_38c8b817.png"],
+    images: ["/manus-storage/vial_new_mots_c_a0665592.png"],
     molecularData: {
       molecularFormula: "C101H152N28O22S2",
       molecularWeight: "2174.6 g/mol",
@@ -371,7 +371,7 @@ export const products: Product[] = [
     ],
     price: "$80",
     badge: "Hormone",
-    images: ["/manus-storage/vial_new_kisspeptin_e6ec8fd9.png"],
+    images: ["/manus-storage/vial_new_kisspeptin_46385808.png"],
     molecularData: {
       molecularFormula: "C63H83N17O14",
       molecularWeight: "1302.4 g/mol",
@@ -407,7 +407,7 @@ export const products: Product[] = [
     ],
     price: "$60",
     badge: "Nootropic",
-    images: ["/manus-storage/vial_new_semax_448f42e8.png"],
+    images: ["/manus-storage/vial_new_semax_277b5462.png"],
     molecularData: {
       molecularFormula: "C37H51N9O10S",
       molecularWeight: "813.9 g/mol",
@@ -444,7 +444,7 @@ export const products: Product[] = [
     ],
     price: "$75",
     badge: "Hormone",
-    images: ["/manus-storage/vial_new_sermorelin_c17d7a32.png"],
+    images: ["/manus-storage/vial_new_sermorelin_7e850d29.png"],
     molecularData: {
       sequence: "Tyr-Ala-Asp-Ala-Ile-Phe-Thr-Asn-Ser-Tyr-Arg-Lys-Val-Leu-Gly-Gln-Leu-Ser-Ala-Arg-Lys-Leu-Leu-Gln-Asp-Ile-Met-Ser-Arg-NH₂",
       molecularFormula: "C₁₄₉H₂₄₆N₄₄O₄₂S",
