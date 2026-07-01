@@ -112,8 +112,8 @@ export default function ProductCard({ product, index }: ProductCardProps) {
           </h3>
           {product.isStack && product.stackName && (
             <div
-              className="text-cyan-300 text-xs tracking-wide"
-              style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 800, letterSpacing: "0.05em" }}
+              className="text-xs tracking-wide"
+              style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 800, letterSpacing: "0.05em", color: "#FF2D78" }}
             >
               {product.stackName}
             </div>
