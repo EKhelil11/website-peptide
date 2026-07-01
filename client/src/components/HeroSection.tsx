@@ -144,7 +144,8 @@ export default function HeroSection() {
           </div>
 
           {/* Stats row */}
-          <div className="hero-item opacity-0 mt-16 flex flex-col gap-6 sm:flex-row sm:flex-wrap sm:gap-12">
+          {/* Mobile: vertical stack with horizontal dividers; Desktop: horizontal row with vertical dividers */}
+          <div className="hero-item opacity-0 mt-16 sm:flex sm:flex-row sm:items-stretch sm:gap-0">
             {[
               { value: "11", label: "Premium Peptides" },
               { value: "3", label: "Signature Stacks", stacks: [
@@ -153,59 +154,60 @@ export default function HeroSection() {
                 { name: "Glow Stack", id: "ghk-cu-bpc157-tb500-glow" },
               ] },
               { value: "100%", label: "Research Grade" },
-            ].map((stat, i, arr) => (
-              <div key={stat.label} className="flex items-start gap-12">
-                {/* Horizontal divider on mobile, vertical on sm+ */}
+            ].map((stat, i) => (
+              <>
+                {/* Vertical divider between stats — desktop only */}
                 {i > 0 && (
-                  <>
-                    {/* Mobile: horizontal line */}
-                    <div className="block sm:hidden h-px w-32" style={{ background: "linear-gradient(to right, transparent, rgba(0,191,255,0.4) 30%, rgba(0,191,255,0.4) 70%, transparent)" }} />
-                    {/* Desktop: vertical line */}
-                    <div className="hidden sm:block w-px self-stretch" style={{ background: "linear-gradient(to bottom, transparent, rgba(0,191,255,0.3) 30%, rgba(0,191,255,0.3) 70%, transparent)", minHeight: "3.5rem" }} />
-                  </>
+                  <div key={`divider-${i}`} className="hidden sm:block w-px mx-10 self-stretch" style={{ background: "linear-gradient(to bottom, transparent, rgba(0,191,255,0.3) 30%, rgba(0,191,255,0.3) 70%, transparent)" }} />
                 )}
-                <div>
-                <div
-                  className="text-[#00BFFF]"
-                  style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "3.5rem", lineHeight: 1 }}
-                >
-                  {stat.value}
-                </div>
-                <div
-                  className="text-white/60 text-sm tracking-widest uppercase mt-1"
-                  style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
-                >
-                  {stat.label}
-                </div>
-                {'stacks' in stat && stat.stacks && (
-                  <div className="mt-2 flex flex-col gap-0.5">
-                    {(stat.stacks as { name: string; id: string }[]).map((s) => (
-                      <Link
-                        key={s.id}
-                        href={`/product/${s.id}`}
-                        className="text-white/60 text-sm transition-all duration-200 hover:text-[#00BFFF] hover:tracking-wider"
-                        style={{
-                          fontFamily: "'Rajdhani', sans-serif",
-                          fontWeight: 500,
-                          letterSpacing: "0.04em",
-                          textShadow: "none",
-                          display: "inline-block",
-                          textDecoration: "none",
-                        }}
-                        onMouseEnter={e => {
-                          (e.currentTarget as HTMLElement).style.textShadow = "0 0 12px rgba(0,191,255,0.7)";
-                        }}
-                        onMouseLeave={e => {
-                          (e.currentTarget as HTMLElement).style.textShadow = "none";
-                        }}
-                      >
-                        · {s.name}
-                      </Link>
-                    ))}
+                <div key={stat.label} className="flex flex-col">
+                  {/* Horizontal divider above stat — mobile only, not for first item */}
+                  {i > 0 && (
+                    <div className="block sm:hidden h-px w-32 mb-5" style={{ background: "linear-gradient(to right, transparent, rgba(0,191,255,0.4) 30%, rgba(0,191,255,0.4) 70%, transparent)" }} />
+                  )}
+                  <div
+                    className="text-[#00BFFF]"
+                    style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "3.5rem", lineHeight: 1 }}
+                  >
+                    {stat.value}
                   </div>
-                )}
+                  <div
+                    className="text-white/60 text-sm tracking-widest uppercase mt-1"
+                    style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
+                  >
+                    {stat.label}
+                  </div>
+                  {'stacks' in stat && stat.stacks && (
+                    <div className="mt-2 flex flex-col gap-0.5">
+                      {(stat.stacks as { name: string; id: string }[]).map((s) => (
+                        <Link
+                          key={s.id}
+                          href={`/product/${s.id}`}
+                          className="text-white/60 text-sm transition-all duration-200 hover:text-[#00BFFF] hover:tracking-wider"
+                          style={{
+                            fontFamily: "'Rajdhani', sans-serif",
+                            fontWeight: 500,
+                            letterSpacing: "0.04em",
+                            textShadow: "none",
+                            display: "inline-block",
+                            textDecoration: "none",
+                          }}
+                          onMouseEnter={e => {
+                            (e.currentTarget as HTMLElement).style.textShadow = "0 0 12px rgba(0,191,255,0.7)";
+                          }}
+                          onMouseLeave={e => {
+                            (e.currentTarget as HTMLElement).style.textShadow = "none";
+                          }}
+                        >
+                          · {s.name}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                  {/* Space between stats on mobile */}
+                  {i < 2 && <div className="block sm:hidden h-5" />}
                 </div>
-              </div>
+              </>
             ))}
           </div>
         </div>
