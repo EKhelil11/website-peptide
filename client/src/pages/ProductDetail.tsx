@@ -349,7 +349,7 @@ export default function ProductDetail() {
           >
             <AlertTriangle size={16} className="text-[#FF2D78] flex-shrink-0 mt-0.5" />
             <p className="text-white/50 text-xs leading-relaxed">
-              <span className="text-[#FF2D78] font-semibold uppercase tracking-wide" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
+              <span className="text-[#FF2D78] font-semibold" style={{ fontFamily: "'Inter', sans-serif", letterSpacing: "0.02em" }}>
                 Research Use Only.
               </span>{" "}
               {product.disclaimer ||
@@ -678,8 +678,8 @@ export default function ProductDetail() {
             <AlertTriangle size={18} className="text-[#FF2D78] flex-shrink-0 mt-0.5" />
             <div>
               <p
-                className="text-[#FF2D78] text-xs tracking-widest uppercase mb-1"
-                style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
+                className="text-[#FF2D78] text-xs mb-1"
+                style={{ fontFamily: "'Inter', sans-serif", fontWeight: 600, letterSpacing: "0.02em" }}
               >
                 Research Use Only — Important Notice
               </p>
