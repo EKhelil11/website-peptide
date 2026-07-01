@@ -3,7 +3,7 @@
 // Design: Midnight Clinic — dark navy + cyan + hot pink
 
 import { useState, useEffect } from "react";
-import SplashIntro from "@/components/SplashIntro";
+import VideoIntro from "@/components/VideoIntro";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import ProductsSection from "@/components/ProductsSection";
@@ -55,8 +55,8 @@ export default function Home() {
 
   return (
     <>
-      {/* Cinematic splash intro — desktop only, unmounts after completion */}
-      {!introComplete && <SplashIntro onComplete={handleIntroComplete} />}
+      {/* Video intro splash — desktop only, unmounts after completion */}
+      {!introComplete && <VideoIntro onComplete={handleIntroComplete} />}
 
       {/* Main site — fades in after intro */}
       <div
