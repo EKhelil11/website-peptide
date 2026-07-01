@@ -125,13 +125,24 @@ function RelatedGrid({ items, title }: { items: Product[]; title: string }) {
               style={{ background: "oklch(0.16 0.055 255 / 0.6)" }}
             >
               <div
-                className="w-full aspect-square rounded-lg overflow-hidden mb-3"
-                style={{ background: "oklch(0.2 0.07 240)" }}
+                className="w-full rounded-lg overflow-hidden mb-3 flex items-center justify-center relative"
+                style={{
+                  background: "oklch(0.2 0.07 240)",
+                  height: "180px",
+                  padding: "12px",
+                }}
               >
+                <div
+                  className="absolute inset-0 rounded-lg"
+                  style={{
+                    background: "radial-gradient(ellipse at 50% 60%, rgba(0,191,255,0.10) 0%, transparent 70%)",
+                  }}
+                />
                 <img
                   src={p.images?.[0] || VIAL_IMG}
                   alt={p.name}
-                  className="w-full h-full object-cover opacity-80"
+                  className="relative z-10 w-full h-full object-contain transition-all duration-250"
+                  style={{ filter: "drop-shadow(0 0 8px rgba(0,191,255,0.35))" }}
                 />
               </div>
               <p
