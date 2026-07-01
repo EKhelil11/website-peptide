@@ -97,29 +97,24 @@ export default function HeroSection() {
             </span>
           </div>
 
-          {/* Main Headline */}
-          <h1
-            className="hero-item opacity-0 text-white leading-none mb-2"
-            style={{
-              fontFamily: "'Bebas Neue', sans-serif",
-              fontSize: "clamp(3.5rem, 9vw, 7rem)",
-              letterSpacing: "0.03em",
-              textShadow: "0 2px 60px rgba(0,0,0,0.7)",
-            }}
-          >
-            LONGEVITY ANALYTICS
-          </h1>
+          {/* Main Headline — 2 lines: white + cyan */}
           <h1
             className="hero-item opacity-0 leading-none mb-6"
             style={{
               fontFamily: "'Bebas Neue', sans-serif",
-              fontSize: "clamp(3.5rem, 9vw, 7rem)",
+              fontSize: "clamp(2.8rem, 7vw, 6.5rem)",
               letterSpacing: "0.03em",
-              color: "#00BFFF",
-              textShadow: "0 0 60px rgba(0, 191, 255, 0.5)",
+              textShadow: "0 2px 60px rgba(0,0,0,0.7)",
+              whiteSpace: "nowrap",
             }}
           >
-            RESEARCH COMPOUNDS
+            <span className="text-white block">LONGEVITY ANALYTICS</span>
+            <span
+              className="block"
+              style={{ color: "#00BFFF", textShadow: "0 0 60px rgba(0, 191, 255, 0.5)" }}
+            >
+              RESEARCH COMPOUNDS
+            </span>
           </h1>
 
           {/* Subheading */}
