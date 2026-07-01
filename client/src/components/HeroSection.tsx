@@ -146,7 +146,7 @@ export default function HeroSection() {
           <div className="hero-item opacity-0 mt-16 flex flex-wrap gap-8">
             {[
               { value: "11", label: "Premium Peptides" },
-              { value: "3", label: "Signature Stacks" },
+              { value: "3", label: "Signature Stacks", stacks: ["Wolverine Stack", "GH Synergy", "Glow Stack"] },
               { value: "100%", label: "Research Grade" },
             ].map((stat) => (
               <div key={stat.label}>
@@ -162,6 +162,19 @@ export default function HeroSection() {
                 >
                   {stat.label}
                 </div>
+                {'stacks' in stat && stat.stacks && (
+                  <div className="mt-2 flex flex-col gap-0.5">
+                    {stat.stacks.map((s) => (
+                      <span
+                        key={s}
+                        className="text-white/60 text-xs"
+                        style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 500, letterSpacing: "0.04em" }}
+                      >
+                        · {s}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </div>
             ))}
           </div>
