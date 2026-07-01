@@ -291,7 +291,7 @@ export default function ProductDetail() {
             <img
               src={images[activeImg]}
               alt={product.name}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain p-4"
             />
             {/* Prev/Next arrows — only show if multiple images */}
             {images.length > 1 && (
@@ -342,7 +342,7 @@ export default function ProductDetail() {
                     opacity: activeImg === i ? 1 : 0.5,
                   }}
                 >
-                  <img src={img} alt={`${product.name} ${i + 1}`} className="w-full h-full object-cover" />
+                  <img src={img} alt={`${product.name} ${i + 1}`} className="w-full h-full object-contain p-1" />
                 </button>
               ))}
             </div>
