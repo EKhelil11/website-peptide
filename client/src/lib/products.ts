@@ -299,7 +299,7 @@ export const products: Product[] = [
     ],
     price: "$120",
     badge: "Signature Stack",
-    images: ["/manus-storage/vial_new_glow_834f035d.png"],
+    images: ["/manus-storage/vial_new_glow_b880b1ca.png"],
     molecularData: {
       sequence: "BPC-157: H-Gly-Glu-Pro-Pro-Pro-Gly-Lys-Pro-Ala-Asp-Asp-Ala-Gly-Leu-Val-OH | TB-500: Ac-Ser-Asp-Lys-Pro-Asp-Met-Ala-Glu-Ile-Glu-Lys-Phe-Asp-Lys-Ser-Lys-Leu-Lys-Lys-Thr-Glu-Thr-Glu-Lys-Asp-Lys-OH | GHK-Cu: Gly-His-Lys complexed with Cu²⁺",
       molecularFormula: "C₂₂₂H₃₇₉N₆₉O₁₂₄S₁Cu₁ (combined range)",
