@@ -144,7 +144,7 @@ export default function HeroSection() {
           </div>
 
           {/* Stats row */}
-          <div className="hero-item opacity-0 mt-16 flex flex-wrap gap-12">
+          <div className="hero-item opacity-0 mt-16 flex flex-col gap-6 sm:flex-row sm:flex-wrap sm:gap-12">
             {[
               { value: "11", label: "Premium Peptides" },
               { value: "3", label: "Signature Stacks", stacks: [
