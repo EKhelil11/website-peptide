@@ -146,7 +146,7 @@ function RelatedGrid({ items, title }: { items: Product[]; title: string }) {
                 />
               </div>
               <p
-                className="text-white text-sm font-medium truncate mt-1"
+                className="text-white text-sm font-medium truncate mt-1 text-center"
                 style={{ fontFamily: "'Inter', sans-serif", letterSpacing: "0.01em" }}
               >
                 {p.name}
