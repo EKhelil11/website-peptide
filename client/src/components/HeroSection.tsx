@@ -155,9 +155,14 @@ export default function HeroSection() {
               { value: "100%", label: "Research Grade" },
             ].map((stat, i, arr) => (
               <div key={stat.label} className="flex items-start gap-12">
-                {/* Vertical divider — only between items, only on sm+ */}
+                {/* Horizontal divider on mobile, vertical on sm+ */}
                 {i > 0 && (
-                  <div className="hidden sm:block w-px self-stretch" style={{ background: "linear-gradient(to bottom, transparent, rgba(0,191,255,0.3) 30%, rgba(0,191,255,0.3) 70%, transparent)", minHeight: "3.5rem" }} />
+                  <>
+                    {/* Mobile: horizontal line */}
+                    <div className="block sm:hidden h-px w-32" style={{ background: "linear-gradient(to right, transparent, rgba(0,191,255,0.4) 30%, rgba(0,191,255,0.4) 70%, transparent)" }} />
+                    {/* Desktop: vertical line */}
+                    <div className="hidden sm:block w-px self-stretch" style={{ background: "linear-gradient(to bottom, transparent, rgba(0,191,255,0.3) 30%, rgba(0,191,255,0.3) 70%, transparent)", minHeight: "3.5rem" }} />
+                  </>
                 )}
                 <div>
                 <div
