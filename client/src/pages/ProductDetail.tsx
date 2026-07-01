@@ -288,10 +288,18 @@ export default function ProductDetail() {
               boxShadow: "0 0 60px oklch(0.6 0.18 220 / 0.2)",
             }}
           >
+            {/* Cyan glow behind vial */}
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background: "radial-gradient(ellipse 60% 65% at 50% 52%, oklch(0.65 0.18 200 / 0.2) 0%, transparent 70%)",
+              }}
+            />
             <img
               src={images[activeImg]}
               alt={product.name}
-              className="w-full h-full object-contain p-4"
+              className="w-full h-full object-contain p-4 relative z-10"
+              style={{ filter: "drop-shadow(0 0 28px oklch(0.7 0.2 200 / 0.5))" }}
             />
             {/* Prev/Next arrows — only show if multiple images */}
             {images.length > 1 && (

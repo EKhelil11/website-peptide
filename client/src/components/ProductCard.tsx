@@ -56,11 +56,18 @@ export default function ProductCard({ product, index }: ProductCardProps) {
           background: "linear-gradient(135deg, oklch(0.14 0.055 255) 0%, oklch(0.2 0.07 240) 100%)",
         }}
       >
+        {/* Cyan glow behind vial */}
+        <div
+          className="absolute inset-0 flex items-center justify-center pointer-events-none"
+          style={{
+            background: "radial-gradient(ellipse 55% 60% at 50% 55%, oklch(0.65 0.18 200 / 0.18) 0%, transparent 70%)",
+          }}
+        />
         <img
           src={product.images?.[0] || VIAL_IMG}
           alt={product.name}
-          className="h-full w-auto max-w-full object-contain opacity-90 transition-opacity duration-300 py-2"
-          style={{ maxHeight: "100%" }}
+          className="h-full w-auto max-w-full object-contain opacity-95 transition-opacity duration-300 py-2 relative z-10"
+          style={{ maxHeight: "100%", filter: "drop-shadow(0 0 18px oklch(0.7 0.2 200 / 0.45))" }}
         />
         {/* Gradient overlay */}
         <div
