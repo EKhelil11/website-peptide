@@ -3,7 +3,7 @@
 // Background: hero-banner.jpg (dark navy + cyan DNA helix)
 // Text: White headline, cyan accent, hot pink "elite" script feel
 
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { Link } from "wouter";
 import { ChevronDown } from "lucide-react";
 
@@ -155,12 +155,12 @@ export default function HeroSection() {
               ] },
               { value: "100%", label: "Research Grade" },
             ].map((stat, i) => (
-              <>
+              <React.Fragment key={stat.label}>
                 {/* Vertical divider between stats — desktop only */}
                 {i > 0 && (
-                  <div key={`divider-${i}`} className="hidden sm:block w-px mx-10 self-stretch" style={{ background: "linear-gradient(to bottom, transparent, rgba(0,191,255,0.3) 30%, rgba(0,191,255,0.3) 70%, transparent)" }} />
+                  <div className="hidden sm:block w-px mx-10 self-stretch" style={{ background: "linear-gradient(to bottom, transparent, rgba(0,191,255,0.3) 30%, rgba(0,191,255,0.3) 70%, transparent)" }} />
                 )}
-                <div key={stat.label} className="flex flex-col">
+                <div className="flex flex-col">
                   {/* Horizontal divider above stat — mobile only, not for first item */}
                   {i > 0 && (
                     <div className="block sm:hidden h-px w-32 mb-5" style={{ background: "linear-gradient(to right, transparent, rgba(0,191,255,0.4) 30%, rgba(0,191,255,0.4) 70%, transparent)" }} />
@@ -207,7 +207,7 @@ export default function HeroSection() {
                   {/* Space between stats on mobile */}
                   {i < 2 && <div className="block sm:hidden h-5" />}
                 </div>
-              </>
+              </React.Fragment>
             ))}
           </div>
         </div>
