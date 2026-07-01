@@ -141,8 +141,19 @@ function RelatedGrid({ items, title }: { items: Product[]; title: string }) {
                 <img
                   src={p.images?.[0] || VIAL_IMG}
                   alt={p.name}
-                  className="relative z-10 w-full h-full object-contain transition-all duration-250"
-                  style={{ filter: "drop-shadow(0 0 8px rgba(0,191,255,0.35))" }}
+                  className="relative z-10 w-full h-full object-contain"
+                  style={{
+                    filter: "drop-shadow(0 0 8px rgba(0,191,255,0.35))",
+                    transition: "filter 0.25s cubic-bezier(0.23,1,0.32,1)",
+                  }}
+                  onMouseEnter={(e) => {
+                    (e.currentTarget as HTMLImageElement).style.filter =
+                      "drop-shadow(0 0 16px rgba(0,191,255,0.75)) drop-shadow(0 0 32px rgba(0,191,255,0.35))";
+                  }}
+                  onMouseLeave={(e) => {
+                    (e.currentTarget as HTMLImageElement).style.filter =
+                      "drop-shadow(0 0 8px rgba(0,191,255,0.35))";
+                  }}
                 />
               </div>
               <p
