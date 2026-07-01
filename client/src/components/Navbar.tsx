@@ -3,8 +3,9 @@
 // Colors: Navy bg + Cyan accents + Hot Pink for elite script
 
 import { useState, useEffect } from "react";
-import { Menu, X, User, LogOut } from "lucide-react";
+import { Menu, X, User, LogOut, ShieldCheck } from "lucide-react";
 import { useCustomerAuth } from "@/hooks/useCustomerAuth";
+import { useAuth } from "@/_core/hooks/useAuth";
 import { useLocation } from "wouter";
 
 const LOGO_URL = "/manus-storage/LAELITELOGONEW_dark_bg_2eaa3f51.png";
@@ -22,6 +23,8 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { customer, isAuthenticated, logout } = useCustomerAuth();
+  const { user: adminUser } = useAuth();
+  const isAdmin = adminUser?.role === "admin";
   const [location, setLocation] = useLocation();
 
   useEffect(() => {
@@ -72,6 +75,18 @@ export default function Navbar() {
                 </button>
               ))}
             </nav>
+
+            {/* Admin Link — only for admin users */}
+            {isAdmin && (
+              <button
+                onClick={() => setLocation("/admin/orders")}
+                className="hidden md:flex items-center gap-1.5 text-sm font-medium tracking-widest uppercase text-[#FF2D78]/80 hover:text-[#FF2D78] transition-colors duration-200"
+                style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
+              >
+                <ShieldCheck size={15} />
+                Admin
+              </button>
+            )}
 
             {/* Auth CTA */}
             <div className="hidden md:flex items-center gap-3">
@@ -136,6 +151,18 @@ export default function Navbar() {
               {link.label}
             </button>
           ))}
+          {/* Mobile Admin Link */}
+          {isAdmin && (
+            <button
+              onClick={() => { setMobileOpen(false); setLocation("/admin/orders"); }}
+              className="flex items-center gap-2 text-xl font-bold tracking-widest uppercase text-[#FF2D78]/80 hover:text-[#FF2D78] transition-colors"
+              style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+            >
+              <ShieldCheck size={18} />
+              Admin
+            </button>
+          )}
+
           {/* Mobile Auth */}
           <div className="flex flex-col items-center gap-3 pt-4 border-t border-white/10 w-48">
             {isAuthenticated ? (
