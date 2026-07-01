@@ -20,6 +20,7 @@ import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import Checkout from "./pages/Checkout";
 import Account from "./pages/Account";
 import AdminOrders from "./pages/AdminOrders";
+import AdminLogin from "./pages/AdminLogin";
 import Blends from "./pages/Blends";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
@@ -40,6 +41,8 @@ function Router() {
       <Route path="/checkout" component={Checkout} />
       <Route path="/account" component={Account} />
       <Route path="/admin" component={AdminOrders} />
+      <Route path="/admin/login" component={AdminLogin} />
+      <Route path="/admin/orders" component={AdminOrders} />
       <Route path="/blends" component={Blends} />
       <Route path="/register" component={Register} />
       <Route path="/login" component={Login} />
