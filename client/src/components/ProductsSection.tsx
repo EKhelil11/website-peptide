@@ -73,7 +73,7 @@ export default function ProductsSection() {
     <section
       id="products"
       ref={sectionRef}
-      className="relative py-24"
+      className="relative py-32"
       style={{
         background: `url(${PRODUCT_BG}) center/cover no-repeat fixed, oklch(0.12 0.05 255)`,
       }}
