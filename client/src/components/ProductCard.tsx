@@ -51,7 +51,7 @@ export default function ProductCard({ product, index }: ProductCardProps) {
     >
       {/* Card image area */}
       <div
-        className="relative h-44 overflow-hidden flex-shrink-0"
+        className="relative h-56 overflow-hidden flex-shrink-0 flex items-center justify-center"
         style={{
           background: "linear-gradient(135deg, oklch(0.14 0.055 255) 0%, oklch(0.2 0.07 240) 100%)",
         }}
@@ -59,8 +59,8 @@ export default function ProductCard({ product, index }: ProductCardProps) {
         <img
           src={product.images?.[0] || VIAL_IMG}
           alt={product.name}
-          className="absolute inset-0 w-full h-full object-cover opacity-80 transition-opacity duration-300"
-          style={{ objectPosition: "center 20%" }}
+          className="h-full w-auto max-w-full object-contain opacity-90 transition-opacity duration-300 py-2"
+          style={{ maxHeight: "100%" }}
         />
         {/* Gradient overlay */}
         <div
