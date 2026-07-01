@@ -52,7 +52,7 @@ export default function ProductCard({ product, index }: ProductCardProps) {
       {/* Card image area — wrapper allows badge to escape overflow-hidden */}
       <div className="relative flex-shrink-0">
         <div
-          className="relative h-56 overflow-hidden flex items-center justify-center"
+          className="relative h-64 overflow-hidden flex items-center justify-center"
           style={{
             background: "linear-gradient(135deg, oklch(0.14 0.055 255) 0%, oklch(0.2 0.07 240) 100%)",
           }}
@@ -78,10 +78,10 @@ export default function ProductCard({ product, index }: ProductCardProps) {
                 "linear-gradient(to bottom, transparent 30%, oklch(0.17 0.055 255) 100%)",
             }}
           />
-          {/* Category */}
-          <div className="absolute top-3 right-3">
+          {/* Category — bottom right, away from badge */}
+          <div className="absolute bottom-3 right-3">
             <span
-              className="text-white/50 text-xs tracking-widest uppercase"
+              className="text-white/40 text-xs tracking-widest uppercase"
               style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
             >
               {product.category}
@@ -97,7 +97,7 @@ export default function ProductCard({ product, index }: ProductCardProps) {
       </div>
 
       {/* Card body */}
-      <div className="p-5 flex flex-col flex-1">
+      <div className="p-6 flex flex-col flex-1">
         {/* Product name + dose */}
         <div className="mb-1">
           <h3
