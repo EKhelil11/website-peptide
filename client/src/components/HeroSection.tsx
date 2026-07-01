@@ -153,8 +153,13 @@ export default function HeroSection() {
                 { name: "Glow Stack", id: "ghk-cu-bpc157-tb500-glow" },
               ] },
               { value: "100%", label: "Research Grade" },
-            ].map((stat) => (
-              <div key={stat.label}>
+            ].map((stat, i, arr) => (
+              <div key={stat.label} className="flex items-start gap-12">
+                {/* Vertical divider — only between items, only on sm+ */}
+                {i > 0 && (
+                  <div className="hidden sm:block w-px self-stretch" style={{ background: "linear-gradient(to bottom, transparent, rgba(0,191,255,0.3) 30%, rgba(0,191,255,0.3) 70%, transparent)", minHeight: "3.5rem" }} />
+                )}
+                <div>
                 <div
                   className="text-[#00BFFF]"
                   style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "3.5rem", lineHeight: 1 }}
@@ -194,6 +199,7 @@ export default function HeroSection() {
                     ))}
                   </div>
                 )}
+                </div>
               </div>
             ))}
           </div>
