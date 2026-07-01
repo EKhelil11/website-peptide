@@ -144,7 +144,7 @@ export default function HeroSection() {
           </div>
 
           {/* Stats row */}
-          <div className="hero-item opacity-0 mt-16 flex flex-wrap gap-8">
+          <div className="hero-item opacity-0 mt-16 flex flex-wrap gap-12">
             {[
               { value: "11", label: "Premium Peptides" },
               { value: "3", label: "Signature Stacks", stacks: [
@@ -157,12 +157,12 @@ export default function HeroSection() {
               <div key={stat.label}>
                 <div
                   className="text-[#00BFFF]"
-                  style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "2.5rem", lineHeight: 1 }}
+                  style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "3.5rem", lineHeight: 1 }}
                 >
                   {stat.value}
                 </div>
                 <div
-                  className="text-white/50 text-xs tracking-widest uppercase mt-1"
+                  className="text-white/60 text-sm tracking-widest uppercase mt-1"
                   style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
                 >
                   {stat.label}
@@ -173,7 +173,7 @@ export default function HeroSection() {
                       <Link
                         key={s.id}
                         href={`/product/${s.id}`}
-                        className="text-white/60 text-xs transition-all duration-200 hover:text-[#00BFFF] hover:tracking-wider"
+                        className="text-white/60 text-sm transition-all duration-200 hover:text-[#00BFFF] hover:tracking-wider"
                         style={{
                           fontFamily: "'Rajdhani', sans-serif",
                           fontWeight: 500,
