@@ -128,8 +128,8 @@ function RelatedGrid({ items, title }: { items: Product[]; title: string }) {
                 className="w-full rounded-lg overflow-hidden mb-3 flex items-center justify-center relative"
                 style={{
                   background: "oklch(0.2 0.07 240)",
-                  height: "180px",
-                  padding: "12px",
+                  height: "220px",
+                  padding: "14px",
                 }}
               >
                 <div
@@ -146,13 +146,10 @@ function RelatedGrid({ items, title }: { items: Product[]; title: string }) {
                 />
               </div>
               <p
-                className="text-white text-sm font-bold truncate"
-                style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "0.05em" }}
+                className="text-white text-sm font-medium truncate mt-1"
+                style={{ fontFamily: "'Inter', sans-serif", letterSpacing: "0.01em" }}
               >
                 {p.name}
-              </p>
-              <p className="text-[#00BFFF] text-xs mt-1" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}>
-                {p.price || "Inquire"}
               </p>
             </div>
           </Link>
