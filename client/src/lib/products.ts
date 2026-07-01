@@ -275,7 +275,7 @@ export const products: Product[] = [
     id: "ghk-cu-bpc157-tb500-glow",
     name: "GHK-CU + BPC-157 + TB-500",
     content: "70 mg per vial",
-    detailContent: "~42 mg GHK-Cu / ~14 mg BPC-157 / ~14 mg TB-500",
+    detailContent: "~50 mg GHK-Cu / ~10 mg BPC-157 / ~10 mg TB-500",
     category: "Blends",
     isStack: true,
     stackName: "Glow Stack",
@@ -283,7 +283,7 @@ export const products: Product[] = [
     synopsis:
       "Triple-peptide research stack combining GHK-Cu, BPC-157, and TB-500 for comprehensive investigation of skin biology, collagen synthesis, angiogenesis, and tissue repair signaling.",
     plainEnglish:
-      "The Glow Stack is a precision-formulated triple-compound research protocol delivering ~42mg GHK-Cu, ~14mg BPC-157, and ~14mg TB-500 in a single 70mg vial. GHK-Cu, the dominant compound at ~60%, is a naturally occurring copper-binding tripeptide with well-documented gene expression modulation properties. BPC-157 (~20%) is a cytoprotective peptide derived from gastric juice with broad tissue repair signaling activity. TB-500 (~20%) is a synthetic Thymosin Beta-4 fragment studied for angiogenesis and cell migration. Together, they form a comprehensive research tool for multi-pathway tissue biology investigations.",
+      "The Glow Stack is a precision-formulated triple-compound research protocol delivering ~50mg GHK-Cu, ~10mg BPC-157, and ~10mg TB-500 in a single 70mg vial. GHK-Cu, the dominant compound at ~71%, is a naturally occurring copper-binding tripeptide with well-documented gene expression modulation properties. BPC-157 (~14%) is a cytoprotective peptide derived from gastric juice with broad tissue repair signaling activity. TB-500 (~14%) is a synthetic Thymosin Beta-4 fragment studied for angiogenesis and cell migration. Together, they form a comprehensive research tool for multi-pathway tissue biology investigations.",
     howItWorks:
       "GHK-Cu modulates collagen and elastin synthesis genes while activating antioxidant defense pathways. BPC-157 engages growth factor signaling cascades (VEGF, EGF) and exerts cytoprotective effects across multiple tissue types. TB-500 promotes actin dynamics, cell migration, and new blood vessel formation. The combined protocol allows researchers to investigate multiple intersecting repair and regeneration pathways simultaneously — making it a valuable multi-target research tool.",
     whoIsItFor:
@@ -299,7 +299,7 @@ export const products: Product[] = [
     ],
     price: "$120",
     badge: "Signature Stack",
-    images: ["/manus-storage/vial_new_glow_b880b1ca.png"],
+    images: ["/manus-storage/vial_new_glow_bac7e1a9.png"],
     molecularData: {
       sequence: "BPC-157: H-Gly-Glu-Pro-Pro-Pro-Gly-Lys-Pro-Ala-Asp-Asp-Ala-Gly-Leu-Val-OH | TB-500: Ac-Ser-Asp-Lys-Pro-Asp-Met-Ala-Glu-Ile-Glu-Lys-Phe-Asp-Lys-Ser-Lys-Leu-Lys-Lys-Thr-Glu-Thr-Glu-Lys-Asp-Lys-OH | GHK-Cu: Gly-His-Lys complexed with Cu²⁺",
       molecularFormula: "C₂₂₂H₃₇₉N₆₉O₁₂₄S₁Cu₁ (combined range)",
