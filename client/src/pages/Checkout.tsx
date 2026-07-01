@@ -203,23 +203,54 @@ export default function Checkout() {
                     ${orderTotal.toFixed(2)}
                   </p>
                 </div>
-
+                <button
+                  onClick={() => handleCopy("amount", orderTotal.toFixed(2))}
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold uppercase tracking-widest transition-all"
+                  style={{
+                    background: copied === "amount" ? "oklch(0.5 0.2 145 / 20%)" : "oklch(0.65 0.22 210 / 20%)",
+                    border: `1px solid ${copied === "amount" ? "oklch(0.5 0.2 145 / 50%)" : "oklch(0.65 0.22 210 / 40%)"}`,
+                    color: copied === "amount" ? "oklch(0.7 0.2 145)" : "oklch(0.72 0.18 210)",
+                    fontFamily: "'Rajdhani', sans-serif",
+                  }}
+                >
+                  {copied === "amount" ? <Check size={16} /> : <Copy size={16} />}
+                  {copied === "amount" ? "Copied!" : "Copy"}
+                </button>
               </div>
 
               {/* Memo */}
               <div
                 className="rounded-xl px-5 py-4 flex items-center justify-between"
-                style={{ background: "oklch(0.19 0.06 255)", border: "1px solid oklch(0.35 0.1 255 / 50%)" }}
+                style={{
+                  background: "oklch(0.15 0.08 210 / 30%)",
+                  border: "2px solid oklch(0.65 0.22 210 / 60%)",
+                  boxShadow: "0 0 20px oklch(0.65 0.22 210 / 15%)",
+                }}
               >
                 <div>
-                  <p className="text-white/50 text-sm uppercase tracking-widest mb-1" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}>
-                    Memo / Note (Required)
+                  <p className="text-white/70 text-sm uppercase tracking-widest mb-1" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}>
+                    ⚠️ Memo / Note — Required in Zelle
                   </p>
-                  <p className="text-white font-bold text-3xl" style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "0.05em" }}>
+                  <p className="text-white font-bold text-3xl" style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "0.05em", color: "oklch(0.85 0.18 210)" }}>
                     {orderNumber}
                   </p>
+                  <p className="text-white/50 text-sm mt-1" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
+                    Paste this into the Memo field in Zelle
+                  </p>
                 </div>
-
+                <button
+                  onClick={() => handleCopy("memo", orderNumber)}
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold uppercase tracking-widest transition-all"
+                  style={{
+                    background: copied === "memo" ? "oklch(0.5 0.2 145 / 20%)" : "oklch(0.65 0.22 210 / 20%)",
+                    border: `1px solid ${copied === "memo" ? "oklch(0.5 0.2 145 / 50%)" : "oklch(0.65 0.22 210 / 40%)"}`,
+                    color: copied === "memo" ? "oklch(0.7 0.2 145)" : "oklch(0.72 0.18 210)",
+                    fontFamily: "'Rajdhani', sans-serif",
+                  }}
+                >
+                  {copied === "memo" ? <Check size={16} /> : <Copy size={16} />}
+                  {copied === "memo" ? "Copied!" : "Copy"}
+                </button>
               </div>
 
               <p className="text-white/50 text-base text-center" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}>
