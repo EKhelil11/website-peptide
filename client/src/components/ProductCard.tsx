@@ -46,7 +46,7 @@ export default function ProductCard({ product, index }: ProductCardProps) {
 
   return (
     <div
-      className="product-card rounded-lg overflow-hidden animate-on-scroll flex flex-col"
+      className="product-card group rounded-lg overflow-hidden animate-on-scroll flex flex-col"
       style={{ animationDelay }}
     >
       {/* Card image area — wrapper allows badge to escape overflow-hidden */}
@@ -67,8 +67,8 @@ export default function ProductCard({ product, index }: ProductCardProps) {
           <img
             src={product.images?.[0] || VIAL_IMG}
             alt={product.name}
-            className="h-full w-auto max-w-full object-contain opacity-95 transition-opacity duration-300 py-2 relative z-10"
-            style={{ maxHeight: "100%", filter: "drop-shadow(0 0 18px oklch(0.7 0.2 200 / 0.45))" }}
+            className="h-full w-auto max-w-full object-contain opacity-95 py-2 relative z-10 vial-img"
+            style={{ maxHeight: "100%" }}
           />
           {/* Gradient overlay */}
           <div
