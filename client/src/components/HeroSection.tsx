@@ -4,6 +4,7 @@
 // Text: White headline, cyan accent, hot pink "elite" script feel
 
 import { useEffect, useRef } from "react";
+import { Link } from "wouter";
 import { ChevronDown } from "lucide-react";
 
 const HERO_BG = "https://d2xsxph8kpxj0f.cloudfront.net/310519663765469010/KeqNR4QdNviNNDWK3S7923/hero-lab-v1-MpwjhNoxPjv6x5LEznRSix.webp";
@@ -146,7 +147,11 @@ export default function HeroSection() {
           <div className="hero-item opacity-0 mt-16 flex flex-wrap gap-8">
             {[
               { value: "11", label: "Premium Peptides" },
-              { value: "3", label: "Signature Stacks", stacks: ["Wolverine Stack", "GH Synergy", "Glow Stack"] },
+              { value: "3", label: "Signature Stacks", stacks: [
+                { name: "Wolverine Stack", id: "bpc157-tb500-wolverine" },
+                { name: "GH Synergy", id: "cjc1295-ipamorelin-10mg" },
+                { name: "Glow Stack", id: "ghk-cu-bpc157-tb500-glow" },
+              ] },
               { value: "100%", label: "Research Grade" },
             ].map((stat) => (
               <div key={stat.label}>
@@ -164,16 +169,18 @@ export default function HeroSection() {
                 </div>
                 {'stacks' in stat && stat.stacks && (
                   <div className="mt-2 flex flex-col gap-0.5">
-                    {stat.stacks.map((s) => (
-                      <span
-                        key={s}
-                        className="text-white/60 text-xs cursor-default transition-all duration-200 hover:text-[#00BFFF] hover:tracking-wider"
+                    {(stat.stacks as { name: string; id: string }[]).map((s) => (
+                      <Link
+                        key={s.id}
+                        href={`/product/${s.id}`}
+                        className="text-white/60 text-xs transition-all duration-200 hover:text-[#00BFFF] hover:tracking-wider"
                         style={{
                           fontFamily: "'Rajdhani', sans-serif",
                           fontWeight: 500,
                           letterSpacing: "0.04em",
                           textShadow: "none",
                           display: "inline-block",
+                          textDecoration: "none",
                         }}
                         onMouseEnter={e => {
                           (e.currentTarget as HTMLElement).style.textShadow = "0 0 12px rgba(0,191,255,0.7)";
@@ -182,8 +189,8 @@ export default function HeroSection() {
                           (e.currentTarget as HTMLElement).style.textShadow = "none";
                         }}
                       >
-                        · {s}
-                      </span>
+                        · {s.name}
+                      </Link>
                     ))}
                   </div>
                 )}
