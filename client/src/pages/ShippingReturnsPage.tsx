@@ -1,6 +1,6 @@
 // === LA ELITE PEPTIDES — Shipping & Returns Page ===
 // Standalone legal page at /shipping-returns
-// Legal entity: La Elits Sales LLC (operating as La Elite Peptides)
+// Legal entity: LA Elite Sales LLC (operating as LA Elite Peptides)
 
 import { Link } from "wouter";
 import { ArrowLeft } from "lucide-react";
@@ -61,7 +61,7 @@ export default function ShippingReturnsPage() {
             className="text-white/40 text-sm"
             style={{ fontFamily: "'Inter', sans-serif" }}
           >
-            La Elits Sales LLC, operating as La Elite Peptides &nbsp;·&nbsp; Domestic U.S. shipping only
+            LA Elite Sales LLC, operating as LA Elite Peptides &nbsp;·&nbsp; Domestic U.S. shipping only
           </p>
         </div>
 
@@ -69,7 +69,7 @@ export default function ShippingReturnsPage() {
         <div style={{ fontFamily: "'Inter', sans-serif", color: "oklch(0.75 0.02 255)" }}>
 
           <PolicySection title="Overview">
-            <p>La Elits Sales LLC (operating as La Elite Peptides) provides fast, secure shipping on all domestic orders.</p>
+            <p>LA Elite Sales LLC (operating as LA Elite Peptides) provides fast, secure shipping on all domestic orders.</p>
           </PolicySection>
 
           <PolicySection title="Shipping Tiers">
@@ -199,7 +199,7 @@ function PolicyFooter() {
           className="text-white/25 text-xs"
           style={{ fontFamily: "'Inter', sans-serif" }}
         >
-          © {new Date().getFullYear()} La Elits Sales LLC. All rights reserved. Operating as La Elite Peptides.
+          © {new Date().getFullYear()} LA Elite Sales LLC. All rights reserved. Operating as LA Elite Peptides.
         </p>
         <div className="flex items-center gap-4">
           <Link href="/terms">

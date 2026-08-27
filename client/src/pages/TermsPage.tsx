@@ -1,6 +1,6 @@
 // === LA ELITE PEPTIDES — Terms & Conditions Page ===
 // Standalone legal page at /terms
-// Legal entity: La Elits Sales LLC (operating as La Elite Peptides)
+// Legal entity: LA Elite Sales LLC (operating as LA Elite Peptides)
 
 import { Link } from "wouter";
 import { ArrowLeft } from "lucide-react";
@@ -61,7 +61,7 @@ export default function TermsPage() {
             className="text-white/40 text-sm"
             style={{ fontFamily: "'Inter', sans-serif" }}
           >
-            La Elits Sales LLC, operating as La Elite Peptides &nbsp;·&nbsp; Effective upon site access
+            LA Elite Sales LLC, operating as LA Elite Peptides &nbsp;·&nbsp; Effective upon site access
           </p>
         </div>
 
@@ -72,16 +72,16 @@ export default function TermsPage() {
         >
           <PolicySection title="DISCLAIMER">
             <p>La Elite Peptides is a supplier of laboratory research materials intended strictly for in-vitro and analytical research purposes. All products are for research use only and are not intended for human consumption or clinical application.</p>
-            <p>Welcome to La Elite Peptides, operated by La Elits Sales LLC. This Terms of Service governs the use of La Elits Sales LLC's website, products, and all associated social media platforms and communications. By visiting, accessing, or purchasing from our site or associated platforms, you acknowledge and agree to these Terms and Conditions, along with our Privacy Policy, Disclaimer, and any other legal notices published by us (collectively, the "Agreement"). These terms form a binding contract between you ("you," "user," or "customer") and La Elits Sales LLC, operating as La Elite Peptides ("La Elite Peptides," "we," "our," or "us").</p>
+            <p>Welcome to LA Elite Peptides, operated by LA Elite Sales LLC. This Terms of Service governs the use of LA Elite Sales LLC's website, products, and all associated social media platforms and communications. By visiting, accessing, or purchasing from our site or associated platforms, you acknowledge and agree to these Terms and Conditions, along with our Privacy Policy, Disclaimer, and any other legal notices published by us (collectively, the "Agreement"). These terms form a binding contract between you ("you," "user," or "customer") and LA Elite Sales LLC, operating as LA Elite Peptides ("LA Elite Peptides," "we," "our," or "us").</p>
             <p>Your access and use of our services is contingent upon your acceptance of this Agreement. If you disagree with any part of it, do not use or access our services. This platform is intended exclusively for research professionals or individuals over 21 years of age, and use by anyone under that age is strictly prohibited.</p>
             <p>By accessing, visiting, or using our Services, you agree to be bound by the Terms of Service, Privacy Policy, Medical and Product Disclaimer, and Cookie Policy, all together referred to as the "Agreement."</p>
           </PolicySection>
 
           <PolicySection title="Research Use Only and Lab Use Only">
-            <p>All products sold, listed, or otherwise displayed by La Elits Sales LLC (operating as La Elite Peptides) are provided strictly for laboratory and analytical in vitro research purposes only. These materials are not drugs, food additives, cosmetics, or dietary supplements and must never be used for human or veterinary applications under any circumstances.</p>
+            <p>All products sold, listed, or otherwise displayed by LA Elite Sales LLC (operating as LA Elite Peptides) are provided strictly for laboratory and analytical in vitro research purposes only. These materials are not drugs, food additives, cosmetics, or dietary supplements and must never be used for human or veterinary applications under any circumstances.</p>
             <p>Our products are not approved, cleared, or evaluated by the FDA, nor any other regulatory body, and any suggestion — explicit or implied — of bodily introduction, therapeutic use, or consumption is a violation of federal law and a breach of our Terms of Sale.</p>
             <p>Under 21 CFR §§100–740, these compounds qualify as exempt research chemicals and are required to be labeled "For Research Use Only." Any product removed from its original packaging, repackaged, relabeled, redistributed, or used in a non-research context loses this designation and becomes subject to heightened regulatory scrutiny.</p>
-            <p>La Elits Sales LLC (operating as La Elite Peptides) is not:</p>
+            <p>LA Elite Sales LLC (operating as LA Elite Peptides) is not:</p>
             <ul>
               <li>A 503A compounding pharmacy</li>
               <li>A 503B outsourcing facility</li>
@@ -98,11 +98,11 @@ export default function TermsPage() {
           </PolicySection>
 
           <PolicySection title="Waiver and Indemnification">
-            <p>By purchasing or using products from La Elite Peptides, you agree to indemnify and hold harmless La Elits Sales LLC and its affiliates, agents, owners, and employees against any and all claims, damages, liabilities, expenses, and losses, including reasonable legal fees, arising from your misuse or unauthorized handling of our products.</p>
+            <p>By purchasing or using products from LA Elite Peptides, you agree to indemnify and hold harmless LA Elite Sales LLC and its affiliates, agents, owners, and employees against any and all claims, damages, liabilities, expenses, and losses, including reasonable legal fees, arising from your misuse or unauthorized handling of our products.</p>
             <p>You also waive any claims against us for injuries, damages, or losses resulting from improper use, storage, distribution, or disposal of our materials. You accept all legal and civil liability related to your research practices.</p>
-            <p>I understand and acknowledge that the research compounds sold by La Elits Sales LLC (operating as La Elite Peptides) are intended solely for research purposes and are not approved by the U.S. Food and Drug Administration (FDA) for human use. I agree to use the compounds according to all applicable laws and regulations and take full responsibility for any risks associated with their purchase, possession, and use.</p>
+            <p>I understand and acknowledge that the research compounds sold by LA Elite Sales LLC (operating as LA Elite Peptides) are intended solely for research purposes and are not approved by the U.S. Food and Drug Administration (FDA) for human use. I agree to use the compounds according to all applicable laws and regulations and take full responsibility for any risks associated with their purchase, possession, and use.</p>
             <p>I release, discharge, and waive any claims, demands, causes of action, suits, judgments, and liabilities of any kind that may arise from or be connected to the purchase, possession, or use of the research compounds.</p>
-            <p>This indemnity waiver applies to me, my heirs, executors, administrators, successors, and assigns. By purchasing research compounds from La Elits Sales LLC (operating as La Elite Peptides), I confirm that I have read and understood this Indemnity Waiver and voluntarily agree to its terms and conditions.</p>
+            <p>This indemnity waiver applies to me, my heirs, executors, administrators, successors, and assigns. By purchasing research compounds from LA Elite Sales LLC (operating as LA Elite Peptides), I confirm that I have read and understood this Indemnity Waiver and voluntarily agree to its terms and conditions.</p>
           </PolicySection>
 
           <PolicySection title="Product Representations">
@@ -139,7 +139,7 @@ export default function TermsPage() {
 
           <PolicySection title="Pricing and Payments">
             <p>All prices are listed in U.S. dollars and are subject to change without notice. We accept a range of payment methods including ACH bank transfer, Zelle, and other approved methods. Payment for products must be made in full before delivery. Unpaid orders are cancelled automatically within 24 hours.</p>
-            <p>La Elits Sales LLC shall not store any credit card details on its own servers. All payment processing is conducted in accordance with applicable security standards by our payment gateway providers.</p>
+            <p>LA Elite Sales LLC shall not store any credit card details on its own servers. All payment processing is conducted in accordance with applicable security standards by our payment gateway providers.</p>
           </PolicySection>
 
           <PolicySection title="Shipping Policy">
@@ -155,7 +155,7 @@ export default function TermsPage() {
           </PolicySection>
 
           <PolicySection title="Intellectual Property">
-            <p>All content on this site — including logos, branding, trademarks, product listings, COAs, and text — belongs to La Elits Sales LLC. Unauthorized use, reproduction, or redistribution is strictly prohibited.</p>
+            <p>All content on this site — including logos, branding, trademarks, product listings, COAs, and text — belongs to LA Elite Sales LLC. Unauthorized use, reproduction, or redistribution is strictly prohibited.</p>
           </PolicySection>
 
           <PolicySection title="Governing Law">
@@ -219,7 +219,7 @@ function PolicyFooter() {
           className="text-white/25 text-xs"
           style={{ fontFamily: "'Inter', sans-serif" }}
         >
-          © {new Date().getFullYear()} La Elits Sales LLC. All rights reserved. Operating as La Elite Peptides.
+          © {new Date().getFullYear()} LA Elite Sales LLC. All rights reserved. Operating as LA Elite Peptides.
         </p>
         <div className="flex items-center gap-4">
           <Link href="/terms">

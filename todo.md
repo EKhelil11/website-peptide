@@ -46,7 +46,10 @@
 - [x] Verify the updated intro initially displays, reveals its skip control, auto-completes, and transitions cleanly into the age gate and storefront.
 - [x] Prevent the age-verification modal from covering the desktop intro before automatic or manual intro completion.
 - [x] Re-run typecheck, tests, and build after any corrections resulting from media-flow review.
-- [ ] Capture responsive preview screenshots and create a stable checkpoint.
-- [ ] Deliver a concise readiness checklist before any production-domain change.
+- [x] Capture responsive preview screenshots and create a stable checkpoint.
+- [x] Deliver a concise readiness checklist before any production-domain change.
+- [x] Replace the preserved footer text `La Elits Sales LLC` with the owner-confirmed legal entity name `LA Elite Sales LLC`.
+- [x] Update the readiness checklist to record the confirmed legal spelling and rerun TypeScript, tests, build, and footer preview validation.
+- [x] Re-open the home page and verify the main storefront footer displays `LA Elite Sales LLC` with correct casing and layout.
 - [ ] Guide the user through temporary publication and verify the public temporary URL.
 - [ ] Reconnect `laelitepeps.com` only after the replacement deployment passes validation and the user approves the domain change.

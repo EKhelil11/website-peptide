@@ -1,6 +1,6 @@
 // === LA ELITE PEPTIDES — Privacy Policy Page ===
 // Standalone legal page at /privacy-policy
-// Legal entity: La Elits Sales LLC (operating as La Elite Peptides)
+// Legal entity: LA Elite Sales LLC (operating as LA Elite Peptides)
 
 import { Link } from "wouter";
 import { ArrowLeft } from "lucide-react";
@@ -61,7 +61,7 @@ export default function PrivacyPolicyPage() {
             className="text-white/40 text-sm"
             style={{ fontFamily: "'Inter', sans-serif" }}
           >
-            La Elits Sales LLC, operating as La Elite Peptides &nbsp;·&nbsp; laelitepeps.com
+            LA Elite Sales LLC, operating as LA Elite Peptides &nbsp;·&nbsp; laelitepeps.com
           </p>
         </div>
 
@@ -69,7 +69,7 @@ export default function PrivacyPolicyPage() {
         <div style={{ fontFamily: "'Inter', sans-serif", color: "oklch(0.75 0.02 255)" }}>
 
           <PolicySection title="Overview">
-            <p>La Elits Sales LLC, operating as La Elite Peptides ("La Elite Peptides," "we," "our," or "us") is committed to protecting your personal information. This Privacy Policy describes how we collect, use, and safeguard your data when you interact with our website at <a href="https://laelitepeps.com" className="text-[#00BFFF] hover:underline">laelitepeps.com</a>.</p>
+            <p>LA Elite Sales LLC, operating as LA Elite Peptides ("LA Elite Peptides," "we," "our," or "us") is committed to protecting your personal information. This Privacy Policy describes how we collect, use, and safeguard your data when you interact with our website at <a href="https://laelitepeps.com" className="text-[#00BFFF] hover:underline">laelitepeps.com</a>.</p>
           </PolicySection>
 
           <PolicySection title="1. Information We Collect">
@@ -192,7 +192,7 @@ function PolicyFooter() {
           className="text-white/25 text-xs"
           style={{ fontFamily: "'Inter', sans-serif" }}
         >
-          © {new Date().getFullYear()} La Elits Sales LLC. All rights reserved. Operating as La Elite Peptides.
+          © {new Date().getFullYear()} LA Elite Sales LLC. All rights reserved. Operating as LA Elite Peptides.
         </p>
         <div className="flex items-center gap-4">
           <Link href="/terms">

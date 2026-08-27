@@ -61,7 +61,7 @@ The GitHub repository contains application source code, migrations, and static p
 Please confirm the following business-controlled details before directing customers to the replacement site:
 
 1. Confirm the product catalog, displayed prices, Zelle telephone number, support email, Instagram handle, shipping price, tax calculation, and research-use language remain current.
-2. Confirm whether the footer legal entity spelling **`La Elits Sales LLC`** is intentional. It was preserved from the source because the registered legal spelling cannot be inferred safely.
+2. The owner confirmed the legal entity spelling as **`LA Elite Sales LLC`**; the storefront footer and all legal-policy references now use that exact name.
 3. Confirm the replacement logo, product-vial renders, laboratory imagery, intro backdrop, and social-preview image are acceptable substitutes for the unavailable legacy media.
 4. Keep both live-action flags disabled during initial public acceptance testing.
 

@@ -383,7 +383,7 @@ export default function Footer() {
               className="text-white/25 text-xs"
               style={{ fontFamily: "'Inter', sans-serif" }}
             >
-              © {new Date().getFullYear()} La Elits Sales LLC. All rights reserved. Operating as La Elite Peptides.
+              © {new Date().getFullYear()} LA Elite Sales LLC. All rights reserved. Operating as LA Elite Peptides.
             </p>
             <div className="flex items-center gap-2">
               <div className="h-px w-8 bg-[#00BFFF]/30" />
