@@ -1,0 +1,26 @@
+# Domain reconnection checklist
+
+- [x] Inspect public DNS records for `laelitepeps.com` and `www.laelitepeps.com`.
+- [x] Test HTTP, HTTPS, certificate, and redirect behavior.
+- [x] Identify the registrar or DNS provider and current hosting target where possible.
+- [x] Determine which stale or conflicting records must be removed.
+- [x] Document the correct disconnect-and-reconnect steps for the hosting platform.
+- [ ] Verify DNS propagation, SSL issuance, and canonical-domain redirects after the user reconnects and publishes the domain.
+- [x] Structure a concise presentation explaining the verified routing problem and safe reconnection path.
+- [x] Write slide copy, speaker narration, screen directions, warnings, and verification cues.
+- [x] Deliver the reusable domain-reconnection presentation script.
+- [ ] Clone `EKhelil11/website-peptide` into a separate inspection directory and preserve the source repository unchanged.
+- [ ] Inventory the React, Express, tRPC, Drizzle, MySQL, auth, storage, email, shipping, and analytics architecture.
+- [ ] Initialize a new full-stack WebDev project rather than reusing the existing static scaffold.
+- [ ] Import the repository into the new project while preserving its application design and behavior.
+- [ ] Install dependencies and run TypeScript checks, tests, and a production build.
+- [ ] Fix only confirmed build or runtime blockers required for deployment.
+- [ ] Audit every environment-variable reference without exposing secret values.
+- [ ] Create an empty project database and apply the repository’s included Drizzle migrations.
+- [ ] Confirm historical accounts, orders, passwords, uploads, and prior database records are not present or claimed as restored.
+- [ ] Keep email and ShipStation actions disabled until valid credentials and explicit testing approval are available.
+- [ ] Test storefront, product browsing, cart/order logic, authentication, admin access, and database connectivity.
+- [ ] Capture responsive preview screenshots and create a stable checkpoint.
+- [ ] Deliver a concise readiness checklist before any production-domain change.
+- [ ] Guide the user through temporary publication and verify the public temporary URL.
+- [ ] Reconnect `laelitepeps.com` only after the replacement deployment passes validation and the user approves the domain change.
