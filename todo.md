@@ -9,17 +9,43 @@
 - [x] Structure a concise presentation explaining the verified routing problem and safe reconnection path.
 - [x] Write slide copy, speaker narration, screen directions, warnings, and verification cues.
 - [x] Deliver the reusable domain-reconnection presentation script.
-- [ ] Clone `EKhelil11/website-peptide` into a separate inspection directory and preserve the source repository unchanged.
-- [ ] Inventory the React, Express, tRPC, Drizzle, MySQL, auth, storage, email, shipping, and analytics architecture.
-- [ ] Initialize a new full-stack WebDev project rather than reusing the existing static scaffold.
-- [ ] Import the repository into the new project while preserving its application design and behavior.
-- [ ] Install dependencies and run TypeScript checks, tests, and a production build.
-- [ ] Fix only confirmed build or runtime blockers required for deployment.
-- [ ] Audit every environment-variable reference without exposing secret values.
-- [ ] Create an empty project database and apply the repository’s included Drizzle migrations.
-- [ ] Confirm historical accounts, orders, passwords, uploads, and prior database records are not present or claimed as restored.
-- [ ] Keep email and ShipStation actions disabled until valid credentials and explicit testing approval are available.
-- [ ] Test storefront, product browsing, cart/order logic, authentication, admin access, and database connectivity.
+- [x] Clone `EKhelil11/website-peptide` into a separate inspection directory and preserve the source repository unchanged.
+- [x] Inventory the React, Express, tRPC, Drizzle, MySQL, auth, storage, email, shipping, and analytics architecture.
+- [x] Initialize a new full-stack WebDev project rather than reusing the existing static scaffold.
+- [x] Import the repository into the new project while preserving its application design and behavior.
+- [x] Install dependencies and run TypeScript checks, the complete credential-safe test suite, and a production build.
+- [x] Fix only confirmed build or runtime blockers required for deployment.
+- [x] Audit every environment-variable reference without exposing secret values.
+- [x] Create an empty project database and apply the repository’s included Drizzle migrations.
+- [x] Confirm historical accounts, orders, passwords, uploads, and prior database records are not present or claimed as restored.
+- [x] Keep email and ShipStation actions disabled until valid credentials and explicit testing approval are available.
+- [x] Replace credential-dependent live Resend and ShipStation tests with deterministic disabled-state and request-contract tests, then run `pnpm test`.
+- [x] Add explicit disabled-by-default approval flags for live Resend and ShipStation side effects, independent of credential presence.
+- [x] Show relevant customer and admin notices when email delivery or fulfillment remains disabled pending reauthorization and approval.
+- [x] Add customer-facing integration-status notices to checkout and account/order-status flows.
+- [x] Re-run typecheck, the full test suite, and the production build after completing customer-facing notices.
+- [x] Test storefront, product browsing, cart/order logic, authentication, admin access, and database connectivity.
+- [x] Disable and clearly label the duplicate registration form embedded in `/login` while transactional email remains unconfigured.
+- [x] Replace the 14 unrecoverable legacy managed-storage assets that return HTTP 403 or are absent from Git history.
+- [x] Recreate a clean LA Elite Peptides logo and consistent product-vial imagery without unsupported purity claims.
+- [x] Replace the missing intro video with a non-blocking visual treatment or regenerated asset while preserving the age gate and intro behavior.
+- [x] Upload all replacement media to durable project storage and update every legacy `/manus-storage/` reference.
+- [x] Verify all replacement assets return HTTP 200 and render in the temporary preview.
+- [x] Visually review all eleven product-vial images for correct names, dosages, consistent composition, and absence of unsupported claims.
+- [x] Rename and re-upload the Glow Stack vial under its visible compound label `GHK-CU + BPC-157 + TB-500 | 70 mg` to remove audit ambiguity.
+- [x] Re-run the eleven-image audit, preview verification, typecheck, tests, and production build after resolving the Glow Stack asset name.
+- [x] Re-open the preview and confirm the renamed Glow Stack vial renders on its storefront card and product-detail route.
+- [x] Remove the baked checkerboard backgrounds from the ten generated batch vial images while preserving vial shapes and exact label text.
+- [x] Re-audit all corrected vial labels and confirm true transparent backgrounds in the storefront and product-detail preview.
+- [x] Audit the final ten `*-cutout` files plus the retained Retatrutide 10 mg reference for exact labels, dosages, research-use wording, composition, and RGBA output.
+- [x] Verify the remaining final cutouts render without checkerboards in representative storefront and product-detail views, then rerun typecheck, tests, and build if any fix is required.
+- [x] Capture explicit in-app evidence for additional final cutouts on the BPC-157/TB-500 and Sermorelin product-detail routes beyond the verified storefront and Glow Stack samples.
+- [x] Replace the 403 About-section CloudFront image with durable non-person laboratory imagery and update its alt text to avoid depicting invented staff.
+- [x] Replace the remaining 403 `hero-lab`, `molecule-abstract`, `peptide-vial`, and `product-bg-dark` media references with durable project assets.
+- [x] Use a deterministic background-removal fallback for the ten vial images because both the precision-edit and transparent-generation attempts returned RGB checkerboard output.
+- [x] Verify the updated intro initially displays, reveals its skip control, auto-completes, and transitions cleanly into the age gate and storefront.
+- [x] Prevent the age-verification modal from covering the desktop intro before automatic or manual intro completion.
+- [x] Re-run typecheck, tests, and build after any corrections resulting from media-flow review.
 - [ ] Capture responsive preview screenshots and create a stable checkpoint.
 - [ ] Deliver a concise readiness checklist before any production-domain change.
 - [ ] Guide the user through temporary publication and verify the public temporary URL.

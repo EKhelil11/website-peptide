@@ -1,33 +1,83 @@
-import { useAuth } from "@/_core/hooks/useAuth";
-import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
-import { Streamdown } from 'streamdown';
+// === ELITE LA PEPTIDES — Home Page ===
+// Assembles: VideoIntro → Navbar → Hero → Products → About/Science → Footer
+// Design: Midnight Clinic — dark navy + cyan + hot pink
 
-/**
- * All content in this page are only for example, replace with your own feature implementation
- * When building pages, remember your instructions in Frontend Workflow, Frontend Best Practices, Design Guide and Common Pitfalls
- */
+import { useState, useEffect } from "react";
+import VideoIntro from "@/components/VideoIntro";
+import Navbar from "@/components/Navbar";
+import HeroSection from "@/components/HeroSection";
+import ProductsSection from "@/components/ProductsSection";
+import AboutSection from "@/components/AboutSection";
+import ShippingSection from "@/components/ShippingSection";
+import FAQSection from "@/components/FAQSection";
+import Footer from "@/components/Footer";
+import AnnouncementBar from "@/components/AnnouncementBar";
+
+const INTRO_SEEN_KEY = "elitela_intro_seen";
+const INTRO_COMPLETE_EVENT = "elitela:intro-complete";
+
 export default function Home() {
-  // The useAuth hook provides authentication state.
-  // To implement login/logout, call logout(), or start login from an event
-  // handler: onClick={() => startLogin()} (imported from "@/const"). Never call
-  // startLogin() during render (no href={startLogin()}) — it mints a one-time
-  // nonce cookie and must run only at the moment of navigation.
-  let { user, loading, error, isAuthenticated, logout } = useAuth();
+  // Skip intro on mobile (< 768px) or if already seen this session
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
+  const alreadySeen = typeof sessionStorage !== "undefined" && sessionStorage.getItem(INTRO_SEEN_KEY) === "1";
+  const skipIntro = isMobile || alreadySeen;
+  const [introComplete, setIntroComplete] = useState(skipIntro);
+  const [mainVisible, setMainVisible] = useState(skipIntro);
 
-  // If theme is switchable in App.tsx, we can implement theme toggling like this:
-  // const { theme, toggleTheme } = useTheme();
+  const handleIntroComplete = () => {
+    if (typeof sessionStorage !== "undefined") {
+      sessionStorage.setItem(INTRO_SEEN_KEY, "1");
+    }
+    window.dispatchEvent(new Event(INTRO_COMPLETE_EVENT));
+    setIntroComplete(true);
+    // Slight delay before fading in main content for a polished transition
+    setTimeout(() => setMainVisible(true), 50);
+  };
+
+  // Scroll animation observer for the whole page
+  useEffect(() => {
+    if (!mainVisible) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          }
+        });
+      },
+      { threshold: 0.08, rootMargin: "0px 0px -40px 0px" }
+    );
+
+    const items = document.querySelectorAll(".animate-on-scroll");
+    items.forEach((item) => observer.observe(item));
+
+    return () => observer.disconnect();
+  }, [mainVisible]);
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <main>
-        {/* Example: lucide-react for icons */}
-        <Loader2 className="animate-spin" />
-        Example Page
-        {/* Example: Streamdown for markdown rendering */}
-        <Streamdown>Any **markdown** content</Streamdown>
-        <Button variant="default">Example Button</Button>
-      </main>
-    </div>
+    <>
+      {/* Video intro splash — desktop only, unmounts after completion */}
+      {!introComplete && <VideoIntro onComplete={handleIntroComplete} />}
+
+      {/* Main site — fades in after intro */}
+      <div
+        style={{
+          opacity: mainVisible ? 1 : 0,
+          transition: "opacity 0.8s cubic-bezier(0.23, 1, 0.32, 1)",
+        }}
+      >
+        <Navbar />
+        <AnnouncementBar />
+        <main>
+          <HeroSection />
+          <ProductsSection />
+          <ShippingSection />
+          <AboutSection />
+          <FAQSection />
+        </main>
+        <Footer />
+      </div>
+    </>
   );
 }
