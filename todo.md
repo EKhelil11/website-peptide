@@ -54,3 +54,4 @@
 - [x] Guide the user through temporary publication and verify the public temporary URL.
 - [x] Confirm the published cart mutation from a direct authenticated product-detail page after the initial catalog-card click produced an inconclusive empty drawer.
 - [ ] Reconnect `laelitepeps.com` only after the replacement deployment passes validation and the user approves the domain change.
+- [x] Deliver a click-by-click `laelitepeps.com` cutover guide with stop conditions, DNS safeguards, verification checkpoints, and rollback steps.
