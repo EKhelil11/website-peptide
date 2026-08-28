@@ -51,5 +51,6 @@
 - [x] Replace the preserved footer text `La Elits Sales LLC` with the owner-confirmed legal entity name `LA Elite Sales LLC`.
 - [x] Update the readiness checklist to record the confirmed legal spelling and rerun TypeScript, tests, build, and footer preview validation.
 - [x] Re-open the home page and verify the main storefront footer displays `LA Elite Sales LLC` with correct casing and layout.
-- [ ] Guide the user through temporary publication and verify the public temporary URL.
+- [x] Guide the user through temporary publication and verify the public temporary URL.
+- [x] Confirm the published cart mutation from a direct authenticated product-detail page after the initial catalog-card click produced an inconclusive empty drawer.
 - [ ] Reconnect `laelitepeps.com` only after the replacement deployment passes validation and the user approves the domain change.

@@ -88,3 +88,31 @@ The owner confirmed **LA Elite Sales LLC** as the exact legal entity name. The s
 The main storefront was then re-opened after the correction. Its extracted footer line reads exactly: `© 2026 LA Elite Sales LLC. All rights reserved. Operating as LA Elite Peptides.` The full-page preview showed the footer remained contained and aligned with the existing three-column design.
 
 A dedicated footer viewport check confirmed the logo and tagline remain in the left column, quick links and legal links remain in their intended columns, the disclaimer retains readable spacing, and the corrected copyright line remains fully contained in the bottom bar without overlap or clipping.
+
+## Temporary Public Deployment Verification
+
+After the owner resolved the account-side hosting access issue, a fresh no-cache request to `https://peptideweb-yaousumk.manus.space` returned the LA Elite Peptides application over HTTPS instead of the prior billing-unavailable page. The published intro rendered with the replacement laboratory backdrop and skip control, then automatically handed off to the 21+ age-verification modal without overlap. The public page title and extracted content identify the intended LA Elite Peptides release.
+
+The published age gate accepted the 21+ confirmation and revealed the complete storefront with the durable hero, catalog, product imagery, support information, legal links, and `LA Elite Sales LLC` footer. A direct HTTPS visit to `/product/ghk-cu-bpc157-tb500-glow` loaded the expected 70 mg Glow Stack research detail, research-use notice, and login-gated commerce surface, confirming the SPA deep route is active on the public deployment.
+
+The published `/login` route rendered the existing-account sign-in form and clearly labeled the duplicate create-account form as **REGISTRATION TEMPORARILY DISABLED**, explaining that transactional email requires reauthorization. An anonymous visit to `/admin` returned the application’s **Admin access required** screen with no order data or management controls, confirming that the public deployment does not expose the administrative workflow without the owner session.
+
+The dedicated published `/register` route displays the reauthorization notice and a disabled **REGISTRATION TEMPORARILY DISABLED** action. The published `/forgot-password` route likewise displays the transactional-email notice and a disabled **EMAIL RECOVERY DISABLED** action. Neither page presents a live email-triggering workflow while Resend credentials and owner approval are absent.
+
+Direct HTTPS visits to the published `/terms` and `/privacy-policy` routes rendered their full legal content with the owner-confirmed **LA Elite Sales LLC** name in the headers, body references, and footers. Both pages retained the intended dark legal-page layout and working navigation back to the storefront and related policies.
+
+The published sign-in form was submitted with a non-existent test email and synthetic password. The production backend returned the expected **Invalid email or password** message and left the browser on the sign-in page. No customer account, authenticated session, email, order, or fulfillment action was created by this rejection test.
+
+For authenticated public cart and checkout validation, an isolated verified customer was inserted directly into the otherwise empty replacement database without invoking registration or email. The published sign-in form accepted the synthetic test account fields and was prepared for submission; the utility includes cleanup of its session and related records after the browser flow.
+
+The isolated customer successfully authenticated through the published production login. The browser returned to the public storefront, displayed the customer first name **Public**, revealed catalog prices, exposed the sign-out control, and enabled the cart button. This confirms the deployed customer-session cookie, database lookup, and authenticated catalog state are functioning on the temporary public domain.
+
+An initial catalog-card add-to-cart click did not produce a confirmed populated drawer; opening the drawer showed zero items. Because browser element indices can shift with the animated product grid, this result is treated as inconclusive rather than a cart defect. The public cart flow requires a second deterministic check from a direct product-detail page before acceptance.
+
+The empty drawer was closed and the authenticated browser opened `/product/retatrutide-10mg` directly. The published page retained the customer session, rendered the $150 price, 10 mg variant, quantity control, research-use notice, durable product image, and explicit **ADD TO CART** and **BUY NOW** controls, providing a deterministic target for the second cart test.
+
+The deterministic product-detail **ADD TO CART** action succeeded on the public deployment, displayed a `1× Retatrutide added to cart` confirmation, and updated the cart badge to one item. The opened cart drawer listed Retatrutide 10 mg at `$150.00`, quantity one, a `$150.00` order total, quantity/removal controls, and the **PROCEED TO CHECKOUT** action. This resolves the earlier inconclusive catalog-card result and confirms published cart state works.
+
+The published authenticated checkout loaded without placing an order. It prefilled the isolated customer identity, retained Retatrutide 10 mg, and calculated `$150.00` subtotal, `$7.00` shipping, `$12.00` tax, and `$169.00` total. The page displayed the relaunch integration notice and Zelle instructions. The authenticated `/account` route then showed the same customer session, zero total orders, an empty order history, and the email/fulfillment-disabled notice. No order submission was performed.
+
+The isolated public-test customer, its session, and any related records were removed after the browser checks. Final database counts returned zero customers, customer sessions, orders, order items, and status-history rows. Public integration status reported Resend and ShipStation credentials absent, owner approval false, and both integrations disabled. Representative durable logo, vial, Glow Stack, and laboratory assets returned HTTP 200. The temporary domain certificate covers `*.manus.space`, and production logs contained no error-severity entries during the final public checks.

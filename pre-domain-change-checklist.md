@@ -3,11 +3,11 @@
 ## Pre-Domain-Change Readiness Checklist
 
 **Prepared by:** Manus AI  
-**Date:** August 27, 2026  
+**Date:** August 28, 2026  
 **Source:** [EKhelil11/website-peptide][1]  
 **Target domain:** `https://laelitepeps.com`
 
-> **Current recommendation:** The replacement application is ready for a temporary Manus publication and public acceptance testing. Do **not** reconnect `laelitepeps.com` until the published temporary URL passes the short acceptance sequence below.
+> **Current recommendation:** The replacement application passed temporary public deployment verification at `https://peptideweb-yaousumk.manus.space` and is technically ready for an owner-approved domain cutover. Keep Resend and ShipStation disabled during the initial production-domain validation.
 
 ## Current status
 
@@ -30,6 +30,8 @@
 | Media restoration | **Passed with replacements** | Inaccessible legacy media was replaced with durable project assets. All active assets return HTTP 200; eleven final vial labels were audited. |
 | Responsive presentation | **Passed** | Representative 1280×720 and 375×812 views were checked for age verification, authentication, registration, products, and admin. |
 | Runtime logs | **Passed** | No new console or HTTP 4xx/5xx errors appeared after final validation. The intentional invalid-login test correctly returned HTTP 401. |
+| Temporary public deployment | **Passed** | HTTPS, intro and age gate, storefront, product deep routes, durable assets, legal routes, authentication rejection and success, cart, checkout without submission, account state, admin protection, and disabled integrations were verified at `peptideweb-yaousumk.manus.space`. |
+| Public database cleanup | **Passed** | The isolated public-test customer and session were removed; customers, sessions, orders, items, and status-history tables returned zero rows. |
 
 ## Credentials and approvals still required
 
@@ -65,19 +67,19 @@ Please confirm the following business-controlled details before directing custom
 3. Confirm the replacement logo, product-vial renders, laboratory imagery, intro backdrop, and social-preview image are acceptable substitutes for the unavailable legacy media.
 4. Keep both live-action flags disabled during initial public acceptance testing.
 
-## Temporary-publication acceptance sequence
+## Completed temporary-publication acceptance sequence
 
-After this version is checkpointed, use the project’s **Publish** button to create the temporary Manus deployment. Do not attach the production domain yet. On the published temporary URL, verify the following sequence:
+The replacement was published at `https://peptideweb-yaousumk.manus.space` without attaching the production domain. The following sequence was completed:
 
-1. Open the home page in a private browser window and confirm the intro-to-age-gate flow.
-2. Enter the site, browse the complete catalog, open several product details, and confirm every image loads.
-3. Confirm customer sign-in loads and new registration clearly remains disabled.
-4. Confirm `/admin` is available only to the intended Manus owner account and still shows an empty order database.
-5. Confirm Resend and ShipStation remain labeled as disabled.
-6. Confirm the page is usable on one desktop browser and one mobile browser.
-7. Report the temporary public URL for a final HTTP, HTTPS, route, asset, and login-surface verification.
+1. **Passed:** The home page served over HTTPS and completed the intro-to-age-gate handoff.
+2. **Passed:** The complete storefront and representative product-detail deep routes rendered with durable media.
+3. **Passed:** Customer sign-in loaded; invalid credentials were rejected; an isolated verified test customer authenticated successfully; registration and recovery remained disabled.
+4. **Passed:** Anonymous `/admin` access returned **Admin access required**; the owner workflow had already passed in preview against the same deployment code and empty database.
+5. **Passed:** Public API status confirmed Resend and ShipStation credentials absent, approval false, and both integrations disabled.
+6. **Passed:** Authenticated cart and checkout totals rendered correctly without submitting an order; the account page showed zero historical orders.
+7. **Passed:** Production logs contained no error-severity events during verification, and final database counts returned zero after test cleanup.
 
-Only after all seven checks pass should `laelitepeps.com` be disconnected from the unavailable project and attached to this replacement project under **Settings → Domains**. Manus documents custom-domain connection and verification in its current website-builder guidance.[2]
+All seven technical checks passed. The next step is an owner-approved cutover: disconnect `laelitepeps.com` from the unavailable project, attach it to this replacement project under **Settings → Domains**, keep `peptideweb-yaousumk.manus.space` available as a fallback, and then verify DNS, HTTPS, root/`www` redirects, assets, and authentication on the production domain. Manus documents custom-domain connection and verification in its current website-builder guidance.[2]
 
 ## References
 
