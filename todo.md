@@ -5,7 +5,7 @@
 - [x] Identify the registrar or DNS provider and current hosting target where possible.
 - [x] Determine which stale or conflicting records must be removed.
 - [x] Document the correct disconnect-and-reconnect steps for the hosting platform.
-- [ ] Verify DNS propagation, SSL issuance, and canonical-domain redirects after the user reconnects and publishes the domain.
+- [x] Verify DNS propagation, SSL issuance, and canonical-domain redirects after the user reconnects and publishes the domain.
 - [x] Structure a concise presentation explaining the verified routing problem and safe reconnection path.
 - [x] Write slide copy, speaker narration, screen directions, warnings, and verification cues.
 - [x] Deliver the reusable domain-reconnection presentation script.
@@ -53,5 +53,6 @@
 - [x] Re-open the home page and verify the main storefront footer displays `LA Elite Sales LLC` with correct casing and layout.
 - [x] Guide the user through temporary publication and verify the public temporary URL.
 - [x] Confirm the published cart mutation from a direct authenticated product-detail page after the initial catalog-card click produced an inconclusive empty drawer.
-- [ ] Reconnect `laelitepeps.com` only after the replacement deployment passes validation and the user approves the domain change.
+- [x] Reconnect `laelitepeps.com` only after the replacement deployment passes validation and the user approves the domain change.
+- [x] Resolve and verify the `www.laelitepeps.com` DNS hostname, which did not resolve immediately after the apex cutover.
 - [x] Deliver a click-by-click `laelitepeps.com` cutover guide with stop conditions, DNS safeguards, verification checkpoints, and rollback steps.

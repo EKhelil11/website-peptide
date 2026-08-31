@@ -116,3 +116,15 @@ The deterministic product-detail **ADD TO CART** action succeeded on the public 
 The published authenticated checkout loaded without placing an order. It prefilled the isolated customer identity, retained Retatrutide 10 mg, and calculated `$150.00` subtotal, `$7.00` shipping, `$12.00` tax, and `$169.00` total. The page displayed the relaunch integration notice and Zelle instructions. The authenticated `/account` route then showed the same customer session, zero total orders, an empty order history, and the email/fulfillment-disabled notice. No order submission was performed.
 
 The isolated public-test customer, its session, and any related records were removed after the browser checks. Final database counts returned zero customers, customer sessions, orders, order items, and status-history rows. Public integration status reported Resend and ShipStation credentials absent, owner approval false, and both integrations disabled. Representative durable logo, vial, Glow Stack, and laboratory assets returned HTTP 200. The temporary domain certificate covers `*.manus.space`, and production logs contained no error-severity entries during the final public checks.
+
+## Production Domain Cutover
+
+After the owner connected the custom domain, `https://laelitepeps.com` loaded the replacement LA Elite Peptides application over HTTPS with the new intro imagery, branding, catalog content, and no maintenance page. The first browser check of `https://www.laelitepeps.com` returned `ERR_NAME_NOT_RESOLVED`, so the `www` hostname requires DNS propagation or correction before the cutover can be marked complete.
+
+The production apex domain also served `/product/retatrutide-10mg` directly with the 21+ gate, durable Retatrutide media, research-use notice, and login-gated pricing controls. The `/login` route rendered the existing-account form and clearly displayed **REGISTRATION TEMPORARILY DISABLED**, confirming the expected authentication and integration-disabled UI on the custom domain.
+
+An anonymous visit to `https://laelitepeps.com/admin` returned **Admin access required** without exposing management controls or order data. The production `/terms` deep route also loaded securely and displayed **LA Elite Sales LLC** consistently throughout the legal copy and footer.
+
+The owner added the missing `A` record for `www` with value `104.18.26.246`. Public DNS propagated the record, after which `https://www.laelitepeps.com` served a valid certificate for `*.laelitepeps.com` and returned HTTP 301 to the canonical `https://laelitepeps.com` URL. The apex returned HTTP 200 with HSTS enabled.
+
+Final production-domain checks confirmed the public integration API reports Resend and ShipStation credentials absent, owner approval false, and both integrations disabled. Anonymous customer state returned `null`; representative durable assets followed their storage redirects and returned HTTP 200; production logs contained zero error-severity entries; and final database counts returned zero customers, sessions, orders, items, and status-history records.

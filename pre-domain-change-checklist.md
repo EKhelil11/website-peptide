@@ -7,7 +7,7 @@
 **Source:** [EKhelil11/website-peptide][1]  
 **Target domain:** `https://laelitepeps.com`
 
-> **Current recommendation:** The replacement application passed temporary public deployment verification at `https://peptideweb-yaousumk.manus.space` and is technically ready for an owner-approved domain cutover. Keep Resend and ShipStation disabled during the initial production-domain validation.
+> **Current status:** The replacement application passed temporary deployment testing and is now live at `https://laelitepeps.com`. The `www` hostname redirects securely to the apex domain. Resend and ShipStation remain disabled pending credentials, reauthorization, and explicit owner approval.
 
 ## Current status
 
@@ -32,6 +32,9 @@
 | Runtime logs | **Passed** | No new console or HTTP 4xx/5xx errors appeared after final validation. The intentional invalid-login test correctly returned HTTP 401. |
 | Temporary public deployment | **Passed** | HTTPS, intro and age gate, storefront, product deep routes, durable assets, legal routes, authentication rejection and success, cart, checkout without submission, account state, admin protection, and disabled integrations were verified at `peptideweb-yaousumk.manus.space`. |
 | Public database cleanup | **Passed** | The isolated public-test customer and session were removed; customers, sessions, orders, items, and status-history tables returned zero rows. |
+| Production apex domain | **Passed** | `https://laelitepeps.com` returns the replacement application over HTTPS with working storefront, product, login, admin-protection, and legal deep routes. |
+| Production www hostname | **Passed** | `www.laelitepeps.com` resolves to the project endpoint and returns HTTP 301 to `https://laelitepeps.com` with valid wildcard certificate coverage. |
+| Final runtime and data state | **Passed** | Production logs showed zero error-severity events, durable assets returned HTTP 200 after redirects, integrations remained disabled, and all customer/commerce tables remained empty. |
 
 ## Credentials and approvals still required
 
@@ -79,7 +82,7 @@ The replacement was published at `https://peptideweb-yaousumk.manus.space` witho
 6. **Passed:** Authenticated cart and checkout totals rendered correctly without submitting an order; the account page showed zero historical orders.
 7. **Passed:** Production logs contained no error-severity events during verification, and final database counts returned zero after test cleanup.
 
-All seven technical checks passed. The next step is an owner-approved cutover: disconnect `laelitepeps.com` from the unavailable project, attach it to this replacement project under **Settings → Domains**, keep `peptideweb-yaousumk.manus.space` available as a fallback, and then verify DNS, HTTPS, root/`www` redirects, assets, and authentication on the production domain. Manus documents custom-domain connection and verification in its current website-builder guidance.[2]
+All technical checks and the production cutover passed. `laelitepeps.com` is attached to the replacement project, `www` redirects to the apex, and `peptideweb-yaousumk.manus.space` remains available as a fallback. Historical Task Data was not restored; the production replacement begins with the verified empty database described above. Manus documents custom-domain management in its current website-builder guidance.[2]
 
 ## References
 
