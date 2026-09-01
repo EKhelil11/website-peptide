@@ -82,3 +82,15 @@
 - [x] Verify the published shop, Retatrutide 30 mg product page, cart, and checkout continue to show the $200 unit price after deployment.
 - [x] Save a post-validation checkpoint containing the final public integration status, cleanup evidence, and observability note.
 - [x] Deliver the finalized integration reauthorization report with the live Resend and ShipStation states and controlled-test results.
+- [x] Save a protected pre-rebuild checkpoint of the current live production site before making flyer-based changes.
+- [ ] Audit the current catalog against the flyer’s fifteen products, strengths, and prices.
+- [ ] Rebuild the canonical catalog to match the flyer without inventing erased historical customer or order data.
+- [ ] Retheme the storefront with the flyer’s navy, white, silver, and restrained blue palette across all public and account surfaces.
+- [ ] Create or adapt a consistent flyer-style product-vial image set for all fifteen products without unsupported purity claims.
+- [ ] Add shop category filters for All, GLP, Metabolics, Peptides, and Blends.
+- [ ] Remove or rewrite any personal-use, administration, side-effect, stacking, or human-consumption language from product pages and FAQs.
+- [ ] Add regression tests for the complete fifteen-product catalog, strengths, prices, categories, and commerce calculations.
+- [ ] Verify desktop and mobile product, cart, checkout, authentication, account, admin, and legal layouts after the retheme.
+- [ ] Preserve and revalidate the live Resend and ShipStation integrations through non-destructive checks after the rebuild.
+- [ ] Publish and verify the flyer-based reconstruction on `laelitepeps.com` and `www.laelitepeps.com`.
+- [ ] Deliver a reconstruction report that separates restored storefront functionality from unrecoverable historical data.
