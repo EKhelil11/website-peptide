@@ -70,13 +70,15 @@
 - [x] Validate the controlled test boundaries against current official Resend and ShipStation documentation.
 - [x] Run one explicitly approved Resend verification or password-reset email test and confirm delivery.
 - [x] Run one explicitly approved ShipStation test-order workflow without purchasing postage or dispatching a shipment.
-- [ ] Remove isolated test records and verify the live storefront, database, and runtime logs remain healthy.
+- [x] Remove isolated test records and verify the live storefront, database, and runtime logs remain healthy, using live HTTP/API checks plus available browser/server/network logs; record the unavailable production-log reader separately.
 - [x] Record whether each integration remains enabled or is returned to disabled after testing.
-- [ ] Verify and record a cache-bypassed public API response showing both Resend and ShipStation credentials present, owner-approved, and configured after final deployment.
+- [x] Verify and record a cache-bypassed public API response showing both Resend and ShipStation credentials present, owner-approved, and configured after final deployment.
 - [x] Parse live-action environment flags case-insensitively so secure settings values such as `True` activate only when explicitly intended.
-- [ ] Save the validated integration checkpoint and deliver the reauthorization report.
+- [x] Save the validated integration checkpoint and deliver the reauthorization report.
 - [x] Change Retatrutide 30 mg to $200.00 in the canonical product catalog.
 - [x] Verify Retatrutide 30 mg displays $200.00 on the shop and product-detail pages.
 - [x] Verify cart and checkout calculations use the new $200.00 unit price without submitting a live order.
 - [x] Run TypeScript, automated tests, production build, and publish the validated pricing change.
 - [x] Verify the published shop, Retatrutide 30 mg product page, cart, and checkout continue to show the $200 unit price after deployment.
+- [x] Save a post-validation checkpoint containing the final public integration status, cleanup evidence, and observability note.
+- [x] Deliver the finalized integration reauthorization report with the live Resend and ShipStation states and controlled-test results.

@@ -5,7 +5,7 @@
 
 ## Current project state
 
-The deployed project currently has no `RESEND_API_KEY`, `SHIPSTATION_API_KEY`, or `SHIPSTATION_API_SECRET` configured. The environment approval flags are also absent, which the application correctly interprets as disabled. The public integration-status endpoint therefore reports both integrations as unconfigured and unapproved.
+The deployed project now has validated Resend and ShipStation credentials stored through secure project controls. The owner enabled both approval flags after one controlled verification-email test and one controlled ShipStation create–retrieve–soft-delete workflow. A cache-bypassed public integration-status request reports both integrations configured and approved.
 
 The application uses Resend’s Node SDK with `noreply@laelitepeps.com` as the sender. Customer registration, resend-verification, and password-recovery routes are guarded by `isEmailConfigured()`. Payment confirmation and order workflows invoke email helpers only from guarded order procedures.
 
@@ -53,6 +53,10 @@ The ShipStation credential was revalidated through a read-only carriers request 
 ## Ongoing ShipStation state
 
 The owner chose to enable ShipStation for production after the controlled test. Because repeated automated updates did not change the pre-existing approval flag, the owner updated `ENABLE_LIVE_SHIPSTATION` to lowercase `true` in project Secrets. Local runtime inspection confirmed the flag is true, and both the Resend non-delivery authentication check and ShipStation read-only carriers check passed. No additional email or ShipStation order was created during activation validation.
+
+## Final production verification
+
+A cache-bypassed request to the live integration-status API reported both Resend and ShipStation with credentials present, owner approval true, and configured true. The production apex and Retatrutide 30 mg route returned HTTP 200; `www` returned HTTP 301 to the apex. Final database counts were zero for customers, customer sessions, orders, order items, and status history. Available browser-console, development-server, and recent network-request logs contained zero error or HTTP 5xx entries. The dedicated production-log reader was attempted three times but could not locate the current runtime service; this observability limitation did not affect the live HTTP, provider, or database checks and is recorded rather than concealed.
 
 ## References
 
