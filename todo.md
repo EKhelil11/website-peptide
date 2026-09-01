@@ -76,5 +76,5 @@
 - [x] Change Retatrutide 30 mg to $200.00 in the canonical product catalog.
 - [x] Verify Retatrutide 30 mg displays $200.00 on the shop and product-detail pages.
 - [x] Verify cart and checkout calculations use the new $200.00 unit price without submitting a live order.
-- [ ] Run TypeScript, automated tests, production build, and publish the validated pricing change.
-- [ ] Verify the published shop, Retatrutide 30 mg product page, cart, and checkout continue to show the $200 unit price after deployment.
+- [x] Run TypeScript, automated tests, production build, and publish the validated pricing change.
+- [x] Verify the published shop, Retatrutide 30 mg product page, cart, and checkout continue to show the $200 unit price after deployment.
