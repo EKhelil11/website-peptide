@@ -7,10 +7,22 @@
  */
 
 import { ENV } from "./_core/env";
+import { isShipStationConfigured } from "./integrationStatus";
 
 const SS_BASE = "https://ssapi.shipstation.com";
+type ShipStationFetch = typeof globalThis.fetch;
+const defaultShipStationFetch: ShipStationFetch = globalThis.fetch.bind(globalThis);
+let shipStationFetch = defaultShipStationFetch;
+
+export function __setShipStationFetchForTests(fetcher?: ShipStationFetch) {
+  if (ENV.isProduction) throw new Error("ShipStation test transport is unavailable in production");
+  shipStationFetch = fetcher ?? defaultShipStationFetch;
+}
 
 function authHeader(): string {
+  if (!isShipStationConfigured()) {
+    throw new Error("ShipStation is disabled pending credentials and owner approval");
+  }
   const key = ENV.shipstationApiKey;
   const secret = ENV.shipstationApiSecret;
   if (!key || !secret) throw new Error("ShipStation API credentials not configured");
@@ -22,7 +34,7 @@ async function ssRequest<T>(
   path: string,
   body?: unknown
 ): Promise<T> {
-  const res = await fetch(`${SS_BASE}${path}`, {
+  const res = await shipStationFetch(`${SS_BASE}${path}`, {
     method,
     headers: {
       Authorization: authHeader(),

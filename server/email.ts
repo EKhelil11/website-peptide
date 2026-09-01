@@ -4,13 +4,25 @@
 
 import { Resend } from "resend";
 import { ENV } from "./_core/env";
+import { isEmailConfigured } from "./integrationStatus";
 
 const FROM_ADDRESS = "La Elite Peptides <noreply@laelitepeps.com>";
 const TO_ADDRESS = "support@laelitepeps.com";
 
-function getResend(): Resend | null {
-  if (!ENV.resendApiKey) return null;
-  return new Resend(ENV.resendApiKey);
+type ResendClient = Pick<Resend, "emails">;
+type ResendClientFactory = (apiKey: string) => ResendClient;
+
+const defaultResendClientFactory: ResendClientFactory = apiKey => new Resend(apiKey);
+let resendClientFactory = defaultResendClientFactory;
+
+export function __setResendClientFactoryForTests(factory?: ResendClientFactory) {
+  if (ENV.isProduction) throw new Error("Resend test factory is unavailable in production");
+  resendClientFactory = factory ?? defaultResendClientFactory;
+}
+
+function getResend(): ResendClient | null {
+  if (!isEmailConfigured()) return null;
+  return resendClientFactory(ENV.resendApiKey);
 }
 
 export interface NewOrderEmailParams {
