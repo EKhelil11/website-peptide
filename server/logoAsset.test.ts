@@ -25,4 +25,16 @@ describe("shared silver-and-blue logo asset", () => {
     expect(source).toContain("PRIMARY_LOGO_URL");
     expect(source).not.toContain("lap-logo-cropped_755f69ec.png");
   });
+
+  it("keeps the published header and footer logos on one shared size token", () => {
+    expect(logoAssetModule).toContain("PRIMARY_LOGO_SIZE_CLASS");
+
+    for (const relativePath of [
+      "client/src/components/Navbar.tsx",
+      "client/src/components/Footer.tsx",
+    ]) {
+      const source = fs.readFileSync(path.join(projectRoot, relativePath), "utf8");
+      expect(source).toContain("PRIMARY_LOGO_SIZE_CLASS");
+    }
+  });
 });

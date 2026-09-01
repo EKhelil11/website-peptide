@@ -106,3 +106,5 @@
 - [x] Reduce the bottom-left footer logo proportionally while leaving the approved top-left header logo unchanged.
 - [x] Verify the final intro and footer sizes, rerun TypeScript/tests/build, and publish the sizing adjustment.
 - [x] Increase the newly reduced footer logo modestly to 210/200/320/400 px across responsive breakpoints, keeping the 30%-smaller intro and approved header unchanged.
+- [x] Refactor the top-left header and bottom-left footer logos to use one shared responsive sizing class so their rendered dimensions are identical at every breakpoint.
+- [x] Verify equal header/footer logo dimensions in preview, rerun TypeScript/tests/build, and publish the correction without changing the intro.

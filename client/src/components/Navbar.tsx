@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { Menu, X, User, LogOut, ShieldCheck } from "lucide-react";
 import { useCustomerAuth } from "@/hooks/useCustomerAuth";
 import { useAuth } from "@/_core/hooks/useAuth";
-import { PRIMARY_LOGO_URL } from "@/lib/brandAssets";
+import { PRIMARY_LOGO_SIZE_CLASS, PRIMARY_LOGO_URL } from "@/lib/brandAssets";
 import { useLocation } from "wouter";
 
 const navLinks = [
@@ -56,7 +56,7 @@ export default function Navbar() {
               <img
                 src={PRIMARY_LOGO_URL}
                 alt="LA Elite Peptides — Trusted. Tested."
-                className="w-[260px] md:w-[250px] lg:w-[400px] xl:w-[500px] max-h-[104px] object-contain transition-opacity duration-200 group-hover:opacity-90"
+                className={`${PRIMARY_LOGO_SIZE_CLASS} transition-opacity duration-200 group-hover:opacity-90`}
                 style={{ filter: "drop-shadow(0 4px 10px rgba(0, 0, 0, 0.42))" }}
               />
             </a>

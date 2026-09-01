@@ -13,3 +13,7 @@ After further owner review, the desktop opening-intro logo was reduced by exactl
 The owner then requested a slight footer increase. The final bottom-left footer logo widths are 210 px at the base breakpoint, 200 px at medium, 320 px at large, and 400 px at extra-large. Final bottom-of-page review confirmed the logo remains comfortably below the previously oversized treatment, does not obstruct the tagline, disclaimer, quick links, or legal links, and leaves the approved header and 30%-smaller intro sizing unchanged.
 
 Final validation passed: TypeScript completed without errors, all 38 active tests passed, and the production build succeeded. No email, fulfillment, database, catalog, pricing, or domain behavior was exercised or changed by this visual-only adjustment.
+
+After the owner observed a published-size mismatch, the header and footer were refactored to consume one shared `PRIMARY_LOGO_SIZE_CLASS` containing the same responsive widths, `104px` maximum height, intrinsic height, and object-fit rule. A same-viewport review with the sticky header visible above the footer confirmed both logos now render at the same visual dimensions. The 30%-smaller opening intro remains independent and unchanged.
+
+The final parity validation passed: TypeScript completed without errors, all 39 active tests passed—including the new shared-size-token regression—and the production build succeeded.
