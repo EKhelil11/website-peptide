@@ -1,3 +1,7 @@
+export function parseBooleanEnv(value: string | undefined) {
+  return value?.trim().toLowerCase() === "true";
+}
+
 export const ENV = {
   appId: process.env.VITE_APP_ID ?? "",
   cookieSecret: process.env.JWT_SECRET ?? "",
@@ -10,6 +14,6 @@ export const ENV = {
   resendApiKey: process.env.RESEND_API_KEY ?? "",
   shipstationApiKey: process.env.SHIPSTATION_API_KEY ?? "",
   shipstationApiSecret: process.env.SHIPSTATION_API_SECRET ?? "",
-  liveEmailEnabled: process.env.ENABLE_LIVE_EMAIL === "true",
-  liveShipstationEnabled: process.env.ENABLE_LIVE_SHIPSTATION === "true",
+  liveEmailEnabled: parseBooleanEnv(process.env.ENABLE_LIVE_EMAIL),
+  liveShipstationEnabled: parseBooleanEnv(process.env.ENABLE_LIVE_SHIPSTATION),
 };

@@ -72,6 +72,7 @@
 - [ ] Run one explicitly approved ShipStation test-order workflow without purchasing postage or dispatching a shipment.
 - [ ] Remove isolated test records and verify the live storefront, database, and runtime logs remain healthy.
 - [ ] Record whether each integration remains enabled or is returned to disabled after testing.
+- [x] Parse live-action environment flags case-insensitively so secure settings values such as `True` activate only when explicitly intended.
 - [ ] Save the validated integration checkpoint and deliver the reauthorization report.
 - [x] Change Retatrutide 30 mg to $200.00 in the canonical product catalog.
 - [x] Verify Retatrutide 30 mg displays $200.00 on the shop and product-detail pages.
