@@ -61,15 +61,20 @@
 - [x] Revoke the Resend API keys exposed in chat and create a new sending-only key restricted to `laelitepeps.com`.
 - [x] Store the rotated Resend key only through the secure credential field without posting or embedding its value in chat.
 - [x] Verify in Resend that previously exposed keys are revoked and the final key is sending-only and restricted to `laelitepeps.com`, based on owner confirmation.
-- [ ] Validate the rotated sending-only Resend key through the single owner-approved email test and document the secure final credential state.
+- [x] Validate the rotated sending-only Resend key through the single owner-approved email test and document the secure final credential state.
 - [x] Collect an owner-approved test email recipient and a clearly labeled ShipStation test-order destination.
 - [x] Prepare deterministic safety tests proving credentials alone cannot activate live email or fulfillment actions.
 - [x] Require the explicit email approval gate inside the Resend helper itself so direct calls cannot bypass router-level safeguards.
 - [x] Require the explicit fulfillment approval gate inside the ShipStation client itself so direct calls cannot bypass order-router safeguards.
 - [x] Add test-only dependency injection for provider clients so disabled-gate and approved-call contracts can be verified without contacting live services.
 - [x] Validate the controlled test boundaries against current official Resend and ShipStation documentation.
-- [ ] Run one explicitly approved Resend verification or password-reset email test and confirm delivery.
+- [x] Run one explicitly approved Resend verification or password-reset email test and confirm delivery.
 - [ ] Run one explicitly approved ShipStation test-order workflow without purchasing postage or dispatching a shipment.
 - [ ] Remove isolated test records and verify the live storefront, database, and runtime logs remain healthy.
 - [ ] Record whether each integration remains enabled or is returned to disabled after testing.
 - [ ] Save the validated integration checkpoint and deliver the reauthorization report.
+- [x] Change Retatrutide 30 mg to $200.00 in the canonical product catalog.
+- [x] Verify Retatrutide 30 mg displays $200.00 on the shop and product-detail pages.
+- [x] Verify cart and checkout calculations use the new $200.00 unit price without submitting a live order.
+- [ ] Run TypeScript, automated tests, production build, and publish the validated pricing change.
+- [ ] Verify the published shop, Retatrutide 30 mg product page, cart, and checkout continue to show the $200 unit price after deployment.

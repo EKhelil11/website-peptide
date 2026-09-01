@@ -516,11 +516,12 @@ export async function sendVerificationEmail(params: {
   firstName: string;
   verificationToken: string;
   origin: string;
-}): Promise<void> {
+  idempotencyKey?: string;
+}): Promise<{ sent: boolean; id?: string }> {
   const resend = getResend();
   if (!resend) {
     console.warn("[Email] RESEND_API_KEY not set — skipping verification email");
-    return;
+    return { sent: false };
   }
 
   const verifyUrl = `${params.origin}/verify-email?token=${params.verificationToken}`;
@@ -551,17 +552,25 @@ export async function sendVerificationEmail(params: {
 </html>`;
 
   try {
-    const { error } = await resend.emails.send({
-      from: FROM_ADDRESS,
-      to: params.email,
-      replyTo: "support@laelitepeps.com",
-      subject: "Verify your email — La Elite Peptides",
-      html,
-    });
-    if (error) console.warn("[Email] Resend error sending verification email:", error);
-    else console.log(`[Email] Verification email sent to ${params.email}`);
+    const { data, error } = await resend.emails.send(
+      {
+        from: FROM_ADDRESS,
+        to: params.email,
+        replyTo: "support@laelitepeps.com",
+        subject: "Verify your email — La Elite Peptides",
+        html,
+      },
+      params.idempotencyKey ? { idempotencyKey: params.idempotencyKey } : undefined,
+    );
+    if (error) {
+      console.warn("[Email] Resend error sending verification email:", error);
+      return { sent: false };
+    }
+    console.log(`[Email] Verification email sent to ${params.email}`);
+    return { sent: true, id: data?.id };
   } catch (err) {
     console.warn("[Email] Failed to send verification email:", err);
+    return { sent: false };
   }
 }
 

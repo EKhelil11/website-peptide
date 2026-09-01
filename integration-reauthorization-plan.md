@@ -34,6 +34,14 @@ The exposed Resend validation keys were rotated. A new sending-only key restrict
 
 The owner confirmed the exposed Resend keys are revoked and the final secure key is limited to sending access for `laelitepeps.com`. The owner approved the synthetic ShipStation destination **LA Elite Peptides API TEST — DO NOT SHIP**, `1 Test Way`, Los Angeles, CA 90001, US, using `support@laelitepeps.com`. The ShipStation order will be clearly labeled as a non-fulfillment test and soft-deleted immediately after retrieval.
 
+## Controlled Resend result
+
+The email approval gate was enabled only for the approved test window. The application created one isolated customer with a real 24-hour verification token and sent one idempotent verification email from `noreply@laelitepeps.com` to `support@laelitepeps.com`. Resend returned an accepted provider identifier, and the owner confirmed successful receipt and verification. The live-email gate was returned to disabled immediately afterward, the isolated customer and any sessions were deleted, and all customer and commerce table counts returned to zero.
+
+## Retatrutide 30 mg pricing verification
+
+The canonical catalog already contained the owner-requested **$200** Retatrutide 30 mg unit price. An automated regression test now locks both the product and variant records to `$200`. Authenticated preview checks confirmed `$200` on the shop and product-detail pages, `$200.00` for the cart line and subtotal, and a checkout total of `$223.00` consisting of the $200 subtotal, $7 shipping, and $16 tax. No order was submitted, and the isolated test customer and session were removed; all customer and commerce table counts returned to zero.
+
 ## References
 
 [1]: https://resend.com/docs/api-reference/introduction "Resend API introduction"
