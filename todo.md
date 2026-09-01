@@ -100,3 +100,5 @@
 - [x] Add regression coverage for the shared logo asset and run TypeScript, tests, and the production build before publishing.
 - [x] Double the new logo’s display size in the opening intro, top-left header, and bottom-left footer, with responsive containment that prevents navigation or content overlap.
 - [x] Keep the approved intro and header logo sizes, but reduce the bottom-left footer logo to the same maximum display width as the header logo.
+- [x] Reduce only the opening intro logo from the oversized 1120 px maximum to a balanced responsive size; keep header and footer logo sizing unchanged.
+- [x] Verify the reduced intro logo on desktop and mobile, rerun validation, and publish the approved adjustment.
