@@ -102,3 +102,7 @@
 - [x] Keep the approved intro and header logo sizes, but reduce the bottom-left footer logo to the same maximum display width as the header logo.
 - [x] Reduce only the opening intro logo from the oversized 1120 px maximum to a balanced responsive size; keep header and footer logo sizing unchanged.
 - [x] Verify the reduced intro logo on desktop and mobile, rerun validation, and publish the approved adjustment.
+- [x] Reduce the desktop opening-intro logo by exactly 30%, from a 760 px maximum and 84 vw cap to 532 px and 58.8 vw.
+- [x] Reduce the bottom-left footer logo proportionally while leaving the approved top-left header logo unchanged.
+- [x] Verify the final intro and footer sizes, rerun TypeScript/tests/build, and publish the sizing adjustment.
+- [x] Increase the newly reduced footer logo modestly to 210/200/320/400 px across responsive breakpoints, keeping the 30%-smaller intro and approved header unchanged.

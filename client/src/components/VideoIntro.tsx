@@ -57,7 +57,7 @@ export default function VideoIntro({ onComplete }: VideoIntroProps) {
         <img
           src={PRIMARY_LOGO_URL}
           alt="LA Elite Peptides — Trusted. Tested."
-          className="w-[min(84vw,760px)] h-auto"
+          className="w-[min(58.8vw,532px)] h-auto"
         />
         <p
           className="mt-6 text-sm sm:text-base uppercase text-white/65"

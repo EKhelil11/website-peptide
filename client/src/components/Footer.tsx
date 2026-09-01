@@ -300,7 +300,7 @@ export default function Footer() {
               <img
                 src={PRIMARY_LOGO_URL}
                 alt="LA Elite Peptides — Trusted. Tested."
-                className="w-[260px] md:w-[250px] lg:w-[400px] xl:w-[500px] max-w-full h-auto mb-4"
+                className="w-[210px] md:w-[200px] lg:w-[320px] xl:w-[400px] max-w-full h-auto mb-4"
               />
               <p
                 className="text-white/40 text-sm leading-relaxed"
