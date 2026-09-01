@@ -83,17 +83,17 @@
 - [x] Save a post-validation checkpoint containing the final public integration status, cleanup evidence, and observability note.
 - [x] Deliver the finalized integration reauthorization report with the live Resend and ShipStation states and controlled-test results.
 - [x] Save a protected pre-rebuild checkpoint of the current live production site before making flyer-based changes.
-- [ ] Audit the current catalog against the flyer’s fifteen products, strengths, and prices.
-- [ ] Rebuild the canonical catalog to match the flyer without inventing erased historical customer or order data.
-- [ ] Retheme the storefront with the flyer’s navy, white, silver, and restrained blue palette across all public and account surfaces.
-- [ ] Create or adapt a consistent flyer-style product-vial image set for all fifteen products without unsupported purity claims.
-- [ ] Add shop category filters for All, GLP, Metabolics, Peptides, and Blends.
-- [ ] Remove or rewrite any personal-use, administration, side-effect, stacking, or human-consumption language from product pages and FAQs.
-- [ ] Add regression tests for the complete fifteen-product catalog, strengths, prices, categories, and commerce calculations.
-- [ ] Verify desktop and mobile product, cart, checkout, authentication, account, admin, and legal layouts after the retheme.
-- [ ] Preserve and revalidate the live Resend and ShipStation integrations through non-destructive checks after the rebuild.
-- [ ] Publish and verify the flyer-based reconstruction on `laelitepeps.com` and `www.laelitepeps.com`.
-- [ ] Deliver a reconstruction report that separates restored storefront functionality from unrecoverable historical data.
+- [x] Canceled by owner — audit the current catalog against the flyer’s fifteen products, strengths, and prices.
+- [x] Canceled by owner — rebuild the canonical catalog to match the flyer without inventing erased historical customer or order data.
+- [x] Canceled by owner — retheme the storefront with the flyer’s navy, white, silver, and restrained blue palette across all public and account surfaces.
+- [x] Canceled by owner — create or adapt a consistent flyer-style product-vial image set for all fifteen products without unsupported purity claims.
+- [x] Canceled by owner — add shop category filters for All, GLP, Metabolics, Peptides, and Blends.
+- [x] Canceled by owner — remove or rewrite any personal-use, administration, side-effect, stacking, or human-consumption language from product pages and FAQs.
+- [x] Canceled by owner — add regression tests for the complete fifteen-product catalog, strengths, prices, categories, and commerce calculations.
+- [x] Canceled by owner — verify desktop and mobile product, cart, checkout, authentication, account, admin, and legal layouts after the retheme.
+- [x] Canceled by owner — preserve and revalidate the live Resend and ShipStation integrations through non-destructive checks after the rebuild.
+- [x] Canceled by owner — publish and verify the flyer-based reconstruction on `laelitepeps.com` and `www.laelitepeps.com`.
+- [x] Canceled by owner — deliver a reconstruction report that separates restored storefront functionality from unrecoverable historical data.
 - [x] Upload the owner-supplied `SilverandBlueLogo.png` to durable project storage without changing its brand artwork or wording.
 - [x] Replace the logo in the opening intro, top-left site header, and bottom-left footer with the new silver-and-blue logo.
 - [x] Verify the new logo is legible and proportioned correctly on desktop and mobile while preserving catalog, pricing, integrations, and commerce behavior.
