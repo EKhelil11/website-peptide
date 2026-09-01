@@ -5,8 +5,7 @@
 import { useState } from "react";
 import { Link } from "wouter";
 import { Mail, MapPin, Instagram, Phone, CheckCircle } from "lucide-react";
-
-const LOGO_URL = "/manus-storage/lap-logo-cropped_755f69ec.png";
+import { PRIMARY_LOGO_URL } from "@/lib/brandAssets";
 
 const CONTACT_EMAIL = "support@laelitepeps.com";
 
@@ -295,10 +294,14 @@ export default function Footer() {
         }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-[2fr_0.5fr_0.5fr] gap-8 mb-8">
             {/* Logo + tagline */}
             <div>
-              <img src={LOGO_URL} alt="LA Elite Peptides" className="h-20 w-auto max-w-[320px] mb-3" />
+              <img
+                src={PRIMARY_LOGO_URL}
+                alt="LA Elite Peptides — Trusted. Tested."
+                className="w-[260px] md:w-[250px] lg:w-[400px] xl:w-[500px] max-w-full h-auto mb-4"
+              />
               <p
                 className="text-white/40 text-sm leading-relaxed"
                 style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300 }}

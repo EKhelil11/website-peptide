@@ -94,3 +94,9 @@
 - [ ] Preserve and revalidate the live Resend and ShipStation integrations through non-destructive checks after the rebuild.
 - [ ] Publish and verify the flyer-based reconstruction on `laelitepeps.com` and `www.laelitepeps.com`.
 - [ ] Deliver a reconstruction report that separates restored storefront functionality from unrecoverable historical data.
+- [x] Upload the owner-supplied `SilverandBlueLogo.png` to durable project storage without changing its brand artwork or wording.
+- [x] Replace the logo in the opening intro, top-left site header, and bottom-left footer with the new silver-and-blue logo.
+- [x] Verify the new logo is legible and proportioned correctly on desktop and mobile while preserving catalog, pricing, integrations, and commerce behavior.
+- [x] Add regression coverage for the shared logo asset and run TypeScript, tests, and the production build before publishing.
+- [x] Double the new logo’s display size in the opening intro, top-left header, and bottom-left footer, with responsive containment that prevents navigation or content overlap.
+- [x] Keep the approved intro and header logo sizes, but reduce the bottom-left footer logo to the same maximum display width as the header logo.

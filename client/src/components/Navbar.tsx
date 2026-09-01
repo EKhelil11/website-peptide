@@ -6,9 +6,8 @@ import { useState, useEffect } from "react";
 import { Menu, X, User, LogOut, ShieldCheck } from "lucide-react";
 import { useCustomerAuth } from "@/hooks/useCustomerAuth";
 import { useAuth } from "@/_core/hooks/useAuth";
+import { PRIMARY_LOGO_URL } from "@/lib/brandAssets";
 import { useLocation } from "wouter";
-
-const LOGO_URL = "/manus-storage/lap-logo-cropped_755f69ec.png";
 
 const navLinks = [
   { label: "Products", href: "#products" },
@@ -47,7 +46,7 @@ export default function Navbar() {
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-20 lg:h-24">
+          <div className="flex items-center justify-between h-24 lg:h-28">
             {/* Logo */}
             <a
               href="#"
@@ -55,10 +54,10 @@ export default function Navbar() {
               onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
             >
               <img
-                src={LOGO_URL}
-                alt="LA Elite Peptides"
-                className="h-16 lg:h-20 w-auto max-w-[300px] lg:max-w-[420px] object-contain transition-opacity duration-200 group-hover:opacity-90"
-                style={{ filter: "drop-shadow(0 0 8px rgba(0, 191, 255, 0.3))" }}
+                src={PRIMARY_LOGO_URL}
+                alt="LA Elite Peptides — Trusted. Tested."
+                className="w-[260px] md:w-[250px] lg:w-[400px] xl:w-[500px] max-h-[104px] object-contain transition-opacity duration-200 group-hover:opacity-90"
+                style={{ filter: "drop-shadow(0 4px 10px rgba(0, 0, 0, 0.42))" }}
               />
             </a>
 
@@ -140,7 +139,11 @@ export default function Navbar() {
         style={{ background: "oklch(0.12 0.05 255 / 97%)", backdropFilter: "blur(20px)" }}
       >
         <div className="flex flex-col items-center justify-center h-full gap-8">
-          <img src={LOGO_URL} alt="LA Elite Peptides" className="h-20 w-auto max-w-[320px] mb-4" />
+          <img
+            src={PRIMARY_LOGO_URL}
+            alt="LA Elite Peptides — Trusted. Tested."
+            className="w-[min(94vw,760px)] h-auto mb-4"
+          />
           {navLinks.map((link, i) => (
             <button
               key={link.href}
