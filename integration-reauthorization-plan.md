@@ -42,6 +42,18 @@ The email approval gate was enabled only for the approved test window. The appli
 
 The canonical catalog already contained the owner-requested **$200** Retatrutide 30 mg unit price. An automated regression test now locks both the product and variant records to `$200`. Authenticated preview checks confirmed `$200` on the shop and product-detail pages, `$200.00` for the cart line and subtotal, and a checkout total of `$223.00` consisting of the $200 subtotal, $7 shipping, and $16 tax. No order was submitted, and the isolated test customer and session were removed; all customer and commerce table counts returned to zero.
 
+## Ongoing Resend state
+
+The owner chose to keep Resend enabled for production. The validated sending-only key remains stored securely, the live-email approval flag is enabled, and a cache-bypassed production API check reports email credentials present, owner approval true, and transactional email configured. ShipStation credentials are present, but its write-approval flag remains false pending the isolated test window.
+
+## Controlled ShipStation result
+
+The ShipStation credential was revalidated through a read-only carriers request before the write. A one-process owner-approved gate then created one zero-value order named **API TEST — DO NOT SHIP** with no rate, label, postage, pickup, or shipment request. ShipStation returned order ID `418473494`; the application retrieved the same order identity and soft-deleted it successfully. A subsequent active-order query returned zero matches for the test order number. The project-level ShipStation gate is disabled after testing, and the temporary runner was removed.
+
+## Ongoing ShipStation state
+
+The owner chose to enable ShipStation for production after the controlled test. Because repeated automated updates did not change the pre-existing approval flag, the owner updated `ENABLE_LIVE_SHIPSTATION` to lowercase `true` in project Secrets. Local runtime inspection confirmed the flag is true, and both the Resend non-delivery authentication check and ShipStation read-only carriers check passed. No additional email or ShipStation order was created during activation validation.
+
 ## References
 
 [1]: https://resend.com/docs/api-reference/introduction "Resend API introduction"

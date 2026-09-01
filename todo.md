@@ -69,9 +69,10 @@
 - [x] Add test-only dependency injection for provider clients so disabled-gate and approved-call contracts can be verified without contacting live services.
 - [x] Validate the controlled test boundaries against current official Resend and ShipStation documentation.
 - [x] Run one explicitly approved Resend verification or password-reset email test and confirm delivery.
-- [ ] Run one explicitly approved ShipStation test-order workflow without purchasing postage or dispatching a shipment.
+- [x] Run one explicitly approved ShipStation test-order workflow without purchasing postage or dispatching a shipment.
 - [ ] Remove isolated test records and verify the live storefront, database, and runtime logs remain healthy.
-- [ ] Record whether each integration remains enabled or is returned to disabled after testing.
+- [x] Record whether each integration remains enabled or is returned to disabled after testing.
+- [ ] Verify and record a cache-bypassed public API response showing both Resend and ShipStation credentials present, owner-approved, and configured after final deployment.
 - [x] Parse live-action environment flags case-insensitively so secure settings values such as `True` activate only when explicitly intended.
 - [ ] Save the validated integration checkpoint and deliver the reauthorization report.
 - [x] Change Retatrutide 30 mg to $200.00 in the canonical product catalog.

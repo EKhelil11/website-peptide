@@ -136,6 +136,21 @@ export async function createOrUpdateSSOrder(
 }
 
 /**
+ * Retrieve one ShipStation order by its numeric ID.
+ */
+export async function getSSOrder(ssOrderId: number): Promise<SSOrderResponse> {
+  return ssRequest<SSOrderResponse>("GET", `/orders/${ssOrderId}`);
+}
+
+/**
+ * Soft-delete an order from ShipStation. ShipStation retains an internal audit
+ * record and prevents the order from appearing in active order queues.
+ */
+export async function deleteSSOrder(ssOrderId: number): Promise<void> {
+  await ssRequest<unknown>("DELETE", `/orders/${ssOrderId}`);
+}
+
+/**
  * Fetch shipments for a given ShipStation order ID.
  * Returns the latest tracking info.
  */
