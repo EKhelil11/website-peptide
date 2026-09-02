@@ -113,6 +113,6 @@
 - [x] Build the new sales-platform page using the current canonical catalog and existing cart/product-detail flows, with clear category discovery, pricing, purchase actions, research-use safeguards, and mobile navigation.
 - [x] Add regression coverage for the sales page’s catalog and commerce wiring without sending email, creating orders, or contacting fulfillment providers.
 - [x] Verify the new page on desktop and mobile and run TypeScript/tests/build without changing the database, integrations, or domain configuration.
-- [ ] Save a checkpoint and confirm the published `/shop` route, protected `$200` Retatrutide price, and non-secret integration status.
+- [x] Save a checkpoint and confirm the published `/shop` route, protected `$200` Retatrutide price, and non-secret integration status.
 - [x] Align the login page with the new public-price sales flow by replacing the outdated logo and revising copy that incorrectly says an account is required to browse pricing.
 - [x] Make shared footer quick links route-aware so Shop opens `/shop` and home sections remain reachable from the dedicated sales page.

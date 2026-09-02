@@ -25,3 +25,11 @@ Full-page mobile review at 375 px confirmed the hero copy and CTAs remain contai
 TypeScript completed without errors. All **47 active tests** passed, including eight new sales-platform regression cases; four credential-dependent workflow tests remained intentionally skipped. The production build succeeded. The public read-only integration-status procedure continued to report both Resend and ShipStation as configured and approved. Recent browser and network logs contained no new client errors or HTTP 4xx/5xx failures from the sales-page review; older development lifecycle failures predated this work.
 
 No account was created, no credentials were entered, no item was added to a cart, and no email, order, payment, label, postage, pickup, fulfillment, database, secret, DNS, or domain change occurred during validation.
+
+## Publication Verification
+
+Checkpoint `2819b8da` was saved and auto-published. The first two live-domain checks of `https://laelitepeps.com/shop`, including a cache-busting query string, still loaded the prior homepage catalog behavior. This indicates the production edge had not yet adopted the new frontend bundle at the time of those checks; the validated development preview continued to serve the dedicated sales page correctly. No DNS or domain change was attempted.
+
+After the platform reported deployment success, a fresh cache-busted browser navigation and one follow-up view returned no rendered elements or screenshot. Because the browser result was inconclusive rather than an application error, production verification continued through bounded HTTP extraction and API checks rather than repeated unbounded browser retries.
+
+Fresh no-cache extraction then confirmed that both `https://laelitepeps.com/shop` and the Manus-hosted `/shop` route serve the dedicated **Shop Research Compounds** page. Both responses contained the 11-product catalog, category counts, public prices, current research-use safeguards, route-aware footer links, and Retatrutide 30 mg at `$200`. A bounded production call to the public, non-secret integration-status procedure confirmed both Resend and ShipStation still report `configured: true` and `approved: true`. No provider action was invoked.
