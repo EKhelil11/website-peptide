@@ -14,9 +14,10 @@ const VIAL_IMG = "/manus-storage/lap-vial-retatrutide-10mg_52f96021.png";
 interface ProductCardProps {
   product: Product;
   index: number;
+  showPublicPrice?: boolean;
 }
 
-export default function ProductCard({ product, index }: ProductCardProps) {
+export default function ProductCard({ product, index, showPublicPrice = false }: ProductCardProps) {
   const animationDelay = `${index * 80}ms`;
   const [, navigate] = useLocation();
   const { isAuthenticated } = useCustomerAuth();
@@ -193,14 +194,21 @@ export default function ProductCard({ product, index }: ProductCardProps) {
             </div>
           ) : (
             /* Unauthenticated or terms not accepted: show login gate */
-            <button
-              onClick={handleLoginGate}
-              className="w-full flex items-center justify-center gap-2 py-2.5 rounded btn-primary text-xs tracking-widest uppercase transition-all duration-200"
-              style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
-            >
-              <ShoppingCart size={13} />
-              Add to Cart
-            </button>
+            <div className={showPublicPrice ? "flex items-center justify-between gap-4" : ""}>
+              {showPublicPrice && product.price && (
+                <span className="text-[#00BFFF]" style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.4rem" }}>
+                  {product.price}
+                </span>
+              )}
+              <button
+                onClick={handleLoginGate}
+                className={`${showPublicPrice ? "px-4" : "w-full"} flex items-center justify-center gap-2 py-2.5 rounded btn-primary text-xs tracking-widest uppercase transition-all duration-200`}
+                style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
+              >
+                <ShoppingCart size={13} />
+                Add to Cart
+              </button>
+            </div>
           )}
         </div>
       </div>

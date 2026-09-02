@@ -10,7 +10,7 @@ import { PRIMARY_LOGO_SIZE_CLASS, PRIMARY_LOGO_URL } from "@/lib/brandAssets";
 import { useLocation } from "wouter";
 
 const navLinks = [
-  { label: "Products", href: "#products" },
+  { label: "Shop", href: "/shop" },
   { label: "Shipping", href: "#shipping" },
   { label: "About", href: "#about" },
   { label: "Science", href: "#science" },
@@ -34,6 +34,17 @@ export default function Navbar() {
 
   const handleNavClick = (href: string) => {
     setMobileOpen(false);
+    if (href.startsWith("/")) {
+      setLocation(href);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      return;
+    }
+
+    if (location !== "/") {
+      window.location.href = `/${href}`;
+      return;
+    }
+
     const el = document.querySelector(href);
     if (el) el.scrollIntoView({ behavior: "smooth" });
   };
@@ -49,9 +60,16 @@ export default function Navbar() {
           <div className="flex items-center justify-between h-24 lg:h-28">
             {/* Logo */}
             <a
-              href="#"
+              href="/"
               className="flex items-center gap-3 group"
-              onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
+              onClick={(e) => {
+                e.preventDefault();
+                if (location === "/") {
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                } else {
+                  setLocation("/");
+                }
+              }}
             >
               <img
                 src={PRIMARY_LOGO_URL}

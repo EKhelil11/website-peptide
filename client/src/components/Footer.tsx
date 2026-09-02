@@ -319,15 +319,22 @@ export default function Footer() {
                 Quick Links
               </h5>
               <ul className="space-y-2">
-                {["Products", "Shipping", "About", "Science", "FAQ", "Contact"].map((link) => (
-                  <li key={link}>
-                    <button
-                      onClick={() => document.querySelector(`#${link.toLowerCase()}`)?.scrollIntoView({ behavior: "smooth" })}
+                {[
+                  { label: "Shop", href: "/shop" },
+                  { label: "Shipping", href: "/#shipping" },
+                  { label: "About", href: "/#about" },
+                  { label: "Science", href: "/#science" },
+                  { label: "FAQ", href: "/#faq" },
+                  { label: "Contact", href: "/#contact" },
+                ].map(link => (
+                  <li key={link.href}>
+                    <a
+                      href={link.href}
                       className="text-white/40 text-sm hover:text-[#00BFFF] transition-colors"
                       style={{ fontFamily: "'Inter', sans-serif" }}
                     >
-                      {link}
-                    </button>
+                      {link.label}
+                    </a>
                   </li>
                 ))}
               </ul>

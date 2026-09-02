@@ -5,8 +5,7 @@ import { useState, useEffect } from "react";
 import { useLocation, useSearch } from "wouter";
 import { Eye, EyeOff, CheckCircle, ArrowRight, ShieldCheck } from "lucide-react";
 import { trpc } from "@/lib/trpc";
-
-const LOGO_URL = "/manus-storage/lap-logo-cropped_755f69ec.png";
+import { PRIMARY_LOGO_URL } from "@/lib/brandAssets";
 
 // Matches CYAN_BTN from Checkout.tsx exactly
 const CYAN_BTN: React.CSSProperties = {
@@ -124,7 +123,7 @@ export default function Login() {
           <a href="/" className="text-white/50 hover:text-[#00BFFF] transition-colors text-base font-bold uppercase tracking-widest" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
             ← Back to Site
           </a>
-          <img src={LOGO_URL} alt="LA Elite Peptides" className="h-20 w-auto max-w-[380px] ml-auto" />
+          <img src={PRIMARY_LOGO_URL} alt="LA Elite Peptides — Trusted. Tested." className="h-20 w-auto max-w-[380px] ml-auto object-contain" />
         </div>
       </header>
 
@@ -137,7 +136,7 @@ export default function Login() {
         >
           <ShieldCheck size={20} style={{ color: "oklch(0.72 0.18 210)", flexShrink: 0 }} />
           <p className="text-white/70 text-base leading-relaxed" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}>
-            An account is required to browse pricing and purchase. All products are sold strictly for{" "}
+            An account is required to add products to cart and complete checkout. Catalog pricing is available publicly. All products are sold strictly for{" "}
             <span className="text-white font-bold">research use only</span> — not for human consumption.
           </p>
         </div>
@@ -263,7 +262,7 @@ export default function Login() {
                     CREATE ACCOUNT
                   </h2>
                   <p className="text-white/50 text-lg" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}>
-                    Free account — access full catalog and pricing.
+                    Free account — add products to cart and complete checkout.
                   </p>
                 </div>
 
