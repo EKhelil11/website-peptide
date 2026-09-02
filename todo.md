@@ -127,3 +127,12 @@
 - [x] Extend regression coverage to reject legacy logo URLs and require shared logo usage across every logo-bearing source file.
 - [x] Verify representative public, product, auth, checkout, account, admin, legal, COA, and mobile routes and run TypeScript/tests/build.
 - [x] Save a checkpoint and confirm the published logo consistency, COA placeholder, protected `$200` Retatrutide price, and non-secret integration status.
+- [ ] Save a protected pre-makeover checkpoint of the current live site before any Rolex-inspired green-and-gold visual changes.
+- [ ] Define an original luxury design system using deep racing green, forest green, refined metallic gold, warm ivory, and charcoal without copying Rolex trademarks, logos, proprietary layouts, or watch imagery.
+- [ ] Preserve the owner-supplied silver-and-blue LA Elite Peptides logo artwork while integrating it consistently into the new green-and-gold surfaces.
+- [ ] Redesign the home, shop, product detail, COA, shared navigation, age gate, intro, footer, and mobile menu in the approved luxury green-and-gold direction.
+- [ ] Redesign login, registration, password recovery, email verification, checkout, account, admin, legal, and error states with the same accessible theme.
+- [ ] Preserve the 11-product catalog, Retatrutide 30 mg at `$200`, research-only safeguards, cart, checkout, auth, database, Resend, ShipStation, and domain behavior.
+- [ ] Add or update regression coverage for shared theme tokens and route-level consistency; run TypeScript, tests, and the production build.
+- [ ] Verify representative desktop and mobile routes in the private preview without sending email, creating orders, or invoking fulfillment.
+- [ ] Present the complete private preview for owner approval and do not save another checkpoint or publish the makeover until the owner explicitly approves it.
