@@ -23,3 +23,13 @@ The final source audit found **18 logo-bearing TSX files**, all importing `PRIMA
 TypeScript completed without errors. All **68 active tests** passed, including 21 logo regression cases and the six COA placeholder cases; four credential-dependent workflow tests remained intentionally skipped. The production build succeeded with only the existing bundle-size advisory. No new logo, COA, route, or rendering error appeared in the reviewed development logs. The only recent authentication rejection predated this change and reflected an expected invalid-login response.
 
 The public read-only integration-status procedure continued to report both Resend and ShipStation as configured and approved. Neither provider was invoked, and no email or order was created.
+
+## Publication Verification
+
+Checkpoint `2592c1eb` was saved and auto-published. An initial custom-domain browser check during propagation still rendered the prior text-built registration logo, while the admin-login route remained on its loading state. The platform then reported deployment success. No rollback, DNS, or domain action was taken; fresh post-deployment checks were started against the updated production edge.
+
+Fresh cache-bypassed browser checks after deployment success confirmed that `/register` now renders the silver-and-blue image logo above the account form and `/admin/login` renders the same shared logo above the protected admin-access card. No former stacked text wordmark or `Elite LA Peptides` eyebrow remained on those live pages. Fresh custom-domain extraction also confirmed the shared accessible logo name on representative product, login, terms, privacy, shipping, and product-specific COA routes.
+
+The published `/shop` route displayed the shared silver-and-blue asset in both the top-left header and bottom-left footer, with both placements still consuming the same primary size token. The live catalog retained all 11 products, and Retatrutide 30 mg remained listed at **$200**. The product-detail COA link and `/coa/retatrutide-30mg` pending-document page remained live and explicitly unavailable until verification.
+
+A final bounded call to the live public integration-status procedure returned `configured: true` and `approved: true` for both Resend and ShipStation. This was a read-only status request; no email, order, rate, label, postage, pickup, or fulfillment action occurred.
