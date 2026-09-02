@@ -28,12 +28,14 @@ import VerifyEmail from "./pages/VerifyEmail";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import Shop from "./pages/Shop";
+import CertificateOfAnalysis from "./pages/CertificateOfAnalysis";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/product/:id" component={ProductDetail} />
+      <Route path="/coa/:id" component={CertificateOfAnalysis} />
       <Route path="/research-access"><Redirect to="/login" /></Route>
       <Route path="/shop" component={Shop} />
       <Route path="/terms" component={TermsPage} />

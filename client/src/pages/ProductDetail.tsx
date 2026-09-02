@@ -19,6 +19,8 @@ import {
   Minus,
   Plus,
   Lock,
+  FileText,
+  Clock3,
 } from "lucide-react";
 import { products, type Product } from "@/lib/products";
 
@@ -563,11 +565,9 @@ export default function ProductDetail() {
           <div
             className="grid grid-cols-2 gap-3 pt-2"
           >
-            {[
-              { icon: "🇺🇸", label: "US Research" },
-              // { icon: "🔬", label: "≥99% Purity" }, // Hidden until 3rd-party testing complete
-              // { icon: "📋", label: "COA Available" }, // Hidden until COAs are ready
-            ].map(({ icon, label }) => (
+              {[
+                { icon: "🇺🇸", label: "US Research" },
+              ].map(({ icon, label }) => (
               <div
                 key={label}
                 className="rounded-lg p-3 text-center border border-white/8"
@@ -582,6 +582,42 @@ export default function ProductDetail() {
                 </p>
               </div>
             ))}
+          </div>
+
+          {/* Certificate of Analysis placeholder — no testing claim until a verified report is uploaded */}
+          <div
+            className="rounded-xl border border-[#00BFFF]/20 overflow-hidden"
+            style={{ background: "oklch(0.15 0.055 255 / 0.72)" }}
+          >
+            <div className="flex items-start gap-3 px-5 py-4 border-b border-white/8">
+              <div className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 bg-[#00BFFF]/10 border border-[#00BFFF]/20">
+                <FileText size={17} className="text-[#00BFFF]" />
+              </div>
+              <div>
+                <p
+                  className="text-white text-sm uppercase tracking-[0.12em]"
+                  style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
+                >
+                  Certificate of Analysis (COA)
+                </p>
+                <p className="text-white/45 text-xs leading-relaxed mt-1">
+                  Product-specific report placeholder. No verified document is currently posted.
+                </p>
+              </div>
+            </div>
+            <Link href={`/coa/${product.id}`}>
+              <span className="flex items-center justify-between gap-4 px-5 py-3.5 text-[#9BDFFF] hover:text-white hover:bg-[#00BFFF]/8 transition-colors cursor-pointer">
+                <span
+                  className="text-xs uppercase tracking-[0.14em]"
+                  style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
+                >
+                  View COA status
+                </span>
+                <span className="inline-flex items-center gap-2 text-white/45 text-[0.68rem] uppercase tracking-[0.12em]">
+                  <Clock3 size={13} /> Pending verified upload
+                </span>
+              </span>
+            </Link>
           </div>
 
           {/* Research benefits list */}

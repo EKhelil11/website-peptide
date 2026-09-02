@@ -116,3 +116,8 @@
 - [x] Save a checkpoint and confirm the published `/shop` route, protected `$200` Retatrutide price, and non-secret integration status.
 - [x] Align the login page with the new public-price sales flow by replacing the outdated logo and revising copy that incorrectly says an account is required to browse pricing.
 - [x] Make shared footer quick links route-aware so Shop opens `/shop` and home sections remain reachable from the dedicated sales page.
+- [x] Add a product-specific Certificate of Analysis link area to every product detail page using the canonical product ID.
+- [x] Create a dedicated COA destination that clearly states no verified report is available until an authentic document is uploaded, without displaying fabricated testing, laboratory, lot, date, purity, or result data.
+- [x] Add route and source regression coverage proving all 11 products receive the COA placeholder through the shared product-detail component.
+- [x] Verify desktop and mobile COA presentation and run TypeScript/tests/build without changing catalog, pricing, cart, checkout, database, integrations, or domain settings.
+- [ ] Save a checkpoint and confirm the published product-detail COA link, pending-document page, protected `$200` Retatrutide price, and non-secret integration status.
