@@ -7,6 +7,7 @@ import { useAuth } from "@/_core/hooks/useAuth";
 import { useLocation } from "wouter";
 import { getLoginUrl } from "@/const";
 import { ShieldCheck } from "lucide-react";
+import { AUTH_LOGO_SIZE_CLASS, PRIMARY_LOGO_ALT, PRIMARY_LOGO_URL } from "@/lib/brandAssets";
 
 export default function AdminLogin() {
   const { user, loading } = useAuth();
@@ -53,6 +54,8 @@ export default function AdminLogin() {
           boxShadow: "0 0 60px rgba(0,191,255,0.06), 0 24px 64px rgba(0,0,0,0.5)",
         }}
       >
+        <img src={PRIMARY_LOGO_URL} alt={PRIMARY_LOGO_ALT} className={AUTH_LOGO_SIZE_CLASS} />
+
         {/* Shield Icon */}
         <div
           className="w-20 h-20 rounded-full flex items-center justify-center"
@@ -67,12 +70,6 @@ export default function AdminLogin() {
 
         {/* Title block */}
         <div className="text-center space-y-2">
-          <p
-            className="text-[#00BFFF] text-sm tracking-[0.3em] uppercase"
-            style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
-          >
-            Elite LA Peptides
-          </p>
           <h1
             className="text-white leading-none"
             style={{

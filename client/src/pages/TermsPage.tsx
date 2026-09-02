@@ -4,8 +4,7 @@
 
 import { Link } from "wouter";
 import { ArrowLeft } from "lucide-react";
-
-const LOGO_URL = "/manus-storage/lap-logo-cropped_755f69ec.png";
+import { PRIMARY_LOGO_ALT, PRIMARY_LOGO_URL, UTILITY_LOGO_SIZE_CLASS } from "@/lib/brandAssets";
 
 export default function TermsPage() {
   return (
@@ -20,7 +19,7 @@ export default function TermsPage() {
         }}
       >
         <Link href="/">
-          <img src={LOGO_URL} alt="La Elite Peptides" className="h-9 w-auto cursor-pointer" />
+          <img src={PRIMARY_LOGO_URL} alt={PRIMARY_LOGO_ALT} className={`${UTILITY_LOGO_SIZE_CLASS} cursor-pointer`} />
         </Link>
         <Link href="/">
           <button

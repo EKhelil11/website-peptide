@@ -6,7 +6,12 @@ import { useState, useEffect } from "react";
 import { Menu, X, User, LogOut, ShieldCheck } from "lucide-react";
 import { useCustomerAuth } from "@/hooks/useCustomerAuth";
 import { useAuth } from "@/_core/hooks/useAuth";
-import { PRIMARY_LOGO_SIZE_CLASS, PRIMARY_LOGO_URL } from "@/lib/brandAssets";
+import {
+  MOBILE_MENU_LOGO_SIZE_CLASS,
+  PRIMARY_LOGO_ALT,
+  PRIMARY_LOGO_SIZE_CLASS,
+  PRIMARY_LOGO_URL,
+} from "@/lib/brandAssets";
 import { useLocation } from "wouter";
 
 const navLinks = [
@@ -73,7 +78,7 @@ export default function Navbar() {
             >
               <img
                 src={PRIMARY_LOGO_URL}
-                alt="LA Elite Peptides — Trusted. Tested."
+                alt={PRIMARY_LOGO_ALT}
                 className={`${PRIMARY_LOGO_SIZE_CLASS} transition-opacity duration-200 group-hover:opacity-90`}
                 style={{ filter: "drop-shadow(0 4px 10px rgba(0, 0, 0, 0.42))" }}
               />
@@ -159,8 +164,8 @@ export default function Navbar() {
         <div className="flex flex-col items-center justify-center h-full gap-8">
           <img
             src={PRIMARY_LOGO_URL}
-            alt="LA Elite Peptides — Trusted. Tested."
-            className="w-[min(94vw,760px)] h-auto mb-4"
+            alt={PRIMARY_LOGO_ALT}
+            className={`${MOBILE_MENU_LOGO_SIZE_CLASS} mb-4`}
           />
           {navLinks.map((link, i) => (
             <button

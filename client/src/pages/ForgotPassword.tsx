@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Link } from "wouter";
 import { Mail, ArrowRight, CheckCircle } from "lucide-react";
 import { trpc } from "@/lib/trpc";
+import { AUTH_LOGO_SIZE_CLASS, PRIMARY_LOGO_ALT, PRIMARY_LOGO_URL } from "@/lib/brandAssets";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
@@ -37,10 +38,7 @@ export default function ForgotPassword() {
       <div className="relative z-10 w-full max-w-md">
         <div className="text-center mb-8">
           <Link href="/">
-            <div className="inline-flex flex-col items-center gap-1 cursor-pointer">
-              <span className="text-white" style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.8rem", letterSpacing: "0.1em" }}>LA ELITE</span>
-              <span className="tracking-[0.35em] text-xs uppercase" style={{ color: "oklch(0.72 0.18 210)", fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}>PEPTIDES</span>
-            </div>
+            <img src={PRIMARY_LOGO_URL} alt={PRIMARY_LOGO_ALT} className={`${AUTH_LOGO_SIZE_CLASS} mx-auto cursor-pointer`} />
           </Link>
         </div>
 

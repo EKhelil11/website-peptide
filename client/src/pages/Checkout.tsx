@@ -7,8 +7,7 @@ import { useCustomerAuth } from "@/hooks/useCustomerAuth";
 import { trpc } from "@/lib/trpc";
 import { useCart } from "@/contexts/CartContext";
 import { ArrowLeft, CheckCircle, Copy, Check, ShoppingBag, Truck, Shield } from "lucide-react";
-
-const LOGO_URL = "/manus-storage/lap-logo-cropped_755f69ec.png";
+import { AUTH_LOGO_SIZE_CLASS, PRIMARY_LOGO_ALT, PRIMARY_LOGO_URL } from "@/lib/brandAssets";
 const ZELLE_PHONE = "(310) 975-9289";
 const SHIPPING_FLAT = 7.00;
 const TAX_RATE = 0.08;
@@ -123,7 +122,7 @@ export default function Checkout() {
         {/* Nav */}
         <header className="sticky top-0 z-50 border-b" style={{ background: "oklch(0.15 0.055 255 / 95%)", backdropFilter: "blur(20px)", borderColor: "oklch(0.28 0.08 255 / 40%)" }}>
           <div className="max-w-5xl mx-auto px-6 h-24 flex items-center gap-4">
-            <img src={LOGO_URL} alt="LA Elite Peptides" className="h-20 w-auto max-w-[380px]" />
+            <img src={PRIMARY_LOGO_URL} alt={PRIMARY_LOGO_ALT} className={AUTH_LOGO_SIZE_CLASS} />
             <span className="text-white/60 text-base ml-2 uppercase tracking-widest" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}>
               Order Confirmed
             </span>
@@ -363,7 +362,7 @@ export default function Checkout() {
           <button onClick={() => window.history.back()} className="text-white/50 hover:text-[#00BFFF] transition-colors">
             <ArrowLeft size={22} />
           </button>
-          <img src={LOGO_URL} alt="LA Elite Peptides" className="h-20 w-auto max-w-[380px]" />
+          <img src={PRIMARY_LOGO_URL} alt={PRIMARY_LOGO_ALT} className={AUTH_LOGO_SIZE_CLASS} />
           <span className="text-white/70 text-base ml-2 uppercase tracking-widest" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}>
             Checkout
           </span>

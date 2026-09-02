@@ -5,7 +5,7 @@
 // Skip button appears after 1.5s for user convenience
 
 import { useEffect, useState } from "react";
-import { PRIMARY_LOGO_URL } from "@/lib/brandAssets";
+import { INTRO_LOGO_SIZE_CLASS, PRIMARY_LOGO_ALT, PRIMARY_LOGO_URL } from "@/lib/brandAssets";
 
 const INTRO_BACKDROP_URL = "/manus-storage/lap-intro-backdrop_0bbeb236.jpg";
 
@@ -56,8 +56,8 @@ export default function VideoIntro({ onComplete }: VideoIntroProps) {
       <div className="relative z-10 flex flex-col items-center px-6 text-center">
         <img
           src={PRIMARY_LOGO_URL}
-          alt="LA Elite Peptides — Trusted. Tested."
-          className="w-[min(58.8vw,532px)] h-auto"
+          alt={PRIMARY_LOGO_ALT}
+          className={INTRO_LOGO_SIZE_CLASS}
         />
         <p
           className="mt-6 text-sm sm:text-base uppercase text-white/65"

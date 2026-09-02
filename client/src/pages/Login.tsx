@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import { useLocation, useSearch } from "wouter";
 import { Eye, EyeOff, CheckCircle, ArrowRight, ShieldCheck } from "lucide-react";
 import { trpc } from "@/lib/trpc";
-import { PRIMARY_LOGO_URL } from "@/lib/brandAssets";
+import { AUTH_LOGO_SIZE_CLASS, PRIMARY_LOGO_ALT, PRIMARY_LOGO_URL } from "@/lib/brandAssets";
 
 // Matches CYAN_BTN from Checkout.tsx exactly
 const CYAN_BTN: React.CSSProperties = {
@@ -123,7 +123,7 @@ export default function Login() {
           <a href="/" className="text-white/50 hover:text-[#00BFFF] transition-colors text-base font-bold uppercase tracking-widest" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
             ← Back to Site
           </a>
-          <img src={PRIMARY_LOGO_URL} alt="LA Elite Peptides — Trusted. Tested." className="h-20 w-auto max-w-[380px] ml-auto object-contain" />
+          <img src={PRIMARY_LOGO_URL} alt={PRIMARY_LOGO_ALT} className={`${AUTH_LOGO_SIZE_CLASS} ml-auto`} />
         </div>
       </header>
 

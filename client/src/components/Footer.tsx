@@ -5,7 +5,7 @@
 import { useState } from "react";
 import { Link } from "wouter";
 import { Mail, MapPin, Instagram, Phone, CheckCircle } from "lucide-react";
-import { PRIMARY_LOGO_SIZE_CLASS, PRIMARY_LOGO_URL } from "@/lib/brandAssets";
+import { PRIMARY_LOGO_ALT, PRIMARY_LOGO_SIZE_CLASS, PRIMARY_LOGO_URL } from "@/lib/brandAssets";
 
 const CONTACT_EMAIL = "support@laelitepeps.com";
 
@@ -299,7 +299,7 @@ export default function Footer() {
             <div>
               <img
                 src={PRIMARY_LOGO_URL}
-                alt="LA Elite Peptides — Trusted. Tested."
+                alt={PRIMARY_LOGO_ALT}
                 className={`${PRIMARY_LOGO_SIZE_CLASS} mb-4`}
               />
               <p

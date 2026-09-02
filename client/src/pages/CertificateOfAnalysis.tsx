@@ -1,6 +1,6 @@
 import { ArrowLeft, Clock3, FileCheck2, FileText, ShieldCheck } from "lucide-react";
 import { Link, useParams } from "wouter";
-import { PRIMARY_LOGO_URL } from "@/lib/brandAssets";
+import { PRIMARY_LOGO_ALT, PRIMARY_LOGO_URL, UTILITY_LOGO_SIZE_CLASS } from "@/lib/brandAssets";
 import { products } from "@/lib/products";
 
 export default function CertificateOfAnalysis() {
@@ -39,7 +39,7 @@ export default function CertificateOfAnalysis() {
             </span>
           </Link>
           <Link href="/">
-            <img src={PRIMARY_LOGO_URL} alt="LA Elite Peptides — Trusted. Tested." className="w-[190px] sm:w-[250px] h-auto max-h-16 object-contain cursor-pointer" />
+            <img src={PRIMARY_LOGO_URL} alt={PRIMARY_LOGO_ALT} className={`${UTILITY_LOGO_SIZE_CLASS} cursor-pointer`} />
           </Link>
         </div>
       </header>

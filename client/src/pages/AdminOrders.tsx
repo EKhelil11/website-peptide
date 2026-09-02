@@ -7,8 +7,7 @@ import { trpc } from "@/lib/trpc";
 import { useLocation } from "wouter";
 import { Package, CheckCircle, Truck, Clock, DollarSign, ArrowLeft, RefreshCw, ChevronDown, ChevronUp, Search } from "lucide-react";
 import { toast } from "sonner";
-
-const LOGO_URL = "/manus-storage/lap-logo-cropped_755f69ec.png";
+import { PRIMARY_LOGO_ALT, PRIMARY_LOGO_URL, UTILITY_LOGO_SIZE_CLASS } from "@/lib/brandAssets";
 
 // All status colors use cyan/blue palette — no pink
 const STATUS_CONFIG: Record<string, { label: string; color: string; bg: string; border: string }> = {
@@ -186,7 +185,7 @@ export default function AdminOrders() {
             >
               <ArrowLeft size={20} />
             </button>
-            <img src={LOGO_URL} alt="LA Elite Peptides" className="h-14 w-auto max-w-[260px]" />
+            <img src={PRIMARY_LOGO_URL} alt={PRIMARY_LOGO_ALT} className={UTILITY_LOGO_SIZE_CLASS} />
             <span
               className="text-xs font-bold tracking-[0.2em] uppercase px-2.5 py-1 rounded"
               style={{

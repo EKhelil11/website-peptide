@@ -5,7 +5,7 @@
 import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
-import { PRIMARY_LOGO_URL } from "@/lib/brandAssets";
+import { AGE_GATE_LOGO_SIZE_CLASS, PRIMARY_LOGO_ALT, PRIMARY_LOGO_URL } from "@/lib/brandAssets";
 
 const INTRO_SEEN_KEY = "elitela_intro_seen";
 const INTRO_COMPLETE_EVENT = "elitela:intro-complete";
@@ -114,8 +114,8 @@ export default function AgeVerification() {
             <div className="flex justify-center mb-6">
               <img
                 src={PRIMARY_LOGO_URL}
-                alt="LA Elite Peptides — Trusted. Tested."
-                className="w-[min(86vw,420px)] h-auto max-h-36 object-contain"
+                alt={PRIMARY_LOGO_ALT}
+                className={AGE_GATE_LOGO_SIZE_CLASS}
               />
             </div>
 

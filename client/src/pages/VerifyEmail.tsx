@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { CheckCircle, XCircle, Loader2 } from "lucide-react";
+import { AUTH_LOGO_SIZE_CLASS, PRIMARY_LOGO_ALT, PRIMARY_LOGO_URL } from "@/lib/brandAssets";
 
 export default function VerifyEmail() {
   const [, setLocation] = useLocation();
@@ -60,14 +61,8 @@ export default function VerifyEmail() {
             boxShadow: "0 0 60px oklch(0.72 0.18 210 / 0.06)",
           }}
         >
-          {/* Logo text */}
           <div className="mb-8">
-            <span className="text-white" style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.6rem", letterSpacing: "0.1em" }}>
-              LA ELITE
-            </span>
-            <span className="block tracking-[0.35em] text-xs uppercase mt-0.5" style={{ color: "oklch(0.72 0.18 210)", fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}>
-              PEPTIDES
-            </span>
+            <img src={PRIMARY_LOGO_URL} alt={PRIMARY_LOGO_ALT} className={`${AUTH_LOGO_SIZE_CLASS} mx-auto`} />
           </div>
 
           {status === "loading" && (

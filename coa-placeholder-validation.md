@@ -21,3 +21,7 @@ A second browser check on Semax confirmed that the same product-detail component
 TypeScript completed without errors, all **53 active tests** passed—including six new COA placeholder regression cases—and the production build succeeded. Four credential-dependent workflow tests remained intentionally skipped. The build emitted only the existing bundle-size advisory.
 
 Recent development, browser, and network logs contained no COA-route or COA-component errors. The only recent authentication failure predated this feature and reflected an expected invalid-login rejection. The public read-only integration-status procedure continued to report both Resend and ShipStation as configured and approved; neither provider was invoked.
+
+## Publication Verification
+
+Checkpoint `a9b6397e` was saved and auto-published. The first no-cache custom-domain extraction immediately afterward still served the prior product-detail bundle without the COA panel, and `/coa/retatrutide-30mg` returned the prior 404 page. This indicates the production edge had not yet adopted the new route at that moment; no DNS, domain, or rollback action was taken while propagation continued.

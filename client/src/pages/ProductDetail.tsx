@@ -23,6 +23,7 @@ import {
   Clock3,
 } from "lucide-react";
 import { products, type Product } from "@/lib/products";
+import { PRIMARY_LOGO_ALT, PRIMARY_LOGO_URL, UTILITY_LOGO_SIZE_CLASS } from "@/lib/brandAssets";
 
 const VIAL_IMG =
   "/manus-storage/lap-vial-retatrutide-10mg_52f96021.png";
@@ -264,9 +265,9 @@ export default function ProductDetail() {
       >
         <Link href="/">
           <img
-            src="/manus-storage/lap-logo-cropped_755f69ec.png"
-            alt="LA Elite Peptides"
-            className="h-10 w-auto"
+            src={PRIMARY_LOGO_URL}
+            alt={PRIMARY_LOGO_ALT}
+            className={UTILITY_LOGO_SIZE_CLASS}
           />
         </Link>
         <button

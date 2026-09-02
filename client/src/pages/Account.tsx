@@ -6,8 +6,7 @@ import { useLocation } from "wouter";
 import { useCustomerAuth } from "@/hooks/useCustomerAuth";
 import { trpc } from "@/lib/trpc";
 import { ShoppingBag, Package, Clock, CheckCircle, Truck, XCircle, ArrowLeft, LogOut } from "lucide-react";
-
-const LOGO_URL = "/manus-storage/lap-logo-cropped_755f69ec.png";
+import { PRIMARY_LOGO_ALT, PRIMARY_LOGO_URL, UTILITY_LOGO_SIZE_CLASS } from "@/lib/brandAssets";
 
 const STATUS_CONFIG: Record<string, { label: string; icon: any; color: string }> = {
   pending_payment: { label: "Pending Payment", icon: Clock, color: "oklch(0.75 0.15 80)" },
@@ -63,7 +62,7 @@ export default function Account() {
             <button onClick={() => setLocation("/shop")} className="text-white/50 hover:text-[#00BFFF] transition-colors">
               <ArrowLeft size={20} />
             </button>
-            <img src={LOGO_URL} alt="LA Elite Peptides" className="h-14 w-auto max-w-[260px]" />
+            <img src={PRIMARY_LOGO_URL} alt={PRIMARY_LOGO_ALT} className={UTILITY_LOGO_SIZE_CLASS} />
           </div>
           <button
             onClick={logout}
