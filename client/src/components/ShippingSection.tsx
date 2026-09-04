@@ -134,7 +134,7 @@ export default function ShippingSection() {
                   return (
                     <div
                       key={item.title}
-                      className={`shipping-service-step group relative grid grid-cols-[3rem_1fr] gap-4 rounded-2xl border px-4 py-5 transition-all duration-200 hover:-translate-y-0.5 motion-reduce:transform-none motion-reduce:transition-none sm:px-5 ${
+                      className={`shipping-service-step group relative grid grid-cols-[3.5rem_1fr] gap-4 rounded-2xl border px-4 py-5 transition-all duration-200 hover:-translate-y-0.5 motion-reduce:transform-none motion-reduce:transition-none sm:grid-cols-[4rem_1fr] sm:gap-5 sm:px-5 ${
                         index % 2 === 0
                           ? "border-[#CBD1DA]/90 bg-[#FFFCF7]/85"
                           : "border-[#B9C0CA]/75 bg-[#F1E5D2]/75 sm:ml-8"
@@ -142,7 +142,7 @@ export default function ShippingSection() {
                       style={{ boxShadow: "0 10px 28px rgba(16, 41, 94, 0.07)" }}
                     >
                       <div
-                        className="relative z-10 flex h-12 w-12 items-center justify-center rounded-2xl border border-white/35 text-white transition-transform duration-200 group-hover:scale-105 motion-reduce:transform-none motion-reduce:transition-none"
+                        className="shipping-service-medallion relative z-10 flex h-14 w-14 items-center justify-center rounded-2xl border border-white/35 text-white transition-transform duration-200 group-hover:scale-105 motion-reduce:transform-none motion-reduce:transition-none sm:h-16 sm:w-16"
                         style={{
                           background: "linear-gradient(145deg, #2457A7, #10295E)",
                           boxShadow: "0 9px 22px rgba(36, 87, 167, 0.22), inset 0 1px 0 rgba(255,255,255,0.2)",
@@ -150,24 +150,31 @@ export default function ShippingSection() {
                       >
                         <Icon size={20} strokeWidth={1.7} />
                       </div>
-                      <div className="min-w-0">
-                        <div className="mb-1.5 flex flex-wrap items-center gap-x-3 gap-y-1">
-                          <span
-                            className="text-[0.62rem] uppercase tracking-[0.22em] text-[#7C8796]"
-                            style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
-                          >
-                            Service 0{index + 1}
-                          </span>
-                          <div className="h-px w-8 bg-gradient-to-r from-[#2457A7] to-[#AEB7C4]" />
-                        </div>
+                      <div className="min-w-0 pt-0.5">
                         <div
-                          className="text-base uppercase tracking-[0.075em] text-[#10295E]"
-                          style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}
+                          className="shipping-service-badge mb-2.5 inline-flex items-center gap-2 rounded-full border border-[#AEB7C4]/70 bg-white/65 px-3 py-1 shadow-[inset_0_1px_0_rgba(255,255,255,0.9)]"
+                        >
+                          <span
+                            className="text-[0.58rem] uppercase tracking-[0.2em] text-[#66717F]"
+                            style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}
+                          >
+                            Service
+                          </span>
+                          <span
+                            className="text-[1rem] leading-none text-[#2457A7]"
+                            style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 700 }}
+                          >
+                            0{index + 1}
+                          </span>
+                        </div>
+                        <h4
+                          className="shipping-service-title pr-2 text-[1.45rem] text-[#10295E] sm:text-[1.65rem]"
+                          style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650, letterSpacing: "0.015em", lineHeight: 1.02 }}
                         >
                           {item.title}
-                        </div>
+                        </h4>
                         <p
-                          className="mt-1.5 max-w-md text-sm leading-relaxed text-[#4B5563]"
+                          className="mt-2 max-w-md text-sm leading-relaxed text-[#4B5563]"
                           style={{ fontFamily: "'Inter', sans-serif", fontWeight: 450 }}
                         >
                           {item.text}
@@ -189,12 +196,14 @@ export default function ShippingSection() {
               <div className="absolute -right-16 -top-16 h-44 w-44 rounded-full border border-[#2457A7]/15" />
               <div className="absolute -right-6 -top-6 h-24 w-24 rounded-full border border-[#AEB7C4]/50" />
               <div className="relative z-10">
-                <span
-                  className="inline-flex rounded-full border border-[#2457A7]/20 bg-white/65 px-4 py-2 text-xs uppercase tracking-[0.2em] text-[#2457A7]"
-                  style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
-                >
-                  Standard Delivery
-                </span>
+                  <span className="inline-flex items-center gap-2 rounded-full border border-[#2457A7]/20 bg-white/65 px-4 py-2 text-[#2457A7]">
+                    <span className="text-[0.6rem] uppercase tracking-[0.2em]" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}>
+                      Standard
+                    </span>
+                    <span className="text-[1.05rem] leading-none" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 700 }}>
+                      Delivery
+                    </span>
+                  </span>
                 <div
                   className="mt-7 text-[#2457A7]"
                   style={{

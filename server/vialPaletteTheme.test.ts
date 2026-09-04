@@ -193,7 +193,11 @@ describe("vial-label blue-silver-limestone private-preview theme", () => {
     expect(shippingSource).toContain("motion-reduce:transform-none");
     expect(shippingSource).toContain("shipping-service-ledger");
     expect(shippingSource).toContain("shipping-service-step");
-    expect(shippingSource).toContain("Service 0{index + 1}");
+    expect(shippingSource).toContain("shipping-service-medallion");
+    expect(shippingSource).toContain("shipping-service-badge");
+    expect(shippingSource).toContain("shipping-service-title");
+    expect(shippingSource).toContain("'Cormorant Garamond', serif");
+    expect(shippingSource).toContain("0{index + 1}");
     expect(shippingSource).toContain("sm:ml-8");
   });
 
@@ -216,11 +220,29 @@ describe("vial-label blue-silver-limestone private-preview theme", () => {
     expect(aboutSource).toContain("standards-editorial-grid");
     expect(aboutSource).toContain("standards-feature-card");
     expect(aboutSource).toContain("standards-icon-medallion");
-    expect(aboutSource).toContain("Standard 0{i + 1}");
+    expect(aboutSource).toContain("standards-collection-badge");
+    expect(aboutSource).toContain("standards-feature-badge");
+    expect(aboutSource).toContain("Four-point standard");
+    expect(aboutSource).toContain("'Cormorant Garamond', serif");
     expect(aboutSource).toContain("sm:grid-cols-2");
     expect(aboutSource).toContain("motion-reduce:transform-none");
     expect(aboutSource).not.toContain("MOLECULE_IMG");
     expect(aboutSource).not.toContain("oklch(0.18 0.055 255)");
+  });
+
+  it("uses elevated boutique FAQ badges, questions, answers, and interaction states", () => {
+    expect(faqSource).toContain("faq-category-badge");
+    expect(faqSource).toContain("faq-question-card");
+    expect(faqSource).toContain("faq-question-number");
+    expect(faqSource).toContain("faq-chevron-medallion");
+    expect(faqSource).toContain("FREQUENTLY");
+    expect(faqSource).toContain("ASKED.");
+    expect(faqSource).toContain("'Cormorant Garamond', serif");
+    expect(faqSource).toContain("'Rajdhani', sans-serif");
+    expect(faqSource).toContain("'Inter', sans-serif");
+    expect(faqSource).toContain("aria-expanded={isOpen}");
+    expect(faqSource).toContain("focus-visible:ring-[#E9DCCB]/70");
+    expect(faqSource).toContain("motion-reduce:transition-none");
   });
 
   it("uses a lighter boutique Get in Touch section with premium contact methods", () => {

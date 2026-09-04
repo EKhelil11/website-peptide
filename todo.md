@@ -235,6 +235,15 @@
 - [x] Redesign the home `Get in Touch` section from a blue-heavy treatment into a warm ivory, champagne, limestone, and brushed-silver boutique composition with royal blue reserved for hierarchy and accents.
 - [x] Upgrade the contact methods into premium icon medallions and editorial cards with clearer typography, spacing, and interaction states while preserving `Support@laelitepeps.com`, the existing phone number, and all real contact links.
 - [x] Verify the elevated contact section at desktop, 375 px, and 320 px for contrast, containment, tap targets, and consistency with Our Standards and Shipping; add regression coverage and rerun full validation without publishing.
-- [ ] Save the owner-approved complete makeover checkpoint, which automatically publishes this exact validated version.
-- [ ] Verify the live custom domain and Manus domain for the homepage, mobile flow, Shop, Retatrutide 30 mg price, representative product/COA routes, Get in Touch links, and non-secret Resend/ShipStation status without sending email or creating fulfillment actions.
-- [ ] Report the published version and confirm that catalog, COAs, business data, integrations, and domain configuration remained protected.
+- [x] Save the owner-approved complete makeover checkpoint `a8582077`, which automatically publishes this exact validated version.
+- [x] Verify the live custom domain and Manus domain for the homepage, mobile flow, Shop, Retatrutide 30 mg price, representative product/COA routes, Get in Touch links, and non-secret Resend/ShipStation status without sending email or creating fulfillment actions.
+- [x] Record the published version `a8582077` and confirm that catalog, COAs, business data, integrations, and domain configuration remained protected; the summary will be included with the next owner update.
+- [x] Elevate the four `Our Standards` badge labels and titles with a more distinctive Cormorant/Rajdhani boutique hierarchy, refined spacing, and premium numbered-medallion treatment without changing any standards wording or evidence scope.
+- [x] Elevate the FAQ eyebrow, heading, category badges, question typography, answer typography, and open/hover/focus states while preserving every FAQ answer, shipping statement, contact route, and research-only safeguard.
+- [x] Verify the new standards and FAQ typography at desktop, 375 px, and 320 px, update regression coverage, and rerun TypeScript/tests/build without a second publication.
+- [x] Elevate the `Discreet Packaging` and `Trackable Dispatch` titles with the same premium Cormorant hierarchy used in Our Standards and FAQ while preserving their exact wording and supporting copy.
+- [x] Refine the Nationwide Shipping service badges and icon-medallion spacing with Rajdhani utility labels, serif sequence numerals, and responsive containment without adding or repeating fulfillment claims.
+- [x] Verify the shipping typography at desktop, 375 px, and 320 px, update regression coverage, rerun TypeScript/tests/build, and present the combined Standards/FAQ/Shipping refinement privately before publication; owner explicitly approved publication on September 4, 2026.
+- [ ] Save the owner-approved combined Standards, FAQ, and Nationwide Shipping typography checkpoint, which automatically publishes this exact validated refinement.
+- [ ] Verify the live custom and Manus domains show the new standards badges, FAQ typography, and shipping service titles while preserving catalog, prices, COAs, contact routes, and non-secret integration status.
+- [ ] Report the published refinement version and final live-verification results to the owner.

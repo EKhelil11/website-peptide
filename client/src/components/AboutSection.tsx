@@ -227,12 +227,29 @@ export default function AboutSection() {
               </h2>
             </div>
             <div className="lg:justify-self-end">
-              <span
-                className="mb-3 inline-flex rounded-full border border-[#2457A7]/20 bg-white/55 px-4 py-2 text-[0.68rem] uppercase tracking-[0.2em] text-[#2457A7]"
-                style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}
-              >
-                Clear from catalog to support
-              </span>
+              <div className="standards-collection-badge mb-4 inline-flex items-center gap-3 rounded-2xl border border-[#AEB7C4]/80 bg-white/65 px-3 py-2.5 pr-5 shadow-[0_10px_28px_rgba(16,41,94,0.09)]">
+                <span
+                  className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/60 bg-gradient-to-br from-[#2C64BA] to-[#10295E] text-[1.15rem] leading-none text-white shadow-[0_8px_18px_rgba(36,87,167,0.24)]"
+                  style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 700 }}
+                  aria-hidden="true"
+                >
+                  IV
+                </span>
+                <span>
+                  <span
+                    className="block text-[0.6rem] uppercase tracking-[0.24em] text-[#6B7480]"
+                    style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}
+                  >
+                    Four-point standard
+                  </span>
+                  <span
+                    className="block text-[1.05rem] leading-tight text-[#10295E]"
+                    style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650, letterSpacing: "0.02em" }}
+                  >
+                    Clear from catalog to support
+                  </span>
+                </span>
+              </div>
               <p
                 className="max-w-xl text-base leading-relaxed text-[#374151]"
                 style={{ fontFamily: "'Inter', sans-serif", fontWeight: 450 }}
@@ -282,14 +299,24 @@ export default function AboutSection() {
                     </div>
                     <div className="min-w-0 pt-1">
                       <div
-                        className="mb-2 text-[0.64rem] uppercase tracking-[0.22em] text-[#7C8796]"
-                        style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}
+                        className="standards-feature-badge mb-2.5 inline-flex items-center gap-2 rounded-full border border-[#AEB7C4]/70 bg-white/65 px-3 py-1 text-[#66717F] shadow-[inset_0_1px_0_rgba(255,255,255,0.9)]"
                       >
-                        Standard 0{i + 1}
+                        <span
+                          className="text-[0.58rem] uppercase tracking-[0.2em]"
+                          style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}
+                        >
+                          Standard
+                        </span>
+                        <span
+                          className="text-[1rem] leading-none text-[#2457A7]"
+                          style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 700 }}
+                        >
+                          0{i + 1}
+                        </span>
                       </div>
                       <h3
-                        className="pr-8 text-lg uppercase tracking-[0.05em] text-[#10295E]"
-                        style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750, lineHeight: 1.1 }}
+                        className="pr-7 text-[1.45rem] text-[#10295E] sm:text-[1.6rem]"
+                        style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650, letterSpacing: "0.015em", lineHeight: 1.02 }}
                       >
                         {pillar.title}
                       </h3>

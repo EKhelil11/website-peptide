@@ -84,50 +84,67 @@ export default function FAQSection() {
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-12 sm:mb-14">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="h-px w-12 bg-[#174A9B]" />
+            <div className="h-px w-12 bg-gradient-to-r from-transparent to-[#B9C0CA]" />
             <span
-              className="text-[#174A9B] text-xs tracking-[0.3em] uppercase"
-              style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
+              className="text-[#D9C9B4] text-[0.68rem] tracking-[0.32em] uppercase"
+              style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}
             >
               Got Questions?
             </span>
-            <div className="h-px w-12 bg-[#174A9B]" />
+            <div className="h-px w-12 bg-gradient-to-l from-transparent to-[#B9C0CA]" />
           </div>
           <h2
-            className="text-white mb-4"
+            className="text-white mb-5"
             style={{
               fontFamily: "'Cormorant Garamond', serif",
-              fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
-              letterSpacing: "0.04em",
+              fontSize: "clamp(2.8rem, 7vw, 5rem)",
+              fontWeight: 600,
+              letterSpacing: "0.025em",
+              lineHeight: 0.9,
             }}
           >
-            FREQUENTLY ASKED
+            FREQUENTLY
+            <span className="block italic text-[#B9C0CA]">ASKED.</span>
           </h2>
           <p
-            className="text-white/50 max-w-xl mx-auto text-sm"
-            style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, lineHeight: 1.7 }}
+            className="text-white/65 max-w-xl mx-auto text-sm sm:text-[0.95rem]"
+            style={{ fontFamily: "'Inter', sans-serif", fontWeight: 400, lineHeight: 1.75 }}
           >
             Common questions about our research catalog, document status, ordering process, and shipping.
           </p>
         </div>
 
         {/* Category filter pills */}
-        <div className="flex flex-wrap justify-center gap-2 mb-10">
-          {categories.map(({ key, label, icon: Icon }) => (
+        <div className="flex flex-wrap justify-center gap-2.5 mb-10 sm:mb-12">
+          {categories.map(({ key, label, icon: Icon }, categoryIndex) => (
             <button
               key={key}
               onClick={() => { setActiveCategory(key); setOpenIndex(null); }}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs tracking-wider uppercase transition-all duration-200 ${
+              className={`faq-category-badge group flex min-h-12 items-center gap-2.5 rounded-2xl border px-3 py-2.5 pr-4 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E9DCCB]/70 focus-visible:ring-offset-2 focus-visible:ring-offset-[#07152F] motion-reduce:transition-none ${
                 activeCategory === key
-                  ? "bg-[#174A9B] text-white font-bold shadow-[0_0_20px_rgba(167,122,44,0.3)]"
-                  : "border border-white/15 text-white/50 hover:border-[#174A9B]/40 hover:text-[#174A9B]"
+                  ? "border-[#D9C9B4]/80 bg-gradient-to-br from-[#FFFDF8] to-[#E9DCCB] text-[#10295E] shadow-[0_12px_30px_rgba(0,0,0,0.22)]"
+                  : "border-white/14 bg-white/[0.035] text-white/68 hover:-translate-y-0.5 hover:border-[#B9C0CA]/55 hover:bg-white/[0.07] hover:text-white motion-reduce:transform-none"
               }`}
-              style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
             >
-              <Icon size={13} />
-              {label}
+              <span className={`flex h-8 w-8 items-center justify-center rounded-xl border ${activeCategory === key ? "border-[#AEB7C4]/70 bg-[#10295E] text-white" : "border-white/12 bg-white/[0.05] text-[#D9C9B4]"}`}>
+                <Icon size={14} strokeWidth={1.7} />
+              </span>
+              <span className="text-left">
+                <span
+                  className={`block text-[0.54rem] uppercase tracking-[0.2em] ${activeCategory === key ? "text-[#657080]" : "text-white/42"}`}
+                  style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}
+                >
+                  0{categoryIndex + 1}
+                </span>
+                <span
+                  className="block text-[0.98rem] leading-none"
+                  style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650, letterSpacing: "0.015em" }}
+                >
+                  {label}
+                </span>
+              </span>
             </button>
           ))}
         </div>
@@ -142,51 +159,65 @@ export default function FAQSection() {
             return (
               <div
                 key={i}
-                className="rounded-xl overflow-hidden transition-all duration-200"
+                className="faq-question-card overflow-hidden rounded-2xl transition-all duration-200 motion-reduce:transition-none"
                 style={{
                   background: isOpen
-                    ? "rgba(16,41,94,0.92)"
-                    : "rgba(7,21,47,0.72)",
+                    ? "linear-gradient(145deg, rgba(20,48,98,0.96), rgba(7,21,47,0.96))"
+                    : "rgba(255,255,255,0.035)",
                   border: isOpen
-                    ? `1px solid ${categoryColor}40`
-                    : "1px solid rgba(255,255,255,0.07)",
-                  boxShadow: isOpen ? `0 0 20px ${categoryColor}15` : "none",
+                    ? `1px solid ${categoryColor}70`
+                    : "1px solid rgba(185,192,202,0.14)",
+                  boxShadow: isOpen ? `0 18px 45px rgba(0,0,0,0.2), inset 0 1px 0 ${categoryColor}18` : "inset 0 1px 0 rgba(255,255,255,0.025)",
                 }}
               >
                 <button
                   onClick={() => toggle(i)}
-                  className="w-full flex items-center justify-between gap-4 px-6 py-5 text-left group"
+                  className="group flex min-h-[5.25rem] w-full items-center justify-between gap-4 px-4 py-4 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#E9DCCB]/70 sm:px-6 sm:py-5"
+                  aria-expanded={isOpen}
                 >
-                  <div className="flex items-start gap-3">
+                  <div className="flex min-w-0 items-center gap-3.5 sm:gap-4">
                     <span
-                      className="w-1.5 h-1.5 rounded-full flex-shrink-0"
-                      style={{ background: categoryColor, marginTop: "7px" }}
-                    />
-                    <span
-                      className="text-white text-sm leading-snug group-hover:text-white/90 transition-colors"
-                      style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600, fontSize: "1rem" }}
+                      className="faq-question-number flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border text-[1.2rem] leading-none sm:h-12 sm:w-12 sm:text-[1.35rem]"
+                      style={{ borderColor: `${categoryColor}55`, background: `${categoryColor}0F`, color: categoryColor, fontFamily: "'Cormorant Garamond', serif", fontWeight: 700 }}
+                      aria-hidden="true"
                     >
-                      {item.q}
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <span className="min-w-0">
+                      <span
+                        className="mb-1 block text-[0.56rem] uppercase tracking-[0.22em] text-white/42"
+                        style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}
+                      >
+                        {item.category === "shipping" ? "Shipping & Orders" : "Research & Documents"}
+                      </span>
+                      <span
+                        className="block text-[1.1rem] leading-[1.08] text-white transition-colors group-hover:text-[#F6F1E9] sm:text-[1.25rem]"
+                        style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650, letterSpacing: "0.01em" }}
+                      >
+                        {item.q}
+                      </span>
                     </span>
                   </div>
-                  <ChevronDown
-                    size={18}
-                    className="flex-shrink-0 transition-transform duration-300"
-                    style={{
-                      color: categoryColor,
-                      transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
-                    }}
-                  />
+                  <span className="faq-chevron-medallion flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04]">
+                    <ChevronDown
+                      size={17}
+                      className="transition-transform duration-300 motion-reduce:transition-none"
+                      style={{
+                        color: categoryColor,
+                        transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
+                      }}
+                    />
+                  </span>
                 </button>
 
                 {isOpen && (
                   <div
-                    className="px-6 pb-5"
+                    className="px-4 pb-6 sm:px-6 sm:pl-[6.85rem]"
                     style={{ borderTop: `1px solid ${categoryColor}20` }}
                   >
                     <p
-                      className="text-white/60 text-sm leading-relaxed pt-4"
-                      style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, lineHeight: 1.75 }}
+                      className="pt-5 text-sm text-white/72 sm:text-[0.94rem]"
+                      style={{ fontFamily: "'Inter', sans-serif", fontWeight: 400, lineHeight: 1.8 }}
                     >
                       {item.a}
                     </p>
