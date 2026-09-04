@@ -112,7 +112,7 @@ export default function Footer() {
                         <Icon size={17} className="text-[#F7F2EA]" />
                       </div>
                       <div className="min-w-0 pt-0.5">
-                        <span className="block text-[0.68rem] font-bold uppercase tracking-[0.18em] text-[#174A9B]" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
+                        <span className="contact-method-label block text-[0.72rem] font-extrabold uppercase tracking-[0.22em] text-[#174A9B] sm:text-[0.78rem]" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
                           {label}
                         </span>
                         {href ? (
@@ -120,18 +120,18 @@ export default function Footer() {
                             href={href}
                             target={external ? "_blank" : undefined}
                             rel={external ? "noopener noreferrer" : undefined}
-                            className="mt-1 inline-flex max-w-full items-center gap-1.5 break-words text-sm font-semibold text-[#10295E] transition-colors hover:text-[#245FC1] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#174A9B]/40"
-                            style={{ fontFamily: "'Inter', sans-serif" }}
+                            className="contact-method-value mt-1.5 inline-flex max-w-full items-center gap-1.5 break-words text-[1.15rem] leading-[1.08] text-[#10295E] transition-colors hover:text-[#245FC1] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#174A9B]/40 sm:text-[1.35rem]"
+                            style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650, letterSpacing: "0.015em" }}
                           >
                             {value}
                             <ArrowUpRight size={13} className="shrink-0 opacity-55" />
                           </a>
                         ) : (
-                          <span className="mt-1 block text-sm font-semibold text-[#10295E]" style={{ fontFamily: "'Inter', sans-serif" }}>
+                          <span className="contact-method-value mt-1.5 block text-[1.15rem] leading-[1.08] text-[#10295E] sm:text-[1.35rem]" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650, letterSpacing: "0.015em" }}>
                             {value}
                           </span>
                         )}
-                        <span className="mt-1.5 block text-xs leading-relaxed text-[#68717D]" style={{ fontFamily: "'Inter', sans-serif" }}>
+                        <span className="contact-method-note mt-2 block text-[0.8rem] leading-[1.55] text-[#596473] sm:text-[0.86rem]" style={{ fontFamily: "'Inter', sans-serif", fontWeight: 500 }}>
                           {note}
                         </span>
                       </div>

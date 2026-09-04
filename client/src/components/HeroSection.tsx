@@ -159,16 +159,28 @@ export default function HeroSection() {
           {/* Premium research statistics */}
           <div className="hero-stats-grid hero-item opacity-0 mt-12 grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-[0.82fr_1.18fr_0.82fr_1.08fr] max-w-3xl">
             {[
-              { value: `${catalogCounts.compounds}`, label: "Current Compounds" },
+              {
+                value: `${catalogCounts.compounds}`,
+                label: "Current Compounds",
+                headingPrimary: "Current",
+                headingSecondary: "Compounds",
+              },
               {
                 value: `${catalogCounts.signatureBlends}`,
                 label: "Signature Blends",
+                headingPrimary: "Signature",
+                headingSecondary: "Blends",
                 stacks: signatureBlends.map((product) => ({
                   name: product.stackName || product.name,
                   id: product.id,
                 })),
               },
-              { value: "US", label: "Research Support" },
+              {
+                value: "US",
+                label: "Research Support",
+                headingPrimary: "Research",
+                headingSecondary: "Support",
+              },
               {
                 value: ">99%",
                 label: "COA-Reported Purity",
@@ -192,9 +204,14 @@ export default function HeroSection() {
                   style={{ fontFamily: "'Rajdhani', sans-serif" }}
                 >
                   {'purityHeading' in stat && stat.purityHeading ? (
-                    <PurityBadgeHeading className="block leading-none" />
+                    <PurityBadgeHeading className="block min-h-[2.45rem] leading-none" />
                   ) : (
-                    stat.label
+                    <PurityBadgeHeading
+                      className="block min-h-[2.45rem] leading-none"
+                      primary={'headingPrimary' in stat ? stat.headingPrimary : stat.label}
+                      secondary={'headingSecondary' in stat ? stat.headingSecondary : ""}
+                      fullLabel={stat.label}
+                    />
                   )}
                 </div>
                 {'scope' in stat && stat.scope && (

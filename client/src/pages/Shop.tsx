@@ -207,7 +207,7 @@ export default function Shop() {
                 className="relative min-w-0 overflow-hidden rounded-2xl border border-[#B9C0CA]/65 bg-white/60 px-3 py-4 sm:px-5 sm:py-5 shadow-[0_14px_34px_rgba(7,21,47,0.10)]"
               >
                 <span
-                  className="absolute right-3 top-2 text-[#B9C0CA]/65 text-lg"
+                  className="absolute right-3 top-2 text-xl italic tracking-[0.04em] text-[#B9C0CA]/65 sm:text-2xl"
                   style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650 }}
                   aria-hidden="true"
                 >
@@ -219,14 +219,14 @@ export default function Shop() {
                   </div>
                   <div className="min-w-0 pr-2">
                     <div
-                      className="text-[#10295E] text-[1.65rem] sm:text-[1.85rem] leading-[0.9]"
-                      style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650, letterSpacing: "0.025em" }}
+                      className="text-[#10295E] text-[1.85rem] sm:text-[2.15rem] leading-[0.88]"
+                      style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 680, letterSpacing: "0.02em" }}
                     >
                       {value}
                     </div>
                     <div
-                      className="mt-2 text-[#465161] text-[0.78rem] sm:text-[0.82rem] uppercase tracking-[0.08em] leading-[1.22]"
-                      style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}
+                      className="mt-2.5 text-[#465161] text-[0.82rem] sm:text-[0.9rem] uppercase tracking-[0.07em] leading-[1.18]"
+                      style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 800 }}
                     >
                       {label}
                     </div>

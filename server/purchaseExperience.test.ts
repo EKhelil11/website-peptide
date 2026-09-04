@@ -13,9 +13,9 @@ describe("elevated purchase and account experience", () => {
     expect(shopSource).toContain("value: `${categories.length - 1}`");
     expect(shopSource).toContain('value: "Secure"');
     expect(shopSource).toContain('value: "Tracked"');
-    expect(shopSource).toContain("text-[1.65rem] sm:text-[1.85rem]");
+    expect(shopSource).toContain("text-[1.85rem] sm:text-[2.15rem]");
     expect(shopSource).toContain("'Cormorant Garamond', serif");
-    expect(shopSource).toContain("text-[0.78rem] sm:text-[0.82rem]");
+    expect(shopSource).toContain("text-[0.82rem] sm:text-[0.9rem]");
     expect(shopSource).toContain("rounded-full border border-[#B9C0CA]");
     expect(shopSource).toContain("#245FC1");
     expect(shopSource).toContain("#10295E");

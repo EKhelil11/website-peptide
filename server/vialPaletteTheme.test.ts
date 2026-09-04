@@ -147,7 +147,8 @@ describe("vial-label blue-silver-limestone private-preview theme", () => {
     expect(heroSource).toContain('label: "COA-Reported Purity"');
     expect(heroSource).toContain('scope: "Product-/lot-specific reports"');
     expect(heroSource).toContain("purityHeading: true");
-    expect(heroSource).toContain('<PurityBadgeHeading className="block leading-none" />');
+    expect(heroSource).toContain('<PurityBadgeHeading className="block min-h-[2.45rem] leading-none" />');
+    expect(heroSource.match(/<PurityBadgeHeading/g)?.length).toBe(2);
     expect(heroSource).toContain("hero-stat-card-featured");
     expect(heroSource).toContain("hero-stat-link");
     expect(heroSource).toContain("#F6F1E9");
