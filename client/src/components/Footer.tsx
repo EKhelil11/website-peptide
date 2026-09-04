@@ -1,10 +1,10 @@
 // === LA ELITE PEPTIDES — Footer & Contact Section ===
-// Dark footer with brand logo, links, disclaimer
-// Contact form wired to Formspree → forwards to Support@laelitepeps.com
+// Warm boutique contact section followed by the dark brand/legal footer
+// Contact form opens the visitor's email app addressed to Support@laelitepeps.com
 
 import { useState } from "react";
 import { Link } from "wouter";
-import { Mail, MapPin, Instagram, Phone, CheckCircle } from "lucide-react";
+import { Mail, MapPin, Instagram, Phone, CheckCircle, ArrowUpRight } from "lucide-react";
 import { PRIMARY_LOGO_ALT, PRIMARY_LOGO_SIZE_CLASS, PRIMARY_LOGO_URL } from "@/lib/brandAssets";
 
 const CONTACT_EMAIL = "support@laelitepeps.com";
@@ -38,8 +38,9 @@ export default function Footer() {
   };
 
   const inputStyle = {
-    background: "oklch(0.14 0.05 255)",
-    border: "1px solid oklch(1 0 0 / 10%)",
+    background: "#FFFDF8",
+    border: "1px solid rgba(185, 192, 202, 0.72)",
+    color: "#202833",
     fontFamily: "'Inter', sans-serif",
   };
 
@@ -53,26 +54,32 @@ export default function Footer() {
       {/* Contact Section */}
       <section
         id="contact"
-        className="py-24 relative"
-        style={{ background: "oklch(0.15 0.055 255)" }}
+        className="contact-boutique-section relative overflow-hidden py-20 sm:py-24"
+        style={{ background: "linear-gradient(145deg, #F7F2EA 0%, #EFE4D3 52%, #E8D7BD 100%)" }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+        <div className="pointer-events-none absolute inset-0 opacity-45" aria-hidden="true">
+          <div className="absolute -left-24 top-14 h-72 w-72 rounded-full border border-[#174A9B]/10" />
+          <div className="absolute -right-20 bottom-8 h-80 w-80 rounded-full border border-[#B9C0CA]/45" />
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#B9C0CA] to-transparent" />
+        </div>
+
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-[0.92fr_1.08fr] gap-10 lg:gap-16 items-start">
             {/* Left: Contact info */}
-            <div>
+            <div className="lg:pt-3">
               <div className="flex items-center gap-3 mb-4">
-                <div className="h-px w-12 bg-[#00BFFF]" />
+                <div className="h-px w-12 bg-[#174A9B]" />
                 <span
-                  className="text-[#00BFFF] text-xs tracking-[0.3em] uppercase"
+                  className="text-[#174A9B] text-xs tracking-[0.3em] uppercase"
                   style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
                 >
                   Get In Touch
                 </span>
               </div>
               <h2
-                className="text-white mb-6"
+                className="text-[#10295E] mb-5"
                 style={{
-                  fontFamily: "'Bebas Neue', sans-serif",
+                  fontFamily: "'Cormorant Garamond', serif",
                   fontSize: "clamp(2.5rem, 5vw, 3.5rem)",
                   letterSpacing: "0.04em",
                   lineHeight: 1.05,
@@ -80,90 +87,77 @@ export default function Footer() {
               >
                 RESEARCH
                 <br />
-                <span style={{ color: "#00BFFF" }}>INQUIRIES</span>
+                <span style={{ color: "#174A9B" }}>INQUIRIES</span>
               </h2>
               <p
-                className="text-white/60 mb-8 leading-relaxed"
-                style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300 }}
+                className="text-[#4B5563] mb-8 max-w-xl leading-relaxed"
+                style={{ fontFamily: "'Inter', sans-serif", fontWeight: 400 }}
               >
-                Have questions about our research compounds, product specifications, or ordering process? Our team is here to assist. Reach out and we'll respond within 24 hours.
+                Have questions about our research compounds, product specifications, or ordering process? Our team can assist with catalog information, account access, and order support.
               </p>
 
-              <div className="space-y-4">
-                <div className="flex items-center gap-3 text-white/60">
+              <div className="grid grid-cols-1 2xl:grid-cols-2 gap-3">
+                {[
+                  { icon: Mail, label: "Email", value: "Support@laelitepeps.com", note: "Research and order support", href: "mailto:Support@laelitepeps.com" },
+                  { icon: Phone, label: "Phone", value: "(310) 975-9289", note: "Call or text our support line", href: "tel:+13109759289" },
+                  { icon: MapPin, label: "Location", value: "Los Angeles, California", note: "US-based research supplier" },
+                  { icon: Instagram, label: "Instagram", value: "@laelitepeptides", note: "Catalog and company updates", href: "https://instagram.com/laelitepeptides", external: true },
+                ].map(({ icon: Icon, label, value, note, href, external }) => (
                   <div
-                    className="w-8 h-8 rounded flex items-center justify-center flex-shrink-0"
-                    style={{ background: "oklch(0.72 0.18 210 / 12%)", border: "1px solid oklch(0.72 0.18 210 / 25%)" }}
+                    key={label}
+                    className="contact-method-card group relative min-w-0 overflow-hidden rounded-2xl border border-[#B9C0CA]/70 bg-[#FFFDF8]/80 p-4 shadow-[0_12px_35px_rgba(16,41,94,0.08)] transition-[transform,box-shadow,border-color] duration-200 hover:-translate-y-0.5 hover:border-[#174A9B]/35 hover:shadow-[0_16px_40px_rgba(16,41,94,0.12)] motion-reduce:transform-none"
                   >
-                    <Mail size={14} style={{ color: "#00BFFF" }} />
+                    <div className="flex items-start gap-3">
+                      <div className="contact-method-medallion flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/70 bg-gradient-to-br from-[#245FC1] to-[#10295E] shadow-[0_7px_18px_rgba(16,41,94,0.2)] ring-1 ring-[#B9C0CA]/70">
+                        <Icon size={17} className="text-[#F7F2EA]" />
+                      </div>
+                      <div className="min-w-0 pt-0.5">
+                        <span className="block text-[0.68rem] font-bold uppercase tracking-[0.18em] text-[#174A9B]" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
+                          {label}
+                        </span>
+                        {href ? (
+                          <a
+                            href={href}
+                            target={external ? "_blank" : undefined}
+                            rel={external ? "noopener noreferrer" : undefined}
+                            className="mt-1 inline-flex max-w-full items-center gap-1.5 break-words text-sm font-semibold text-[#10295E] transition-colors hover:text-[#245FC1] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#174A9B]/40"
+                            style={{ fontFamily: "'Inter', sans-serif" }}
+                          >
+                            {value}
+                            <ArrowUpRight size={13} className="shrink-0 opacity-55" />
+                          </a>
+                        ) : (
+                          <span className="mt-1 block text-sm font-semibold text-[#10295E]" style={{ fontFamily: "'Inter', sans-serif" }}>
+                            {value}
+                          </span>
+                        )}
+                        <span className="mt-1.5 block text-xs leading-relaxed text-[#68717D]" style={{ fontFamily: "'Inter', sans-serif" }}>
+                          {note}
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                  <a
-                    href="mailto:Support@laelitepeps.com"
-                    className="hover:text-[#00BFFF] transition-colors"
-                    style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.9rem" }}
-                  >
-                    Support@laelitepeps.com
-                  </a>
-                </div>
-                <div className="flex items-center gap-3 text-white/60">
-                  <div
-                    className="w-8 h-8 rounded flex items-center justify-center flex-shrink-0"
-                    style={{ background: "oklch(0.72 0.18 210 / 12%)", border: "1px solid oklch(0.72 0.18 210 / 25%)" }}
-                  >
-                    <Phone size={14} style={{ color: "#00BFFF" }} />
-                  </div>
-                  <a
-                    href="tel:+13109759289"
-                    style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.9rem" }}
-                    className="hover:text-[#00BFFF] transition-colors"
-                  >
-                    (310) 975-9289
-                  </a>
-                </div>
-                <div className="flex items-center gap-3 text-white/60">
-                  <div
-                    className="w-8 h-8 rounded flex items-center justify-center flex-shrink-0"
-                    style={{ background: "oklch(0.72 0.18 210 / 12%)", border: "1px solid oklch(0.72 0.18 210 / 25%)" }}
-                  >
-                    <MapPin size={14} style={{ color: "#00BFFF" }} />
-                  </div>
-                  <span style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.9rem" }}>
-                    Los Angeles, California
-                  </span>
-                </div>
-                <div className="flex items-center gap-3 text-white/60">
-                  <div
-                    className="w-8 h-8 rounded flex items-center justify-center flex-shrink-0"
-                    style={{ background: "oklch(0.72 0.18 210 / 12%)", border: "1px solid oklch(0.72 0.18 210 / 25%)" }}
-                  >
-                    <Instagram size={14} style={{ color: "#00BFFF" }} />
-                  </div>
-                  <a
-                    href="https://instagram.com/laelitepeptides"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-[#00BFFF] transition-colors"
-                    style={{ fontFamily: "'Inter', sans-serif", fontSize: "0.9rem" }}
-                  >
-                    @laelitepeptides
-                  </a>
-                </div>
+                ))}
               </div>
             </div>
 
             {/* Right: Contact form */}
             <div
-              className="p-8 rounded-lg"
+              className="contact-inquiry-panel rounded-[1.5rem] p-5 sm:p-8"
               style={{
-                background: "oklch(0.17 0.055 255)",
-                border: "1px solid oklch(1 0 0 / 8%)",
+                background: "linear-gradient(150deg, rgba(255,253,248,0.96) 0%, rgba(239,228,211,0.96) 100%)",
+                border: "1px solid rgba(185,192,202,0.8)",
+                boxShadow: "0 24px 70px rgba(16,41,94,0.14), inset 0 1px 0 rgba(255,255,255,0.9)",
               }}
             >
+              <span className="mb-3 block text-[0.68rem] font-bold uppercase tracking-[0.2em] text-[#174A9B]" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
+                Private research inquiry
+              </span>
               <h4
-                className="text-white mb-6"
-                style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700, fontSize: "1.2rem", letterSpacing: "0.05em" }}
+                className="text-[#10295E] mb-6"
+                style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 600, fontSize: "clamp(1.85rem, 5vw, 2.35rem)", letterSpacing: "0.04em", lineHeight: 1 }}
               >
-                Send Us a Message
+                SEND AN INQUIRY
               </h4>
 
               {/* Success state */}
@@ -172,22 +166,22 @@ export default function Footer() {
                   className="flex flex-col items-center justify-center py-12 text-center gap-4"
                   style={{ minHeight: "320px" }}
                 >
-                  <CheckCircle size={48} style={{ color: "#00BFFF" }} />
+                  <CheckCircle size={48} style={{ color: "#174A9B" }} />
                   <h5
-                    className="text-white text-lg"
+                    className="text-[#10295E] text-lg"
                     style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
                   >
-                    Message Sent!
+                    Email Draft Opened
                   </h5>
                   <p
-                    className="text-white/50 text-sm"
+                    className="text-[#5F6977] text-sm"
                     style={{ fontFamily: "'Inter', sans-serif" }}
                   >
-                    Thank you for reaching out. We'll respond to your inquiry within 24 hours at {email || "your email"}.
+                    Complete and send the message in your email app. Replies will be directed to {email || "your email"}.
                   </p>
                   <button
                     onClick={() => setFormState("idle")}
-                    className="mt-2 text-[#00BFFF] text-sm underline underline-offset-4 hover:text-white transition-colors"
+                    className="mt-2 text-[#174A9B] text-sm underline underline-offset-4 hover:text-[#10295E] transition-colors"
                     style={{ fontFamily: "'Inter', sans-serif" }}
                   >
                     Send another message
@@ -198,10 +192,10 @@ export default function Footer() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label
-                        className="block text-white/50 text-xs tracking-widest uppercase mb-1"
+                        className="block text-[#5F6977] text-xs tracking-widest uppercase mb-1"
                         style={labelStyle}
                       >
-                        First Name <span className="text-[#FF2D78]">*</span>
+                        First Name <span className="text-[#174A9B]">*</span>
                       </label>
                       <input
                         type="text"
@@ -209,13 +203,13 @@ export default function Footer() {
                         value={firstName}
                         onChange={(e) => setFirstName(e.target.value)}
                         placeholder="John"
-                        className="w-full px-4 py-3 rounded text-sm text-white placeholder-white/30 outline-none focus:border-[#00BFFF]/50 transition-colors"
+                        className="w-full rounded-lg px-4 py-3 text-sm placeholder-[#8A929D] outline-none transition-shadow focus:border-[#174A9B] focus:ring-2 focus:ring-[#174A9B]/15"
                         style={inputStyle}
                       />
                     </div>
                     <div>
                       <label
-                        className="block text-white/50 text-xs tracking-widest uppercase mb-1"
+                        className="block text-[#5F6977] text-xs tracking-widest uppercase mb-1"
                         style={labelStyle}
                       >
                         Last Name
@@ -225,17 +219,17 @@ export default function Footer() {
                         value={lastName}
                         onChange={(e) => setLastName(e.target.value)}
                         placeholder="Doe"
-                        className="w-full px-4 py-3 rounded text-sm text-white placeholder-white/30 outline-none focus:border-[#00BFFF]/50 transition-colors"
+                        className="w-full rounded-lg px-4 py-3 text-sm placeholder-[#8A929D] outline-none transition-shadow focus:border-[#174A9B] focus:ring-2 focus:ring-[#174A9B]/15"
                         style={inputStyle}
                       />
                     </div>
                   </div>
                   <div>
                     <label
-                      className="block text-white/50 text-xs tracking-widest uppercase mb-1"
+                      className="block text-[#5F6977] text-xs tracking-widest uppercase mb-1"
                       style={labelStyle}
                     >
-                      Email <span className="text-[#FF2D78]">*</span>
+                      Email <span className="text-[#174A9B]">*</span>
                     </label>
                     <input
                       type="email"
@@ -243,16 +237,16 @@ export default function Footer() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="john@example.com"
-                      className="w-full px-4 py-3 rounded text-sm text-white placeholder-white/30 outline-none focus:border-[#00BFFF]/50 transition-colors"
+                      className="w-full rounded-lg px-4 py-3 text-sm placeholder-[#8A929D] outline-none transition-shadow focus:border-[#174A9B] focus:ring-2 focus:ring-[#174A9B]/15"
                       style={inputStyle}
                     />
                   </div>
                   <div>
                     <label
-                      className="block text-white/50 text-xs tracking-widest uppercase mb-1"
+                      className="block text-[#5F6977] text-xs tracking-widest uppercase mb-1"
                       style={labelStyle}
                     >
-                      Message <span className="text-[#FF2D78]">*</span>
+                      Message <span className="text-[#174A9B]">*</span>
                     </label>
                     <textarea
                       rows={4}
@@ -260,20 +254,20 @@ export default function Footer() {
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
                       placeholder="Tell us how we can help..."
-                      className="w-full px-4 py-3 rounded text-sm text-white placeholder-white/30 outline-none focus:border-[#00BFFF]/50 transition-colors resize-none"
+                      className="w-full resize-none rounded-lg px-4 py-3 text-sm placeholder-[#8A929D] outline-none transition-shadow focus:border-[#174A9B] focus:ring-2 focus:ring-[#174A9B]/15"
                       style={inputStyle}
                     />
                   </div>
 
                   <button
                     type="submit"
-                    className="btn-primary w-full py-3 rounded text-sm flex items-center justify-center gap-2"
+                    className="product-boutique-cta flex min-h-12 w-full items-center justify-center gap-2 rounded-xl px-5 py-3 text-sm"
                   >
                     Send Message
                   </button>
 
                   <p
-                    className="text-white/25 text-xs text-center"
+                    className="text-[#68717D] text-xs text-center leading-relaxed"
                     style={{ fontFamily: "'Inter', sans-serif" }}
                   >
                     Clicking Send will open your email app addressed to support@laelitepeps.com
@@ -289,7 +283,7 @@ export default function Footer() {
       <footer
         className="py-12 relative"
         style={{
-          background: "oklch(0.1 0.05 255)",
+          background: "oklch(0.18 0.055 255)",
           borderTop: "1px solid oklch(1 0 0 / 8%)",
         }}
       >
@@ -306,7 +300,7 @@ export default function Footer() {
                 className="text-white/40 text-sm leading-relaxed"
                 style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300 }}
               >
-                Pharmaceutical-grade research peptides for qualified researchers. Los Angeles, CA. All products for research use only.
+                Curated research compounds for qualified researchers. Los Angeles, CA. All products are strictly for in-vitro laboratory research use only.
               </p>
             </div>
 
@@ -330,7 +324,7 @@ export default function Footer() {
                   <li key={link.href}>
                     <a
                       href={link.href}
-                      className="text-white/40 text-sm hover:text-[#00BFFF] transition-colors"
+                      className="text-white/40 text-sm hover:text-[#B9C0CA] transition-colors"
                       style={{ fontFamily: "'Inter', sans-serif" }}
                     >
                       {link.label}
@@ -351,17 +345,17 @@ export default function Footer() {
               <ul className="space-y-2">
                 <li>
                   <Link href="/terms">
-                    <span className="text-white/40 text-sm hover:text-[#00BFFF] transition-colors cursor-pointer" style={{ fontFamily: "'Inter', sans-serif" }}>Terms &amp; Conditions</span>
+                    <span className="text-white/40 text-sm hover:text-[#B9C0CA] transition-colors cursor-pointer" style={{ fontFamily: "'Inter', sans-serif" }}>Terms &amp; Conditions</span>
                   </Link>
                 </li>
                 <li>
                   <Link href="/shipping-returns">
-                    <span className="text-white/40 text-sm hover:text-[#00BFFF] transition-colors cursor-pointer" style={{ fontFamily: "'Inter', sans-serif" }}>Shipping &amp; Returns</span>
+                    <span className="text-white/40 text-sm hover:text-[#B9C0CA] transition-colors cursor-pointer" style={{ fontFamily: "'Inter', sans-serif" }}>Shipping &amp; Returns</span>
                   </Link>
                 </li>
                 <li>
                   <Link href="/privacy-policy">
-                    <span className="text-white/40 text-sm hover:text-[#00BFFF] transition-colors cursor-pointer" style={{ fontFamily: "'Inter', sans-serif" }}>Privacy Policy</span>
+                    <span className="text-white/40 text-sm hover:text-[#B9C0CA] transition-colors cursor-pointer" style={{ fontFamily: "'Inter', sans-serif" }}>Privacy Policy</span>
                   </Link>
                 </li>
               </ul>
@@ -396,14 +390,14 @@ export default function Footer() {
               © {new Date().getFullYear()} LA Elite Sales LLC. All rights reserved. Operating as LA Elite Peptides.
             </p>
             <div className="flex items-center gap-2">
-              <div className="h-px w-8 bg-[#00BFFF]/30" />
+              <div className="h-px w-8 bg-[#B9C0CA]/30" />
               <span
-                className="text-[#FF2D78]/60 text-xs italic"
+                className="text-[#174A9B]/60 text-xs italic"
                 style={{ fontFamily: "'Inter', sans-serif" }}
               >
                 Trusted. Tested.
               </span>
-              <div className="h-px w-8 bg-[#00BFFF]/30" />
+              <div className="h-px w-8 bg-[#B9C0CA]/30" />
             </div>
           </div>
         </div>

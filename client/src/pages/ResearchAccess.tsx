@@ -111,19 +111,19 @@ export default function ResearchAccess() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#080d14] flex items-center justify-center">
-        <div className="w-8 h-8 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin" />
+      <div className="min-h-screen bg-[#0B1D3F] flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-[#B9C0CA] border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-[#080d14] flex flex-col items-center justify-center px-4 py-12">
+    <div className="min-h-screen bg-[#0B1D3F] flex flex-col items-center justify-center px-4 py-12">
       {/* Header */}
       <div className="mb-8 text-center">
         <div className="inline-flex items-center gap-2 mb-4">
-          <div className="w-1 h-8 bg-cyan-400" />
-          <span className="text-cyan-400 text-xs font-mono tracking-[0.3em] uppercase">
+          <div className="w-1 h-8 bg-[#B9C0CA]" />
+          <span className="text-[#B9C0CA] text-xs font-mono tracking-[0.3em] uppercase">
             Restricted Access
           </span>
         </div>
@@ -138,11 +138,11 @@ export default function ResearchAccess() {
       </div>
 
       {/* Card */}
-      <div className="w-full max-w-2xl bg-[#0d1520] border border-slate-700/50 rounded-2xl overflow-hidden shadow-2xl">
+      <div className="w-full max-w-2xl bg-[#10295E] border border-slate-700/50 rounded-2xl overflow-hidden shadow-2xl">
         {/* Card header */}
-        <div className="px-6 py-4 border-b border-slate-700/50 bg-[#0a1018]">
+        <div className="px-6 py-4 border-b border-slate-700/50 bg-[#0C2147]">
           <div className="flex items-center gap-3">
-            <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+            <div className="w-2 h-2 rounded-full bg-[#B9C0CA] animate-pulse" />
             <span className="text-white font-semibold text-sm">
               Research Use Only — Terms & Conditions
             </span>
@@ -181,7 +181,7 @@ export default function ResearchAccess() {
               checked={termsChecked}
               onCheckedChange={(v) => setTermsChecked(Boolean(v))}
               disabled={!hasScrolled}
-              className="mt-0.5 border-slate-500 data-[state=checked]:bg-cyan-500 data-[state=checked]:border-cyan-500"
+              className="mt-0.5 border-slate-500 data-[state=checked]:bg-[#B9C0CA] data-[state=checked]:border-[#B9C0CA]"
             />
             <span className={`text-sm leading-relaxed transition-colors ${hasScrolled ? "text-slate-300 group-hover:text-white" : "text-slate-600"}`}>
               I have read and agree to the Research Use Only Terms & Conditions.
@@ -201,7 +201,7 @@ export default function ResearchAccess() {
               </p>
               <Button
                 onClick={handleAccess}
-                className="w-full bg-cyan-500 hover:bg-cyan-400 text-black font-bold py-3 text-sm tracking-wide transition-all duration-150 active:scale-[0.97]"
+                className="w-full bg-[#B9C0CA] hover:bg-[#B9C0CA] text-black font-bold py-3 text-sm tracking-wide transition-all duration-150 active:scale-[0.97]"
               >
                 Create Account / Sign In
               </Button>
@@ -210,7 +210,7 @@ export default function ResearchAccess() {
             <Button
               onClick={handleAccess}
               disabled={!termsChecked || acceptTermsMutation.isPending}
-              className="w-full bg-cyan-500 hover:bg-cyan-400 disabled:opacity-40 disabled:cursor-not-allowed text-black font-bold py-3 text-sm tracking-wide transition-all duration-150 active:scale-[0.97]"
+              className="w-full bg-[#B9C0CA] hover:bg-[#B9C0CA] disabled:opacity-40 disabled:cursor-not-allowed text-black font-bold py-3 text-sm tracking-wide transition-all duration-150 active:scale-[0.97]"
             >
               {acceptTermsMutation.isPending ? (
                 <span className="flex items-center gap-2">

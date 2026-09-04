@@ -13,7 +13,7 @@ import { PRIMARY_LOGO_ALT, PRIMARY_LOGO_URL, UTILITY_LOGO_SIZE_CLASS } from "@/l
 const STATUS_CONFIG: Record<string, { label: string; color: string; bg: string; border: string }> = {
   pending_payment: {
     label: "Pending Payment",
-    color: "#FFB800",
+    color: "#B9C0CA",
     bg: "rgba(255,184,0,0.08)",
     border: "rgba(255,184,0,0.3)",
   },
@@ -25,15 +25,15 @@ const STATUS_CONFIG: Record<string, { label: string; color: string; bg: string; 
   },
   processing: {
     label: "Processing",
-    color: "#00BFFF",
-    bg: "rgba(0,191,255,0.08)",
-    border: "rgba(0,191,255,0.3)",
+    color: "#B9C0CA",
+    bg: "rgba(185,192,202,0.08)",
+    border: "rgba(185,192,202,0.3)",
   },
   shipped: {
     label: "Shipped",
-    color: "#00BFFF",
-    bg: "rgba(0,191,255,0.08)",
-    border: "rgba(0,191,255,0.3)",
+    color: "#B9C0CA",
+    bg: "rgba(185,192,202,0.08)",
+    border: "rgba(185,192,202,0.3)",
   },
   delivered: {
     label: "Delivered",
@@ -51,7 +51,7 @@ const STATUS_CONFIG: Record<string, { label: string; color: string; bg: string; 
 
 type FilterTab = "all" | "pending_payment" | "paid" | "shipped" | "cancelled";
 
-const bebasNeu = "'Bebas Neue', sans-serif";
+const bebasNeu = "'Cormorant Garamond', serif";
 const rajdhani = "'Rajdhani', sans-serif";
 const inter = "'Inter', sans-serif";
 
@@ -110,9 +110,9 @@ export default function AdminOrders() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#050D1A]">
+      <div className="min-h-screen flex items-center justify-center bg-[#07152F]">
         <div className="text-center space-y-4">
-          <div className="w-10 h-10 border-2 border-[#00BFFF]/30 border-t-[#00BFFF] rounded-full animate-spin mx-auto" />
+          <div className="w-10 h-10 border-2 border-[#B9C0CA]/30 border-t-[#B9C0CA] rounded-full animate-spin mx-auto" />
           <p className="text-white/50 text-lg tracking-[0.2em] uppercase" style={{ fontFamily: rajdhani }}>
             Loading...
           </p>
@@ -123,7 +123,7 @@ export default function AdminOrders() {
 
   if (!user || user.role !== "admin") {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#050D1A]">
+      <div className="min-h-screen flex items-center justify-center bg-[#07152F]">
         <div className="text-center space-y-4">
           <p
             className="text-white/50 text-xl tracking-widest uppercase"
@@ -133,7 +133,7 @@ export default function AdminOrders() {
           </p>
           <button
             onClick={() => setLocation("/")}
-            className="text-[#00BFFF] text-base hover:text-white transition-colors"
+            className="text-[#B9C0CA] text-base hover:text-white transition-colors"
             style={{ fontFamily: rajdhani }}
           >
             ← Back to site
@@ -166,21 +166,21 @@ export default function AdminOrders() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#050D1A]">
+    <div className="min-h-screen bg-[#07152F]">
       {/* Top Nav */}
       <header
         className="sticky top-0 z-50 border-b"
         style={{
           background: "rgba(5,13,26,0.95)",
           backdropFilter: "blur(20px)",
-          borderColor: "rgba(0,191,255,0.12)",
+          borderColor: "rgba(185,192,202,0.12)",
         }}
       >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <button
               onClick={() => setLocation("/")}
-              className="text-white/40 hover:text-[#00BFFF] transition-colors"
+              className="text-white/40 hover:text-[#B9C0CA] transition-colors"
               title="Back to site"
             >
               <ArrowLeft size={20} />
@@ -190,9 +190,9 @@ export default function AdminOrders() {
               className="text-xs font-bold tracking-[0.2em] uppercase px-2.5 py-1 rounded"
               style={{
                 fontFamily: rajdhani,
-                background: "rgba(0,191,255,0.1)",
-                border: "1px solid rgba(0,191,255,0.25)",
-                color: "#00BFFF",
+                background: "rgba(185,192,202,0.1)",
+                border: "1px solid rgba(185,192,202,0.25)",
+                color: "#B9C0CA",
               }}
             >
               Admin
@@ -200,7 +200,7 @@ export default function AdminOrders() {
           </div>
           <button
             onClick={() => { ordersQuery.refetch(); statsQuery.refetch(); }}
-            className="text-white/30 hover:text-[#00BFFF] transition-colors"
+            className="text-white/30 hover:text-[#B9C0CA] transition-colors"
             title="Refresh orders"
           >
             <RefreshCw size={18} />
@@ -213,7 +213,7 @@ export default function AdminOrders() {
         {/* Page Header */}
         <div className="mb-10">
           <p
-            className="text-[#00BFFF] text-sm tracking-[0.3em] uppercase mb-1"
+            className="text-[#B9C0CA] text-sm tracking-[0.3em] uppercase mb-1"
             style={{ fontFamily: rajdhani, fontWeight: 600 }}
           >
             Elite LA Peptides
@@ -244,7 +244,7 @@ export default function AdminOrders() {
               style={{
                 background: integration!.configured ? "rgba(0,229,160,0.06)" : "rgba(255,184,0,0.06)",
                 border: `1px solid ${integration!.configured ? "rgba(0,229,160,0.22)" : "rgba(255,184,0,0.22)"}`,
-                color: integration!.configured ? "#00E5A0" : "#FFB800",
+                color: integration!.configured ? "#00E5A0" : "#B9C0CA",
                 fontFamily: inter,
               }}
             >
@@ -259,7 +259,7 @@ export default function AdminOrders() {
             {
               label: "Pending Payment",
               value: stats?.pendingCount ?? 0,
-              color: "#FFB800",
+              color: "#B9C0CA",
               bg: "rgba(255,184,0,0.06)",
               border: "rgba(255,184,0,0.2)",
               icon: <Clock size={18} />,
@@ -275,17 +275,17 @@ export default function AdminOrders() {
             {
               label: "Shipped",
               value: stats?.shippedCount ?? 0,
-              color: "#00BFFF",
-              bg: "rgba(0,191,255,0.06)",
-              border: "rgba(0,191,255,0.2)",
+              color: "#B9C0CA",
+              bg: "rgba(185,192,202,0.06)",
+              border: "rgba(185,192,202,0.2)",
               icon: <Truck size={18} />,
             },
             {
               label: "Total Revenue",
               value: `$${((stats?.totalRevenueCents ?? 0) / 100).toFixed(2)}`,
-              color: "#00BFFF",
-              bg: "rgba(0,191,255,0.06)",
-              border: "rgba(0,191,255,0.2)",
+              color: "#B9C0CA",
+              bg: "rgba(185,192,202,0.06)",
+              border: "rgba(185,192,202,0.2)",
               icon: <DollarSign size={18} />,
             },
           ].map(stat => (
@@ -332,7 +332,7 @@ export default function AdminOrders() {
               className="pl-9 pr-4 py-2.5 rounded-lg outline-none w-80"
               style={{
                 background: "rgba(255,255,255,0.04)",
-                border: "1px solid rgba(0,191,255,0.15)",
+                border: "1px solid rgba(185,192,202,0.15)",
                 color: "white",
                 fontFamily: inter,
                 fontSize: "0.9rem",
@@ -352,9 +352,9 @@ export default function AdminOrders() {
                 className="px-4 py-2 rounded-lg font-bold uppercase tracking-[0.15em] transition-all text-sm"
                 style={{
                   fontFamily: rajdhani,
-                  background: active ? "rgba(0,191,255,0.15)" : "rgba(255,255,255,0.04)",
-                  border: active ? "1px solid rgba(0,191,255,0.4)" : "1px solid rgba(255,255,255,0.08)",
-                  color: active ? "#00BFFF" : "rgba(255,255,255,0.5)",
+                  background: active ? "rgba(185,192,202,0.15)" : "rgba(255,255,255,0.04)",
+                  border: active ? "1px solid rgba(185,192,202,0.4)" : "1px solid rgba(255,255,255,0.08)",
+                  color: active ? "#B9C0CA" : "rgba(255,255,255,0.5)",
                 }}
               >
                 {tab.label}
@@ -379,7 +379,7 @@ export default function AdminOrders() {
             className="rounded-xl p-12 text-center"
             style={{
               background: "rgba(255,255,255,0.02)",
-              border: "1px solid rgba(0,191,255,0.1)",
+              border: "1px solid rgba(185,192,202,0.1)",
             }}
           >
             <Package size={48} className="mx-auto mb-4 text-white/15" />
@@ -403,7 +403,7 @@ export default function AdminOrders() {
                   className="rounded-xl overflow-hidden"
                   style={{
                     background: "rgba(255,255,255,0.03)",
-                    border: "1px solid rgba(0,191,255,0.1)",
+                    border: "1px solid rgba(185,192,202,0.1)",
                   }}
                 >
                   {/* Order Row Header */}
@@ -450,7 +450,7 @@ export default function AdminOrders() {
                     {/* Total */}
                     <div className="text-right min-w-[80px]">
                       <p
-                        className="text-[#00BFFF] leading-none"
+                        className="text-[#B9C0CA] leading-none"
                         style={{
                           fontFamily: bebasNeu,
                           fontSize: "1.6rem",
@@ -484,7 +484,7 @@ export default function AdminOrders() {
                   {isExpanded && (
                     <div
                       className="px-5 pb-7 pt-5 border-t space-y-6"
-                      style={{ borderColor: "rgba(0,191,255,0.1)" }}
+                      style={{ borderColor: "rgba(185,192,202,0.1)" }}
                     >
                       {/* Items */}
                       <div>
@@ -516,7 +516,7 @@ export default function AdminOrders() {
                         {/* Totals breakdown */}
                         <div
                           className="mt-4 pt-4 border-t space-y-2"
-                          style={{ borderColor: "rgba(0,191,255,0.1)" }}
+                          style={{ borderColor: "rgba(185,192,202,0.1)" }}
                         >
                           {[
                             { label: "Subtotal", value: order.subtotalCents },
@@ -571,7 +571,7 @@ export default function AdminOrders() {
                         >
                           <p
                             className="text-xs uppercase tracking-[0.2em] mb-2 font-bold"
-                            style={{ fontFamily: rajdhani, color: "#FFB800" }}
+                            style={{ fontFamily: rajdhani, color: "#B9C0CA" }}
                           >
                             Zelle Payment Expected
                           </p>
@@ -594,7 +594,7 @@ export default function AdminOrders() {
                             Tracking
                           </p>
                           <p
-                            className="text-[#00BFFF] text-base font-bold"
+                            className="text-[#B9C0CA] text-base font-bold"
                             style={{ fontFamily: inter }}
                           >
                             {order.trackingCarrier && (
@@ -648,7 +648,7 @@ export default function AdminOrders() {
                             className="flex-1 px-3 py-2.5 rounded-lg text-sm resize-none outline-none"
                             style={{
                               background: "rgba(255,255,255,0.04)",
-                              border: "1px solid rgba(0,191,255,0.15)",
+                              border: "1px solid rgba(185,192,202,0.15)",
                               color: "white",
                               fontFamily: inter,
                               fontSize: "0.9rem",
@@ -659,9 +659,9 @@ export default function AdminOrders() {
                             onClick={() => updateNotes.mutate({ orderId: order.id, adminNotes: noteInputs[order.id] ?? "" })}
                             className="px-4 py-2 rounded-lg text-sm font-bold uppercase tracking-[0.12em] transition-all hover:opacity-90"
                             style={{
-                              background: "rgba(0,191,255,0.1)",
-                              border: "1px solid rgba(0,191,255,0.25)",
-                              color: "#00BFFF",
+                              background: "rgba(185,192,202,0.1)",
+                              border: "1px solid rgba(185,192,202,0.25)",
+                              color: "#B9C0CA",
                               fontFamily: rajdhani,
                             }}
                           >
@@ -695,7 +695,7 @@ export default function AdminOrders() {
                               className="w-full px-3 py-2.5 rounded-lg text-sm resize-none outline-none"
                               style={{
                                 background: "rgba(255,255,255,0.04)",
-                                border: "1px solid rgba(0,191,255,0.15)",
+                                border: "1px solid rgba(185,192,202,0.15)",
                                 color: "white",
                                 fontFamily: inter,
                                 fontSize: "0.9rem",
@@ -725,9 +725,9 @@ export default function AdminOrders() {
                             disabled={syncTracking.isPending}
                             className="flex items-center gap-2 px-5 py-3 rounded-xl text-base font-bold uppercase tracking-[0.15em] transition-all hover:opacity-90 disabled:opacity-50"
                             style={{
-                              background: "rgba(0,191,255,0.08)",
-                              border: "1px solid rgba(0,191,255,0.25)",
-                              color: "#00BFFF",
+                              background: "rgba(185,192,202,0.08)",
+                              border: "1px solid rgba(185,192,202,0.25)",
+                              color: "#B9C0CA",
                               fontFamily: rajdhani,
                             }}
                           >

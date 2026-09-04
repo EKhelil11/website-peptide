@@ -1,5 +1,5 @@
 // === ELITE LA PEPTIDES — Product Card ===
-// Dark card with cyan glow on hover, badge, synopsis, price placeholder
+// Vial-label card with limestone image stage, ivory body, and royal-blue actions.
 // CTA: "Inquire" button linking to contact section
 
 import { Link, useLocation } from "wouter";
@@ -9,7 +9,7 @@ import { useCustomerAuth } from "@/hooks/useCustomerAuth";
 import { useCart } from "@/contexts/CartContext";
 import { toast } from "sonner";
 
-const VIAL_IMG = "/manus-storage/lap-vial-retatrutide-10mg_52f96021.png";
+const VIAL_IMG = "/manus-storage/lap-vial-retatrutide-10mg_52f96021-optimized_683307ff.webp";
 
 interface ProductCardProps {
   product: Product;
@@ -55,19 +55,21 @@ export default function ProductCard({ product, index, showPublicPrice = false }:
         <div
           className="relative h-64 overflow-hidden flex items-center justify-center"
           style={{
-            background: "linear-gradient(135deg, oklch(0.14 0.055 255) 0%, oklch(0.2 0.07 240) 100%)",
+            background: "linear-gradient(135deg, #E9DCCB 0%, #F6F1E9 100%)",
           }}
         >
-          {/* Cyan glow behind vial */}
+          {/* Brushed-silver glow behind vial */}
           <div
             className="absolute inset-0 flex items-center justify-center pointer-events-none"
             style={{
-              background: "radial-gradient(ellipse 55% 60% at 50% 55%, oklch(0.65 0.18 200 / 0.18) 0%, transparent 70%)",
+              background: "radial-gradient(ellipse 55% 60% at 50% 55%, rgba(185,192,202,0.46) 0%, transparent 70%)",
             }}
           />
           <img
             src={product.images?.[0] || VIAL_IMG}
             alt={product.name}
+            loading="lazy"
+            decoding="async"
             className="h-full w-auto max-w-full object-contain opacity-95 py-2 relative z-10 vial-img"
             style={{ maxHeight: "100%" }}
           />
@@ -76,13 +78,13 @@ export default function ProductCard({ product, index, showPublicPrice = false }:
             className="absolute inset-0"
             style={{
               background:
-                "linear-gradient(to bottom, transparent 30%, oklch(0.17 0.055 255) 100%)",
+                "linear-gradient(to bottom, transparent 52%, rgba(246,241,233,0.92) 100%)",
             }}
           />
           {/* Category — bottom right, away from badge */}
           <div className="absolute bottom-3 right-3">
             <span
-              className="text-white/40 text-xs tracking-widest uppercase"
+              className="text-[#7C8693] text-xs tracking-widest uppercase"
               style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
             >
               {product.category}
@@ -102,9 +104,9 @@ export default function ProductCard({ product, index, showPublicPrice = false }:
         {/* Product name + dose */}
         <div className="mb-1">
           <h3
-            className="text-white leading-tight"
+            className="text-[#10295E] leading-tight"
             style={{
-              fontFamily: "'Bebas Neue', sans-serif",
+              fontFamily: "'Cormorant Garamond', serif",
               fontSize: "1.6rem",
               letterSpacing: "0.04em",
             }}
@@ -114,7 +116,7 @@ export default function ProductCard({ product, index, showPublicPrice = false }:
           {product.isStack && product.stackName && (
             <div
               className="text-xs tracking-wide"
-              style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 800, letterSpacing: "0.05em", color: "#FF2D78" }}
+              style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 800, letterSpacing: "0.05em", color: "#174A9B" }}
             >
               {product.stackName}
             </div>
@@ -123,18 +125,26 @@ export default function ProductCard({ product, index, showPublicPrice = false }:
 
         {/* Content */}
         {product.content && (
-          <div
-            className="text-cyan-300 tracking-wide mb-1"
-            style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 800, letterSpacing: "0.05em", fontSize: "0.95rem" }}
-          >
-            Content: {product.content}
+          <div className="product-format-line mb-3 flex flex-wrap items-baseline gap-x-2 gap-y-1 border-l-2 border-[#2457A7] pl-3">
+            <span
+              className="text-[0.62rem] uppercase tracking-[0.2em] text-[#5F6B7A]"
+              style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 800 }}
+            >
+              Content
+            </span>
+            <span
+              className="text-[1.08rem] leading-none text-[#174A9B]"
+              style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 700, letterSpacing: "0.02em" }}
+            >
+              {product.content}
+            </span>
           </div>
         )}
 
         {/* Tagline */}
         <p
-          className="text-white/60 text-sm mb-3 leading-snug"
-          style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300 }}
+          className="product-card-tagline mb-3 text-[1.06rem] leading-snug text-[#10295E]"
+          style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650, letterSpacing: "0.01em" }}
         >
           {product.tagline}
         </p>
@@ -142,14 +152,14 @@ export default function ProductCard({ product, index, showPublicPrice = false }:
         {/* Synopsis — 3 lines clamped */}
         <div className="mb-4 flex-1">
           <p
-            className="text-white/70 text-sm leading-relaxed line-clamp-3"
-            style={{ fontFamily: "'Inter', sans-serif" }}
+            className="product-card-synopsis line-clamp-3 text-sm leading-relaxed text-[#374151]"
+            style={{ fontFamily: "'Inter', sans-serif", fontWeight: 450 }}
           >
             {product.synopsis}
           </p>
           <Link href={`/product/${product.id}`}>
             <button
-              className="mt-2 flex items-center gap-1 text-[#00BFFF] text-xs font-semibold tracking-wide uppercase hover:text-[#00BFFF]/80 transition-colors"
+              className="mt-2 flex items-center gap-1 text-[#174A9B] text-xs font-semibold tracking-wide uppercase hover:text-[#245FC1] transition-colors"
               style={{ fontFamily: "'Rajdhani', sans-serif" }}
             >
               <ArrowRight size={13} /> Full Details
@@ -158,20 +168,20 @@ export default function ProductCard({ product, index, showPublicPrice = false }:
         </div>
 
         {/* Divider */}
-        <div className="border-t border-white/8 pt-4 mt-auto">
+        <div className="border-t border-[#B9C0CA]/55 pt-4 mt-auto">
           {isAuthenticated ? (
             /* Authenticated + terms accepted: show real price and Add to Cart */
             <div className="flex items-center justify-between">
               <div>
                 {product.price ? (
                   <span
-                    className="text-[#00BFFF]"
-                    style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.4rem" }}
+                    className="text-[#174A9B]"
+                    style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.4rem" }}
                   >
                     {product.price}
                   </span>
                 ) : (
-                  <span className="text-white/30 text-xs tracking-widest uppercase"
+                  <span className="text-[#7C8693] text-xs tracking-widest uppercase"
                     style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}>
                     Coming Soon
                   </span>
@@ -186,7 +196,7 @@ export default function ProductCard({ product, index, showPublicPrice = false }:
                   Add to Cart
                 </button>
               ) : (
-                <span className="text-white/30 text-xs tracking-widest uppercase"
+                <span className="text-[#7C8693] text-xs tracking-widest uppercase"
                   style={{ fontFamily: "'Rajdhani', sans-serif" }}>
                   Coming Soon
                 </span>
@@ -196,7 +206,7 @@ export default function ProductCard({ product, index, showPublicPrice = false }:
             /* Unauthenticated or terms not accepted: show login gate */
             <div className={showPublicPrice ? "flex items-center justify-between gap-4" : ""}>
               {showPublicPrice && product.price && (
-                <span className="text-[#00BFFF]" style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.4rem" }}>
+                <span className="text-[#174A9B]" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.4rem" }}>
                   {product.price}
                 </span>
               )}

@@ -31,11 +31,11 @@ export default function FloatingCart() {
         onClick={() => setOpen(true)}
         className="fixed bottom-6 left-6 z-40 flex items-center gap-2 px-4 py-3 rounded-full font-bold text-sm tracking-widest uppercase transition-all duration-200 hover:opacity-90 active:scale-[0.97]"
         style={{
-          background: "linear-gradient(135deg, oklch(0.65 0.22 210), oklch(0.55 0.25 230))",
+          background: "linear-gradient(135deg, oklch(0.55 0.14 255), oklch(0.44 0.13 255))",
           color: "white",
           fontFamily: "'Rajdhani', sans-serif",
           letterSpacing: "0.1em",
-          boxShadow: "0 4px 24px oklch(0.65 0.22 210 / 40%)",
+          boxShadow: "0 4px 24px oklch(0.55 0.14 255 / 40%)",
         }}
         aria-label="Open cart"
       >
@@ -45,8 +45,8 @@ export default function FloatingCart() {
           <span
             className="w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold"
             style={{
-              background: "oklch(0.72 0.18 210)",
-              color: "oklch(0.12 0.05 255)",
+              background: "oklch(0.76 0.02 250)",
+              color: "oklch(0.18 0.055 255)",
             }}
           >
             {cartCount}
@@ -67,18 +67,18 @@ export default function FloatingCart() {
           <div
             className="w-full max-w-md flex flex-col"
             style={{
-              background: "oklch(0.15 0.055 255)",
-              borderLeft: "1px solid oklch(0.28 0.08 255 / 50%)",
+              background: "oklch(0.25 0.08 255)",
+              borderLeft: "1px solid oklch(0.32 0.10 255 / 50%)",
             }}
           >
             {/* Header */}
             <div
               className="flex items-center justify-between px-6 py-4 border-b"
-              style={{ borderColor: "oklch(0.28 0.08 255 / 40%)" }}
+              style={{ borderColor: "oklch(0.32 0.10 255 / 40%)" }}
             >
               <h2
                 className="text-2xl text-white"
-                style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "0.06em" }}
+                style={{ fontFamily: "'Cormorant Garamond', serif", letterSpacing: "0.06em" }}
               >
                 Your Cart ({cartCount})
               </h2>
@@ -98,7 +98,7 @@ export default function FloatingCart() {
                   <p style={{ fontFamily: "'Rajdhani', sans-serif" }}>Your cart is empty</p>
                   <button
                     onClick={() => setOpen(false)}
-                    className="mt-4 text-xs uppercase tracking-widest text-white/40 hover:text-[#00BFFF] transition-colors"
+                    className="mt-4 text-xs uppercase tracking-widest text-white/40 hover:text-[#B9C0CA] transition-colors"
                     style={{ fontFamily: "'Rajdhani', sans-serif" }}
                   >
                     Continue Shopping
@@ -109,7 +109,7 @@ export default function FloatingCart() {
                   <div
                     key={item.productId}
                     className="flex items-center gap-3 rounded-lg p-3"
-                    style={{ background: "oklch(0.19 0.06 255)" }}
+                    style={{ background: "oklch(0.29 0.085 255)" }}
                   >
                     <div className="flex-1 min-w-0">
                       <p
@@ -131,7 +131,7 @@ export default function FloatingCart() {
                       <button
                         onClick={() => updateQty(item.productId, -1)}
                         className="w-6 h-6 rounded flex items-center justify-center text-white/60 hover:text-white transition-colors"
-                        style={{ border: "1px solid oklch(0.28 0.08 255 / 60%)" }}
+                        style={{ border: "1px solid oklch(0.32 0.10 255 / 60%)" }}
                       >
                         <Minus size={10} />
                       </button>
@@ -139,7 +139,7 @@ export default function FloatingCart() {
                       <button
                         onClick={() => updateQty(item.productId, 1)}
                         className="w-6 h-6 rounded flex items-center justify-center text-white/60 hover:text-white transition-colors"
-                        style={{ border: "1px solid oklch(0.28 0.08 255 / 60%)" }}
+                        style={{ border: "1px solid oklch(0.32 0.10 255 / 60%)" }}
                       >
                         <Plus size={10} />
                       </button>
@@ -148,7 +148,7 @@ export default function FloatingCart() {
                     {/* Line total */}
                     <span
                       className="text-white font-bold text-sm w-14 text-right"
-                      style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                      style={{ fontFamily: "'Cormorant Garamond', serif" }}
                     >
                       ${(item.unitPrice * item.quantity).toFixed(2)}
                     </span>
@@ -169,7 +169,7 @@ export default function FloatingCart() {
             {cart.length > 0 && (
               <div
                 className="px-6 py-5 border-t"
-                style={{ borderColor: "oklch(0.28 0.08 255 / 40%)" }}
+                style={{ borderColor: "oklch(0.32 0.10 255 / 40%)" }}
               >
                 <div className="flex justify-between items-center mb-4">
                   <span
@@ -181,8 +181,8 @@ export default function FloatingCart() {
                   <span
                     className="text-3xl font-bold"
                     style={{
-                      fontFamily: "'Bebas Neue', sans-serif",
-                      color: "oklch(0.72 0.18 210)",
+                      fontFamily: "'Cormorant Garamond', serif",
+                      color: "oklch(0.76 0.02 250)",
                     }}
                   >
                     ${cartTotal.toFixed(2)}
@@ -192,11 +192,11 @@ export default function FloatingCart() {
                   onClick={handleCheckout}
                   className="w-full py-3 rounded-lg font-bold text-sm tracking-widest uppercase transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
                   style={{
-                    background: "linear-gradient(135deg, oklch(0.65 0.22 210), oklch(0.55 0.25 230))",
+                    background: "linear-gradient(135deg, oklch(0.55 0.14 255), oklch(0.44 0.13 255))",
                     color: "white",
                     fontFamily: "'Rajdhani', sans-serif",
                     letterSpacing: "0.12em",
-                    boxShadow: "0 4px 20px oklch(0.65 0.22 210 / 30%)",
+                    boxShadow: "0 4px 20px oklch(0.55 0.14 255 / 30%)",
                   }}
                 >
                   Proceed to Checkout

@@ -1,13 +1,13 @@
 // === ELITE LA PEPTIDES — Video Intro Splash ===
 // Full-screen branded intro that fades out to reveal the main site.
 // The legacy video was not present in the recovered Git repository, so the
-// replacement uses a durable generated backdrop and preserves skip behavior.
+// replacement uses the owner-supplied gym image and preserves skip behavior.
 // Skip button appears after 1.5s for user convenience
 
 import { useEffect, useState } from "react";
 import { INTRO_LOGO_SIZE_CLASS, PRIMARY_LOGO_ALT, PRIMARY_LOGO_URL } from "@/lib/brandAssets";
 
-const INTRO_BACKDROP_URL = "/manus-storage/lap-intro-backdrop_0bbeb236.jpg";
+const INTRO_BACKDROP_URL = "/manus-storage/la-elite-gym-intro_e541e0af-optimized_1f399001.webp";
 
 interface VideoIntroProps {
   onComplete: () => void;
@@ -50,21 +50,41 @@ export default function VideoIntro({ onComplete }: VideoIntroProps) {
       <img
         src={INTRO_BACKDROP_URL}
         alt=""
-        className="absolute inset-0 h-full w-full object-cover"
+        aria-hidden="true"
+        decoding="async"
+        fetchPriority="high"
+        className="absolute inset-0 h-full w-full object-cover object-[58%_center] sm:object-center"
       />
 
-      <div className="relative z-10 flex flex-col items-center px-6 text-center">
-        <img
-          src={PRIMARY_LOGO_URL}
-          alt={PRIMARY_LOGO_ALT}
-          className={INTRO_LOGO_SIZE_CLASS}
-        />
-        <p
-          className="mt-6 text-sm sm:text-base uppercase text-white/65"
-          style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700, letterSpacing: "0.32em" }}
-        >
-          Advanced Research Compounds
-        </p>
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "linear-gradient(90deg, rgba(2,10,24,0.9) 0%, rgba(2,10,24,0.7) 34%, rgba(2,10,24,0.28) 62%, rgba(2,10,24,0.12) 100%), linear-gradient(0deg, rgba(2,10,24,0.7) 0%, transparent 42%)",
+        }}
+      />
+
+      <div className="relative z-10 flex h-full w-full items-center px-6 sm:px-10 lg:px-16">
+        <div className="flex max-w-xl flex-col items-start text-left">
+          <img
+            src={PRIMARY_LOGO_URL}
+            alt={PRIMARY_LOGO_ALT}
+            className={`${INTRO_LOGO_SIZE_CLASS} !w-[min(72vw,460px)] !max-h-[150px] object-contain object-left`}
+          />
+          <div className="mt-6 h-px w-24 bg-gradient-to-r from-[#B9C0CA] to-transparent" />
+          <p
+            className="mt-5 text-sm uppercase text-white/88 sm:text-base"
+            style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700, letterSpacing: "0.26em" }}
+          >
+            Qualified In-Vitro Research Only
+          </p>
+          <p
+            className="mt-2 max-w-md text-xs leading-relaxed text-white/62 sm:text-sm"
+            style={{ fontFamily: "'Inter', sans-serif", fontWeight: 400 }}
+          >
+            Research compounds are not intended for human or animal use.
+          </p>
+        </div>
       </div>
 
       {/* Dark vignette edges */}
@@ -72,7 +92,7 @@ export default function VideoIntro({ onComplete }: VideoIntroProps) {
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.6) 100%)",
+            "radial-gradient(ellipse at center, transparent 52%, rgba(0,0,0,0.5) 100%)",
         }}
       />
 
@@ -86,7 +106,7 @@ export default function VideoIntro({ onComplete }: VideoIntroProps) {
           letterSpacing: "0.1em",
           textTransform: "uppercase",
           background: "rgba(0,0,0,0.5)",
-          border: "1px solid rgba(0,191,255,0.4)",
+          border: "1px solid rgba(185,192,202,0.4)",
           color: "rgba(255,255,255,0.7)",
           backdropFilter: "blur(8px)",
           opacity: showSkip ? 1 : 0,
@@ -95,12 +115,12 @@ export default function VideoIntro({ onComplete }: VideoIntroProps) {
           transition: "opacity 0.55s cubic-bezier(0.23,1,0.32,1), transform 0.55s cubic-bezier(0.23,1,0.32,1)",
         }}
         onMouseEnter={(e) => {
-          (e.currentTarget as HTMLButtonElement).style.color = "#00BFFF";
-          (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(0,191,255,0.8)";
+          (e.currentTarget as HTMLButtonElement).style.color = "#B9C0CA";
+          (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(185,192,202,0.8)";
         }}
         onMouseLeave={(e) => {
           (e.currentTarget as HTMLButtonElement).style.color = "rgba(255,255,255,0.7)";
-          (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(0,191,255,0.4)";
+          (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(185,192,202,0.4)";
         }}
       >
         Skip Intro

@@ -1,5 +1,5 @@
 // === LA ELITE PEPTIDES — Combined Login + Register Page ===
-// Typography matches Checkout.tsx: Bebas Neue headings, Rajdhani labels/inputs, cyan CTA buttons
+// Typography matches Checkout.tsx: Cormorant Garamond headings, Rajdhani labels/inputs, cyan CTA buttons
 
 import { useState, useEffect } from "react";
 import { useLocation, useSearch } from "wouter";
@@ -9,8 +9,8 @@ import { AUTH_LOGO_SIZE_CLASS, PRIMARY_LOGO_ALT, PRIMARY_LOGO_URL } from "@/lib/
 
 // Matches CYAN_BTN from Checkout.tsx exactly
 const CYAN_BTN: React.CSSProperties = {
-  background: "linear-gradient(135deg, oklch(0.65 0.22 210), oklch(0.55 0.25 230))",
-  boxShadow: "0 4px 24px oklch(0.65 0.22 210 / 40%)",
+  background: "linear-gradient(135deg, oklch(0.55 0.14 255), oklch(0.44 0.13 255))",
+  boxShadow: "0 4px 24px oklch(0.55 0.14 255 / 40%)",
   color: "white",
   fontFamily: "'Rajdhani', sans-serif",
   letterSpacing: "0.14em",
@@ -18,8 +18,8 @@ const CYAN_BTN: React.CSSProperties = {
 
 // Matches input style from Checkout.tsx
 const INPUT_STYLE: React.CSSProperties = {
-  background: "oklch(0.19 0.06 255)",
-  border: "1px solid oklch(0.35 0.1 255 / 60%)",
+  background: "oklch(0.29 0.085 255)",
+  border: "1px solid oklch(0.44 0.13 255 / 60%)",
   color: "white",
   fontFamily: "'Rajdhani', sans-serif",
   fontWeight: 600,
@@ -29,11 +29,11 @@ const INPUT_STYLE: React.CSSProperties = {
 const LABEL_CLASS = "block mb-2 text-base font-bold uppercase tracking-widest";
 const LABEL_STYLE: React.CSSProperties = {
   fontFamily: "'Rajdhani', sans-serif",
-  color: "oklch(0.72 0.18 210)",
+  color: "oklch(0.76 0.02 250)",
 };
 
 // Matches input class from Checkout.tsx
-const INPUT_CLASS = "w-full px-4 py-3.5 rounded-xl outline-none focus:ring-2 focus:ring-[#00BFFF]/40 text-lg";
+const INPUT_CLASS = "w-full px-4 py-3.5 rounded-xl outline-none focus:ring-2 focus:ring-[#B9C0CA]/40 text-lg";
 
 export default function Login() {
   const [, setLocation] = useLocation();
@@ -112,30 +112,30 @@ export default function Login() {
   return (
     <div
       className="min-h-screen"
-      style={{ background: "oklch(0.12 0.05 255)" }}
+      style={{ background: "oklch(0.18 0.055 255)" }}
     >
       {/* Top Nav — matches Checkout.tsx header exactly */}
       <header
         className="sticky top-0 z-50 border-b"
-        style={{ background: "oklch(0.15 0.055 255 / 95%)", backdropFilter: "blur(20px)", borderColor: "oklch(0.28 0.08 255 / 40%)" }}
+        style={{ background: "oklch(0.25 0.08 255 / 95%)", backdropFilter: "blur(20px)", borderColor: "oklch(0.32 0.10 255 / 40%)" }}
       >
-        <div className="max-w-5xl mx-auto px-6 h-24 flex items-center gap-4">
-          <a href="/" className="text-white/50 hover:text-[#00BFFF] transition-colors text-base font-bold uppercase tracking-widest" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 h-24 flex items-center gap-3 sm:gap-4">
+          <a href="/" className="shrink-0 whitespace-nowrap text-white/50 hover:text-[#B9C0CA] transition-colors text-xs sm:text-base font-bold uppercase tracking-[0.12em] sm:tracking-widest" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
             ← Back to Site
           </a>
-          <img src={PRIMARY_LOGO_URL} alt={PRIMARY_LOGO_ALT} className={`${AUTH_LOGO_SIZE_CLASS} ml-auto`} />
+          <img src={PRIMARY_LOGO_URL} alt={PRIMARY_LOGO_ALT} decoding="async" className={`${AUTH_LOGO_SIZE_CLASS} !w-[170px] sm:!w-[300px] ml-auto`} />
         </div>
       </header>
 
-      <div className="max-w-5xl mx-auto px-6 py-10">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-10">
 
         {/* Compliance banner */}
         <div
-          className="flex items-center gap-3 rounded-xl px-5 py-4 mb-8"
-          style={{ background: "oklch(0.65 0.22 210 / 10%)", border: "1px solid oklch(0.65 0.22 210 / 25%)" }}
+          className="flex items-start gap-3 rounded-xl px-4 sm:px-5 py-4 mb-8"
+          style={{ background: "oklch(0.55 0.14 255 / 10%)", border: "1px solid oklch(0.55 0.14 255 / 25%)" }}
         >
-          <ShieldCheck size={20} style={{ color: "oklch(0.72 0.18 210)", flexShrink: 0 }} />
-          <p className="text-white/70 text-base leading-relaxed" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}>
+          <ShieldCheck size={20} style={{ color: "oklch(0.76 0.02 250)", flexShrink: 0 }} />
+          <p className="text-white/70 text-sm sm:text-base leading-relaxed" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}>
             An account is required to add products to cart and complete checkout. Catalog pricing is available publicly. All products are sold strictly for{" "}
             <span className="text-white font-bold">research use only</span> — not for human consumption.
           </p>
@@ -146,14 +146,14 @@ export default function Login() {
 
           {/* ── LOGIN CARD ─────────────────────────────────────────────── */}
           <div
-            className="rounded-2xl p-8 border"
+            className="rounded-2xl p-5 sm:p-8 border"
             style={{
-              background: "oklch(0.15 0.055 255)",
-              borderColor: "oklch(0.28 0.08 255 / 50%)",
+              background: "oklch(0.25 0.08 255)",
+              borderColor: "oklch(0.32 0.10 255 / 50%)",
             }}
           >
             <div className="mb-7">
-              <h2 className="text-white mb-2" style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "2.8rem", letterSpacing: "0.06em" }}>
+              <h2 className="text-white mb-2" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "2.8rem", letterSpacing: "0.06em" }}>
                 SIGN IN
               </h2>
               <p className="text-white/50 text-lg" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}>
@@ -180,7 +180,7 @@ export default function Login() {
               <div>
                 <div className="flex items-center justify-between mb-2">
                   <label className={LABEL_CLASS} style={LABEL_STYLE}>Password</label>
-                  <a href="/forgot-password" className="text-base font-bold hover:underline" style={{ color: "oklch(0.72 0.18 210)", fontFamily: "'Rajdhani', sans-serif" }}>
+                  <a href="/forgot-password" className="text-sm sm:text-base font-bold hover:underline" style={{ color: "oklch(0.76 0.02 250)", fontFamily: "'Rajdhani', sans-serif" }}>
                     Forgot password?
                   </a>
                 </div>
@@ -204,7 +204,7 @@ export default function Login() {
                   type="checkbox"
                   checked={loginForm.rememberMe}
                   onChange={(e) => setLoginForm({ ...loginForm, rememberMe: e.target.checked })}
-                  className="w-5 h-5 rounded accent-cyan-400"
+                  className="w-5 h-5 rounded accent-[#B9C0CA]"
                 />
                 <span className="text-white/60 text-base group-hover:text-white/80 transition-colors font-semibold" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
                   Remember me for 30 days
@@ -235,17 +235,17 @@ export default function Login() {
 
           {/* ── REGISTER CARD ──────────────────────────────────────────── */}
           <div
-            className="rounded-2xl p-8 border"
+            className="rounded-2xl p-5 sm:p-8 border"
             style={{
-              background: "oklch(0.15 0.055 255)",
-              borderColor: "oklch(0.28 0.08 255 / 50%)",
+              background: "oklch(0.25 0.08 255)",
+              borderColor: "oklch(0.32 0.10 255 / 50%)",
             }}
           >
             {regSuccess ? (
               /* ── Success state ── */
               <div className="flex flex-col items-center justify-center h-full py-8 text-center">
-                <CheckCircle size={56} className="mb-5" style={{ color: "oklch(0.72 0.18 210)" }} />
-                <h2 className="text-white mb-3" style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "2.8rem", letterSpacing: "0.06em" }}>
+                <CheckCircle size={56} className="mb-5" style={{ color: "oklch(0.76 0.02 250)" }} />
+                <h2 className="text-white mb-3" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "2.8rem", letterSpacing: "0.06em" }}>
                   CHECK YOUR EMAIL
                 </h2>
                 <p className="text-white/60 text-lg leading-relaxed max-w-xs" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}>
@@ -258,7 +258,7 @@ export default function Login() {
             ) : (
               <>
                 <div className="mb-7">
-                  <h2 className="text-white mb-2" style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "2.8rem", letterSpacing: "0.06em" }}>
+                  <h2 className="text-white mb-2" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "2.8rem", letterSpacing: "0.06em" }}>
                     CREATE ACCOUNT
                   </h2>
                   <p className="text-white/50 text-lg" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}>
@@ -282,7 +282,7 @@ export default function Login() {
 
                 <form onSubmit={handleRegister} className="space-y-5">
                   {/* Name row */}
-                  <div className="grid grid-cols-2 gap-5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
                     <div>
                       <label className={LABEL_CLASS} style={LABEL_STYLE}>First Name</label>
                       <input
@@ -318,7 +318,7 @@ export default function Login() {
                   </div>
 
                   {/* Password */}
-                  <div className="grid grid-cols-2 gap-5">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
                     <div>
                       <label className={LABEL_CLASS} style={LABEL_STYLE}>Password</label>
                       <div className="relative">
@@ -357,7 +357,7 @@ export default function Login() {
                       type="checkbox"
                       checked={regForm.marketingOptIn}
                       onChange={(e) => setRegForm({ ...regForm, marketingOptIn: e.target.checked })}
-                      className="w-5 h-5 rounded accent-cyan-400 mt-0.5 flex-shrink-0"
+                      className="w-5 h-5 rounded accent-[#B9C0CA] mt-0.5 flex-shrink-0"
                     />
                     <span className="text-white/60 text-base group-hover:text-white/80 transition-colors leading-relaxed font-semibold" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
                       I want to receive updates on new products, restocks, and promotions.
@@ -376,11 +376,11 @@ export default function Login() {
                     type="submit" disabled={registerMutation.isPending || !emailRegistrationEnabled}
                     className="w-full flex items-center justify-center gap-2 py-4 rounded-xl font-bold text-xl tracking-widest uppercase transition-all duration-200 active:scale-[0.98] disabled:opacity-60 hover:opacity-90"
                     style={{
-                      background: "oklch(0.19 0.06 255)",
+                      background: "oklch(0.29 0.085 255)",
                       color: "white",
                       fontFamily: "'Rajdhani', sans-serif",
                       fontWeight: 700,
-                      border: "1px solid oklch(0.65 0.22 210 / 40%)",
+                      border: "1px solid oklch(0.55 0.14 255 / 40%)",
                       fontSize: "1.2rem",
                       letterSpacing: "0.14em",
                     }}
@@ -396,9 +396,9 @@ export default function Login() {
 
                   <p className="text-white/35 text-base text-center leading-relaxed" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
                     By creating an account you agree to our{" "}
-                    <a href="/terms" className="hover:underline font-bold" style={{ color: "oklch(0.72 0.18 210)" }}>Terms of Service</a>
+                    <a href="/terms" className="hover:underline font-bold" style={{ color: "oklch(0.76 0.02 250)" }}>Terms of Service</a>
                     {" "}and{" "}
-                    <a href="/privacy" className="hover:underline font-bold" style={{ color: "oklch(0.72 0.18 210)" }}>Privacy Policy</a>.
+                    <a href="/privacy" className="hover:underline font-bold" style={{ color: "oklch(0.76 0.02 250)" }}>Privacy Policy</a>.
                   </p>
                 </form>
               </>
@@ -410,7 +410,7 @@ export default function Login() {
         <div className="flex items-center justify-center gap-8 mt-10 flex-wrap">
           {["US-Based Support", "Research Use Only", "Secure Checkout"].map((badge) => (
             <div key={badge} className="flex items-center gap-2">
-              <CheckCircle size={16} style={{ color: "oklch(0.72 0.18 210 / 0.7)" }} />
+              <CheckCircle size={16} style={{ color: "oklch(0.76 0.02 250 / 0.7)" }} />
               <span className="text-white/40 text-base tracking-widest uppercase font-bold" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
                 {badge}
               </span>

@@ -127,12 +127,114 @@
 - [x] Extend regression coverage to reject legacy logo URLs and require shared logo usage across every logo-bearing source file.
 - [x] Verify representative public, product, auth, checkout, account, admin, legal, COA, and mobile routes and run TypeScript/tests/build.
 - [x] Save a checkpoint and confirm the published logo consistency, COA placeholder, protected `$200` Retatrutide price, and non-secret integration status.
-- [ ] Save a protected pre-makeover checkpoint of the current live site before any Rolex-inspired green-and-gold visual changes.
-- [ ] Define an original luxury design system using deep racing green, forest green, refined metallic gold, warm ivory, and charcoal without copying Rolex trademarks, logos, proprietary layouts, or watch imagery.
-- [ ] Preserve the owner-supplied silver-and-blue LA Elite Peptides logo artwork while integrating it consistently into the new green-and-gold surfaces.
-- [ ] Redesign the home, shop, product detail, COA, shared navigation, age gate, intro, footer, and mobile menu in the approved luxury green-and-gold direction.
-- [ ] Redesign login, registration, password recovery, email verification, checkout, account, admin, legal, and error states with the same accessible theme.
-- [ ] Preserve the 11-product catalog, Retatrutide 30 mg at `$200`, research-only safeguards, cart, checkout, auth, database, Resend, ShipStation, and domain behavior.
-- [ ] Add or update regression coverage for shared theme tokens and route-level consistency; run TypeScript, tests, and the production build.
-- [ ] Verify representative desktop and mobile routes in the private preview without sending email, creating orders, or invoking fulfillment.
-- [ ] Present the complete private preview for owner approval and do not save another checkpoint or publish the makeover until the owner explicitly approves it.
+- [x] Save a protected pre-makeover checkpoint of the current live site before any Rolex-inspired green-and-gold visual changes.
+- [x] Define an original luxury design system using deep racing green, forest green, refined metallic gold, warm ivory, and charcoal without copying Rolex trademarks, logos, proprietary layouts, or watch imagery.
+- [x] Preserve the owner-supplied silver-and-blue LA Elite Peptides logo artwork while integrating it consistently into the new green-and-gold surfaces.
+- [x] Redesign the home, shop, product detail, COA, shared navigation, age gate, intro, footer, and mobile menu in the approved luxury green-and-gold direction.
+- [x] Redesign login, registration, password recovery, email verification, checkout, account, admin, legal, and error states with the same accessible theme.
+- [x] Preserve the 11-product catalog, Retatrutide 30 mg at `$200`, research-only safeguards, cart, checkout, auth, database, Resend, ShipStation, and domain behavior.
+- [x] Add or update regression coverage for shared theme tokens and route-level consistency; run TypeScript, tests, and the production build.
+- [x] Verify representative desktop and mobile routes in the private preview without sending email, creating orders, or invoking fulfillment.
+- [x] Present the complete private preview for owner approval and do not save another checkpoint or publish the makeover until the owner explicitly approves it.
+- [x] Canceled by owner — restore the former Bebas Neue display typography throughout the private makeover.
+- [x] Canceled by owner — remove the Cormorant Garamond makeover dependency and inline overrides.
+- [x] Retain the newly introduced Cormorant Garamond display typography, with Rajdhani utility labels and Inter body copy.
+- [x] Define an original design system from the supplied vial-and-kitchen reference using royal/navy blue, brushed silver, warm limestone, champagne-beige, soft ivory, and charcoal.
+- [x] Replace the private green-and-gold palette across public, commerce, authentication, account, admin, legal, COA, and error routes while preserving the Cormorant typography and silver-and-blue logo.
+- [x] Keep the supplied image as a visual palette reference while the current catalog remains unchanged; do not use its non-catalog product labels as storefront inventory.
+- [x] Accept the owner’s authentic COA files and match each supplied report to the correct product and lot or batch before displaying its report-supported purity result; retain GLOW as pending because no matching report was supplied.
+- [x] Update theme regression coverage and revalidate representative desktop/mobile routes, TypeScript, all tests, and the production build before presenting the revised private preview.
+- [x] Superseded by owner after preview — upload the supplied `Kitchentable.png` unchanged and use it as the private home-hero visual without changing the active 11-product catalog.
+- [x] Replace the private landing hero with the owner-supplied `WellnessClinicHeropage.png`, retaining the existing Cormorant typography and vial-inspired blue, silver, limestone, champagne, and ivory palette.
+- [x] Tune the replacement hero to appear approximately zoomed out on desktop and mobile so more of the clinic environment is visible while preserving readable navigation, headline, and calls to action.
+- [x] Update hero regression coverage, verify desktop and 375 px rendering, and rerun TypeScript, all tests, and the production build without saving a checkpoint or publishing.
+- [x] Replace the zoomed-out framed hero treatment with edge-to-edge `cover` sizing so no blue borders remain on the left, right, top, or bottom.
+- [x] Tune desktop and mobile focal positions for the full-bleed crop, then restore the temporarily suppressed age gate before final validation.
+- [x] Increase only the landing hero’s `Research Compounds` line to a brighter silver-ivory color with a stronger navy shadow and restrained localized fade behind the headline.
+- [x] Verify the contrast correction on desktop and 375 px, update regression coverage, and rerun TypeScript/tests/build without publishing.
+- [x] Move the landing hero content block down modestly on desktop and by a smaller amount on mobile so it does not compete with the photograph’s illuminated `Longevity` word.
+- [x] Verify the shifted headline, description, buttons, statistics, and scroll indicator remain inside the full-bleed hero at desktop and 375 px without publishing.
+- [x] Change the landing hero eyebrow exactly from `Advanced Peptide Research Institute` to `Los Angeles Peptide Research Institute`.
+- [x] Verify the revised eyebrow remains contained on desktop and 375 px, update regression coverage, and rerun validation without publishing.
+- [x] Improve the landing hero research-description paragraph with bright ivory text, stronger weight and shadow, and a darker localized navy backdrop rather than reducing text contrast.
+- [x] Verify the paragraph remains readable and contained on desktop and 375 px without obscuring the clinic hero or publishing.
+- [x] Redesign the hero statistics row so `11 Current Compounds`, `3 Signature Blends`, the three blend links, and `US Research Support` use brighter numerals, clearer labels, royal-blue accents, and translucent navy panels.
+- [x] Verify the emphasized statistics remain readable, clickable, and contained on desktop and 375 px; update regression coverage and rerun TypeScript/tests/build without publishing.
+- [x] Keep the wellness-clinic hero full-bleed with no visible borders while adding a slightly zoomed-out focal layer that shows the complete Retatrutide vial.
+- [x] Tune the layered hero independently for desktop and 375 px, preserve text and statistics contrast, update regression coverage, and rerun TypeScript/tests/build without publishing.
+- [x] Audit all 16 owner-supplied vial images and map each visible compound name, strength, blend identity, and label wording to the canonical catalog without inventing data.
+- [x] Preserve every existing catalog price exactly, including Retatrutide 30 mg at `$200`, and request prices only for products that are genuinely new.
+- [x] Stage and upload each verified owner-supplied product image through durable website storage; do not store media inside the project.
+- [x] Replace existing product images with their matching supplied vial files and add only confirmed new products after their prices are provided.
+- [x] Expand every `Full Details` page with accurate research-only compound overview, format/strength, research context, pathway or mechanism summary, handling/storage guidance, documentation status, and explicit non-human-use language without dosing or unsupported medical claims.
+- [x] Order the finalized catalog consistently with GLP products first, HGH activators second, and the remaining research categories arranged clearly afterward on both the homepage and `/shop`.
+- [x] Recalculate and display the actual compound count and signature-blend count from the finalized canonical catalog rather than hardcoded legacy totals.
+- [x] Add regression coverage for all finalized product IDs, image mappings, preserved existing prices, new confirmed prices, counts, COA routes, and prohibited unsupported claims.
+- [x] Verify the expanded home catalog, `/shop`, every product detail route, mobile layouts, cart/login behavior, protected integrations, TypeScript, all tests, and production build without publishing.
+- [x] Move the hero content block down slightly so `Los Angeles Peptide Research Institute` has more breathing room below the navigation, with a smaller offset on mobile.
+- [x] Verify the added spacing keeps the headline, description, actions, full vial, and premium statistics contained at desktop and 375 px; rerun focused regression checks without publishing.
+- [x] Replace the About section’s remaining hardcoded `11 Current Compounds` total with the same dynamic 16-product catalog count used by the hero and shop.
+- [x] Audit all 15 owner-supplied COA PDFs for product, labeled strength, lot or batch, laboratory, report date, methods, identity result, purity result, and internal document identifiers without assuming any field not present.
+- [x] Match each verified report to the correct canonical product and keep the unmatched GLOW 70 mg blend explicitly marked `Pending verified upload` until its COA is supplied.
+- [x] Stage and upload the verified COA PDFs through durable website storage without storing media inside the project or altering document contents.
+- [x] Extend the product model with honest COA metadata and update each COA status page to show only report-supported laboratory, date, lot, identity, purity, method, and download information.
+- [x] Update product-detail COA cards so verified products show an available report and the GLOW product remains pending, with accessible links and no blanket catalog-wide purity claim.
+- [x] Replace the hero description with boutique research-supply positioning that emphasizes curated compounds, consistency, transparency, documentation, and professional standards while retaining an explicit qualified in-vitro research-only limitation.
+- [x] Add regression coverage for all 15 COA mappings, the unmatched GLOW state, document URLs, displayed metadata, prohibited unsupported claims, and the revised hero copy.
+- [x] Verify representative verified and pending COA routes, product cards, desktop/mobile layouts, TypeScript, all tests, build, protected prices, and read-only provider status without publishing.
+- [x] Correct the canonical GHK-Cu 100 mg route ID from the stale `ghk-cu-50mg` value to `ghk-cu-100mg` while preserving the old URL as a compatibility alias and updating COA and regression mappings.
+- [x] Audit the supplied `GLOW70MG-LotF100001-ID69.pdf` for exact composition, labeled strength, lot, Ethos report ID, dates, method, identity, measured component contents, purity, laboratory scope, and signature details.
+- [x] Upload the unchanged GLOW COA through durable project storage using a URL-safe filename and attach its exact batch metadata to the canonical GLOW 70 mg product.
+- [x] Replace the GLOW pending COA card and status page with the matched report state, batch-level analytical results, scope limitation, and signed PDF action.
+- [x] Update regression coverage from 15 verified plus one pending to all 16 product-specific reports, then verify the GLOW product and COA pages on desktop/mobile, all 16 PDF links, TypeScript, tests, and build without publishing.
+- [x] Replace the home shipping section’s dark blue background with a lighter warm limestone and champagne composition that remains uniform with the shop and product-card surfaces.
+- [x] Redesign shipping headings, cards, icons, route line, badges, and supporting copy with royal-blue hierarchy, brushed-silver accents, ivory card surfaces, and charcoal body text for stronger contrast.
+- [x] Preserve nationwide shipping and the existing 3–5 business-day delivery language without introducing same-day or overnight promises or changing fulfillment behavior.
+- [x] Verify the refined shipping section on desktop and 375 px, update regression coverage, and rerun TypeScript/tests/build without publishing.
+- [x] Upload the owner-supplied `LabImagenewblue.png` unchanged to durable project storage and replace the current image in the home `Who We Are` section.
+- [x] Change the Who We Are image badge text exactly to `>99% COA-Reported Purity` and add nearby language clarifying that analytical results are product- and lot-specific.
+- [x] Preserve the new image’s focal point and branded laboratory details with accessible alternative text and responsive desktop/mobile cropping.
+- [x] Add regression coverage for the new durable image path, exact badge wording, and COA scope disclosure; run TypeScript/tests/build and verify the private section without publishing.
+- [x] Superseded by owner after mobile review — remove the four bottom reassurance tiles because they repeated facts already presented in the premium service card.
+- [x] Preserve restrained hover and focus motion with reduced-motion support in the concise two-step shipping ledger rather than a second reassurance-card row.
+- [x] Preserve the `Discreet Packaging`, `All 50 States`, `3–5 Business Days`, tracking, and qualified-research meanings by assigning each fact one clear location without changing fulfillment behavior.
+- [x] Verify the streamlined replacement shipping hierarchy on desktop and 375 px, update regression coverage, and rerun TypeScript/tests/build without publishing.
+- [x] Remove the duplicated `hero-clinic-image-focus` layer that causes the landing image to appear fuzzy or ghosted.
+- [x] Restore one crisp edge-to-edge clinic image and tune its desktop/mobile focal position and hero height to preserve as much Retatrutide vial visibility as possible without blue borders.
+- [x] Update hero regression coverage, verify image clarity and content containment on desktop and 375 px, and rerun TypeScript/tests/build without publishing.
+- [x] Restyle the product-detail primary purchase or login CTA from solid royal blue to a boutique champagne-and-ivory treatment with brushed-silver edging, deep navy typography, and a restrained premium shadow.
+- [x] Keep variant controls, secondary actions, COA actions, pricing, authentication gates, cart mutations, checkout behavior, focus visibility, and reduced-motion support unchanged.
+- [x] Verify the boutique primary CTA across signed-out and available-purchase product states at desktop and 375 px, update regression coverage, and rerun TypeScript/tests/build without publishing.
+- [x] Upload the owner-supplied `LAEliteGymPage.png` unchanged to durable project storage and use it as the opening-intro background.
+- [x] Position the shared silver-and-blue logo on the left with a restrained dark readability gradient so it does not compete with the environmental logo already visible on the right side of the photograph.
+- [x] Add an explicit qualified in-vitro research-only intro notice so the fitness setting is not presented as personal-performance or human-use guidance.
+- [x] Verify the gym intro image, logo, timing, research-only notice, and mobile bypass behavior without publishing.
+- [x] Complete every remaining private-preview refinement before requesting owner review; do not save a checkpoint or publish until explicit approval.
+- [x] Remove repetitive shipping copy so nationwide coverage, the 3–5 business-day window, discreet packaging, tracking, and research-only scope are each communicated once at the appropriate hierarchy level while preserving the premium editorial design.
+- [x] Audit the private home, shop, product detail, COA, login, registration, cart, checkout, account, admin, legal, and footer experiences at 375 px and a narrow 320 px phone width for clipping, horizontal overflow, cramped typography, weak tap targets, awkward stacking, and obscured content.
+- [x] Implement only evidence-based mobile refinements while preserving the approved desktop design, 16-product catalog, four signature blends, owner-confirmed prices, mapped COAs, research-only safeguards, authentication, cart, checkout, database, Resend, ShipStation, and domain behavior.
+- [x] Add or update Vitest coverage for mobile-specific source contracts, including responsive hero treatment, navigation containment, product CTA sizing, shipping stacking, and overflow prevention.
+- [x] Re-run focused mobile screenshots, TypeScript, all active tests, the production build, current-session runtime-log checks, protected catalog assertions, and read-only integration status without publishing.
+- [x] Present the optimized private mobile preview for owner approval; owner explicitly approved publication on September 4, 2026.
+- [x] Measure mobile route loading behavior, production bundle weight, image payloads, font loading, repeated asset requests, and current-session network/runtime errors without calling live email or fulfillment providers.
+- [x] Reduce only confirmed mobile loading bottlenecks using optimized content-preserving WebP assets, lazy loading below the fold, asynchronous decoding, route splitting, and elimination of unnecessary mobile work while preserving the desktop intro and mobile intro bypass.
+- [x] Verify visually and through final automated integrity checks that performance refinements do not delay age verification, break catalog imagery, hide COA documents, alter authentication/cart/checkout behavior, or change business data or integration configuration.
+- [x] Redesign the home `Our Standards / The Elite Difference` section from a blue-heavy block into a lighter ivory, champagne, limestone, and brushed-silver composition with restrained royal-blue hierarchy.
+- [x] Upgrade the four standards icons into premium medallions and replace the basic repeated card grid with a more editorial numbered layout while preserving the existing research-only and documentation meanings.
+- [x] Ensure the redesigned standards layout remains balanced, readable, and tap-friendly at desktop, 375 px, and 320 px without introducing unsupported quality, purity, testing, medical, or fulfillment claims.
+- [x] Add regression coverage for the lighter standards treatment and verify it with focused screenshots, TypeScript, focused tests, and the production build without publishing.
+- [x] Elevate the shared product-detail `Certificate of Analysis (COA)` and `Research Highlights` typography across all 16 products using the established Cormorant display, Rajdhani utility, and Inter body hierarchy.
+- [x] Improve the batch-report metadata, verified COA action, purity-and-lot label, highlight-list readability, spacing, and responsive wrapping without changing any report value, lot, purity scope, research statement, route, or product behavior.
+- [x] Add source regression coverage proving the upgraded shared treatment applies to every product-detail route and verify representative desktop, 375 px, and 320 px states without publishing.
+- [x] Strengthen localized contrast around the landing hero’s `RESEARCH COMPOUNDS` line so it separates clearly from the photographed `Longevity` and `Trusted. Tested.` lettering without darkening the entire image.
+- [x] Use one restrained navy-to-transparent headline backdrop, brighter silver-ivory type, and controlled edge/shadow treatment while preserving the single crisp hero image, vial visibility, and existing content position.
+- [x] Verify the improved headline separation on desktop, 375 px, and 320 px, update regression coverage, and rerun focused validation without publishing.
+- [x] Elevate the shared catalog-card `Content` line and product-detail `Research Format` line with clearer utility labeling and stronger visual separation across all 16 products.
+- [x] Increase contrast, weight, spacing, and readable line length for every product’s tagline and research-summary presentation using the established Cormorant/Rajdhani/Inter hierarchy without changing any wording or scientific context.
+- [x] Verify the upgraded shared information blocks at desktop, 375 px, and 320 px and add regression coverage without changing strengths, prices, COA data, authentication, cart, or checkout behavior.
+- [x] Redesign the home `Get in Touch` section from a blue-heavy treatment into a warm ivory, champagne, limestone, and brushed-silver boutique composition with royal blue reserved for hierarchy and accents.
+- [x] Upgrade the contact methods into premium icon medallions and editorial cards with clearer typography, spacing, and interaction states while preserving `Support@laelitepeps.com`, the existing phone number, and all real contact links.
+- [x] Verify the elevated contact section at desktop, 375 px, and 320 px for contrast, containment, tap targets, and consistency with Our Standards and Shipping; add regression coverage and rerun full validation without publishing.
+- [ ] Save the owner-approved complete makeover checkpoint, which automatically publishes this exact validated version.
+- [ ] Verify the live custom domain and Manus domain for the homepage, mobile flow, Shop, Retatrutide 30 mg price, representative product/COA routes, Get in Touch links, and non-secret Resend/ShipStation status without sending email or creating fulfillment actions.
+- [ ] Report the published version and confirm that catalog, COAs, business data, integrations, and domain configuration remained protected.

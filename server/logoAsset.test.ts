@@ -32,7 +32,7 @@ const logoBearingSources = [
 describe("shared silver-and-blue logo asset", () => {
   it("uses the durable transparent owner-supplied logo asset", () => {
     expect(logoAssetModule).toContain(
-      "/manus-storage/la-elite-peptides-silver-blue-logo-final_c61a4232.png",
+      "/manus-storage/la-elite-peptides-silver-blue-logo-final_c61a4232-optimized_c3827f19.webp",
     );
   });
 

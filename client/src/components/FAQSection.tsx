@@ -1,6 +1,5 @@
 // === LA ELITE PEPTIDES — FAQ Section ===
-// Research-use-only FAQ: ordering, shipping, and quality
-// Dark navy theme with cyan/pink brand accents
+// Research-use-only FAQ: catalog documentation, ordering, and shipping.
 
 import { useState } from "react";
 import { ChevronDown, MessageCircle, Truck, FlaskConical } from "lucide-react";
@@ -20,8 +19,8 @@ const faqs: FAQItem[] = [
   },
   {
     category: "research",
-    q: "What purity and quality standards do your peptides meet?",
-    a: "All of our research peptides are manufactured to pharmaceutical-grade standards. Each batch undergoes rigorous quality control testing including HPLC (High-Performance Liquid Chromatography) and mass spectrometry analysis to verify identity and potency. Third-party purity testing results will be published as Certificates of Analysis (COAs) and made available on each product page.",
+    q: "Where can I find product testing documents?",
+    a: "Each product page includes a product-specific Certificate of Analysis (COA) status link. A report is shown only after an authentic document has been received and matched to that catalog item; until then, the page clearly states that no verified file is available.",
   },
   {
     category: "research",
@@ -30,8 +29,8 @@ const faqs: FAQItem[] = [
   },
   {
     category: "research",
-    q: "Are your peptides tested before shipping?",
-    a: "Yes. Every product in our catalog is tested for identity and potency prior to fulfillment. We source only from verified, GMP-compliant manufacturers and maintain strict quality assurance protocols. Certificates of Analysis (COAs) from third-party testing will be published on each product page as they become available.",
+    q: "How will I know when a COA is available?",
+    a: "Open the COA status link on the relevant product page. The status remains pending until a verified document has been matched to that catalog item; no laboratory, lot, date, purity, identity, or analytical result is represented before then.",
   },
   // Shipping
   {
@@ -53,7 +52,7 @@ const faqs: FAQItem[] = [
 
 const categories = [
   { key: "all", label: "All Questions", icon: MessageCircle },
-  { key: "research", label: "Research & Quality", icon: FlaskConical },
+  { key: "research", label: "Research & Documents", icon: FlaskConical },
   { key: "shipping", label: "Shipping & Orders", icon: Truck },
 ];
 
@@ -71,14 +70,14 @@ export default function FAQSection() {
     <section
       id="faq"
       className="relative py-24"
-      style={{ background: "oklch(0.09 0.04 255)" }}
+      style={{ background: "oklch(0.15 0.045 255)" }}
     >
       {/* Subtle grid texture */}
       <div
         className="absolute inset-0 opacity-[0.03]"
         style={{
           backgroundImage:
-            "linear-gradient(oklch(0.8 0.1 220) 1px, transparent 1px), linear-gradient(90deg, oklch(0.8 0.1 220) 1px, transparent 1px)",
+            "linear-gradient(oklch(0.91 0.025 80) 1px, transparent 1px), linear-gradient(90deg, oklch(0.91 0.025 80) 1px, transparent 1px)",
           backgroundSize: "40px 40px",
         }}
       />
@@ -87,19 +86,19 @@ export default function FAQSection() {
         {/* Section header */}
         <div className="text-center mb-12">
           <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="h-px w-12 bg-[#FF2D78]" />
+            <div className="h-px w-12 bg-[#174A9B]" />
             <span
-              className="text-[#FF2D78] text-xs tracking-[0.3em] uppercase"
+              className="text-[#174A9B] text-xs tracking-[0.3em] uppercase"
               style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
             >
               Got Questions?
             </span>
-            <div className="h-px w-12 bg-[#FF2D78]" />
+            <div className="h-px w-12 bg-[#174A9B]" />
           </div>
           <h2
             className="text-white mb-4"
             style={{
-              fontFamily: "'Bebas Neue', sans-serif",
+              fontFamily: "'Cormorant Garamond', serif",
               fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
               letterSpacing: "0.04em",
             }}
@@ -110,7 +109,7 @@ export default function FAQSection() {
             className="text-white/50 max-w-xl mx-auto text-sm"
             style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, lineHeight: 1.7 }}
           >
-            Common questions about our research peptides, ordering process, quality standards, and shipping.
+            Common questions about our research catalog, document status, ordering process, and shipping.
           </p>
         </div>
 
@@ -122,8 +121,8 @@ export default function FAQSection() {
               onClick={() => { setActiveCategory(key); setOpenIndex(null); }}
               className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs tracking-wider uppercase transition-all duration-200 ${
                 activeCategory === key
-                  ? "bg-[#FF2D78] text-white font-bold shadow-[0_0_20px_rgba(255,45,120,0.3)]"
-                  : "border border-white/15 text-white/50 hover:border-[#FF2D78]/40 hover:text-[#FF2D78]"
+                  ? "bg-[#174A9B] text-white font-bold shadow-[0_0_20px_rgba(167,122,44,0.3)]"
+                  : "border border-white/15 text-white/50 hover:border-[#174A9B]/40 hover:text-[#174A9B]"
               }`}
               style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
             >
@@ -138,7 +137,7 @@ export default function FAQSection() {
           {filtered.map((item, i) => {
             const isOpen = openIndex === i;
             const categoryColor =
-              item.category === "shipping" ? "#00BFFF" : "#a78bfa";
+              item.category === "shipping" ? "#B9C0CA" : "#E9DCCB";
 
             return (
               <div
@@ -146,8 +145,8 @@ export default function FAQSection() {
                 className="rounded-xl overflow-hidden transition-all duration-200"
                 style={{
                   background: isOpen
-                    ? "oklch(0.14 0.055 255 / 0.9)"
-                    : "oklch(0.13 0.05 255 / 0.6)",
+                    ? "rgba(16,41,94,0.92)"
+                    : "rgba(7,21,47,0.72)",
                   border: isOpen
                     ? `1px solid ${categoryColor}40`
                     : "1px solid rgba(255,255,255,0.07)",

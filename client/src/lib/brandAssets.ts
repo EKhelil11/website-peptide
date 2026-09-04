@@ -1,5 +1,5 @@
 export const PRIMARY_LOGO_URL =
-  "/manus-storage/la-elite-peptides-silver-blue-logo-final_c61a4232.png";
+  "/manus-storage/la-elite-peptides-silver-blue-logo-final_c61a4232-optimized_c3827f19.webp";
 
 export const PRIMARY_LOGO_ALT = "LA Elite Peptides — Trusted. Tested.";
 

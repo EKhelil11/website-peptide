@@ -21,21 +21,24 @@ import {
   Lock,
   FileText,
   Clock3,
+  ExternalLink,
+  ShieldCheck,
 } from "lucide-react";
-import { products, type Product } from "@/lib/products";
+import { findProductById, products, type Product } from "@/lib/products";
 import { PRIMARY_LOGO_ALT, PRIMARY_LOGO_URL, UTILITY_LOGO_SIZE_CLASS } from "@/lib/brandAssets";
 
 const VIAL_IMG =
-  "/manus-storage/lap-vial-retatrutide-10mg_52f96021.png";
+  "/manus-storage/lap-vial-retatrutide-10mg_52f96021-optimized_683307ff.webp";
 
 // ─── Tabs ───────────────────────────────────────────────────────────────────
-type Tab = "overview" | "mechanism" | "applications" | "molecular";
+type Tab = "overview" | "mechanism" | "applications" | "molecular" | "handling";
 
 const TAB_LABELS: { key: Tab; label: string }[] = [
   { key: "overview", label: "Research Overview" },
   { key: "mechanism", label: "Mechanism of Action" },
   { key: "applications", label: "Applications" },
   { key: "molecular", label: "Molecular Data" },
+  { key: "handling", label: "Handling & Sources" },
 ];
 
 // ─── Molecular Data Table ───────────────────────────────────────────────────
@@ -107,12 +110,12 @@ function RelatedGrid({ items, title }: { items: Product[]; title: string }) {
       <div className="flex items-center gap-3 mb-6">
         <div
           className="w-1 h-6 rounded-full"
-          style={{ background: "linear-gradient(to bottom, #00BFFF, #FF2D78)" }}
+          style={{ background: "linear-gradient(to bottom, #B9C0CA, #174A9B)" }}
         />
         <h2
           className="text-white"
           style={{
-            fontFamily: "'Bebas Neue', sans-serif",
+            fontFamily: "'Cormorant Garamond', serif",
             fontSize: "1.5rem",
             letterSpacing: "0.06em",
           }}
@@ -124,13 +127,13 @@ function RelatedGrid({ items, title }: { items: Product[]; title: string }) {
         {items.map((p) => (
           <Link key={p.id} href={`/product/${p.id}`}>
             <div
-              className="rounded-xl border border-white/8 p-4 cursor-pointer transition-all duration-200 hover:border-[#00BFFF]/40 hover:scale-[1.02] group"
-              style={{ background: "oklch(0.16 0.055 255 / 0.6)" }}
+              className="rounded-xl border border-white/8 p-4 cursor-pointer transition-all duration-200 hover:border-[#B9C0CA]/40 hover:scale-[1.02] group"
+              style={{ background: "oklch(0.27 0.08 255 / 0.6)" }}
             >
               <div
                 className="w-full rounded-lg overflow-hidden mb-3 flex items-center justify-center relative"
                 style={{
-                  background: "oklch(0.2 0.07 240)",
+                  background: "oklch(0.29 0.085 255)",
                   height: "220px",
                   padding: "14px",
                 }}
@@ -138,24 +141,26 @@ function RelatedGrid({ items, title }: { items: Product[]; title: string }) {
                 <div
                   className="absolute inset-0 rounded-lg"
                   style={{
-                    background: "radial-gradient(ellipse at 50% 60%, rgba(0,191,255,0.10) 0%, transparent 70%)",
+                    background: "radial-gradient(ellipse at 50% 60%, rgba(185,192,202,0.10) 0%, transparent 70%)",
                   }}
                 />
                 <img
                   src={p.images?.[0] || VIAL_IMG}
                   alt={p.name}
+                  loading="lazy"
+                  decoding="async"
                   className="relative z-10 w-full h-full object-contain"
                   style={{
-                    filter: "drop-shadow(0 0 8px rgba(0,191,255,0.35))",
+                    filter: "drop-shadow(0 0 8px rgba(185,192,202,0.35))",
                     transition: "filter 0.25s cubic-bezier(0.23,1,0.32,1)",
                   }}
                   onMouseEnter={(e) => {
                     (e.currentTarget as HTMLImageElement).style.filter =
-                      "drop-shadow(0 0 16px rgba(0,191,255,0.75)) drop-shadow(0 0 32px rgba(0,191,255,0.35))";
+                      "drop-shadow(0 0 16px rgba(185,192,202,0.75)) drop-shadow(0 0 32px rgba(185,192,202,0.35))";
                   }}
                   onMouseLeave={(e) => {
                     (e.currentTarget as HTMLImageElement).style.filter =
-                      "drop-shadow(0 0 8px rgba(0,191,255,0.35))";
+                      "drop-shadow(0 0 8px rgba(185,192,202,0.35))";
                   }}
                 />
               </div>
@@ -176,7 +181,7 @@ function RelatedGrid({ items, title }: { items: Product[]; title: string }) {
 // ─── Main Component ──────────────────────────────────────────────────────────
 export default function ProductDetail() {
   const { id } = useParams<{ id: string }>();
-  const product = products.find((p) => p.id === id);
+  const product = findProductById(id);
 
   const [activeTab, setActiveTab] = useState<Tab>("overview");
   const [activeImg, setActiveImg] = useState(0);
@@ -201,12 +206,12 @@ export default function ProductDetail() {
     return (
       <div
         className="min-h-screen flex flex-col items-center justify-center text-center px-4"
-        style={{ background: "oklch(0.12 0.04 255)" }}
+        style={{ background: "oklch(0.20 0.06 255)" }}
       >
-        <FlaskConical size={48} className="text-[#00BFFF] mb-4" />
+        <FlaskConical size={48} className="text-[#B9C0CA] mb-4" />
         <h1
           className="text-white text-4xl mb-2"
-          style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "0.05em" }}
+          style={{ fontFamily: "'Cormorant Garamond', serif", letterSpacing: "0.05em" }}
         >
           Product Not Found
         </h1>
@@ -256,12 +261,12 @@ export default function ProductDetail() {
   return (
     <div
       className="min-h-screen"
-      style={{ background: "oklch(0.12 0.04 255)", fontFamily: "'Inter', sans-serif" }}
+      style={{ background: "oklch(0.20 0.06 255)", fontFamily: "'Inter', sans-serif" }}
     >
       {/* ── Top Nav ── */}
       <nav
         className="sticky top-0 z-50 flex items-center justify-between px-6 py-4 border-b border-white/8"
-        style={{ background: "oklch(0.12 0.04 255 / 0.95)", backdropFilter: "blur(12px)" }}
+        style={{ background: "oklch(0.20 0.06 255 / 0.95)", backdropFilter: "blur(12px)" }}
       >
         <Link href="/">
           <img
@@ -272,7 +277,7 @@ export default function ProductDetail() {
         </Link>
         <button
             onClick={() => { navigate('/'); setTimeout(() => { document.getElementById('products')?.scrollIntoView({ behavior: 'smooth' }); }, 150); }}
-            className="flex items-center gap-2 text-white/60 hover:text-[#00BFFF] transition-colors text-sm"
+            className="flex items-center gap-2 text-white/60 hover:text-[#B9C0CA] transition-colors text-sm"
             style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600, letterSpacing: "0.08em" }}
           >
             <ArrowLeft size={16} />
@@ -286,11 +291,11 @@ export default function ProductDetail() {
           className="flex items-center gap-2 text-white/35 text-xs tracking-widest uppercase"
           style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
         >
-          <Link href="/"><span className="hover:text-[#00BFFF] transition-colors cursor-pointer">Home</span></Link>
+          <Link href="/"><span className="hover:text-[#B9C0CA] transition-colors cursor-pointer">Home</span></Link>
           <span>/</span>
-          <Link href="/#products"><span className="hover:text-[#00BFFF] transition-colors cursor-pointer">Products</span></Link>
+          <Link href="/#products"><span className="hover:text-[#B9C0CA] transition-colors cursor-pointer">Products</span></Link>
           <span>/</span>
-          <span className="text-[#00BFFF]">{product.name}</span>
+          <span className="text-[#B9C0CA]">{product.name}</span>
         </div>
       </div>
 
@@ -305,23 +310,25 @@ export default function ProductDetail() {
             style={{
               maxWidth: '75%',
               margin: '0 auto',
-              background: "oklch(0.18 0.07 240)",
-              border: "1px solid oklch(0.4 0.15 220 / 0.25)",
-              boxShadow: "0 0 60px oklch(0.6 0.18 220 / 0.2)",
+              background: "oklch(0.28 0.08 255)",
+              border: "1px solid oklch(0.44 0.13 255 / 0.25)",
+              boxShadow: "0 0 60px oklch(0.55 0.14 255 / 0.2)",
             }}
           >
             {/* Cyan glow behind vial */}
             <div
               className="absolute inset-0 pointer-events-none"
               style={{
-                background: "radial-gradient(ellipse 60% 65% at 50% 52%, oklch(0.65 0.18 200 / 0.2) 0%, transparent 70%)",
+                background: "radial-gradient(ellipse 60% 65% at 50% 52%, oklch(0.76 0.02 250 / 0.2) 0%, transparent 70%)",
               }}
             />
             <img
               src={images[activeImg]}
               alt={product.name}
+              decoding="async"
+              fetchPriority="high"
               className="w-full h-full object-contain p-4 relative z-10"
-              style={{ filter: "drop-shadow(0 0 28px oklch(0.7 0.2 200 / 0.5))" }}
+              style={{ filter: "drop-shadow(0 0 28px oklch(0.82 0.085 88 / 0.5))" }}
             />
             {/* Prev/Next arrows — only show if multiple images */}
             {images.length > 1 && (
@@ -329,14 +336,14 @@ export default function ProductDetail() {
                 <button
                   onClick={() => setActiveImg((prev) => (prev - 1 + images.length) % images.length)}
                   className="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110"
-                  style={{ background: "oklch(0.12 0.04 255 / 0.8)", border: "1px solid rgba(0,191,255,0.3)", color: "#00BFFF" }}
+                  style={{ background: "oklch(0.20 0.06 255 / 0.8)", border: "1px solid rgba(185,192,202,0.3)", color: "#B9C0CA" }}
                 >
                   <ChevronLeft size={18} />
                 </button>
                 <button
                   onClick={() => setActiveImg((prev) => (prev + 1) % images.length)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200 hover:scale-110"
-                  style={{ background: "oklch(0.12 0.04 255 / 0.8)", border: "1px solid rgba(0,191,255,0.3)", color: "#00BFFF" }}
+                  style={{ background: "oklch(0.20 0.06 255 / 0.8)", border: "1px solid rgba(185,192,202,0.3)", color: "#B9C0CA" }}
                 >
                   <ChevronRight size={18} />
                 </button>
@@ -354,11 +361,11 @@ export default function ProductDetail() {
                   onClick={() => setActiveImg(i)}
                   className="w-16 h-16 rounded-lg overflow-hidden border-2 transition-all duration-200"
                   style={{
-                    borderColor: activeImg === i ? "#00BFFF" : "rgba(255,255,255,0.1)",
+                    borderColor: activeImg === i ? "#B9C0CA" : "rgba(255,255,255,0.1)",
                     opacity: activeImg === i ? 1 : 0.5,
                   }}
                 >
-                  <img src={img} alt={`${product.name} ${i + 1}`} className="w-full h-full object-contain p-1" />
+                  <img src={img} alt={`${product.name} ${i + 1}`} loading="lazy" decoding="async" className="w-full h-full object-contain p-1" />
                 </button>
               ))}
             </div>
@@ -366,12 +373,12 @@ export default function ProductDetail() {
 
           {/* Research-use-only trust badge */}
           <div
-            className="rounded-xl p-4 flex items-start gap-3 border border-[#FF2D78]/20"
-            style={{ background: "oklch(0.16 0.04 10 / 0.25)" }}
+            className="rounded-xl p-3 sm:p-4 flex items-start gap-3 border border-[#76B8FF]/20"
+            style={{ background: "oklch(0.18 0.055 255 / 0.72)" }}
           >
-            <AlertTriangle size={16} className="text-[#FF2D78] flex-shrink-0 mt-0.5" />
-            <p className="text-white/50 text-xs leading-relaxed">
-              <span className="text-[#FF2D78] font-semibold" style={{ fontFamily: "'Inter', sans-serif", letterSpacing: "0.02em" }}>
+            <AlertTriangle size={16} className="text-[#76B8FF] flex-shrink-0 mt-0.5" />
+            <p className="text-white/68 text-[0.8rem] sm:text-sm leading-relaxed">
+              <span className="text-[#9DB6D8] font-semibold" style={{ fontFamily: "'Inter', sans-serif", letterSpacing: "0.02em" }}>
                 Research Use Only.
               </span>{" "}
               {product.disclaimer ||
@@ -389,9 +396,9 @@ export default function ProductDetail() {
               style={{
                 fontFamily: "'Rajdhani', sans-serif",
                 fontWeight: 700,
-                background: "rgba(0,191,255,0.12)",
-                border: "1px solid rgba(0,191,255,0.3)",
-                color: "#00BFFF",
+                background: "rgba(185,192,202,0.12)",
+                border: "1px solid rgba(185,192,202,0.3)",
+                color: "#B9C0CA",
               }}
             >
               {product.category}
@@ -402,9 +409,9 @@ export default function ProductDetail() {
                 style={{
                   fontFamily: "'Rajdhani', sans-serif",
                   fontWeight: 700,
-                  background: "rgba(255,45,120,0.12)",
-                  border: "1px solid rgba(255,45,120,0.3)",
-                  color: "#FF2D78",
+                  background: "rgba(167,122,44,0.12)",
+                  border: "1px solid rgba(167,122,44,0.3)",
+                  color: "#174A9B",
                 }}
               >
                 {product.stackName}
@@ -416,7 +423,7 @@ export default function ProductDetail() {
           <h1
             className="text-white leading-none"
             style={{
-              fontFamily: "'Bebas Neue', sans-serif",
+              fontFamily: "'Cormorant Garamond', serif",
               fontSize: "clamp(2.5rem, 5vw, 3.5rem)",
               letterSpacing: "0.04em",
             }}
@@ -424,10 +431,26 @@ export default function ProductDetail() {
             {product.name}
           </h1>
 
+          {/* Public research format — updates with the selected variant. */}
+          <div className="product-detail-format-line flex flex-wrap items-baseline gap-x-2 gap-y-1 border-l-2 border-[#76B8FF]/55 pl-3">
+            <span
+              className="text-[0.64rem] uppercase tracking-[0.22em] text-[#9DB6D8]"
+              style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 800 }}
+            >
+              Research Format
+            </span>
+            <span
+              className="text-[1.2rem] leading-none text-[#F6F1E9]"
+              style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 700, letterSpacing: "0.02em" }}
+            >
+              {displayContent}
+            </span>
+          </div>
+
           {/* Tagline */}
           <p
-            className="text-white/55 text-base leading-relaxed"
-            style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300 }}
+            className="product-detail-tagline max-w-xl text-[1.28rem] leading-snug text-[#F6F1E9]"
+            style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 600, letterSpacing: "0.012em" }}
           >
             {product.tagline}
           </p>
@@ -436,22 +459,16 @@ export default function ProductDetail() {
           {isAuthenticated ? (
             <div className="flex items-baseline gap-3">
               <span
-                className="text-[#00BFFF]"
-                style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "2.8rem", letterSpacing: "0.04em" }}
+                className="text-[#B9C0CA]"
+                style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "2.8rem", letterSpacing: "0.04em" }}
               >
                 {displayPrice}
-              </span>
-              <span
-                className="text-white/70 text-lg"
-                style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700, letterSpacing: "0.04em" }}
-              >
-                {displayContent}
               </span>
             </div>
           ) : (
             <button
               onClick={returnToLogin}
-              className="flex items-center gap-2 py-3 px-5 rounded-lg border border-cyan-500/40 text-cyan-400 text-sm tracking-widest uppercase hover:bg-cyan-500/10 hover:border-cyan-400 transition-all duration-200"
+              className="flex items-center gap-2 py-3 px-5 rounded-lg border border-[#B9C0CA]/40 text-[#B9C0CA] text-sm tracking-widest uppercase hover:bg-[#B9C0CA]/10 hover:border-[#B9C0CA] transition-all duration-200"
               style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
             >
               <Lock size={15} />
@@ -477,9 +494,9 @@ export default function ProductDetail() {
                     style={{
                       fontFamily: "'Rajdhani', sans-serif",
                       fontWeight: 700,
-                      background: selectedVariant === i ? "rgba(0,191,255,0.2)" : "rgba(255,255,255,0.05)",
-                      border: selectedVariant === i ? "1.5px solid #00BFFF" : "1.5px solid rgba(255,255,255,0.12)",
-                      color: selectedVariant === i ? "#00BFFF" : "rgba(255,255,255,0.6)",
+                      background: selectedVariant === i ? "rgba(185,192,202,0.2)" : "rgba(255,255,255,0.05)",
+                      border: selectedVariant === i ? "1.5px solid #B9C0CA" : "1.5px solid rgba(255,255,255,0.12)",
+                      color: selectedVariant === i ? "#B9C0CA" : "rgba(255,255,255,0.6)",
                     }}
                   >
                     {v.label} — {v.price}
@@ -528,9 +545,9 @@ export default function ProductDetail() {
                 style={{
                   fontFamily: "'Rajdhani', sans-serif",
                   fontWeight: 700,
-                  background: "rgba(0,191,255,0.15)",
-                  border: "1.5px solid rgba(0,191,255,0.5)",
-                  color: "#00BFFF",
+                  background: "rgba(185,192,202,0.15)",
+                  border: "1.5px solid rgba(185,192,202,0.5)",
+                  color: "#B9C0CA",
                 }}
               >
                 <ShoppingCart size={16} />
@@ -538,13 +555,10 @@ export default function ProductDetail() {
               </button>
               <button
                 onClick={handleBuyNow}
-                className="flex-1 min-w-[140px] flex items-center justify-center gap-2 px-5 py-3.5 rounded-lg font-bold tracking-widest uppercase text-sm transition-all duration-200 hover:scale-[1.02] active:scale-[0.97]"
+                className="product-boutique-cta flex-1 min-w-[140px] flex items-center justify-center gap-2 px-5 py-3.5 rounded-lg font-bold tracking-widest uppercase text-sm"
                 style={{
                   fontFamily: "'Rajdhani', sans-serif",
                   fontWeight: 700,
-                  background: "linear-gradient(135deg, #00BFFF 0%, #0080FF 100%)",
-                  border: "none",
-                  color: "#000",
                 }}
               >
                 <Zap size={16} />
@@ -554,8 +568,8 @@ export default function ProductDetail() {
           ) : (
             <button
               onClick={returnToLogin}
-              className="w-full flex items-center justify-center gap-2 py-3.5 rounded-lg border border-cyan-500/40 text-cyan-400 text-sm tracking-widest uppercase hover:bg-cyan-500/10 hover:border-cyan-400 transition-all duration-200"
-              style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
+              className="product-boutique-cta w-full flex items-center justify-center gap-2 py-4 rounded-lg text-sm tracking-widest uppercase"
+              style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 800 }}
             >
               <Lock size={15} />
               Login to View Pricing & Order
@@ -572,7 +586,7 @@ export default function ProductDetail() {
               <div
                 key={label}
                 className="rounded-lg p-3 text-center border border-white/8"
-                style={{ background: "oklch(0.16 0.055 255 / 0.4)" }}
+                style={{ background: "oklch(0.27 0.08 255 / 0.4)" }}
               >
                 <div className="text-lg mb-1">{icon}</div>
                 <p
@@ -585,84 +599,119 @@ export default function ProductDetail() {
             ))}
           </div>
 
-          {/* Certificate of Analysis placeholder — no testing claim until a verified report is uploaded */}
-          <div
-            className="rounded-xl border border-[#00BFFF]/20 overflow-hidden"
-            style={{ background: "oklch(0.15 0.055 255 / 0.72)" }}
+          {/* Product-specific COA state — verified values apply only to the matched lot. */}
+          <section
+            id="product-evidence"
+            className={`coa-typography-panel overflow-hidden rounded-2xl border ${product.coa ? "border-[#76B8FF]/30" : "border-[#B9C0CA]/20"}`}
+            style={{ background: "linear-gradient(145deg, oklch(0.27 0.08 255 / 0.92), oklch(0.22 0.065 255 / 0.94))" }}
           >
-            <div className="flex items-start gap-3 px-5 py-4 border-b border-white/8">
-              <div className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 bg-[#00BFFF]/10 border border-[#00BFFF]/20">
-                <FileText size={17} className="text-[#00BFFF]" />
+            <div className="flex items-start gap-4 border-b border-white/10 px-4 py-5 sm:px-6 sm:py-6">
+              <div className={`flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl border sm:h-12 sm:w-12 ${product.coa ? "bg-[#174A9B]/28 border-[#76B8FF]/35" : "bg-[#B9C0CA]/10 border-[#B9C0CA]/20"}`}>
+                {product.coa ? <CheckCircle2 size={20} className="text-[#D8DDE5]" strokeWidth={1.7} /> : <FileText size={20} className="text-[#B9C0CA]" strokeWidth={1.7} />}
               </div>
-              <div>
+              <div className="min-w-0">
                 <p
-                  className="text-white text-sm uppercase tracking-[0.12em]"
-                  style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
+                  className="mb-1 text-[0.64rem] uppercase tracking-[0.22em] text-[#9DB6D8]"
+                  style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}
                 >
-                  Certificate of Analysis (COA)
+                  Batch Documentation
                 </p>
-                <p className="text-white/45 text-xs leading-relaxed mt-1">
-                  Product-specific report placeholder. No verified document is currently posted.
+                <h2
+                  className="text-[1.65rem] leading-none text-[#F6F1E9] sm:text-[1.85rem]"
+                  style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650, letterSpacing: "0.015em" }}
+                >
+                  Certificate of Analysis <span className="text-[#B9C0CA]">(COA)</span>
+                </h2>
+                <p
+                  className="mt-2 max-w-xl text-[0.82rem] leading-relaxed text-white/62 sm:text-sm"
+                  style={{ fontFamily: "'Inter', sans-serif", fontWeight: 400 }}
+                >
+                  {product.coa
+                    ? `Batch-matched Ethos report ${product.coa.reportId} is available for lot ${product.coa.lotBatch}.`
+                    : "No matching report is currently posted for this product."}
                 </p>
               </div>
             </div>
             <Link href={`/coa/${product.id}`}>
-              <span className="flex items-center justify-between gap-4 px-5 py-3.5 text-[#9BDFFF] hover:text-white hover:bg-[#00BFFF]/8 transition-colors cursor-pointer">
+              <span className="group flex cursor-pointer flex-col gap-2.5 px-4 py-4 text-[#E9DCCB] transition-colors hover:bg-[#B9C0CA]/8 hover:text-white sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:px-6">
                 <span
-                  className="text-xs uppercase tracking-[0.14em]"
-                  style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
+                  className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.16em]"
+                  style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 800 }}
                 >
-                  View COA status
+                  {product.coa ? "View verified COA" : "View COA status"}
                 </span>
-                <span className="inline-flex items-center gap-2 text-white/45 text-[0.68rem] uppercase tracking-[0.12em]">
-                  <Clock3 size={13} /> Pending verified upload
-                </span>
+                {product.coa ? (
+                  <span
+                    className="inline-flex items-center gap-2 text-[0.72rem] leading-relaxed text-[#D8DDE5] sm:text-right"
+                    style={{ fontFamily: "'Inter', sans-serif", fontWeight: 550, letterSpacing: "0.025em" }}
+                  >
+                    <CheckCircle2 size={14} className="shrink-0 text-[#9DB6D8]" strokeWidth={1.8} />
+                    <span>{product.coa.purityResult} · Lot {product.coa.lotBatch}</span>
+                  </span>
+                ) : (
+                  <span className="inline-flex items-center gap-2 text-white/45 text-[0.68rem] uppercase tracking-[0.12em]">
+                    <Clock3 size={13} /> Pending verified upload
+                  </span>
+                )}
               </span>
             </Link>
-          </div>
+          </section>
 
           {/* Research benefits list */}
-          <div
-            className="rounded-xl p-5 border border-white/8"
-            style={{ background: "oklch(0.16 0.055 255 / 0.5)" }}
+          <section
+            className="research-highlights-panel rounded-2xl border border-white/10 px-4 py-5 sm:px-6 sm:py-6"
+            style={{ background: "linear-gradient(145deg, oklch(0.27 0.08 255 / 0.72), oklch(0.24 0.07 255 / 0.58))" }}
           >
             <p
-              className="text-cyan-400 text-sm tracking-widest uppercase mb-3"
-              style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 800, letterSpacing: "0.12em" }}
+              className="text-[0.64rem] uppercase tracking-[0.22em] text-[#9DB6D8]"
+              style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}
+            >
+              Research Profile
+            </p>
+            <h2
+              className="mt-1 text-[1.7rem] leading-none text-[#F6F1E9] sm:text-[1.95rem]"
+              style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650, letterSpacing: "0.015em" }}
             >
               Research Highlights
-            </p>
-            <ul className="space-y-2.5">
+            </h2>
+            <ul className="mt-4 divide-y divide-white/8 border-t border-white/10">
               {product.benefits.map((b) => (
-                <li key={b} className="flex items-start gap-2.5">
-                  <CheckCircle2 size={15} className="text-[#00BFFF] flex-shrink-0 mt-0.5" />
-                  <span className="text-white/90 text-base leading-snug" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}>{b}</span>
+                <li key={b} className="flex items-start gap-3 py-3 first:pt-3 last:pb-0">
+                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-[#76B8FF]/25 bg-[#174A9B]/22">
+                    <CheckCircle2 size={12} className="text-[#C8D0DB]" strokeWidth={1.8} />
+                  </span>
+                  <span
+                    className="text-[0.9rem] leading-relaxed text-white/78 sm:text-[0.95rem]"
+                    style={{ fontFamily: "'Inter', sans-serif", fontWeight: 430 }}
+                  >
+                    {b}
+                  </span>
                 </li>
               ))}
             </ul>
-          </div>
+          </section>
         </div>
       </div>
 
       {/* ── TABBED DESCRIPTION SECTION ── */}
       <div
         className="border-t border-white/8 mt-4"
-        style={{ background: "oklch(0.13 0.045 255)" }}
+        style={{ background: "oklch(0.22 0.065 255)" }}
       >
         <div className="max-w-6xl mx-auto px-6 pt-8">
           {/* Tab bar */}
-          <div className="flex gap-0 border-b border-white/10 overflow-x-auto">
+          <div className="grid grid-cols-3 sm:flex sm:gap-0 border-b border-white/10">
             {TAB_LABELS.map(({ key, label }) => (
               <button
                 key={key}
                 onClick={() => setActiveTab(key)}
-                className="px-5 py-3 text-sm font-bold tracking-wide whitespace-nowrap transition-all duration-200 border-b-2 -mb-px"
+                className="px-2 sm:px-5 py-3 text-[0.67rem] sm:text-sm font-bold tracking-wide leading-tight transition-all duration-200 border-b-2 -mb-px"
                 style={{
                   fontFamily: "'Rajdhani', sans-serif",
                   fontWeight: 700,
                   letterSpacing: "0.06em",
-                  borderBottomColor: activeTab === key ? "#00BFFF" : "transparent",
-                  color: activeTab === key ? "#00BFFF" : "rgba(255,255,255,0.4)",
+                  borderBottomColor: activeTab === key ? "#B9C0CA" : "transparent",
+                  color: activeTab === key ? "#B9C0CA" : "rgba(255,255,255,0.4)",
                   background: "transparent",
                 }}
               >
@@ -674,7 +723,22 @@ export default function ProductDetail() {
           {/* Tab content */}
           <div className="py-8">
             {activeTab === "overview" && (
-              <div className="max-w-3xl">
+              <div className="max-w-3xl space-y-5">
+                <div
+                  className="rounded-xl border border-[#B9C0CA]/15 px-5 py-4"
+                  style={{ background: "rgba(185,192,202,0.06)" }}
+                >
+                  <p
+                    className="text-[#B9C0CA] text-xs uppercase tracking-[0.14em] mb-2"
+                    style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
+                  >
+                    Research Classification
+                  </p>
+                  <p className="text-white/90 text-base leading-relaxed">
+                    {product.researchClassification}
+                  </p>
+                </div>
+                <p className="text-white/85 leading-relaxed text-lg">{product.synopsis}</p>
                 <p className="text-white/70 leading-relaxed text-base">{product.plainEnglish}</p>
               </div>
             )}
@@ -689,12 +753,13 @@ export default function ProductDetail() {
                 {/* Quick facts */}
                 <div
                   className="rounded-xl border border-white/8 overflow-hidden mt-6"
-                  style={{ background: "oklch(0.16 0.055 255 / 0.5)" }}
+                  style={{ background: "oklch(0.27 0.08 255 / 0.5)" }}
                 >
                   {[
                     { label: "Compound", value: product.name },
                     { label: "Content", value: displayContent },
                     { label: "Category", value: product.category },
+                    { label: "Classification", value: product.researchClassification },
                     { label: "Price", value: displayPrice },
                   ].map(({ label, value }, i) => (
                     <div
@@ -703,7 +768,7 @@ export default function ProductDetail() {
                       style={{ background: i % 2 === 0 ? "rgba(255,255,255,0.02)" : "transparent" }}
                     >
                       <span
-                        className="text-cyan-400/80 uppercase tracking-widest text-sm"
+                        className="text-[#B9C0CA]/80 uppercase tracking-widest text-sm"
                         style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
                       >
                         {label}
@@ -724,17 +789,84 @@ export default function ProductDetail() {
                 <MolecularTable product={product} />
               </div>
             )}
+            {activeTab === "handling" && (
+              <div className="max-w-3xl space-y-6">
+                <div
+                  className="rounded-xl border border-white/10 p-5"
+                  style={{ background: "oklch(0.27 0.08 255 / 0.5)" }}
+                >
+                  <div className="flex items-start gap-3">
+                    <ShieldCheck size={19} className="text-[#B9C0CA] mt-0.5 flex-shrink-0" />
+                    <div>
+                      <p
+                        className="text-[#B9C0CA] text-xs uppercase tracking-[0.14em] mb-2"
+                        style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
+                      >
+                        Laboratory Handling
+                      </p>
+                      <p className="text-white/70 leading-relaxed text-base">{product.handling}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div
+                  className="rounded-xl border border-[#B9C0CA]/20 p-5"
+                  style={{ background: "rgba(185,192,202,0.06)" }}
+                >
+                  <p
+                    className="text-white text-sm uppercase tracking-[0.12em]"
+                    style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
+                  >
+                    Product Documentation
+                  </p>
+                  <p className="text-white/55 text-sm leading-relaxed mt-2">
+                    {product.coa
+                      ? `The owner-supplied COA has been matched to lot ${product.coa.lotBatch}. It reports ${product.coa.contentResult} and ${product.coa.purityResult}. These results apply only to the sample identified in report ${product.coa.reportId}.`
+                      : "A product-specific COA location is reserved for a report that matches this compound and lot. Until a document is supplied and mapped, analytical identity and purity remain pending on the website."}
+                  </p>
+                  <Link href={`/coa/${product.id}`}>
+                    <span className="inline-flex items-center gap-2 mt-4 text-[#E9DCCB] hover:text-white text-xs uppercase tracking-[0.14em] cursor-pointer">
+                      <FileText size={14} /> {product.coa ? "View report details" : "View COA status"}
+                    </span>
+                  </Link>
+                </div>
+
+                <div>
+                  <p
+                    className="text-[#B9C0CA] text-xs uppercase tracking-[0.14em] mb-3"
+                    style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
+                  >
+                    Research References
+                  </p>
+                  <div className="space-y-2">
+                    {product.references.map((reference) => (
+                      <a
+                        key={reference.url}
+                        href={reference.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex items-start justify-between gap-4 rounded-lg border border-white/8 px-4 py-3 text-white/70 hover:text-white hover:border-[#B9C0CA]/35 transition-colors"
+                        style={{ background: "rgba(255,255,255,0.025)" }}
+                      >
+                        <span className="text-sm leading-relaxed">{reference.title}</span>
+                        <ExternalLink size={14} className="text-[#B9C0CA] mt-0.5 flex-shrink-0" />
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Disclaimer block — always visible below tabs */}
           <div
-            className="rounded-xl p-5 border border-[#FF2D78]/20 flex gap-4 mb-10"
+            className="rounded-xl p-5 border border-[#174A9B]/20 flex gap-4 mb-10"
             style={{ background: "oklch(0.16 0.04 10 / 0.3)" }}
           >
-            <AlertTriangle size={18} className="text-[#FF2D78] flex-shrink-0 mt-0.5" />
+            <AlertTriangle size={18} className="text-[#174A9B] flex-shrink-0 mt-0.5" />
             <div>
               <p
-                className="text-[#FF2D78] text-xs mb-1"
+                className="text-[#174A9B] text-xs mb-1"
                 style={{ fontFamily: "'Inter', sans-serif", fontWeight: 600, letterSpacing: "0.02em" }}
               >
                 Research Use Only — Important Notice
@@ -751,7 +883,7 @@ export default function ProductDetail() {
       {/* ── RELATED PRODUCTS ── */}
       <div
         className="border-t border-white/8 pt-12"
-        style={{ background: "oklch(0.12 0.04 255)" }}
+        style={{ background: "oklch(0.20 0.06 255)" }}
       >
         <RelatedProducts current={product} />
       </div>
@@ -759,7 +891,7 @@ export default function ProductDetail() {
       {/* ── Footer strip ── */}
       <div
         className="border-t border-white/8 py-8 text-center"
-        style={{ background: "oklch(0.1 0.03 255)" }}
+        style={{ background: "#0B1D3F" }}
       >
         <Link href="/#products">
           <button
@@ -768,9 +900,9 @@ export default function ProductDetail() {
               fontFamily: "'Rajdhani', sans-serif",
               fontWeight: 700,
               letterSpacing: "0.08em",
-              background: "rgba(0,191,255,0.12)",
-              border: "1px solid rgba(0,191,255,0.3)",
-              color: "#00BFFF",
+              background: "rgba(185,192,202,0.12)",
+              border: "1px solid rgba(185,192,202,0.3)",
+              color: "#B9C0CA",
             }}
           >
             <ArrowLeft size={15} />

@@ -15,7 +15,7 @@ describe("public sales platform page", () => {
   const footerSource = readSource("client/src/components/Footer.tsx");
 
   it("routes /shop to the dedicated page instead of redirecting to the home catalog", () => {
-    expect(appSource).toContain('import Shop from "./pages/Shop"');
+    expect(appSource).toContain('const Shop = lazy(() => import("./pages/Shop"))');
     expect(appSource).toContain('<Route path="/shop" component={Shop} />');
     expect(appSource).not.toContain('<Route path="/shop"><Redirect');
   });

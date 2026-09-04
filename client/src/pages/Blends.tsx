@@ -34,7 +34,7 @@ export default function Blends() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#060d1a] text-white">
+    <div className="min-h-screen bg-[#091A39] text-white">
       <AnnouncementBar />
       <Navbar />
 
@@ -42,29 +42,29 @@ export default function Blends() {
       <section className="relative pt-32 pb-16 overflow-hidden">
         {/* Background glow */}
         <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-cyan-500/10 rounded-full blur-[80px]" />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#B9C0CA]/10 rounded-full blur-[80px]" />
         </div>
 
         <div className="container max-w-6xl mx-auto px-4 relative z-10 text-center">
           {/* Label */}
-          <p className="text-xs font-bold tracking-[4px] text-cyan-400 uppercase mb-4">
+          <p className="text-xs font-bold tracking-[4px] text-[#B9C0CA] uppercase mb-4">
             Precision Formulated
           </p>
 
           {/* Title */}
           <h1
             className="font-bebas text-5xl md:text-7xl tracking-widest text-white mb-4"
-            style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+            style={{ fontFamily: "'Cormorant Garamond', serif" }}
           >
             RESEARCH{" "}
-            <span className="text-cyan-400">BLENDS</span>
+            <span className="text-[#B9C0CA]">BLENDS</span>
           </h1>
 
           {/* Divider */}
           <div className="flex items-center justify-center gap-4 mb-6">
-            <div className="h-px w-16 bg-gradient-to-r from-transparent to-cyan-400" />
-            <div className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
-            <div className="h-px w-16 bg-gradient-to-l from-transparent to-cyan-400" />
+            <div className="h-px w-16 bg-gradient-to-r from-transparent to-[#B9C0CA]" />
+            <div className="w-1.5 h-1.5 rounded-full bg-[#B9C0CA]" />
+            <div className="h-px w-16 bg-gradient-to-l from-transparent to-[#B9C0CA]" />
           </div>
 
           {/* Description */}
@@ -77,17 +77,17 @@ export default function Blends() {
           {/* Stats */}
           <div className="flex items-center justify-center gap-8 mt-8">
             <div className="text-center">
-              <p className="text-2xl font-bold text-cyan-400">{blendProducts.length}</p>
+              <p className="text-2xl font-bold text-[#B9C0CA]">{blendProducts.length}</p>
               <p className="text-xs text-slate-500 uppercase tracking-widest mt-1">Blends Available</p>
             </div>
             <div className="w-px h-10 bg-slate-700" />
             <div className="text-center">
-              <p className="text-2xl font-bold text-cyan-400">1:1</p>
+              <p className="text-2xl font-bold text-[#B9C0CA]">1:1</p>
               <p className="text-xs text-slate-500 uppercase tracking-widest mt-1">Precision Ratio</p>
             </div>
             <div className="w-px h-10 bg-slate-700" />
             <div className="text-center">
-              <p className="text-2xl font-bold text-cyan-400">100%</p>
+              <p className="text-2xl font-bold text-[#B9C0CA]">100%</p>
               <p className="text-xs text-slate-500 uppercase tracking-widest mt-1">Pharma Grade</p>
             </div>
           </div>
@@ -119,7 +119,7 @@ export default function Blends() {
           <div className="text-center mt-16">
             <a
               href="/#products"
-              className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-cyan-400 transition-colors duration-200 group"
+              className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-[#B9C0CA] transition-colors duration-200 group"
             >
               <span className="group-hover:-translate-x-1 transition-transform duration-200">←</span>
               View All Products

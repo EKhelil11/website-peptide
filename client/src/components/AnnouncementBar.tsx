@@ -6,7 +6,7 @@ import { X } from "lucide-react";
 
 // Option D — Premium brand feel, open for business
 const SEGMENT =
-  "\u2756 LA ELITE PEPTIDES \u00a0\u00b7\u00a0 NOW OPEN \u00a0\u00b7\u00a0 TRUSTED \u00a0\u00b7\u00a0 TESTED \u00a0\u00b7\u00a0 RESEARCH GRADE QUALITY \u00a0\u00b7\u00a0 ORDER TODAY \u00a0\u00b7\u00a0 (310)\u00a0975-9289 \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0";
+  "\u2756 LA ELITE PEPTIDES \u00a0\u00b7\u00a0 NOW OPEN \u00a0\u00b7\u00a0 RESEARCH USE ONLY \u00a0\u00b7\u00a0 VIEW PRODUCT DOCUMENT STATUS \u00a0\u00b7\u00a0 ORDER TODAY \u00a0\u00b7\u00a0 (310)\u00a0975-9289 \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0";
 const TICKER = SEGMENT.repeat(6);
 
 export default function AnnouncementBar() {
@@ -29,16 +29,16 @@ export default function AnnouncementBar() {
           top: "80px",   /* mobile: below h-20 navbar */
           height: "44px",
           background:
-            "linear-gradient(90deg, oklch(0.28 0.20 280) 0%, oklch(0.20 0.14 255) 50%, oklch(0.28 0.20 320) 100%)",
-          borderTop: "1px solid oklch(0.60 0.28 200 / 40%)",
-          borderBottom: "1px solid oklch(0.60 0.28 200 / 40%)",
-          boxShadow: "0 2px 12px oklch(0.55 0.25 200 / 20%)",
+            "linear-gradient(90deg, #07152F 0%, #174A9B 50%, #07152F 100%)",
+          borderTop: "1px solid oklch(0.76 0.02 250 / 40%)",
+          borderBottom: "1px solid oklch(0.76 0.02 250 / 40%)",
+          boxShadow: "0 2px 12px oklch(0.55 0.14 255 / 20%)",
         }}
       >
         {/* Left fade */}
         <div
           className="absolute left-0 top-0 bottom-0 w-12 pointer-events-none z-10"
-          style={{ background: "linear-gradient(to right, oklch(0.28 0.20 280), transparent)" }}
+          style={{ background: "linear-gradient(to right, #07152F, transparent)" }}
         />
 
         {/* Scrolling text */}
@@ -55,16 +55,16 @@ export default function AnnouncementBar() {
             textTransform: "uppercase",
           }}
         >
-          <span style={{ color: "#FF2D78", fontSize: "1rem" }}>✦</span>
+          <span style={{ color: "#B9C0CA", fontSize: "1rem" }}>✦</span>
           &nbsp;{TICKER}
-          <span style={{ color: "#FF2D78", fontSize: "1rem" }}>✦</span>
+          <span style={{ color: "#B9C0CA", fontSize: "1rem" }}>✦</span>
           &nbsp;{TICKER}
         </div>
 
         {/* Right fade */}
         <div
           className="absolute right-7 top-0 bottom-0 w-12 pointer-events-none z-10"
-          style={{ background: "linear-gradient(to left, oklch(0.28 0.20 280), transparent)" }}
+          style={{ background: "linear-gradient(to left, #07152F, transparent)" }}
         />
 
         {/* Dismiss */}

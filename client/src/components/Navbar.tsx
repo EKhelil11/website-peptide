@@ -90,7 +90,7 @@ export default function Navbar() {
                 <button
                   key={link.href}
                   onClick={() => handleNavClick(link.href)}
-                  className="text-sm font-medium tracking-widest uppercase transition-colors duration-200 text-white/70 hover:text-[#00BFFF]"
+                  className="text-sm font-medium tracking-widest uppercase transition-colors duration-200 text-white/70 hover:text-[#B9C0CA]"
                   style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
                 >
                   {link.label}
@@ -102,7 +102,7 @@ export default function Navbar() {
             {isAdmin && (
               <button
                 onClick={() => setLocation("/admin/orders")}
-                className="hidden md:flex items-center gap-1.5 text-sm font-medium tracking-widest uppercase text-[#FF2D78]/80 hover:text-[#FF2D78] transition-colors duration-200"
+                className="hidden md:flex items-center gap-1.5 text-sm font-medium tracking-widest uppercase text-[#174A9B]/80 hover:text-[#174A9B] transition-colors duration-200"
                 style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
               >
                 <ShieldCheck size={15} />
@@ -116,7 +116,7 @@ export default function Navbar() {
                 <div className="flex items-center gap-3">
                   <button
                     onClick={() => setLocation("/account")}
-                    className="flex items-center gap-2 text-sm font-medium tracking-widest uppercase text-white/70 hover:text-[#00BFFF] transition-colors"
+                    className="flex items-center gap-2 text-sm font-medium tracking-widest uppercase text-white/70 hover:text-[#B9C0CA] transition-colors"
                     style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
                   >
                     <User size={16} />
@@ -134,7 +134,7 @@ export default function Navbar() {
               ) : (
                 <button
                   onClick={() => setLocation(`/login?returnTo=${encodeURIComponent(location)}`)}
-                  className="text-sm font-medium tracking-widest uppercase px-4 py-1.5 rounded border border-[#00BFFF]/40 text-[#00BFFF] hover:bg-[#00BFFF]/10 transition-colors"
+                  className="text-sm font-medium tracking-widest uppercase px-4 py-1.5 rounded border border-[#B9C0CA]/40 text-[#B9C0CA] hover:bg-[#B9C0CA]/10 transition-colors"
                   style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
                 >
                   Sign In
@@ -144,9 +144,11 @@ export default function Navbar() {
 
             {/* Mobile Menu Toggle */}
             <button
-              className="md:hidden text-white/80 hover:text-[#00BFFF] transition-colors"
+              className="md:hidden flex h-11 w-11 items-center justify-center rounded-lg text-white/80 hover:text-[#B9C0CA] transition-colors"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Toggle menu"
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-navigation"
             >
               {mobileOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -156,12 +158,13 @@ export default function Navbar() {
 
       {/* Mobile Menu Overlay */}
       <div
+        id="mobile-navigation"
         className={`fixed inset-0 z-40 md:hidden transition-all duration-300 ${
           mobileOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
-        style={{ background: "oklch(0.12 0.05 255 / 97%)", backdropFilter: "blur(20px)" }}
+        style={{ background: "oklch(0.18 0.055 255 / 97%)", backdropFilter: "blur(20px)", overflowY: "auto" }}
       >
-        <div className="flex flex-col items-center justify-center h-full gap-8">
+        <div className="flex min-h-full flex-col items-center justify-center gap-3 px-4 py-28 sm:gap-6">
           <img
             src={PRIMARY_LOGO_URL}
             alt={PRIMARY_LOGO_ALT}
@@ -171,8 +174,8 @@ export default function Navbar() {
             <button
               key={link.href}
               onClick={() => handleNavClick(link.href)}
-              className="text-2xl font-bold tracking-widest uppercase text-white/80 hover:text-[#00BFFF] transition-colors"
-              style={{ fontFamily: "'Bebas Neue', sans-serif", animationDelay: `${i * 80}ms` }}
+              className="flex min-h-11 w-full max-w-xs items-center justify-center text-xl sm:text-2xl font-bold tracking-widest uppercase text-white/80 hover:text-[#B9C0CA] transition-colors"
+              style={{ fontFamily: "'Cormorant Garamond', serif", animationDelay: `${i * 80}ms` }}
             >
               {link.label}
             </button>
@@ -181,8 +184,8 @@ export default function Navbar() {
           {isAdmin && (
             <button
               onClick={() => { setMobileOpen(false); setLocation("/admin/orders"); }}
-              className="flex items-center gap-2 text-xl font-bold tracking-widest uppercase text-[#FF2D78]/80 hover:text-[#FF2D78] transition-colors"
-              style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+              className="flex items-center gap-2 text-xl font-bold tracking-widest uppercase text-[#174A9B]/80 hover:text-[#174A9B] transition-colors"
+              style={{ fontFamily: "'Cormorant Garamond', serif" }}
             >
               <ShieldCheck size={18} />
               Admin
@@ -190,13 +193,13 @@ export default function Navbar() {
           )}
 
           {/* Mobile Auth */}
-          <div className="flex flex-col items-center gap-3 pt-4 border-t border-white/10 w-48">
+          <div className="flex w-full max-w-xs flex-col items-center gap-3 border-t border-white/10 pt-4">
             {isAuthenticated ? (
               <>
                 <button
                   onClick={() => { setMobileOpen(false); setLocation("/account"); }}
-                  className="flex items-center gap-2 text-xl font-bold tracking-widest uppercase text-white/80 hover:text-[#00BFFF] transition-colors"
-                  style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                  className="flex items-center gap-2 text-xl font-bold tracking-widest uppercase text-white/80 hover:text-[#B9C0CA] transition-colors"
+                  style={{ fontFamily: "'Cormorant Garamond', serif" }}
                 >
                   <User size={18} />
                   {customer?.firstName ?? "Account"}
@@ -212,8 +215,8 @@ export default function Navbar() {
             ) : (
               <button
                 onClick={() => { setMobileOpen(false); setLocation(`/login?returnTo=${encodeURIComponent(location)}`); }}
-                className="text-xl font-bold tracking-widest uppercase text-[#00BFFF] hover:text-white transition-colors"
-                style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                className="text-xl font-bold tracking-widest uppercase text-[#B9C0CA] hover:text-white transition-colors"
+                style={{ fontFamily: "'Cormorant Garamond', serif" }}
               >
                 Sign In
               </button>

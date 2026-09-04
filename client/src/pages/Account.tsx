@@ -11,7 +11,7 @@ import { PRIMARY_LOGO_ALT, PRIMARY_LOGO_URL, UTILITY_LOGO_SIZE_CLASS } from "@/l
 const STATUS_CONFIG: Record<string, { label: string; icon: any; color: string }> = {
   pending_payment: { label: "Pending Payment", icon: Clock, color: "oklch(0.75 0.15 80)" },
   paid:            { label: "Paid", icon: CheckCircle, color: "oklch(0.65 0.2 145)" },
-  processing:      { label: "Processing", icon: Package, color: "oklch(0.72 0.18 210)" },
+  processing:      { label: "Processing", icon: Package, color: "oklch(0.76 0.02 250)" },
   shipped:         { label: "Shipped", icon: Truck, color: "oklch(0.65 0.2 145)" },
   delivered:       { label: "Delivered", icon: CheckCircle, color: "oklch(0.65 0.2 145)" },
   cancelled:       { label: "Cancelled", icon: XCircle, color: "oklch(0.6 0.15 25)" },
@@ -36,7 +36,7 @@ export default function Account() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ background: "oklch(0.12 0.05 255)" }}>
+      <div className="min-h-screen flex items-center justify-center" style={{ background: "oklch(0.18 0.055 255)" }}>
         <div className="text-white/50 text-sm tracking-widest uppercase" style={{ fontFamily: "'Rajdhani', sans-serif" }}>Loading...</div>
       </div>
     );
@@ -47,19 +47,19 @@ export default function Account() {
   const orders = ordersQuery.data ?? [];
 
   return (
-    <div className="min-h-screen" style={{ background: "oklch(0.12 0.05 255)" }}>
+    <div className="min-h-screen" style={{ background: "oklch(0.18 0.055 255)" }}>
       {/* Top Nav */}
       <header
         className="sticky top-0 z-50 border-b"
         style={{
-          background: "oklch(0.15 0.055 255 / 95%)",
+          background: "oklch(0.25 0.08 255 / 95%)",
           backdropFilter: "blur(20px)",
-          borderColor: "oklch(0.28 0.08 255 / 40%)",
+          borderColor: "oklch(0.32 0.10 255 / 40%)",
         }}
       >
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <button onClick={() => setLocation("/shop")} className="text-white/50 hover:text-[#00BFFF] transition-colors">
+            <button onClick={() => setLocation("/shop")} className="text-white/50 hover:text-[#B9C0CA] transition-colors">
               <ArrowLeft size={20} />
             </button>
             <img src={PRIMARY_LOGO_URL} alt={PRIMARY_LOGO_ALT} className={UTILITY_LOGO_SIZE_CLASS} />
@@ -80,7 +80,7 @@ export default function Account() {
         <div className="mb-8">
           <h1
             className="text-4xl sm:text-5xl text-white mb-2"
-            style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "0.06em" }}
+            style={{ fontFamily: "'Cormorant Garamond', serif", letterSpacing: "0.06em" }}
           >
             My Account
           </h1>
@@ -94,7 +94,7 @@ export default function Account() {
             className="rounded-xl px-5 py-4 mb-8"
             style={{ background: "rgba(255,184,0,0.08)", border: "1px solid rgba(255,184,0,0.3)" }}
           >
-            <p className="text-sm font-bold uppercase tracking-wider" style={{ color: "#FFB800", fontFamily: "'Rajdhani', sans-serif" }}>
+            <p className="text-sm font-bold uppercase tracking-wider" style={{ color: "#B9C0CA", fontFamily: "'Rajdhani', sans-serif" }}>
               Relaunch Integration Notice
             </p>
             <p className="text-white/70 text-sm mt-1 leading-relaxed" style={{ fontFamily: "'Inter', sans-serif" }}>
@@ -109,15 +109,15 @@ export default function Account() {
             onClick={() => setLocation("/shop")}
             className="flex items-center gap-4 rounded-xl p-5 text-left transition-all hover:translate-y-[-1px]"
             style={{
-              background: "linear-gradient(135deg, oklch(0.6 0.27 0 / 20%), oklch(0.55 0.25 355 / 10%))",
-              border: "1px solid oklch(0.6 0.27 0 / 40%)",
+              background: "linear-gradient(135deg, oklch(0.44 0.13 255 / 20%), oklch(0.55 0.25 355 / 10%))",
+              border: "1px solid oklch(0.44 0.13 255 / 40%)",
             }}
           >
             <div
               className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0"
-              style={{ background: "oklch(0.6 0.27 0 / 20%)" }}
+              style={{ background: "oklch(0.44 0.13 255 / 20%)" }}
             >
-              <ShoppingBag size={20} style={{ color: "oklch(0.6 0.27 0)" }} />
+              <ShoppingBag size={20} style={{ color: "oklch(0.44 0.13 255)" }} />
             </div>
             <div>
               <p className="text-white font-bold text-sm uppercase tracking-widest" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
@@ -132,15 +132,15 @@ export default function Account() {
           <div
             className="flex items-center gap-4 rounded-xl p-5"
             style={{
-              background: "oklch(0.17 0.055 255)",
-              border: "1px solid oklch(0.28 0.08 255 / 50%)",
+              background: "oklch(0.28 0.08 255)",
+              border: "1px solid oklch(0.32 0.10 255 / 50%)",
             }}
           >
             <div
               className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0"
-              style={{ background: "oklch(0.72 0.18 210 / 15%)" }}
+              style={{ background: "oklch(0.76 0.02 250 / 15%)" }}
             >
-              <Package size={20} style={{ color: "oklch(0.72 0.18 210)" }} />
+              <Package size={20} style={{ color: "oklch(0.76 0.02 250)" }} />
             </div>
             <div>
               <p className="text-white font-bold text-sm uppercase tracking-widest" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
@@ -157,7 +157,7 @@ export default function Account() {
         <div>
           <h2
             className="text-2xl text-white mb-4"
-            style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "0.06em" }}
+            style={{ fontFamily: "'Cormorant Garamond', serif", letterSpacing: "0.06em" }}
           >
             Order History
           </h2>
@@ -170,8 +170,8 @@ export default function Account() {
             <div
               className="rounded-xl p-10 text-center"
               style={{
-                background: "oklch(0.17 0.055 255)",
-                border: "1px solid oklch(0.28 0.08 255 / 40%)",
+                background: "oklch(0.28 0.08 255)",
+                border: "1px solid oklch(0.32 0.10 255 / 40%)",
               }}
             >
               <Package size={40} className="mx-auto mb-4 text-white/20" />
@@ -182,7 +182,7 @@ export default function Account() {
                 onClick={() => setLocation("/shop")}
                 className="px-6 py-2.5 rounded-lg font-bold text-sm tracking-widest uppercase transition-all hover:opacity-90"
                 style={{
-                  background: "linear-gradient(135deg, oklch(0.65 0.22 210), oklch(0.55 0.20 230))",
+                  background: "linear-gradient(135deg, oklch(0.55 0.14 255), oklch(0.44 0.13 255))",
                   color: "white",
                   fontFamily: "'Rajdhani', sans-serif",
                 }}
@@ -201,15 +201,15 @@ export default function Account() {
                     key={order.id}
                     className="rounded-xl p-5"
                     style={{
-                      background: "oklch(0.17 0.055 255)",
-                      border: "1px solid oklch(0.28 0.08 255 / 50%)",
+                      background: "oklch(0.28 0.08 255)",
+                      border: "1px solid oklch(0.32 0.10 255 / 50%)",
                     }}
                   >
                     <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
                       <div>
                         <p
                           className="text-white font-bold text-lg"
-                          style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: "0.05em" }}
+                          style={{ fontFamily: "'Cormorant Garamond', serif", letterSpacing: "0.05em" }}
                         >
                           {order.orderNumber || `Order #${order.id}`}
                         </p>
@@ -259,13 +259,13 @@ export default function Account() {
                     )}
 
                     {/* Total */}
-                    <div className="flex justify-between items-center pt-3 border-t" style={{ borderColor: "oklch(0.28 0.08 255 / 30%)" }}>
+                    <div className="flex justify-between items-center pt-3 border-t" style={{ borderColor: "oklch(0.32 0.10 255 / 30%)" }}>
                       <span className="text-white/50 text-xs uppercase tracking-widest" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
                         Order Total
                       </span>
                       <span
                         className="text-white font-bold text-xl"
-                        style={{ fontFamily: "'Bebas Neue', sans-serif" }}
+                        style={{ fontFamily: "'Cormorant Garamond', serif" }}
                       >
                         ${((order.totalCents ?? 0) / 100).toFixed(2)}
                       </span>
@@ -281,11 +281,11 @@ export default function Account() {
         <div className="mt-10 text-center">
           <p className="text-white/30 text-xs" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
             Questions about your order? Text us at{" "}
-            <a href="sms:(310)975-9289" className="text-white/50 hover:text-[#00BFFF] transition-colors">
+            <a href="sms:(310)975-9289" className="text-white/50 hover:text-[#B9C0CA] transition-colors">
               (310) 975-9289
             </a>{" "}
             or email{" "}
-            <a href="mailto:support@laelitepeps.com" className="text-white/50 hover:text-[#00BFFF] transition-colors">
+            <a href="mailto:support@laelitepeps.com" className="text-white/50 hover:text-[#B9C0CA] transition-colors">
               support@laelitepeps.com
             </a>
           </p>

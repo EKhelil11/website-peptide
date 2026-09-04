@@ -8,12 +8,12 @@ import { PRIMARY_LOGO_ALT, PRIMARY_LOGO_URL, UTILITY_LOGO_SIZE_CLASS } from "@/l
 
 export default function ShippingReturnsPage() {
   return (
-    <div className="min-h-screen" style={{ background: "oklch(0.08 0.04 255)" }}>
+    <div className="min-h-screen" style={{ background: "oklch(0.15 0.045 255)" }}>
       {/* Top nav */}
       <header
         className="sticky top-0 z-50 px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between"
         style={{
-          background: "oklch(0.08 0.04 255 / 95%)",
+          background: "oklch(0.15 0.045 255 / 95%)",
           borderBottom: "1px solid oklch(1 0 0 / 8%)",
           backdropFilter: "blur(12px)",
         }}
@@ -23,7 +23,7 @@ export default function ShippingReturnsPage() {
         </Link>
         <Link href="/">
           <button
-            className="flex items-center gap-2 text-white/50 hover:text-[#00BFFF] transition-colors text-sm"
+            className="flex items-center gap-2 text-white/50 hover:text-[#B9C0CA] transition-colors text-sm"
             style={{ fontFamily: "'Inter', sans-serif" }}
           >
             <ArrowLeft size={14} />
@@ -33,13 +33,13 @@ export default function ShippingReturnsPage() {
       </header>
 
       {/* Page content */}
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         {/* Page header */}
         <div className="mb-12">
           <div className="flex items-center gap-3 mb-4">
-            <div className="h-px w-12 bg-[#00BFFF]" />
+            <div className="h-px w-12 bg-[#B9C0CA]" />
             <span
-              className="text-[#00BFFF] text-xs tracking-[0.3em] uppercase"
+              className="text-[#B9C0CA] text-xs tracking-[0.3em] uppercase"
               style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
             >
               Legal
@@ -48,7 +48,7 @@ export default function ShippingReturnsPage() {
           <h1
             className="text-white mb-3"
             style={{
-              fontFamily: "'Bebas Neue', sans-serif",
+              fontFamily: "'Cormorant Garamond', serif",
               fontSize: "clamp(2.5rem, 5vw, 3.5rem)",
               letterSpacing: "0.04em",
               lineHeight: 1.05,
@@ -65,27 +65,27 @@ export default function ShippingReturnsPage() {
         </div>
 
         {/* Policy content */}
-        <div style={{ fontFamily: "'Inter', sans-serif", color: "oklch(0.75 0.02 255)" }}>
+        <div style={{ fontFamily: "'Inter', sans-serif", color: "oklch(0.82 0.025 100)" }}>
 
           <PolicySection title="Overview">
-            <p>LA Elite Sales LLC (operating as LA Elite Peptides) provides fast, secure shipping on all domestic orders.</p>
+            <p>LA Elite Sales LLC (operating as LA Elite Peptides) provides discreet, trackable standard shipping to qualified research customers across all 50 states.</p>
           </PolicySection>
 
-          <PolicySection title="Shipping Tiers">
+          <PolicySection title="Standard Shipping Service">
             <div
-              className="rounded-lg p-5 mb-4"
-              style={{ background: "oklch(0.12 0.05 255)", border: "1px solid oklch(1 0 0 / 8%)" }}
+              className="rounded-lg p-4 sm:p-5 mb-4"
+              style={{ background: "oklch(0.18 0.055 255)", border: "1px solid oklch(1 0 0 / 8%)" }}
             >
               <div className="flex items-start gap-3 mb-3">
                 <div
                   className="w-2 h-2 rounded-full mt-1.5 flex-shrink-0"
-                  style={{ background: "#00BFFF" }}
+                  style={{ background: "#B9C0CA" }}
                 />
                 <div>
                   <p className="text-white text-sm font-semibold" style={{ fontFamily: "'Rajdhani', sans-serif", letterSpacing: "0.05em" }}>
-                    FREE USPS PRIORITY SHIPPING
+                    FLAT-RATE STANDARD SHIPPING
                   </p>
-                  <p className="text-white/50 text-xs mt-0.5">On all U.S. orders over $250</p>
+                  <p className="text-white/60 text-xs mt-0.5">$7.00 at checkout</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
@@ -93,15 +93,20 @@ export default function ShippingReturnsPage() {
                   className="w-2 h-2 rounded-full mt-1.5 flex-shrink-0"
                   style={{ background: "oklch(1 0 0 / 30%)" }}
                 />
-                <p className="text-white/60 text-sm">USPS Priority, UPS Ground, UPS 2-Day, and UPS Air Overnight (by request) available</p>
+                <div>
+                  <p className="text-white text-sm font-semibold" style={{ fontFamily: "'Rajdhani', sans-serif", letterSpacing: "0.05em" }}>
+                    NATIONWIDE DELIVERY
+                  </p>
+                  <p className="text-white/60 text-xs mt-0.5">3–5 business days · All 50 states</p>
+                </div>
               </div>
             </div>
-            <p>We fulfill orders Monday through Friday, excluding federal holidays. Orders placed before 2:00 PM PST are typically processed the same business day. Orders received after this time may ship the following business day.</p>
-            <p>Once your order is processed, you will receive an email confirmation with tracking information. All shipments are professionally packed using thermally protective materials to preserve compound integrity in transit.</p>
+            <p>Orders are fulfilled Monday through Friday, excluding federal holidays. The standard delivery window is 3–5 business days after an order is processed and accepted by the carrier. Carrier or holiday delays may affect timing.</p>
+            <p>Tracking information is provided when available. Every order is prepared in discreet packaging with an unbranded exterior.</p>
           </PolicySection>
 
-          <PolicySection title="Domestic Shipping Only">
-            <p>We currently ship exclusively within the United States. It is your responsibility to confirm that the products ordered are legally permitted in your jurisdiction. We assume no liability for shipments delayed, seized, or denied by third-party carriers or authorities.</p>
+          <PolicySection title="All 50 States">
+            <p>We ship within the United States. It is your responsibility to confirm that the products ordered are legally permitted in your jurisdiction. We assume no liability for shipments delayed, seized, or denied by third-party carriers or authorities.</p>
           </PolicySection>
 
           <PolicySection title="Return Eligibility">
@@ -112,7 +117,7 @@ export default function ShippingReturnsPage() {
             </ul>
             <p>
               Email{" "}
-              <a href="mailto:Support@laelitepeps.com" className="text-[#00BFFF] hover:underline">
+              <a href="mailto:Support@laelitepeps.com" className="text-[#B9C0CA] hover:underline">
                 Support@laelitepeps.com
               </a>{" "}
               with your order number, a clear photo of the damage or incorrect item, and a description. We will arrange a free reshipment of the product.
@@ -144,9 +149,9 @@ export default function ShippingReturnsPage() {
           <PolicySection title="Contact">
             <p>For shipping or return inquiries:</p>
             <p>
-              📧 <a href="mailto:Support@laelitepeps.com" className="text-[#00BFFF] hover:underline">Support@laelitepeps.com</a>
+              Email: <a href="mailto:Support@laelitepeps.com" className="text-[#B9C0CA] hover:underline break-all">Support@laelitepeps.com</a>
               <br />
-              📞 <a href="tel:+13109759289" className="text-[#00BFFF] hover:underline">(310) 975-9289</a>
+              Phone: <a href="tel:+13109759289" className="text-[#B9C0CA] hover:underline">(310) 975-9289</a>
             </p>
           </PolicySection>
         </div>
@@ -175,8 +180,8 @@ function PolicySection({ title, children }: { title: string; children: React.Rea
         {title}
       </h2>
       <div
-        className="space-y-3 text-sm leading-relaxed"
-        style={{ color: "oklch(0.72 0.02 255)" }}
+        className="space-y-3 text-[0.9rem] sm:text-sm leading-relaxed"
+        style={{ color: "oklch(0.62 0.02 250)" }}
       >
         {children}
       </div>
@@ -189,7 +194,7 @@ function PolicyFooter() {
     <footer
       className="py-8 mt-8"
       style={{
-        background: "oklch(0.06 0.04 255)",
+        background: "oklch(0.13 0.04 255)",
         borderTop: "1px solid oklch(1 0 0 / 8%)",
       }}
     >
@@ -202,13 +207,13 @@ function PolicyFooter() {
         </p>
         <div className="flex items-center gap-4">
           <Link href="/terms">
-            <span className="text-white/30 text-xs hover:text-[#00BFFF] transition-colors cursor-pointer" style={{ fontFamily: "'Inter', sans-serif" }}>Terms</span>
+            <span className="text-white/30 text-xs hover:text-[#B9C0CA] transition-colors cursor-pointer" style={{ fontFamily: "'Inter', sans-serif" }}>Terms</span>
           </Link>
           <Link href="/shipping-returns">
-            <span className="text-white/30 text-xs hover:text-[#00BFFF] transition-colors cursor-pointer" style={{ fontFamily: "'Inter', sans-serif" }}>Shipping & Returns</span>
+            <span className="text-white/30 text-xs hover:text-[#B9C0CA] transition-colors cursor-pointer" style={{ fontFamily: "'Inter', sans-serif" }}>Shipping & Returns</span>
           </Link>
           <Link href="/privacy-policy">
-            <span className="text-white/30 text-xs hover:text-[#00BFFF] transition-colors cursor-pointer" style={{ fontFamily: "'Inter', sans-serif" }}>Privacy Policy</span>
+            <span className="text-white/30 text-xs hover:text-[#B9C0CA] transition-colors cursor-pointer" style={{ fontFamily: "'Inter', sans-serif" }}>Privacy Policy</span>
           </Link>
         </div>
       </div>

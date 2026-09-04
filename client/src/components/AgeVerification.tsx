@@ -84,14 +84,14 @@ export default function AgeVerification() {
           <div
             className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full pointer-events-none"
             style={{
-              background: "radial-gradient(circle, rgba(0,191,255,0.08) 0%, transparent 70%)",
+              background: "radial-gradient(circle, rgba(185,192,202,0.08) 0%, transparent 70%)",
               filter: "blur(40px)",
             }}
           />
           <div
             className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full pointer-events-none"
             style={{
-              background: "radial-gradient(circle, rgba(255,0,128,0.06) 0%, transparent 70%)",
+              background: "radial-gradient(circle, rgba(36,95,193,0.08) 0%, transparent 70%)",
               filter: "blur(40px)",
             }}
           />
@@ -103,11 +103,11 @@ export default function AgeVerification() {
             transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
             className="relative mx-4 max-w-md w-full text-center"
             style={{
-              background: "linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(0,191,255,0.04) 100%)",
-              border: "1px solid rgba(0,191,255,0.2)",
+              background: "linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(185,192,202,0.04) 100%)",
+              border: "1px solid rgba(185,192,202,0.2)",
               borderRadius: "20px",
               padding: "48px 40px",
-              boxShadow: "0 0 60px rgba(0,191,255,0.1), 0 40px 80px rgba(0,0,0,0.6)",
+              boxShadow: "0 0 60px rgba(185,192,202,0.1), 0 40px 80px rgba(0,0,0,0.6)",
             }}
           >
             {/* Logo */}
@@ -123,15 +123,15 @@ export default function AgeVerification() {
             <div
               className="inline-flex items-center justify-center w-16 h-16 rounded-full mx-auto mb-5"
               style={{
-                background: "linear-gradient(135deg, rgba(255,0,128,0.2), rgba(0,191,255,0.2))",
-                border: "2px solid rgba(255,0,128,0.5)",
+                background: "linear-gradient(135deg, rgba(36,95,193,0.24), rgba(185,192,202,0.2))",
+                border: "2px solid rgba(185,192,202,0.5)",
               }}
             >
               <span
                 style={{
-                  fontFamily: "'Bebas Neue', sans-serif",
+                  fontFamily: "'Cormorant Garamond', serif",
                   fontSize: "1.6rem",
-                  color: "#FF0080",
+                  color: "#174A9B",
                   lineHeight: 1,
                 }}
               >
@@ -143,7 +143,7 @@ export default function AgeVerification() {
             <h2
               className="mb-2"
               style={{
-                fontFamily: "'Bebas Neue', sans-serif",
+                fontFamily: "'Cormorant Garamond', serif",
                 fontSize: "2rem",
                 letterSpacing: "0.08em",
                 color: "#FFFFFF",
@@ -164,7 +164,7 @@ export default function AgeVerification() {
                 lineHeight: 1.5,
               }}
             >
-              You must be <strong style={{ color: "#00BFFF" }}>21 years of age or older</strong> to access this site.
+              You must be <strong style={{ color: "#B9C0CA" }}>21 years of age or older</strong> to access this site.
             </p>
             <p
               className="mb-8"
@@ -181,7 +181,7 @@ export default function AgeVerification() {
             {/* Divider */}
             <div
               className="mb-8"
-              style={{ height: "1px", background: "linear-gradient(90deg, transparent, rgba(0,191,255,0.3), transparent)" }}
+              style={{ height: "1px", background: "linear-gradient(90deg, transparent, rgba(185,192,202,0.3), transparent)" }}
             />
 
             {/* Buttons */}
@@ -193,12 +193,12 @@ export default function AgeVerification() {
                   fontFamily: "'Rajdhani', sans-serif",
                   fontSize: "1rem",
                   letterSpacing: "0.12em",
-                  background: "linear-gradient(135deg, #00BFFF, #0080FF)",
+                  background: "linear-gradient(135deg, #E9DCCB, #B9C0CA)",
                   color: "#FFFFFF",
                   border: "none",
                   borderRadius: "10px",
                   cursor: "pointer",
-                  boxShadow: "0 4px 20px rgba(0,191,255,0.3)",
+                  boxShadow: "0 4px 20px rgba(185,192,202,0.3)",
                 }}
               >
                 YES, I AM 21 OR OLDER — ENTER SITE

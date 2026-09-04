@@ -1,33 +1,31 @@
 // === ELITE LA PEPTIDES — About & Science Section ===
-// Split layout: text left, lab image right
-// Dark navy background with cyan accent lines
+// Split heritage-luxury layout: research context left, laboratory image right.
 
 import { useEffect, useRef } from "react";
 import { FlaskConical, Shield, Zap, Award } from "lucide-react";
 
-const LAB_IMG = "/manus-storage/lap-about-laboratory_2d9792ee.jpg";
-const MOLECULE_IMG = "/manus-storage/lap-molecule-abstract_0d132707.jpg";
+const LAB_IMG = "/manus-storage/la-elite-who-we-are-lab_b1963ab1-optimized_acd7650b.webp";
 
 const pillars = [
   {
     icon: FlaskConical,
-    title: "Pharmaceutical Grade",
-    desc: "Every peptide is synthesized to the highest purity standards, with rigorous quality control at every stage of production.",
+    title: "Product Documentation",
+    desc: "Each catalog page presents the compound format, research context, and current Certificate of Analysis status in one place.",
   },
   {
     icon: Shield,
-    title: "Research Backed",
-    desc: "Our formulations are grounded in peer-reviewed science, drawing from the latest clinical and preclinical research.",
+    title: "Research Context",
+    desc: "Product descriptions summarize the scientific pathways and research areas associated with each listed compound.",
   },
   {
     icon: Zap,
-    title: "Formulation Precision",
-    desc: "Precise concentrations formulated for reproducible research outcomes, ensuring each compound meets rigorous laboratory specifications.",
+    title: "Clearly Listed Formats",
+    desc: "Compound names, vial contents, category, pricing, and research-use restrictions are presented consistently throughout the catalog.",
   },
   {
     icon: Award,
-    title: "Elite Standards",
-    desc: "Born in Los Angeles, built for the research-driven. We hold ourselves to the same standards as the institutions and laboratories we supply.",
+    title: "Los Angeles Support",
+    desc: "Our support team assists qualified researchers with product information, ordering questions, and account or shipment status.",
   },
 ];
 
@@ -59,12 +57,12 @@ export default function AboutSection() {
         id="about"
         ref={sectionRef}
         className="py-24 relative overflow-hidden"
-        style={{ background: "oklch(0.15 0.055 255)" }}
+        style={{ background: "oklch(0.25 0.08 255)" }}
       >
-        {/* Decorative cyan line */}
+        {/* Decorative brushed-silver line. */}
         <div
           className="absolute left-0 top-0 w-1 h-full"
-          style={{ background: "linear-gradient(to bottom, transparent, oklch(0.72 0.18 210), transparent)" }}
+          style={{ background: "linear-gradient(to bottom, transparent, oklch(0.76 0.02 250), transparent)" }}
         />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -72,9 +70,9 @@ export default function AboutSection() {
             {/* Text */}
             <div>
               <div className="flex items-center gap-3 mb-4 animate-on-scroll">
-                <div className="h-px w-12 bg-[#00BFFF]" />
+                <div className="h-px w-12 bg-[#B9C0CA]" />
                 <span
-                  className="text-[#00BFFF] text-xs tracking-[0.3em] uppercase"
+                  className="text-[#B9C0CA] text-xs tracking-[0.3em] uppercase"
                   style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
                 >
                   Who We Are
@@ -84,43 +82,43 @@ export default function AboutSection() {
               <h2
                 className="text-white mb-6 animate-on-scroll"
                 style={{
-                  fontFamily: "'Bebas Neue', sans-serif",
+                  fontFamily: "'Cormorant Garamond', serif",
                   fontSize: "clamp(2.5rem, 5vw, 4rem)",
                   letterSpacing: "0.04em",
                   lineHeight: 1.05,
                 }}
               >
-                SCIENCE-BACKED.
+                LOS ANGELES ROOTS.
                 <br />
-                <span style={{ color: "#00BFFF" }}>LA-TESTED.</span>
+                <span style={{ color: "#B9C0CA" }}>RESEARCH FOCUSED.</span>
                 <br />
-                ELITE-APPROVED.
+                CLEARLY DOCUMENTED.
               </h2>
 
               <p
                 className="text-white/65 mb-6 leading-relaxed animate-on-scroll"
                 style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: "1rem" }}
               >
-                LA Elite Peptides was founded on a singular conviction: that the most advanced research compounds should be accessible to qualified researchers who are serious about advancing scientific understanding. We are not a supplement company — we are a precision peptide supplier operating at the intersection of cutting-edge science and rigorous quality standards. All products are strictly for research use only.
+                LA Elite Peptides provides a focused online catalog for qualified researchers seeking clearly presented compound information and a direct ordering workflow. We are not a supplement company, and every product is offered strictly for in-vitro laboratory research use only.
               </p>
 
               <p
                 className="text-white/65 mb-8 leading-relaxed animate-on-scroll"
                 style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: "1rem" }}
               >
-                Based in Los Angeles, our team curates and sources compounds that represent the frontier of peptide science — from metabolic pathway research and cellular biology to longevity studies and tissue repair mechanisms. Every product in our catalog has been selected for its research depth, documented purity, and scientific relevance.
+                Based in Los Angeles, our catalog spans metabolic pathway research, cellular biology, longevity studies, signaling research, and related laboratory applications. Product pages identify vial contents, research context, and whether a verified Certificate of Analysis has been posted.
               </p>
 
               <div className="flex items-center gap-4 animate-on-scroll">
                 <div
                   className="h-px flex-1"
-                  style={{ background: "linear-gradient(to right, oklch(0.72 0.18 210 / 50%), transparent)" }}
+                  style={{ background: "linear-gradient(to right, oklch(0.76 0.02 250 / 50%), transparent)" }}
                 />
                 <span
-                  className="text-[#FF2D78] text-sm italic"
+                  className="text-[#174A9B] text-sm italic"
                   style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300 }}
                 >
-                  Trusted. Tested. United States Of America.
+                  Los Angeles. Research Focused. Document Led.
                 </span>
               </div>
             </div>
@@ -130,15 +128,17 @@ export default function AboutSection() {
               <div
                 className="rounded-lg overflow-hidden group"
                 style={{
-                  boxShadow: "0 20px 80px oklch(0.72 0.18 210 / 15%), 0 0 0 1px oklch(0.72 0.18 210 / 15%)",
+                  boxShadow: "0 20px 80px oklch(0.76 0.02 250 / 15%), 0 0 0 1px oklch(0.76 0.02 250 / 15%)",
                 }}
               >
                 <img
                   src={LAB_IMG}
-                  alt="Modern peptide research laboratory"
+                  alt="LA Elite Peptides laboratory team conducting analytical research"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-80 lg:h-[420px] object-cover object-center transition-transform duration-700"
                   style={{
-                    objectPosition: "center 20%",
+                    objectPosition: "center 46%",
                     transform: "scale(1)",
                     transitionTimingFunction: "cubic-bezier(0.23, 1, 0.32, 1)",
                   }}
@@ -148,24 +148,33 @@ export default function AboutSection() {
               </div>
               {/* Floating accent card */}
               <div
-                className="absolute -bottom-6 -left-6 p-4 rounded-lg"
+                className="absolute -bottom-8 left-4 sm:-left-6 w-[min(17rem,calc(100%-2rem))] p-4 sm:p-5 rounded-xl"
                 style={{
-                  background: "oklch(0.12 0.05 255 / 90%)",
-                  border: "1px solid oklch(0.72 0.18 210 / 25%)",
+                  background: "linear-gradient(145deg, oklch(0.18 0.055 255 / 96%), oklch(0.25 0.08 255 / 94%))",
+                  border: "1px solid oklch(0.76 0.02 250 / 38%)",
                   backdropFilter: "blur(10px)",
+                  boxShadow: "0 18px 45px rgba(3, 17, 45, 0.34)",
                 }}
               >
-                <div
-                  className="text-[#00BFFF]"
-                  style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "2rem" }}
-                >
-                  100%
+                <div className="flex items-baseline gap-2">
+                  <div
+                    className="text-[#F6F1E9]"
+                    style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(2rem, 4vw, 2.75rem)", lineHeight: 1 }}
+                  >
+                    &gt;99%
+                  </div>
+                  <div
+                    className="text-[#B9C0CA] text-[0.7rem] sm:text-xs tracking-[0.16em] uppercase leading-tight"
+                    style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
+                  >
+                    COA-Reported Purity
+                  </div>
                 </div>
                 <div
-                  className="text-white/60 text-xs tracking-widest uppercase"
-                  style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
+                  className="mt-2 pt-2 border-t border-white/10 text-white/62 text-[0.68rem] leading-relaxed"
+                  style={{ fontFamily: "'Inter', sans-serif", fontWeight: 400 }}
                 >
-                  Research Grade
+                  Product- and lot-specific results. See each posted Certificate of Analysis.
                 </div>
               </div>
             </div>
@@ -176,71 +185,123 @@ export default function AboutSection() {
       {/* Science / Pillars Section */}
       <section
         id="science"
-        className="py-24 relative overflow-hidden"
-        style={{ background: "oklch(0.12 0.05 255)" }}
+        className="relative overflow-hidden py-20 sm:py-24"
+        style={{ background: "linear-gradient(145deg, #F7F2EA 0%, #EFE4D3 52%, #E8D7BD 100%)" }}
       >
-        {/* Background molecule */}
         <div
-          className="absolute right-0 top-0 w-1/2 h-full opacity-5 pointer-events-none"
-          style={{
-            backgroundImage: `url(${MOLECULE_IMG})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
+          className="pointer-events-none absolute -left-24 top-20 h-72 w-72 rounded-full opacity-35 blur-3xl"
+          style={{ background: "#D7E0ED" }}
+        />
+        <div
+          className="pointer-events-none absolute -right-24 bottom-0 h-80 w-80 rounded-full opacity-40 blur-3xl"
+          style={{ background: "#E2CAA7" }}
+        />
+        <div
+          className="absolute inset-x-0 top-0 h-px"
+          style={{ background: "linear-gradient(to right, transparent, #AEB7C4 28%, #2457A7 50%, #AEB7C4 72%, transparent)" }}
         />
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16 animate-on-scroll">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <div className="h-px w-12 bg-[#00BFFF]" />
-              <span
-                className="text-[#00BFFF] text-xs tracking-[0.3em] uppercase"
-                style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="animate-on-scroll mb-10 grid items-end gap-7 sm:mb-14 lg:grid-cols-[0.9fr_1.1fr]">
+            <div>
+              <div className="mb-4 flex items-center gap-3">
+                <div className="h-px w-12 bg-[#2457A7]" />
+                <span
+                  className="text-xs uppercase tracking-[0.3em] text-[#2457A7]"
+                  style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
+                >
+                  Our Standards
+                </span>
+              </div>
+              <h2
+                className="max-w-2xl text-[#10295E]"
+                style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontSize: "clamp(2.7rem, 6vw, 4.8rem)",
+                  letterSpacing: "0.025em",
+                  lineHeight: 0.94,
+                }}
               >
-                Our Standards
-              </span>
-              <div className="h-px w-12 bg-[#00BFFF]" />
+                THE ELITE
+                <span className="block text-[#2457A7]">DIFFERENCE.</span>
+              </h2>
             </div>
-            <h2
-              className="text-white"
-              style={{
-                fontFamily: "'Bebas Neue', sans-serif",
-                fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
-                letterSpacing: "0.04em",
-              }}
-            >
-              THE ELITE DIFFERENCE
-            </h2>
+            <div className="lg:justify-self-end">
+              <span
+                className="mb-3 inline-flex rounded-full border border-[#2457A7]/20 bg-white/55 px-4 py-2 text-[0.68rem] uppercase tracking-[0.2em] text-[#2457A7]"
+                style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}
+              >
+                Clear from catalog to support
+              </span>
+              <p
+                className="max-w-xl text-base leading-relaxed text-[#374151]"
+                style={{ fontFamily: "'Inter', sans-serif", fontWeight: 450 }}
+              >
+                Four practical standards keep compound information, documentation, catalog
+                formats, and research support clear at every step.
+              </p>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="standards-editorial-grid grid gap-4 sm:grid-cols-2 sm:gap-5">
             {pillars.map((pillar, i) => {
               const Icon = pillar.icon;
               return (
-                <div
+                <article
                   key={pillar.title}
-                  className="animate-on-scroll p-6 rounded-lg border border-white/8 transition-all duration-200 hover:border-[#00BFFF]/30 hover:bg-white/3"
-                  style={{ animationDelay: `${i * 100}ms` }}
+                  className="standards-feature-card group animate-on-scroll relative overflow-hidden rounded-[1.6rem] border border-[#B9C0CA]/80 p-6 transition-all duration-200 hover:-translate-y-1 hover:border-[#2457A7]/45 motion-reduce:transform-none motion-reduce:transition-none sm:p-7 lg:p-8"
+                  style={{
+                    animationDelay: `${i * 80}ms`,
+                    background: i === 1 || i === 2
+                      ? "linear-gradient(145deg, rgba(241,229,210,0.98), rgba(255,252,247,0.9))"
+                      : "linear-gradient(145deg, rgba(255,252,247,0.98), rgba(235,239,245,0.9))",
+                    boxShadow: "0 16px 42px rgba(16, 41, 94, 0.1), inset 0 1px 0 rgba(255,255,255,0.95)",
+                  }}
                 >
                   <div
-                    className="w-10 h-10 rounded flex items-center justify-center mb-4"
-                    style={{ background: "oklch(0.72 0.18 210 / 12%)", border: "1px solid oklch(0.72 0.18 210 / 25%)" }}
+                    className="absolute inset-x-0 top-0 h-[3px]"
+                    style={{ background: "linear-gradient(to right, #AEB7C4, #2457A7 52%, #D8DDE5)" }}
+                  />
+                  <span
+                    className="absolute right-5 top-4 text-[2.8rem] leading-none text-[#10295E]/[0.07] sm:right-6 sm:top-5"
+                    style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 700 }}
+                    aria-hidden="true"
                   >
-                    <Icon size={20} style={{ color: "#00BFFF" }} />
+                    0{i + 1}
+                  </span>
+
+                  <div className="relative flex items-start gap-5">
+                    <div
+                      className="standards-icon-medallion flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-white/35 text-white transition-transform duration-200 group-hover:scale-105 motion-reduce:transform-none motion-reduce:transition-none sm:h-16 sm:w-16"
+                      style={{
+                        background: "linear-gradient(145deg, #2C64BA, #10295E)",
+                        boxShadow: "0 12px 28px rgba(36, 87, 167, 0.24), inset 0 1px 0 rgba(255,255,255,0.26)",
+                      }}
+                    >
+                      <Icon size={25} strokeWidth={1.55} />
+                    </div>
+                    <div className="min-w-0 pt-1">
+                      <div
+                        className="mb-2 text-[0.64rem] uppercase tracking-[0.22em] text-[#7C8796]"
+                        style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}
+                      >
+                        Standard 0{i + 1}
+                      </div>
+                      <h3
+                        className="pr-8 text-lg uppercase tracking-[0.05em] text-[#10295E]"
+                        style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750, lineHeight: 1.1 }}
+                      >
+                        {pillar.title}
+                      </h3>
+                    </div>
                   </div>
-                  <h4
-                    className="text-white mb-2"
-                    style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700, fontSize: "1rem", letterSpacing: "0.05em" }}
-                  >
-                    {pillar.title}
-                  </h4>
                   <p
-                    className="text-white/55 text-sm leading-relaxed"
-                    style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300 }}
+                    className="relative mt-5 border-t border-[#B9C0CA]/65 pt-5 text-sm leading-relaxed text-[#4B5563]"
+                    style={{ fontFamily: "'Inter', sans-serif", fontWeight: 450 }}
                   >
                     {pillar.desc}
                   </p>
-                </div>
+                </article>
               );
             })}
           </div>

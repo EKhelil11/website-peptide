@@ -8,12 +8,12 @@ import { PRIMARY_LOGO_ALT, PRIMARY_LOGO_URL, UTILITY_LOGO_SIZE_CLASS } from "@/l
 
 export default function TermsPage() {
   return (
-    <div className="min-h-screen" style={{ background: "oklch(0.08 0.04 255)" }}>
+    <div className="min-h-screen" style={{ background: "oklch(0.15 0.045 255)" }}>
       {/* Top nav */}
       <header
         className="sticky top-0 z-50 px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between"
         style={{
-          background: "oklch(0.08 0.04 255 / 95%)",
+          background: "oklch(0.15 0.045 255 / 95%)",
           borderBottom: "1px solid oklch(1 0 0 / 8%)",
           backdropFilter: "blur(12px)",
         }}
@@ -23,7 +23,7 @@ export default function TermsPage() {
         </Link>
         <Link href="/">
           <button
-            className="flex items-center gap-2 text-white/50 hover:text-[#00BFFF] transition-colors text-sm"
+            className="flex items-center gap-2 text-white/50 hover:text-[#B9C0CA] transition-colors text-sm"
             style={{ fontFamily: "'Inter', sans-serif" }}
           >
             <ArrowLeft size={14} />
@@ -37,9 +37,9 @@ export default function TermsPage() {
         {/* Page header */}
         <div className="mb-12">
           <div className="flex items-center gap-3 mb-4">
-            <div className="h-px w-12 bg-[#00BFFF]" />
+            <div className="h-px w-12 bg-[#B9C0CA]" />
             <span
-              className="text-[#00BFFF] text-xs tracking-[0.3em] uppercase"
+              className="text-[#B9C0CA] text-xs tracking-[0.3em] uppercase"
               style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
             >
               Legal
@@ -48,7 +48,7 @@ export default function TermsPage() {
           <h1
             className="text-white mb-3"
             style={{
-              fontFamily: "'Bebas Neue', sans-serif",
+              fontFamily: "'Cormorant Garamond', serif",
               fontSize: "clamp(2.5rem, 5vw, 3.5rem)",
               letterSpacing: "0.04em",
               lineHeight: 1.05,
@@ -67,7 +67,7 @@ export default function TermsPage() {
         {/* Policy content */}
         <div
           className="prose prose-invert max-w-none"
-          style={{ fontFamily: "'Inter', sans-serif", color: "oklch(0.75 0.02 255)" }}
+          style={{ fontFamily: "'Inter', sans-serif", color: "oklch(0.82 0.025 100)" }}
         >
           <PolicySection title="DISCLAIMER">
             <p>La Elite Peptides is a supplier of laboratory research materials intended strictly for in-vitro and analytical research purposes. All products are for research use only and are not intended for human consumption or clinical application.</p>
@@ -142,7 +142,7 @@ export default function TermsPage() {
           </PolicySection>
 
           <PolicySection title="Shipping Policy">
-            <p>We ship only to locations within the United States where such materials are legally permitted. All shipments are packed securely using pharmaceutical-grade thermal mailers to protect compound stability. Customers are responsible for ensuring that delivery to their jurisdiction complies with applicable laws. We are not liable for delays, loss, or damages once the package has been handed off to the shipping carrier.</p>
+            <p>We ship only to locations within the United States where such materials are legally permitted. All shipments are packed securely using thermally protective materials. Customers are responsible for ensuring that delivery to their jurisdiction complies with applicable laws. We are not liable for delays, loss, or damages once the package has been handed off to the shipping carrier.</p>
           </PolicySection>
 
           <PolicySection title="Cancellation">
@@ -164,9 +164,9 @@ export default function TermsPage() {
           <PolicySection title="Contact">
             <p>For questions regarding these Terms, contact us at:</p>
             <p>
-              📧 <a href="mailto:Support@laelitepeps.com" className="text-[#00BFFF] hover:underline">Support@laelitepeps.com</a>
+              📧 <a href="mailto:Support@laelitepeps.com" className="text-[#B9C0CA] hover:underline">Support@laelitepeps.com</a>
               <br />
-              📞 <a href="tel:+13109759289" className="text-[#00BFFF] hover:underline">(310) 975-9289</a>
+              📞 <a href="tel:+13109759289" className="text-[#B9C0CA] hover:underline">(310) 975-9289</a>
             </p>
           </PolicySection>
         </div>
@@ -196,7 +196,7 @@ function PolicySection({ title, children }: { title: string; children: React.Rea
       </h2>
       <div
         className="space-y-3 text-sm leading-relaxed"
-        style={{ color: "oklch(0.72 0.02 255)" }}
+        style={{ color: "oklch(0.62 0.02 250)" }}
       >
         {children}
       </div>
@@ -209,7 +209,7 @@ function PolicyFooter() {
     <footer
       className="py-8 mt-8"
       style={{
-        background: "oklch(0.06 0.04 255)",
+        background: "oklch(0.13 0.04 255)",
         borderTop: "1px solid oklch(1 0 0 / 8%)",
       }}
     >
@@ -222,13 +222,13 @@ function PolicyFooter() {
         </p>
         <div className="flex items-center gap-4">
           <Link href="/terms">
-            <span className="text-white/30 text-xs hover:text-[#00BFFF] transition-colors cursor-pointer" style={{ fontFamily: "'Inter', sans-serif" }}>Terms</span>
+            <span className="text-white/30 text-xs hover:text-[#B9C0CA] transition-colors cursor-pointer" style={{ fontFamily: "'Inter', sans-serif" }}>Terms</span>
           </Link>
           <Link href="/shipping-returns">
-            <span className="text-white/30 text-xs hover:text-[#00BFFF] transition-colors cursor-pointer" style={{ fontFamily: "'Inter', sans-serif" }}>Shipping & Returns</span>
+            <span className="text-white/30 text-xs hover:text-[#B9C0CA] transition-colors cursor-pointer" style={{ fontFamily: "'Inter', sans-serif" }}>Shipping & Returns</span>
           </Link>
           <Link href="/privacy-policy">
-            <span className="text-white/30 text-xs hover:text-[#00BFFF] transition-colors cursor-pointer" style={{ fontFamily: "'Inter', sans-serif" }}>Privacy Policy</span>
+            <span className="text-white/30 text-xs hover:text-[#B9C0CA] transition-colors cursor-pointer" style={{ fontFamily: "'Inter', sans-serif" }}>Privacy Policy</span>
           </Link>
         </div>
       </div>

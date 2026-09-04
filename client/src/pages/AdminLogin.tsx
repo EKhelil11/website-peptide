@@ -26,21 +26,21 @@ export default function AdminLogin() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-[#050D1A]">
-        <div className="w-10 h-10 border-2 border-[#00BFFF]/30 border-t-[#00BFFF] rounded-full animate-spin" />
+      <div className="min-h-screen flex items-center justify-center bg-[#07152F]">
+        <div className="w-10 h-10 border-2 border-[#B9C0CA]/30 border-t-[#B9C0CA] rounded-full animate-spin" />
       </div>
     );
   }
 
   return (
     <div
-      className="min-h-screen flex flex-col items-center justify-center bg-[#050D1A] relative overflow-hidden"
+      className="min-h-screen flex flex-col items-center justify-center bg-[#07152F] relative overflow-hidden"
     >
       {/* Ambient glow background */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: "radial-gradient(ellipse 60% 50% at 50% 40%, rgba(0,191,255,0.07) 0%, transparent 70%)",
+          background: "radial-gradient(ellipse 60% 50% at 50% 40%, rgba(185,192,202,0.07) 0%, transparent 70%)",
         }}
       />
 
@@ -48,10 +48,10 @@ export default function AdminLogin() {
       <div
         className="relative w-full max-w-md mx-6 rounded-2xl border p-12 flex flex-col items-center gap-8"
         style={{
-          background: "oklch(0.12 0.05 255 / 90%)",
+          background: "oklch(0.18 0.055 255 / 90%)",
           backdropFilter: "blur(24px)",
-          borderColor: "rgba(0,191,255,0.15)",
-          boxShadow: "0 0 60px rgba(0,191,255,0.06), 0 24px 64px rgba(0,0,0,0.5)",
+          borderColor: "rgba(185,192,202,0.15)",
+          boxShadow: "0 0 60px rgba(185,192,202,0.06), 0 24px 64px rgba(0,0,0,0.5)",
         }}
       >
         <img src={PRIMARY_LOGO_URL} alt={PRIMARY_LOGO_ALT} className={AUTH_LOGO_SIZE_CLASS} />
@@ -60,12 +60,12 @@ export default function AdminLogin() {
         <div
           className="w-20 h-20 rounded-full flex items-center justify-center"
           style={{
-            background: "oklch(0.15 0.08 255)",
-            boxShadow: "0 0 40px rgba(0,191,255,0.25), 0 0 80px rgba(0,191,255,0.1)",
-            border: "1px solid rgba(0,191,255,0.2)",
+            background: "oklch(0.26 0.09 255)",
+            boxShadow: "0 0 40px rgba(185,192,202,0.25), 0 0 80px rgba(185,192,202,0.1)",
+            border: "1px solid rgba(185,192,202,0.2)",
           }}
         >
-          <ShieldCheck size={40} className="text-[#00BFFF]" />
+          <ShieldCheck size={40} className="text-[#B9C0CA]" />
         </div>
 
         {/* Title block */}
@@ -73,7 +73,7 @@ export default function AdminLogin() {
           <h1
             className="text-white leading-none"
             style={{
-              fontFamily: "'Bebas Neue', sans-serif",
+              fontFamily: "'Cormorant Garamond', serif",
               fontSize: "clamp(2.8rem, 8vw, 4.5rem)",
               letterSpacing: "0.08em",
             }}
@@ -91,7 +91,7 @@ export default function AdminLogin() {
         {/* Divider */}
         <div
           className="w-full h-px"
-          style={{ background: "linear-gradient(90deg, transparent, rgba(0,191,255,0.3), transparent)" }}
+          style={{ background: "linear-gradient(90deg, transparent, rgba(185,192,202,0.3), transparent)" }}
         />
 
         {/* Login Button */}
@@ -99,12 +99,12 @@ export default function AdminLogin() {
           onClick={handleAdminLogin}
           className="w-full py-4 rounded-xl font-bold tracking-[0.2em] uppercase transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
           style={{
-            fontFamily: "'Bebas Neue', sans-serif",
+            fontFamily: "'Cormorant Garamond', serif",
             fontSize: "1.25rem",
             letterSpacing: "0.2em",
-            background: "linear-gradient(135deg, #00BFFF, #0080FF)",
+            background: "linear-gradient(135deg, #E9DCCB, #B9C0CA)",
             color: "#fff",
-            boxShadow: "0 0 30px rgba(0,191,255,0.35), 0 4px 20px rgba(0,0,0,0.4)",
+            boxShadow: "0 0 30px rgba(185,192,202,0.35), 0 4px 20px rgba(0,0,0,0.4)",
           }}
         >
           Sign In with Manus

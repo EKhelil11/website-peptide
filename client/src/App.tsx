@@ -3,32 +3,43 @@
 
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import NotFound from "@/pages/NotFound";
+import { lazy, Suspense } from "react";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
-import ProductDetail from "./pages/ProductDetail";
 import { Redirect } from "wouter";
 import AgeVerification from "./components/AgeVerification";
-import FloatingTextButton from "./components/FloatingTextButton";
 import FloatingCart from "./components/FloatingCart";
 import { CartProvider } from "./contexts/CartContext";
-import TermsPage from "./pages/TermsPage";
-import ShippingReturnsPage from "./pages/ShippingReturnsPage";
-import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
-import Checkout from "./pages/Checkout";
-import Account from "./pages/Account";
-import AdminOrders from "./pages/AdminOrders";
-import AdminLogin from "./pages/AdminLogin";
-import Blends from "./pages/Blends";
-import Register from "./pages/Register";
-import Login from "./pages/Login";
-import VerifyEmail from "./pages/VerifyEmail";
-import ForgotPassword from "./pages/ForgotPassword";
-import ResetPassword from "./pages/ResetPassword";
-import Shop from "./pages/Shop";
-import CertificateOfAnalysis from "./pages/CertificateOfAnalysis";
+
+const ProductDetail = lazy(() => import("./pages/ProductDetail"));
+const CertificateOfAnalysis = lazy(() => import("./pages/CertificateOfAnalysis"));
+const Shop = lazy(() => import("./pages/Shop"));
+const TermsPage = lazy(() => import("./pages/TermsPage"));
+const ShippingReturnsPage = lazy(() => import("./pages/ShippingReturnsPage"));
+const PrivacyPolicyPage = lazy(() => import("./pages/PrivacyPolicyPage"));
+const Checkout = lazy(() => import("./pages/Checkout"));
+const Account = lazy(() => import("./pages/Account"));
+const AdminOrders = lazy(() => import("./pages/AdminOrders"));
+const AdminLogin = lazy(() => import("./pages/AdminLogin"));
+const Blends = lazy(() => import("./pages/Blends"));
+const Register = lazy(() => import("./pages/Register"));
+const Login = lazy(() => import("./pages/Login"));
+const VerifyEmail = lazy(() => import("./pages/VerifyEmail"));
+const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
+const ResetPassword = lazy(() => import("./pages/ResetPassword"));
+const NotFound = lazy(() => import("@/pages/NotFound"));
+
+function RouteFallback() {
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-[#07152F] px-6 text-center" aria-live="polite">
+      <span className="text-xs uppercase tracking-[0.2em] text-[#B9C0CA]" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}>
+        Loading LA Elite Peptides
+      </span>
+    </div>
+  );
+}
 
 function Router() {
   return (
@@ -66,7 +77,9 @@ function App() {
           <Toaster />
           <CartProvider>
             <AgeVerification />
-            <Router />
+            <Suspense fallback={<RouteFallback />}>
+              <Router />
+            </Suspense>
             {/* <FloatingTextButton /> */}
             <FloatingCart />
           </CartProvider>

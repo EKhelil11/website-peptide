@@ -43,13 +43,13 @@ export default function ResetPassword() {
   return (
     <div
       className="min-h-screen flex items-center justify-center px-4"
-      style={{ background: "oklch(0.09 0.04 255)" }}
+      style={{ background: "oklch(0.15 0.045 255)" }}
     >
       <div
         className="fixed inset-0 opacity-[0.025] pointer-events-none"
         style={{
           backgroundImage:
-            "linear-gradient(oklch(0.8 0.1 220) 1px, transparent 1px), linear-gradient(90deg, oklch(0.8 0.1 220) 1px, transparent 1px)",
+            "linear-gradient(oklch(0.91 0.025 80) 1px, transparent 1px), linear-gradient(90deg, oklch(0.91 0.025 80) 1px, transparent 1px)",
           backgroundSize: "40px 40px",
         }}
       />
@@ -63,15 +63,15 @@ export default function ResetPassword() {
         <div
           className="rounded-2xl p-8 border"
           style={{
-            background: "oklch(0.13 0.055 255 / 0.95)",
-            borderColor: "oklch(0.72 0.18 210 / 0.2)",
-            boxShadow: "0 0 60px oklch(0.72 0.18 210 / 0.06)",
+            background: "oklch(0.22 0.065 255 / 0.95)",
+            borderColor: "oklch(0.76 0.02 250 / 0.2)",
+            boxShadow: "0 0 60px oklch(0.76 0.02 250 / 0.06)",
           }}
         >
           {success ? (
             <div className="text-center py-4">
               <CheckCircle size={48} className="mx-auto mb-4" style={{ color: "#22c55e" }} />
-              <h2 className="text-white mb-2" style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "1.8rem", letterSpacing: "0.06em" }}>PASSWORD UPDATED</h2>
+              <h2 className="text-white mb-2" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "1.8rem", letterSpacing: "0.06em" }}>PASSWORD UPDATED</h2>
               <p className="text-white/55 text-sm mb-8" style={{ fontFamily: "'Inter', sans-serif" }}>
                 Your password has been reset successfully. You can now sign in with your new password.
               </p>
@@ -79,8 +79,8 @@ export default function ResetPassword() {
                 onClick={() => setLocation("/login")}
                 className="w-full py-3 rounded-xl font-bold tracking-wider uppercase text-sm"
                 style={{
-                  background: "linear-gradient(135deg, oklch(0.72 0.18 210), oklch(0.65 0.2 220))",
-                  color: "oklch(0.09 0.04 255)",
+                  background: "linear-gradient(135deg, oklch(0.76 0.02 250), oklch(0.62 0.02 250))",
+                  color: "oklch(0.15 0.045 255)",
                   fontFamily: "'Rajdhani', sans-serif",
                   fontWeight: 700,
                 }}
@@ -91,7 +91,7 @@ export default function ResetPassword() {
           ) : (
             <>
               <div className="mb-7">
-                <h1 className="text-white mb-1" style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: "2rem", letterSpacing: "0.06em" }}>RESET PASSWORD</h1>
+                <h1 className="text-white mb-1" style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "2rem", letterSpacing: "0.06em" }}>RESET PASSWORD</h1>
                 <p className="text-white/45 text-sm" style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300 }}>
                   Enter your new password below.
                 </p>
@@ -115,7 +115,7 @@ export default function ResetPassword() {
                         value={form[field]}
                         onChange={(e) => setForm({ ...form, [field]: e.target.value })}
                         className="w-full pl-9 pr-10 py-2.5 rounded-lg text-sm text-white placeholder-white/25 outline-none"
-                        style={{ background: "oklch(0.11 0.04 255)", border: "1px solid oklch(0.72 0.18 210 / 0.15)", fontFamily: "'Inter', sans-serif" }}
+                        style={{ background: "oklch(0.17 0.05 255)", border: "1px solid oklch(0.76 0.02 250 / 0.15)", fontFamily: "'Inter', sans-serif" }}
                       />
                       <button type="button" onClick={toggle} className="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60 transition-colors">
                         {show ? <EyeOff size={14} /> : <Eye size={14} />}
@@ -135,8 +135,8 @@ export default function ResetPassword() {
                   disabled={resetMutation.isPending}
                   className="w-full flex items-center justify-center gap-2 py-3 rounded-xl font-bold tracking-wider uppercase text-sm transition-all duration-200 active:scale-[0.98] disabled:opacity-60"
                   style={{
-                    background: "linear-gradient(135deg, oklch(0.72 0.18 210), oklch(0.65 0.2 220))",
-                    color: "oklch(0.09 0.04 255)",
+                    background: "linear-gradient(135deg, oklch(0.76 0.02 250), oklch(0.62 0.02 250))",
+                    color: "oklch(0.15 0.045 255)",
                     fontFamily: "'Rajdhani', sans-serif",
                     fontWeight: 700,
                   }}

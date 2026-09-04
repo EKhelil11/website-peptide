@@ -1,15 +1,17 @@
-// === ELITE LA PEPTIDES — Shipping Section ===
-// Single-card nationwide shipping layout
-// Dark card style matching Midnight Clinic theme
-
 import { useEffect, useRef } from "react";
-import { Truck, Clock, CheckCircle, Package } from "lucide-react";
+import { ArrowRight, CheckCircle, Package, Truck } from "lucide-react";
 
-const shippingFeatures = [
-  { icon: Truck, text: "3–5 day nationwide shipping to all 50 states" },
-  { icon: Clock, text: "Orders ship within 24 hours of confirmation" },
-  { icon: Package, text: "Insulated cold-pack packaging for temperature-sensitive peptides" },
-  { icon: CheckCircle, text: "Full tracking provided on every shipment" },
+const shippingStandards = [
+  {
+    icon: Package,
+    title: "Discreet Packaging",
+    text: "Professional presentation with an unbranded exterior.",
+  },
+  {
+    icon: CheckCircle,
+    title: "Trackable Dispatch",
+    text: "Tracking becomes available after the order ships.",
+  },
 ];
 
 export default function ShippingSection() {
@@ -17,15 +19,15 @@ export default function ShippingSection() {
 
   useEffect(() => {
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
+      entries => {
+        entries.forEach(entry => {
           if (entry.isIntersecting) entry.target.classList.add("visible");
         });
       },
-      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
     );
     const items = sectionRef.current?.querySelectorAll(".animate-on-scroll");
-    items?.forEach((item) => observer.observe(item));
+    items?.forEach(item => observer.observe(item));
     return () => observer.disconnect();
   }, []);
 
@@ -33,213 +35,219 @@ export default function ShippingSection() {
     <section
       id="shipping"
       ref={sectionRef}
-      className="py-24 relative overflow-hidden"
-      style={{ background: "oklch(0.13 0.052 255)" }}
+      className="relative overflow-hidden py-24"
+      style={{
+        background:
+          "linear-gradient(145deg, #F6F1E9 0%, #EFE4D2 52%, #E8D7BD 100%)",
+      }}
     >
-      {/* Subtle top border glow */}
       <div
-        className="absolute top-0 left-0 right-0 h-px"
+        className="pointer-events-none absolute -left-32 top-16 h-80 w-80 rounded-full opacity-30 blur-3xl"
+        style={{ background: "#D7E0ED" }}
+      />
+      <div
+        className="pointer-events-none absolute -right-24 bottom-0 h-96 w-96 rounded-full opacity-35 blur-3xl"
+        style={{ background: "#E4CFAE" }}
+      />
+      <div
+        className="absolute inset-x-0 top-0 h-px"
         style={{
           background:
-            "linear-gradient(to right, transparent, oklch(0.72 0.18 210 / 50%), transparent)",
+            "linear-gradient(to right, transparent, #AEB7C4 28%, #2457A7 50%, #AEB7C4 72%, transparent)",
         }}
       />
 
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-14 animate-on-scroll">
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="h-px w-12 bg-[#00BFFF]" />
-            <span
-              className="text-[#00BFFF] text-xs tracking-[0.3em] uppercase"
-              style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
+      <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="animate-on-scroll mb-12 grid items-end gap-6 lg:grid-cols-[1fr_0.8fr]">
+          <div>
+            <div className="mb-4 flex items-center gap-3">
+              <div className="h-px w-12 bg-[#2457A7]" />
+              <span
+                className="text-xs uppercase tracking-[0.32em] text-[#2457A7]"
+                style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
+              >
+                Nationwide Shipping
+              </span>
+            </div>
+            <h2
+              className="max-w-3xl text-[#10295E]"
+              style={{
+                fontFamily: "'Cormorant Garamond', serif",
+                fontSize: "clamp(2.8rem, 6vw, 5.2rem)",
+                letterSpacing: "0.025em",
+                lineHeight: 0.92,
+              }}
             >
-              Shipping
-            </span>
-            <div className="h-px w-12 bg-[#00BFFF]" />
+              RESEARCH SHIPPING,
+              <span className="block text-[#2457A7]">REFINED.</span>
+            </h2>
           </div>
-          <h2
-            className="text-white mb-4"
-            style={{
-              fontFamily: "'Bebas Neue', sans-serif",
-              fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
-              letterSpacing: "0.04em",
-            }}
-          >
-            FAST. DISCREET. RELIABLE.
-          </h2>
           <p
-            className="text-white/55 max-w-xl mx-auto"
-            style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, lineHeight: 1.7 }}
+            className="max-w-xl text-base leading-relaxed text-[#374151] lg:justify-self-end"
+            style={{ fontFamily: "'Inter', sans-serif", fontWeight: 450 }}
           >
-            We fulfill research orders quickly, safely, and with full cold-chain integrity — anywhere in the country.
+            A composed fulfillment experience, presented with the same clarity and
+            professionalism as our research catalog.
           </p>
         </div>
 
-        {/* Single nationwide shipping card */}
         <div
-          className="animate-on-scroll rounded-lg overflow-hidden"
-          style={{
-            background: "oklch(0.17 0.055 255)",
-            border: "1px solid oklch(0.72 0.18 210 / 30%)",
-            boxShadow: "0 0 40px oklch(0.72 0.18 210 / 8%)",
-          }}
+          className="animate-on-scroll overflow-hidden rounded-[2rem] border border-[#B9C0CA]/80 bg-[#FFFCF7]/95"
+          style={{ boxShadow: "0 28px 80px rgba(16, 41, 94, 0.14)" }}
         >
-          {/* Card header */}
-          <div
-            className="px-8 py-6 flex items-center gap-4"
-            style={{
-              background:
-                "linear-gradient(135deg, oklch(0.72 0.18 210 / 12%) 0%, transparent 100%)",
-              borderBottom: "1px solid oklch(0.72 0.18 210 / 20%)",
-            }}
-          >
+          <div className="grid lg:grid-cols-[1.3fr_0.7fr]">
+            <div className="p-7 sm:p-10 lg:p-12">
+              <div className="mb-8 flex flex-col gap-5 sm:flex-row sm:items-center">
+                <div
+                  className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border border-[#2457A7]/20 bg-[#E7EEF8]"
+                  style={{ boxShadow: "inset 0 1px 0 rgba(255,255,255,0.9)" }}
+                >
+                  <Truck size={30} className="text-[#2457A7]" strokeWidth={1.7} />
+                </div>
+                <div>
+                  <div
+                    className="mb-1 text-xs uppercase tracking-[0.28em] text-[#7C8796]"
+                    style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
+                  >
+                    Coast-to-Coast Fulfillment
+                  </div>
+                  <h3
+                    className="text-[#10295E]"
+                    style={{
+                      fontFamily: "'Cormorant Garamond', serif",
+                      fontSize: "clamp(2rem, 4vw, 3.2rem)",
+                      lineHeight: 1,
+                    }}
+                  >
+                    All 50 States. One Consistent Standard.
+                  </h3>
+                </div>
+              </div>
+
+              <div className="shipping-service-ledger relative space-y-3">
+                <div
+                  className="pointer-events-none absolute bottom-8 left-6 top-8 w-px"
+                  style={{ background: "linear-gradient(to bottom, #2457A7, #AEB7C4 48%, transparent)" }}
+                />
+                {shippingStandards.map((item, index) => {
+                  const Icon = item.icon;
+                  return (
+                    <div
+                      key={item.title}
+                      className={`shipping-service-step group relative grid grid-cols-[3rem_1fr] gap-4 rounded-2xl border px-4 py-5 transition-all duration-200 hover:-translate-y-0.5 motion-reduce:transform-none motion-reduce:transition-none sm:px-5 ${
+                        index % 2 === 0
+                          ? "border-[#CBD1DA]/90 bg-[#FFFCF7]/85"
+                          : "border-[#B9C0CA]/75 bg-[#F1E5D2]/75 sm:ml-8"
+                      }`}
+                      style={{ boxShadow: "0 10px 28px rgba(16, 41, 94, 0.07)" }}
+                    >
+                      <div
+                        className="relative z-10 flex h-12 w-12 items-center justify-center rounded-2xl border border-white/35 text-white transition-transform duration-200 group-hover:scale-105 motion-reduce:transform-none motion-reduce:transition-none"
+                        style={{
+                          background: "linear-gradient(145deg, #2457A7, #10295E)",
+                          boxShadow: "0 9px 22px rgba(36, 87, 167, 0.22), inset 0 1px 0 rgba(255,255,255,0.2)",
+                        }}
+                      >
+                        <Icon size={20} strokeWidth={1.7} />
+                      </div>
+                      <div className="min-w-0">
+                        <div className="mb-1.5 flex flex-wrap items-center gap-x-3 gap-y-1">
+                          <span
+                            className="text-[0.62rem] uppercase tracking-[0.22em] text-[#7C8796]"
+                            style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
+                          >
+                            Service 0{index + 1}
+                          </span>
+                          <div className="h-px w-8 bg-gradient-to-r from-[#2457A7] to-[#AEB7C4]" />
+                        </div>
+                        <div
+                          className="text-base uppercase tracking-[0.075em] text-[#10295E]"
+                          style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}
+                        >
+                          {item.title}
+                        </div>
+                        <p
+                          className="mt-1.5 max-w-md text-sm leading-relaxed text-[#4B5563]"
+                          style={{ fontFamily: "'Inter', sans-serif", fontWeight: 450 }}
+                        >
+                          {item.text}
+                        </p>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
             <div
-              className="w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0"
+              className="relative flex min-h-[290px] flex-col justify-between overflow-hidden border-t border-[#B9C0CA] p-8 lg:border-l lg:border-t-0 lg:p-10"
               style={{
-                background: "oklch(0.72 0.18 210 / 12%)",
-                border: "1px solid oklch(0.72 0.18 210 / 35%)",
+                background:
+                  "linear-gradient(155deg, #E7EEF8 0%, #F0E6D6 52%, #E8D6B8 100%)",
               }}
             >
-              <Truck size={22} style={{ color: "#00BFFF" }} />
-            </div>
-            <div>
-              <div
-                className="text-xs tracking-[0.25em] uppercase mb-0.5"
-                style={{
-                  fontFamily: "'Rajdhani', sans-serif",
-                  fontWeight: 700,
-                  color: "#00BFFF",
-                }}
-              >
-                All 50 States
-              </div>
-              <h3
-                className="text-white"
-                style={{
-                  fontFamily: "'Bebas Neue', sans-serif",
-                  fontSize: "1.8rem",
-                  letterSpacing: "0.04em",
-                  lineHeight: 1,
-                }}
-              >
-                NATIONWIDE SHIPPING
-              </h3>
-            </div>
-            {/* Badge */}
-            <div className="ml-auto">
-              <span
-                className="px-3 py-1 rounded text-xs font-bold tracking-widest uppercase"
-                style={{
-                  background: "oklch(0.72 0.18 210 / 15%)",
-                  border: "1px solid oklch(0.72 0.18 210 / 45%)",
-                  color: "#00BFFF",
-                  fontFamily: "'Rajdhani', sans-serif",
-                }}
-              >
-                3–5 Days
-              </span>
-            </div>
-          </div>
-
-          {/* Card body */}
-          <div className="px-8 py-6">
-            <p
-              className="text-white/60 mb-6 leading-relaxed"
-              style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: "0.9rem" }}
-            >
-              We ship research compounds to all 50 states via insulated, temperature-controlled packaging. Every research order is tracked end-to-end and dispatched within 24 hours of confirmation. All products are for research use only.
-            </p>
-            <ul className="space-y-3">
-              {shippingFeatures.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <li key={item.text} className="flex items-start gap-3">
-                    <div
-                      className="w-7 h-7 rounded flex items-center justify-center flex-shrink-0 mt-0.5"
-                      style={{
-                        background: "oklch(0.72 0.18 210 / 10%)",
-                        border: "1px solid oklch(0.72 0.18 210 / 25%)",
-                      }}
-                    >
-                      <Icon size={13} style={{ color: "#00BFFF" }} />
-                    </div>
-                    <span
-                      className="text-white/70 text-sm leading-snug"
-                      style={{ fontFamily: "'Inter', sans-serif" }}
-                    >
-                      {item.text}
-                    </span>
-                  </li>
-                );
-              })}
-            </ul>
-
-            {/* CTA */}
-            <div className="mt-8 pt-6" style={{ borderTop: "1px solid oklch(1 0 0 / 8%)" }}>
-              <div className="flex items-center justify-between">
-                <div>
-                  <div
-                    className="text-white/40 text-xs tracking-widest uppercase"
-                    style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
-                  >
-                    Shipping Rates
-                  </div>
-                  <div
-                    className="text-white/70 text-sm mt-0.5"
-                    style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
-                  >
-                    Calculated at checkout
-                  </div>
-                </div>
-                <button
-                  onClick={() =>
-                    document.querySelector("#products")?.scrollIntoView({ behavior: "smooth" })
-                  }
-                  className="btn-primary px-5 py-2.5 rounded text-xs"
+              <div className="absolute -right-16 -top-16 h-44 w-44 rounded-full border border-[#2457A7]/15" />
+              <div className="absolute -right-6 -top-6 h-24 w-24 rounded-full border border-[#AEB7C4]/50" />
+              <div className="relative z-10">
+                <span
+                  className="inline-flex rounded-full border border-[#2457A7]/20 bg-white/65 px-4 py-2 text-xs uppercase tracking-[0.2em] text-[#2457A7]"
+                  style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
                 >
-                  Browse Research Catalog
-                </button>
+                  Standard Delivery
+                </span>
+                <div
+                  className="mt-7 text-[#2457A7]"
+                  style={{
+                    fontFamily: "'Cormorant Garamond', serif",
+                    fontSize: "clamp(4.8rem, 9vw, 7.5rem)",
+                    fontWeight: 600,
+                    letterSpacing: "-0.06em",
+                    lineHeight: 0.72,
+                  }}
+                >
+                  3–5
+                </div>
+                <div
+                  className="mt-5 text-sm uppercase tracking-[0.26em] text-[#10295E]"
+                  style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
+                >
+                  Business Days
+                </div>
+              </div>
+
+              <div className="relative z-10 mt-10 border-t border-[#AEB7C4]/70 pt-6">
+                <div
+                  className="text-xs uppercase tracking-[0.2em] text-[#7C8796]"
+                  style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
+                >
+                  Shipping Rates
+                </div>
+                <div
+                  className="mt-1 text-lg text-[#10295E]"
+                  style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 600 }}
+                >
+                  Calculated at checkout
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Bottom reassurance bar */}
-        <div
-          className="mt-10 animate-on-scroll rounded-lg px-8 py-5 flex flex-wrap items-center justify-center gap-8"
-          style={{
-            background: "oklch(0.15 0.05 255)",
-            border: "1px solid oklch(1 0 0 / 6%)",
-          }}
-        >
-          {[
-            { icon: Package, label: "Discreet Packaging", sub: "No branding on exterior" },
-            { icon: Clock, label: "24hr Dispatch", sub: "Mon – Sat" },
-            { icon: CheckCircle, label: "Full Tracking", sub: "Every order" },
-            { icon: Truck, label: "All 50 States", sub: "Nationwide coverage" },
-          ].map((item) => {
-            const Icon = item.icon;
-            return (
-              <div key={item.label} className="flex items-center gap-3">
-                <Icon size={18} style={{ color: "#00BFFF", flexShrink: 0 }} />
-                <div>
-                  <div
-                    className="text-white/80 text-sm font-semibold"
-                    style={{ fontFamily: "'Rajdhani', sans-serif", letterSpacing: "0.03em" }}
-                  >
-                    {item.label}
-                  </div>
-                  <div
-                    className="text-white/40 text-xs"
-                    style={{ fontFamily: "'Inter', sans-serif" }}
-                  >
-                    {item.sub}
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+          <div className="flex flex-col gap-5 border-t border-[#CBD1DA] bg-[#F1E5D2] px-7 py-6 sm:flex-row sm:items-center sm:justify-between sm:px-10">
+            <p
+              className="max-w-2xl text-sm leading-relaxed text-[#4B5563]"
+              style={{ fontFamily: "'Inter', sans-serif" }}
+            >
+              Fulfillment is reserved for qualified in-vitro laboratory research orders.
+            </p>
+            <button
+              onClick={() => document.querySelector("#products")?.scrollIntoView({ behavior: "smooth" })}
+              className="group inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-[#2457A7] px-6 py-3 text-xs font-bold uppercase tracking-[0.16em] text-white shadow-[0_12px_30px_rgba(36,87,167,0.24)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#17468F]"
+              style={{ fontFamily: "'Rajdhani', sans-serif" }}
+            >
+              Browse Research Catalog
+              <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" />
+            </button>
+          </div>
         </div>
       </div>
     </section>
