@@ -1,5 +1,5 @@
 // === ELITE LA PEPTIDES — Product Card ===
-// Vial-label card with limestone image stage, ivory body, and royal-blue actions.
+// Vial-label card with cool-silver image stage, ivory body, and royal-blue actions.
 // CTA: "Inquire" button linking to contact section
 
 import { Link, useLocation } from "wouter";
@@ -9,7 +9,7 @@ import { useCustomerAuth } from "@/hooks/useCustomerAuth";
 import { useCart } from "@/contexts/CartContext";
 import { toast } from "sonner";
 
-const VIAL_IMG = "/manus-storage/lap-vial-retatrutide-10mg_52f96021-optimized_683307ff.webp";
+const VIAL_IMG = "/manus-storage/Reta10Mg-card-crisp_20eb1ab9.webp";
 
 interface ProductCardProps {
   product: Product;
@@ -53,38 +53,43 @@ export default function ProductCard({ product, index, showPublicPrice = false }:
       {/* Card image area — wrapper allows badge to escape overflow-hidden */}
       <div className="relative flex-shrink-0">
         <div
-          className="relative h-64 overflow-hidden flex items-center justify-center"
+          className="product-image-stage relative flex h-72 items-center justify-center overflow-hidden border-b border-[#9EABBE]/70"
           style={{
-            background: "linear-gradient(135deg, #E9DCCB 0%, #F6F1E9 100%)",
+            background:
+              "radial-gradient(circle at 50% 42%, rgba(255,255,255,0.96) 0%, rgba(225,231,240,0.88) 38%, rgba(171,186,207,0.78) 70%, rgba(42,68,111,0.72) 100%), linear-gradient(145deg, #F3F6FA 0%, #D9E1EC 52%, #8FA1BA 100%)",
           }}
         >
-          {/* Brushed-silver glow behind vial */}
+          {/* Cool-silver spotlight and navy pedestal separate white labels and glass edges. */}
           <div
-            className="absolute inset-0 flex items-center justify-center pointer-events-none"
+            className="pointer-events-none absolute inset-x-[12%] top-[7%] h-[82%] rounded-[50%] border border-white/45 bg-white/16 shadow-[inset_0_0_42px_rgba(255,255,255,0.48)]"
+            aria-hidden="true"
+          />
+          <div
+            className="pointer-events-none absolute bottom-3 left-1/2 h-10 w-44 -translate-x-1/2 rounded-[50%] bg-[#10295E]/32 blur-xl"
+            aria-hidden="true"
+          />
+          <div
+            className="pointer-events-none absolute inset-0"
             style={{
-              background: "radial-gradient(ellipse 55% 60% at 50% 55%, rgba(185,192,202,0.46) 0%, transparent 70%)",
+              background:
+                "linear-gradient(115deg, transparent 0%, rgba(255,255,255,0.32) 38%, transparent 52%, rgba(16,41,94,0.08) 100%)",
             }}
+            aria-hidden="true"
           />
           <img
             src={product.images?.[0] || VIAL_IMG}
             alt={product.name}
             loading="lazy"
             decoding="async"
-            className="h-full w-auto max-w-full object-contain opacity-95 py-2 relative z-10 vial-img"
-            style={{ maxHeight: "100%" }}
-          />
-          {/* Gradient overlay */}
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(to bottom, transparent 52%, rgba(246,241,233,0.92) 100%)",
-            }}
+            width={1024}
+            height={1535}
+            className="vial-img relative z-10 h-full w-auto max-w-full object-contain py-2 drop-shadow-[0_16px_14px_rgba(16,41,94,0.28)]"
+            style={{ maxHeight: "100%", imageRendering: "auto" }}
           />
           {/* Category — bottom right, away from badge */}
-          <div className="absolute bottom-3 right-3">
+          <div className="absolute bottom-3 right-3 z-20">
             <span
-              className="text-[#7C8693] text-xs tracking-widest uppercase"
+              className="rounded-full border border-white/70 bg-[#FFFCF7]/88 px-2.5 py-1 text-[0.65rem] uppercase tracking-[0.15em] text-[#10295E] shadow-sm backdrop-blur-sm"
               style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
             >
               {product.category}

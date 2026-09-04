@@ -101,17 +101,19 @@ export default function AgeVerification() {
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.92, opacity: 0, y: 20 }}
             transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
-            className="relative mx-4 max-w-md w-full text-center"
+            className="age-verification-panel relative mx-4 w-full max-w-md rounded-[1.4rem] border border-[#E9DCCB]/45 bg-[#071D3D]/96 p-6 text-center shadow-[0_34px_90px_rgba(0,0,0,0.62),0_0_0_1px_rgba(255,255,255,0.05),inset_0_1px_0_rgba(255,255,255,0.12)] sm:p-10"
             style={{
-              background: "linear-gradient(135deg, rgba(255,255,255,0.04) 0%, rgba(185,192,202,0.04) 100%)",
-              border: "1px solid rgba(185,192,202,0.2)",
-              borderRadius: "20px",
-              padding: "48px 40px",
-              boxShadow: "0 0 60px rgba(185,192,202,0.1), 0 40px 80px rgba(0,0,0,0.6)",
+              background:
+                "linear-gradient(145deg, rgba(16,41,94,0.98) 0%, rgba(7,29,61,0.98) 52%, rgba(5,20,45,0.99) 100%)",
             }}
           >
+            <div
+              className="pointer-events-none absolute inset-x-8 top-0 h-px"
+              style={{ background: "linear-gradient(90deg, transparent, rgba(255,252,247,0.92), transparent)" }}
+              aria-hidden="true"
+            />
             {/* Logo */}
-            <div className="flex justify-center mb-6">
+            <div className="mb-5 flex justify-center sm:mb-6">
               <img
                 src={PRIMARY_LOGO_URL}
                 alt={PRIMARY_LOGO_ALT}
@@ -121,18 +123,20 @@ export default function AgeVerification() {
 
             {/* Age badge */}
             <div
-              className="inline-flex items-center justify-center w-16 h-16 rounded-full mx-auto mb-5"
+              className="age-verification-badge relative mx-auto mb-5 inline-flex h-20 w-20 items-center justify-center rounded-full border-[3px] border-white/70 shadow-[0_12px_32px_rgba(0,0,0,0.34),0_0_28px_rgba(233,220,203,0.24)]"
               style={{
-                background: "linear-gradient(135deg, rgba(36,95,193,0.24), rgba(185,192,202,0.2))",
-                border: "2px solid rgba(185,192,202,0.5)",
+                background: "linear-gradient(145deg, #FFFCF7 0%, #E9DCCB 52%, #B9C0CA 100%)",
               }}
             >
+              <span className="absolute inset-[5px] rounded-full border border-[#10295E]/20" aria-hidden="true" />
               <span
                 style={{
                   fontFamily: "'Cormorant Garamond', serif",
-                  fontSize: "1.6rem",
-                  color: "#174A9B",
+                  fontSize: "2rem",
+                  fontWeight: 700,
+                  color: "#10295E",
                   lineHeight: 1,
+                  letterSpacing: "0.02em",
                 }}
               >
                 21+
@@ -141,13 +145,15 @@ export default function AgeVerification() {
 
             {/* Headline */}
             <h2
-              className="mb-2"
+              className="mb-3"
               style={{
                 fontFamily: "'Cormorant Garamond', serif",
-                fontSize: "2rem",
-                letterSpacing: "0.08em",
-                color: "#FFFFFF",
-                lineHeight: 1.1,
+                fontSize: "clamp(2rem, 8vw, 2.45rem)",
+                fontWeight: 650,
+                letterSpacing: "0.055em",
+                color: "#FFFCF7",
+                lineHeight: 1.02,
+                textShadow: "0 2px 18px rgba(0,0,0,0.38)",
               }}
             >
               AGE VERIFICATION
@@ -157,22 +163,23 @@ export default function AgeVerification() {
             <p
               className="mb-2"
               style={{
-                fontFamily: "'Rajdhani', sans-serif",
-                fontSize: "1rem",
-                color: "rgba(255,255,255,0.7)",
+                fontFamily: "'Inter', sans-serif",
+                fontSize: "0.98rem",
+                color: "#E8EDF5",
                 fontWeight: 500,
-                lineHeight: 1.5,
+                lineHeight: 1.62,
               }}
             >
-              You must be <strong style={{ color: "#B9C0CA" }}>21 years of age or older</strong> to access this site.
+              You must be <strong style={{ color: "#F2DFC5", fontWeight: 700 }}>21 years of age or older</strong> to access this site.
             </p>
             <p
-              className="mb-8"
+              className="mb-7 sm:mb-8"
               style={{
                 fontFamily: "'Inter', sans-serif",
-                fontSize: "0.8rem",
-                color: "rgba(255,255,255,0.35)",
-                lineHeight: 1.5,
+                fontSize: "0.84rem",
+                color: "#C9D2E0",
+                fontWeight: 450,
+                lineHeight: 1.65,
               }}
             >
               All products are sold strictly for in-vitro laboratory and scientific research purposes only.
@@ -180,45 +187,47 @@ export default function AgeVerification() {
 
             {/* Divider */}
             <div
-              className="mb-8"
-              style={{ height: "1px", background: "linear-gradient(90deg, transparent, rgba(185,192,202,0.3), transparent)" }}
+              className="mb-7 sm:mb-8"
+              style={{ height: "1px", background: "linear-gradient(90deg, transparent, rgba(233,220,203,0.74), transparent)" }}
             />
 
             {/* Buttons */}
             <div className="flex flex-col gap-3">
               <button
                 onClick={handleConfirm}
-                className="w-full py-4 font-bold tracking-widest transition-all duration-200 active:scale-95"
+                className="age-verification-primary-cta relative w-full overflow-hidden rounded-xl border border-white/80 px-4 py-3.5 text-center transition-[transform,box-shadow,filter] duration-200 hover:-translate-y-0.5 hover:brightness-[1.03] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFFCF7] focus-visible:ring-offset-2 focus-visible:ring-offset-[#071D3D] active:scale-[0.98] motion-reduce:transform-none motion-reduce:transition-none"
                 style={{
-                  fontFamily: "'Rajdhani', sans-serif",
-                  fontSize: "1rem",
-                  letterSpacing: "0.12em",
-                  background: "linear-gradient(135deg, #E9DCCB, #B9C0CA)",
-                  color: "#FFFFFF",
-                  border: "none",
-                  borderRadius: "10px",
+                  color: "#0A2458",
                   cursor: "pointer",
-                  boxShadow: "0 4px 20px rgba(185,192,202,0.3)",
                 }}
               >
-                YES, I AM 21 OR OLDER — ENTER SITE
+                <span
+                  className="relative z-10 block text-[0.7rem] uppercase tracking-[0.16em]"
+                  style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 800 }}
+                >
+                  Yes, I am 21 or older
+                </span>
+                <span
+                  className="relative z-10 mt-0.5 block text-[1.05rem] uppercase tracking-[0.2em]"
+                  style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 800 }}
+                >
+                  Enter Site →
+                </span>
               </button>
 
               <button
                 onClick={handleDeny}
-                className="w-full py-3 transition-all duration-200 active:scale-95"
+                className="age-verification-secondary-cta w-full rounded-xl border border-[#B9C0CA]/45 bg-white/[0.035] px-4 py-3.5 transition-[transform,background-color,border-color,color] duration-200 hover:border-[#E9DCCB]/70 hover:bg-white/[0.07] hover:text-[#FFFCF7] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B9C0CA] focus-visible:ring-offset-2 focus-visible:ring-offset-[#071D3D] active:scale-[0.98] motion-reduce:transform-none motion-reduce:transition-none"
                 style={{
                   fontFamily: "'Rajdhani', sans-serif",
-                  fontSize: "0.9rem",
-                  letterSpacing: "0.08em",
-                  background: "transparent",
-                  color: "rgba(255,255,255,0.35)",
-                  border: "1px solid rgba(255,255,255,0.1)",
-                  borderRadius: "10px",
+                  fontSize: "0.84rem",
+                  fontWeight: 700,
+                  letterSpacing: "0.1em",
+                  color: "#C9D2E0",
                   cursor: "pointer",
                 }}
               >
-                No, I am under 21 — Exit
+                No, I am under 21 — Exit Site
               </button>
             </div>
           </motion.div>

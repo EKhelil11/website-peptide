@@ -3,6 +3,7 @@
 
 import { useEffect, useRef } from "react";
 import { FlaskConical, Shield, Zap, Award } from "lucide-react";
+import PurityBadgeHeading from "@/components/PurityBadgeHeading";
 
 const LAB_IMG = "/manus-storage/la-elite-who-we-are-lab_b1963ab1-optimized_acd7650b.webp";
 
@@ -95,40 +96,32 @@ export default function AboutSection() {
                 CLEARLY DOCUMENTED.
               </h2>
 
-              <p
-                className="text-white/65 mb-6 leading-relaxed animate-on-scroll"
-                style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: "1rem" }}
-              >
-                LA Elite Peptides provides a focused online catalog for qualified researchers seeking clearly presented compound information and a direct ordering workflow. We are not a supplement company, and every product is offered strictly for in-vitro laboratory research use only.
-              </p>
-
-              <p
-                className="text-white/65 mb-8 leading-relaxed animate-on-scroll"
-                style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300, fontSize: "1rem" }}
-              >
-                Based in Los Angeles, our catalog spans metabolic pathway research, cellular biology, longevity studies, signaling research, and related laboratory applications. Product pages identify vial contents, research context, and whether a verified Certificate of Analysis has been posted.
-              </p>
-
-              <div className="brand-proof-line flex w-full items-center justify-center gap-3 rounded-2xl border border-[#B9C0CA]/35 bg-white/[0.09] px-4 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_14px_34px_rgba(0,9,30,0.18)] backdrop-blur-sm sm:w-auto sm:justify-start animate-on-scroll">
-                <div
-                  className="h-px w-8 shrink-0 sm:w-12"
-                  style={{ background: "linear-gradient(to right, #E9DCCB, #B9C0CA)" }}
-                />
-                <span
-                  className="text-center text-sm leading-relaxed tracking-[0.08em] text-[#F7F2EA] sm:text-base"
+              <div className="who-we-are-copy mb-8 space-y-5 border-l border-[#B9C0CA]/45 pl-4 sm:pl-5 animate-on-scroll">
+                <p
+                  className="text-[#F7F2EA]/88 leading-[1.82] tracking-[0.005em]"
                   style={{
-                    fontFamily: "'Rajdhani', sans-serif",
-                    fontWeight: 700,
-                    textShadow: "0 2px 16px rgba(0, 10, 34, 0.9)",
+                    fontFamily: "'Inter', sans-serif",
+                    fontWeight: 450,
+                    fontSize: "clamp(1.02rem, 1.2vw, 1.1rem)",
+                    textShadow: "0 1px 16px rgba(0, 0, 0, 0.2)",
                   }}
                 >
-                  Los Angeles. Research Focused. Document Led.
-                </span>
-                <div
-                  className="h-px w-8 shrink-0 sm:hidden"
-                  style={{ background: "linear-gradient(to left, #E9DCCB, #B9C0CA)" }}
-                />
+                  LA Elite Peptides provides a focused online catalog for qualified researchers seeking clearly presented compound information and a direct ordering workflow. <span className="font-semibold text-white">We are not a supplement company, and every product is offered strictly for in-vitro laboratory research use only.</span>
+                </p>
+
+                <p
+                  className="text-[#E8EDF4]/82 leading-[1.82] tracking-[0.005em]"
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontWeight: 425,
+                    fontSize: "clamp(1rem, 1.15vw, 1.075rem)",
+                    textShadow: "0 1px 16px rgba(0, 0, 0, 0.2)",
+                  }}
+                >
+                  Based in Los Angeles, our catalog spans metabolic pathway research, cellular biology, longevity studies, signaling research, and related laboratory applications. Product pages identify vial contents, research context, and whether a verified Certificate of Analysis has been posted.
+                </p>
               </div>
+
             </div>
 
             {/* Image */}
@@ -164,27 +157,39 @@ export default function AboutSection() {
                   boxShadow: "0 18px 45px rgba(3, 17, 45, 0.34)",
                 }}
               >
-                <div className="flex items-baseline gap-2">
+                <div className="flex items-end gap-2.5">
                   <div
                     className="text-[#F6F1E9]"
                     style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: "clamp(2rem, 4vw, 2.75rem)", lineHeight: 1 }}
                   >
                     &gt;99%
                   </div>
-                  <div
-                    className="text-[#B9C0CA] text-[0.7rem] sm:text-xs tracking-[0.16em] uppercase leading-tight"
-                    style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
-                  >
-                    COA-Reported Purity
-                  </div>
+                  <PurityBadgeHeading className="pb-0.5 leading-none" />
                 </div>
                 <div
-                  className="mt-2 pt-2 border-t border-white/10 text-white/62 text-[0.68rem] leading-relaxed"
-                  style={{ fontFamily: "'Inter', sans-serif", fontWeight: 400 }}
+                  className="mt-2.5 border-t border-white/14 pt-2.5 text-[0.72rem] leading-relaxed text-white/72"
+                  style={{ fontFamily: "'Inter', sans-serif", fontWeight: 450 }}
                 >
                   Product- and lot-specific results. See each posted Certificate of Analysis.
                 </div>
               </div>
+            </div>
+          </div>
+
+          <div className="brand-proof-page-margin mt-14 flex w-full justify-end sm:mt-16 animate-on-scroll">
+            <div className="brand-proof-line flex w-fit max-w-full items-center justify-start gap-3 rounded-full border border-[#B9C0CA]/30 bg-white/[0.06] px-4 py-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_10px_28px_rgba(0,0,0,0.24)]">
+              <div className="h-px w-7 shrink-0 bg-gradient-to-r from-[#B9C0CA]/35 to-[#E9DCCB]" />
+              <span
+                className="whitespace-nowrap text-lg italic tracking-[0.06em] text-[#F7F2EA] sm:text-xl"
+                style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontWeight: 650,
+                  textShadow: "0 2px 14px rgba(0, 0, 0, 0.75)",
+                }}
+              >
+                Trusted. Tested.
+              </span>
+              <div className="h-px w-7 shrink-0 bg-gradient-to-l from-[#B9C0CA]/35 to-[#E9DCCB]" />
             </div>
           </div>
         </div>

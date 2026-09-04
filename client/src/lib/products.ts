@@ -302,7 +302,7 @@ export const products: Product[] = [
     handling: STANDARD_HANDLING,
     coa: VERIFIED_COAS["retatrutide-10mg"],
     disclaimer: STANDARD_DISCLAIMER,
-    images: ["/manus-storage/Reta10Mg_c8429e02-optimized_a621611b.webp"],
+    images: ["/manus-storage/Reta10Mg-card-crisp_20eb1ab9.webp"],
   },
   {
     id: "retatrutide-30mg",
@@ -322,7 +322,7 @@ export const products: Product[] = [
     handling: STANDARD_HANDLING,
     coa: VERIFIED_COAS["retatrutide-30mg"],
     disclaimer: STANDARD_DISCLAIMER,
-    images: ["/manus-storage/Reta30BlueFinal_a4815d6f-optimized_40b4c2a1.webp"],
+    images: ["/manus-storage/Reta30BlueFinal-card-crisp_4d9ceaea.webp"],
   },
   {
     id: "tirzepatide-20mg",
@@ -337,7 +337,7 @@ export const products: Product[] = [
     handling: STANDARD_HANDLING,
     coa: VERIFIED_COAS["tirzepatide-20mg"],
     disclaimer: STANDARD_DISCLAIMER,
-    images: ["/manus-storage/Tirzepatide20mg_6cd95bb5-optimized_47994734.webp"],
+    images: ["/manus-storage/Tirzepatide20mg-card-crisp_3910ba38.webp"],
   },
   {
     id: "tirzepatide-40mg",
@@ -352,7 +352,7 @@ export const products: Product[] = [
     handling: STANDARD_HANDLING,
     coa: VERIFIED_COAS["tirzepatide-40mg"],
     disclaimer: STANDARD_DISCLAIMER,
-    images: ["/manus-storage/Tirzepatide40mg_7e16f7e2-optimized_7ee57055.webp"],
+    images: ["/manus-storage/Tirzepatide40mg-card-crisp_c25ba836.webp"],
   },
 
   // HGH activators appear second by owner request.
@@ -397,7 +397,7 @@ export const products: Product[] = [
     ],
     coa: VERIFIED_COAS["cjc1295-ipamorelin-10mg"],
     disclaimer: STANDARD_DISCLAIMER,
-    images: ["/manus-storage/CJCIpamoreline10Mg_5d73519c-optimized_0bd8d7ec.webp"],
+    images: ["/manus-storage/CJCIpamoreline10Mg-card-crisp_756db0cf.webp"],
   },
   {
     id: "sermorelin-10mg",
@@ -441,7 +441,7 @@ export const products: Product[] = [
     ],
     coa: VERIFIED_COAS["sermorelin-10mg"],
     disclaimer: STANDARD_DISCLAIMER,
-    images: ["/manus-storage/semerelin10_648172ea-optimized_5d70044e.webp"],
+    images: ["/manus-storage/semerelin10-card-crisp_d5368462.webp"],
   },
   {
     id: "tesamorelin-10mg",
@@ -485,7 +485,7 @@ export const products: Product[] = [
     ],
     coa: VERIFIED_COAS["tesamorelin-10mg"],
     disclaimer: STANDARD_DISCLAIMER,
-    images: ["/manus-storage/Tesamorelin10Mg_9758abb9-optimized_047809a9.webp"],
+    images: ["/manus-storage/Tesamorelin10Mg-card-crisp_f1e179e4.webp"],
   },
 
   // Signature blends.
@@ -529,7 +529,7 @@ export const products: Product[] = [
     ],
     coa: VERIFIED_COAS["bpc157-tb500-wolverine"],
     disclaimer: STANDARD_DISCLAIMER,
-    images: ["/manus-storage/Wolverine1010_55ef84ca-optimized_1961bbb6.webp"],
+    images: ["/manus-storage/Wolverine1010-card-crisp_dab9a9dc.webp"],
   },
   {
     id: "ghk-cu-bpc157-tb500-glow",
@@ -572,7 +572,7 @@ export const products: Product[] = [
     ],
     coa: VERIFIED_COAS["ghk-cu-bpc157-tb500-glow"],
     disclaimer: STANDARD_DISCLAIMER,
-    images: ["/manus-storage/GLOW70MG_ffa067ff-optimized_decb6517.webp"],
+    images: ["/manus-storage/GLOW70MG-card-crisp_0a54969e.webp"],
   },
   {
     id: "ghk-cu-tb500-bpc157-kpv-klow",
@@ -615,7 +615,7 @@ export const products: Product[] = [
     ],
     coa: VERIFIED_COAS["ghk-cu-tb500-bpc157-kpv-klow"],
     disclaimer: STANDARD_DISCLAIMER,
-    images: ["/manus-storage/Klow80MG_329db60a-optimized_e152532d.webp"],
+    images: ["/manus-storage/Klow80MG-card-crisp_dc6692f8.webp"],
   },
 
   // Mitochondrial and metabolic research compounds.
@@ -658,7 +658,7 @@ export const products: Product[] = [
     references: [{ title: "PubChem: NAD+", url: "https://pubchem.ncbi.nlm.nih.gov/compound/5892" }],
     coa: VERIFIED_COAS["nad-500mg"],
     disclaimer: STANDARD_DISCLAIMER,
-    images: ["/manus-storage/NAD-Plus-500mg_96c2d34f-optimized_4c0dc5da.webp"],
+    images: ["/manus-storage/NAD-Plus-500mg-card-crisp_d055c390.webp"],
   },
   {
     id: "mots-c-10mg",
@@ -702,7 +702,7 @@ export const products: Product[] = [
     ],
     coa: VERIFIED_COAS["mots-c-10mg"],
     disclaimer: STANDARD_DISCLAIMER,
-    images: ["/manus-storage/MOTSC10_eb4d383a-optimized_53fa8b2f.webp"],
+    images: ["/manus-storage/MOTSC10-card-crisp_3f105ae5.webp"],
   },
   {
     id: "ss-31-50mg",
@@ -747,7 +747,7 @@ export const products: Product[] = [
     ],
     coa: VERIFIED_COAS["ss-31-50mg"],
     disclaimer: STANDARD_DISCLAIMER,
-    images: ["/manus-storage/ss-3150Mg_e5197e43-optimized_98b362f8.webp"],
+    images: ["/manus-storage/ss-3150Mg-card-crisp_d5803bb6.webp"],
   },
 
   // Remaining focused research categories.
@@ -790,7 +790,7 @@ export const products: Product[] = [
     ],
     coa: VERIFIED_COAS["ghk-cu-100mg"],
     disclaimer: STANDARD_DISCLAIMER,
-    images: ["/manus-storage/GHKCU_6ed5c2e6-optimized_70147f0b.webp"],
+    images: ["/manus-storage/GHKCU-card-crisp_046753b1.webp"],
   },
   {
     id: "kisspeptin-10mg",
@@ -834,7 +834,7 @@ export const products: Product[] = [
     ],
     coa: VERIFIED_COAS["kisspeptin-10mg"],
     disclaimer: STANDARD_DISCLAIMER,
-    images: ["/manus-storage/kisspeptin10mg_39626528-optimized_dc695724.webp"],
+    images: ["/manus-storage/kisspeptin10mg-card-crisp_748014a7.webp"],
   },
   {
     id: "semax-10mg",
@@ -878,7 +878,7 @@ export const products: Product[] = [
     ],
     coa: VERIFIED_COAS["semax-10mg"],
     disclaimer: STANDARD_DISCLAIMER,
-    images: ["/manus-storage/Semax10_cb70da9c-optimized_f11efad4.webp"],
+    images: ["/manus-storage/Semax10-card-crisp_de45763e.webp"],
   },
 ];
 

@@ -55,6 +55,10 @@ const productCardSource = fs.readFileSync(
   path.join(clientRoot, "components/ProductCard.tsx"),
   "utf8",
 );
+const purityBadgeHeadingSource = fs.readFileSync(
+  path.join(clientRoot, "components/PurityBadgeHeading.tsx"),
+  "utf8",
+);
 
 describe("vial-label blue-silver-limestone private-preview theme", () => {
   it("defines the complete image-led palette and keeps compatibility aliases", () => {
@@ -138,6 +142,12 @@ describe("vial-label blue-silver-limestone private-preview theme", () => {
     expect(heroSource).toContain("Strictly for qualified in-vitro laboratory research.");
     expect(heroSource).not.toContain("A focused catalog of research compounds");
     expect(heroSource).toContain("hero-stats-grid");
+    expect(heroSource).toContain("sm:grid-cols-2");
+    expect(heroSource).toContain('value: ">99%"');
+    expect(heroSource).toContain('label: "COA-Reported Purity"');
+    expect(heroSource).toContain('scope: "Product-/lot-specific reports"');
+    expect(heroSource).toContain("purityHeading: true");
+    expect(heroSource).toContain('<PurityBadgeHeading className="block leading-none" />');
     expect(heroSource).toContain("hero-stat-card-featured");
     expect(heroSource).toContain("hero-stat-link");
     expect(heroSource).toContain("#F6F1E9");
@@ -209,7 +219,16 @@ describe("vial-label blue-silver-limestone private-preview theme", () => {
       'alt="LA Elite Peptides laboratory team conducting analytical research"',
     );
     expect(aboutSource).toContain("&gt;99%");
-    expect(aboutSource).toContain("COA-Reported Purity");
+    expect(aboutSource).toContain("PurityBadgeHeading");
+    expect(purityBadgeHeadingSource).toContain("COA-Reported Purity");
+    expect(aboutSource).toContain("who-we-are-copy");
+    expect(aboutSource).toContain('<PurityBadgeHeading className="pb-0.5 leading-none" />');
+    expect(purityBadgeHeadingSource).toContain("COA-Reported Purity");
+    expect(purityBadgeHeadingSource).toContain("'Cormorant Garamond', serif");
+    expect(purityBadgeHeadingSource).toContain("'Rajdhani', sans-serif");
+    expect(purityBadgeHeadingSource).toContain('className="block text-[0.9rem] tracking-[0.045em] text-[#F7F2EA] sm:text-base"');
+    expect(purityBadgeHeadingSource).toContain('className="mt-1 block text-[0.62rem] uppercase tracking-[0.2em] text-[#B9C0CA]"');
+    expect(aboutSource).toContain("fontWeight: 450");
     expect(aboutSource).toContain("Product- and lot-specific results");
     expect(aboutSource).toContain("See each posted Certificate of Analysis");
     expect(aboutSource).not.toContain("lap-about-laboratory_2d9792ee.jpg");
@@ -259,12 +278,14 @@ describe("vial-label blue-silver-limestone private-preview theme", () => {
     expect(footerSource).not.toContain('background: "oklch(0.28 0.08 255)"');
   });
 
-  it("elevates both exact brand proof lines with readable boutique contrast", () => {
+  it("uses matching Trusted. Tested. proof badges with readable boutique contrast", () => {
     expect(aboutSource).toContain("brand-proof-line");
-    expect(aboutSource).toContain("Los Angeles. Research Focused. Document Led.");
+    expect(aboutSource).not.toContain("Los Angeles. Research Focused. Document Led.");
+    expect(aboutSource).toContain("Trusted. Tested.");
+    expect(aboutSource).toContain("w-fit max-w-full items-center justify-start");
     expect(aboutSource).toContain("text-[#F7F2EA]");
-    expect(aboutSource).toContain("'Rajdhani', sans-serif");
-    expect(aboutSource).toContain('textShadow: "0 2px 16px rgba(0, 10, 34, 0.9)"');
+    expect(aboutSource).toContain("'Cormorant Garamond', serif");
+    expect(aboutSource).toContain('textShadow: "0 2px 14px rgba(0, 0, 0, 0.75)"');
 
     expect(footerSource).toContain("brand-proof-footer");
     expect(footerSource).toContain("Trusted. Tested.");

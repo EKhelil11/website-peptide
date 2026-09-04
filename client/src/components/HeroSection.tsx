@@ -5,6 +5,7 @@ import React, { useEffect, useRef } from "react";
 import { Link } from "wouter";
 import { ChevronDown } from "lucide-react";
 import { catalogCounts, products } from "@/lib/products";
+import PurityBadgeHeading from "@/components/PurityBadgeHeading";
 
 const HERO_BG = "/manus-storage/la-elite-peptides-wellness-clinic-hero_97eecfe8-optimized_1b05f19b.webp";
 
@@ -156,7 +157,7 @@ export default function HeroSection() {
           </div>
 
           {/* Premium research statistics */}
-          <div className="hero-stats-grid hero-item opacity-0 mt-12 grid grid-cols-1 sm:grid-cols-[0.9fr_1.25fr_0.9fr] gap-3 max-w-3xl">
+          <div className="hero-stats-grid hero-item opacity-0 mt-12 grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-[0.82fr_1.18fr_0.82fr_1.08fr] max-w-3xl">
             {[
               { value: `${catalogCounts.compounds}`, label: "Current Compounds" },
               {
@@ -168,6 +169,12 @@ export default function HeroSection() {
                 })),
               },
               { value: "US", label: "Research Support" },
+              {
+                value: ">99%",
+                label: "COA-Reported Purity",
+                scope: "Product-/lot-specific reports",
+                purityHeading: true,
+              },
             ].map((stat, i) => (
               <div
                 key={stat.label}
@@ -184,8 +191,20 @@ export default function HeroSection() {
                   className="hero-stat-label"
                   style={{ fontFamily: "'Rajdhani', sans-serif" }}
                 >
-                  {stat.label}
+                  {'purityHeading' in stat && stat.purityHeading ? (
+                    <PurityBadgeHeading className="block leading-none" />
+                  ) : (
+                    stat.label
+                  )}
                 </div>
+                {'scope' in stat && stat.scope && (
+                  <div
+                    className="mt-2 text-[0.66rem] leading-snug tracking-[0.04em] text-white/58"
+                    style={{ fontFamily: "'Inter', sans-serif", fontWeight: 450 }}
+                  >
+                    {stat.scope}
+                  </div>
+                )}
                 {'stacks' in stat && stat.stacks && (
                   <div className="mt-3 flex flex-wrap gap-1.5">
                     {(stat.stacks as { name: string; id: string }[]).map((s) => (

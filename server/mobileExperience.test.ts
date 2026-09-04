@@ -29,8 +29,9 @@ describe("private mobile experience and loading contracts", () => {
 
   it("contains the shop hero and controls at narrow phone widths", () => {
     expect(shop).toContain("min-w-0 max-w-full");
-    expect(shop).toContain('fontSize: "clamp(2.65rem, 14vw, 7rem)"');
-    expect(shop).toContain('overflowWrap: "anywhere"');
+    expect(shop).toContain('fontSize: "clamp(2.45rem, 13vw, 7rem)"');
+    expect(shop).toContain('overflowWrap: "normal"');
+    expect(shop).toContain('block whitespace-nowrap text-[#B9C0CA]">COMPOUNDS');
     expect(shop).toContain("w-full min-w-0 min-[360px]:w-auto");
     expect(shop).not.toContain('fontSize: "clamp(3.6rem, 8vw, 7rem)"');
   });
@@ -71,7 +72,7 @@ describe("private mobile experience and loading contracts", () => {
   });
 
   it("splits non-home routes and defers below-the-fold image work", () => {
-    expect(app).toContain('import { lazy, Suspense } from "react"');
+    expect(app).toMatch(/import \{[^}]*lazy[^}]*Suspense[^}]*\} from "react"/);
     expect(app.match(/= lazy\(\(\) => import\(/g)?.length).toBeGreaterThanOrEqual(17);
     expect(app).toContain("<Suspense fallback={<RouteFallback />}> ".trim());
     expect(productCard).toContain('loading="lazy"');

@@ -137,13 +137,13 @@ export default function Shop() {
                 className="max-w-full text-white leading-[0.92] mb-5 sm:mb-6"
                 style={{
                   fontFamily: "'Cormorant Garamond', serif",
-                  fontSize: "clamp(2.65rem, 14vw, 7rem)",
+                  fontSize: "clamp(2.45rem, 13vw, 7rem)",
                   letterSpacing: "0.025em",
-                  overflowWrap: "anywhere",
+                  overflowWrap: "normal",
                 }}
               >
                 SHOP RESEARCH
-                <span className="block text-[#B9C0CA]">COMPOUNDS</span>
+                <span className="block whitespace-nowrap text-[#B9C0CA]">COMPOUNDS</span>
               </h1>
               <p className="max-w-xl text-white/72 text-base sm:text-lg leading-relaxed mb-7 sm:mb-8" style={{ fontFamily: "'Inter', sans-serif" }}>
                 Browse the complete current catalog, compare research categories and formats, then continue through the existing secure account and checkout flow.

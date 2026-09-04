@@ -6,24 +6,28 @@ import { catalogCounts, findProductById, products } from "../client/src/lib/prod
 const projectRoot = path.resolve(import.meta.dirname, "..");
 const heroSource = fs.readFileSync(path.join(projectRoot, "client/src/components/HeroSection.tsx"), "utf8");
 const aboutSource = fs.readFileSync(path.join(projectRoot, "client/src/components/AboutSection.tsx"), "utf8");
+const purityBadgeHeadingSource = fs.readFileSync(
+  path.join(projectRoot, "client/src/components/PurityBadgeHeading.tsx"),
+  "utf8",
+);
 
 const expectedCatalog = [
-  ["retatrutide-10mg", "$150", "/manus-storage/Reta10Mg_c8429e02-optimized_a621611b.webp"],
-  ["retatrutide-30mg", "$200", "/manus-storage/Reta30BlueFinal_a4815d6f-optimized_40b4c2a1.webp"],
-  ["tirzepatide-20mg", "$175", "/manus-storage/Tirzepatide20mg_6cd95bb5-optimized_47994734.webp"],
-  ["tirzepatide-40mg", "$200", "/manus-storage/Tirzepatide40mg_7e16f7e2-optimized_7ee57055.webp"],
-  ["cjc1295-ipamorelin-10mg", "$80", "/manus-storage/CJCIpamoreline10Mg_5d73519c-optimized_0bd8d7ec.webp"],
-  ["sermorelin-10mg", "$75", "/manus-storage/semerelin10_648172ea-optimized_5d70044e.webp"],
-  ["tesamorelin-10mg", "$70", "/manus-storage/Tesamorelin10Mg_9758abb9-optimized_047809a9.webp"],
-  ["bpc157-tb500-wolverine", "$100", "/manus-storage/Wolverine1010_55ef84ca-optimized_1961bbb6.webp"],
-  ["ghk-cu-bpc157-tb500-glow", "$120", "/manus-storage/GLOW70MG_ffa067ff-optimized_decb6517.webp"],
-  ["ghk-cu-tb500-bpc157-kpv-klow", "$130", "/manus-storage/Klow80MG_329db60a-optimized_e152532d.webp"],
-  ["nad-500mg", "$100", "/manus-storage/NAD-Plus-500mg_96c2d34f-optimized_4c0dc5da.webp"],
-  ["mots-c-10mg", "$70", "/manus-storage/MOTSC10_eb4d383a-optimized_53fa8b2f.webp"],
-  ["ss-31-50mg", "$70", "/manus-storage/ss-3150Mg_e5197e43-optimized_98b362f8.webp"],
-  ["ghk-cu-100mg", "$80", "/manus-storage/GHKCU_6ed5c2e6-optimized_70147f0b.webp"],
-  ["kisspeptin-10mg", "$80", "/manus-storage/kisspeptin10mg_39626528-optimized_dc695724.webp"],
-  ["semax-10mg", "$60", "/manus-storage/Semax10_cb70da9c-optimized_f11efad4.webp"],
+  ["retatrutide-10mg", "$150", "/manus-storage/Reta10Mg-card-crisp_20eb1ab9.webp"],
+  ["retatrutide-30mg", "$200", "/manus-storage/Reta30BlueFinal-card-crisp_4d9ceaea.webp"],
+  ["tirzepatide-20mg", "$175", "/manus-storage/Tirzepatide20mg-card-crisp_3910ba38.webp"],
+  ["tirzepatide-40mg", "$200", "/manus-storage/Tirzepatide40mg-card-crisp_c25ba836.webp"],
+  ["cjc1295-ipamorelin-10mg", "$80", "/manus-storage/CJCIpamoreline10Mg-card-crisp_756db0cf.webp"],
+  ["sermorelin-10mg", "$75", "/manus-storage/semerelin10-card-crisp_d5368462.webp"],
+  ["tesamorelin-10mg", "$70", "/manus-storage/Tesamorelin10Mg-card-crisp_f1e179e4.webp"],
+  ["bpc157-tb500-wolverine", "$100", "/manus-storage/Wolverine1010-card-crisp_dab9a9dc.webp"],
+  ["ghk-cu-bpc157-tb500-glow", "$120", "/manus-storage/GLOW70MG-card-crisp_0a54969e.webp"],
+  ["ghk-cu-tb500-bpc157-kpv-klow", "$130", "/manus-storage/Klow80MG-card-crisp_dc6692f8.webp"],
+  ["nad-500mg", "$100", "/manus-storage/NAD-Plus-500mg-card-crisp_d055c390.webp"],
+  ["mots-c-10mg", "$70", "/manus-storage/MOTSC10-card-crisp_3f105ae5.webp"],
+  ["ss-31-50mg", "$70", "/manus-storage/ss-3150Mg-card-crisp_d5803bb6.webp"],
+  ["ghk-cu-100mg", "$80", "/manus-storage/GHKCU-card-crisp_046753b1.webp"],
+  ["kisspeptin-10mg", "$80", "/manus-storage/kisspeptin10mg-card-crisp_748014a7.webp"],
+  ["semax-10mg", "$60", "/manus-storage/Semax10-card-crisp_de45763e.webp"],
 ] as const;
 
 describe("finalized research catalog", () => {
@@ -66,7 +70,8 @@ describe("finalized research catalog", () => {
     expect(heroSource).toContain("catalogCounts.compounds");
     expect(heroSource).toContain("catalogCounts.signatureBlends");
     expect(aboutSource).not.toContain("catalogCounts.compounds");
-    expect(aboutSource).toContain("COA-Reported Purity");
+    expect(aboutSource).toContain("PurityBadgeHeading");
+    expect(purityBadgeHeadingSource).toContain("COA-Reported Purity");
     expect(aboutSource).not.toMatch(/>\s*11\s*</);
   });
 

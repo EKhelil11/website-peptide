@@ -3,8 +3,9 @@
 
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { lazy, Suspense } from "react";
-import { Route, Switch } from "wouter";
+import { lazy, Suspense, useEffect, useRef } from "react";
+import { motion, useReducedMotion } from "framer-motion";
+import { Route, Switch, useLocation } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
@@ -30,6 +31,10 @@ const VerifyEmail = lazy(() => import("./pages/VerifyEmail"));
 const ForgotPassword = lazy(() => import("./pages/ForgotPassword"));
 const ResetPassword = lazy(() => import("./pages/ResetPassword"));
 const NotFound = lazy(() => import("@/pages/NotFound"));
+
+const ROUTE_TRANSITION_DURATION = 0.22;
+const ROUTE_TRANSITION_OFFSET = 10;
+const ROUTE_TRANSITION_EASE = [0.23, 1, 0.32, 1] as const;
 
 function RouteFallback() {
   return (
@@ -69,6 +74,52 @@ function Router() {
   );
 }
 
+function RouteTransition() {
+  const [location] = useLocation();
+  const shouldReduceMotion = useReducedMotion();
+  const previousRouteRef = useRef(location);
+  const routeKey = location.split(/[?#]/)[0] || "/";
+
+  useEffect(() => {
+    const previousRoute = previousRouteRef.current;
+    previousRouteRef.current = location;
+
+    if (previousRoute === location) return;
+
+    const hash = window.location.hash;
+    if (hash) {
+      requestAnimationFrame(() => {
+        const targetId = decodeURIComponent(hash.slice(1));
+        document.getElementById(targetId)?.scrollIntoView({ behavior: "instant", block: "start" });
+      });
+      return;
+    }
+
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, [location]);
+
+  const initialState = shouldReduceMotion
+    ? { opacity: 1, y: 0 }
+    : { opacity: 0, y: ROUTE_TRANSITION_OFFSET };
+
+  return (
+    <motion.div
+      key={routeKey}
+      className="route-transition-shell"
+      data-route-transition={shouldReduceMotion ? "reduced" : "premium"}
+      initial={initialState}
+      animate={{ opacity: 1, y: 0 }}
+      transition={
+        shouldReduceMotion
+          ? { duration: 0 }
+          : { duration: ROUTE_TRANSITION_DURATION, ease: ROUTE_TRANSITION_EASE }
+      }
+    >
+      <Router />
+    </motion.div>
+  );
+}
+
 function App() {
   return (
     <ErrorBoundary>
@@ -78,7 +129,7 @@ function App() {
           <CartProvider>
             <AgeVerification />
             <Suspense fallback={<RouteFallback />}>
-              <Router />
+              <RouteTransition />
             </Suspense>
             {/* <FloatingTextButton /> */}
             <FloatingCart />

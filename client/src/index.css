@@ -277,6 +277,27 @@
     transform: scale(0.97);
   }
 
+  .age-verification-primary-cta {
+    background: linear-gradient(135deg, #FFFCF7 0%, #F2DFC5 46%, #C9D0DA 100%);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.32), 0 0 24px rgba(233, 220, 203, 0.24);
+  }
+
+  @media (min-width: 768px) {
+    .age-verification-primary-cta {
+      border-color: rgba(255, 255, 255, 0.92);
+      background: linear-gradient(115deg, #F8FAFC 0%, #BCC5D1 18%, #EEF1F5 38%, #9EA9B8 56%, #F4F6F8 76%, #B9C0CA 100%);
+      box-shadow: 0 14px 34px rgba(0, 0, 0, 0.38), 0 0 30px rgba(216, 221, 229, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 0 rgba(86, 101, 124, 0.28);
+    }
+
+    .age-verification-primary-cta::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.14) 0, rgba(255, 255, 255, 0.14) 1px, rgba(71, 87, 111, 0.035) 1px, rgba(71, 87, 111, 0.035) 3px);
+      pointer-events: none;
+    }
+  }
+
   .product-boutique-cta {
     position: relative;
     overflow: hidden;
