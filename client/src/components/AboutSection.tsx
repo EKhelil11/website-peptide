@@ -109,17 +109,25 @@ export default function AboutSection() {
                 Based in Los Angeles, our catalog spans metabolic pathway research, cellular biology, longevity studies, signaling research, and related laboratory applications. Product pages identify vial contents, research context, and whether a verified Certificate of Analysis has been posted.
               </p>
 
-              <div className="flex items-center gap-4 animate-on-scroll">
+              <div className="brand-proof-line flex w-full items-center justify-center gap-3 rounded-2xl border border-[#B9C0CA]/35 bg-white/[0.09] px-4 py-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.12),0_14px_34px_rgba(0,9,30,0.18)] backdrop-blur-sm sm:w-auto sm:justify-start animate-on-scroll">
                 <div
-                  className="h-px flex-1"
-                  style={{ background: "linear-gradient(to right, oklch(0.76 0.02 250 / 50%), transparent)" }}
+                  className="h-px w-8 shrink-0 sm:w-12"
+                  style={{ background: "linear-gradient(to right, #E9DCCB, #B9C0CA)" }}
                 />
                 <span
-                  className="text-[#174A9B] text-sm italic"
-                  style={{ fontFamily: "'Inter', sans-serif", fontWeight: 300 }}
+                  className="text-center text-sm leading-relaxed tracking-[0.08em] text-[#F7F2EA] sm:text-base"
+                  style={{
+                    fontFamily: "'Rajdhani', sans-serif",
+                    fontWeight: 700,
+                    textShadow: "0 2px 16px rgba(0, 10, 34, 0.9)",
+                  }}
                 >
                   Los Angeles. Research Focused. Document Led.
                 </span>
+                <div
+                  className="h-px w-8 shrink-0 sm:hidden"
+                  style={{ background: "linear-gradient(to left, #E9DCCB, #B9C0CA)" }}
+                />
               </div>
             </div>
 

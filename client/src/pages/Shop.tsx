@@ -199,17 +199,37 @@ export default function Shop() {
           </div>
         </section>
 
-        <section className="border-b border-[#B9C0CA]/55 bg-[#DDD2C5]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 lg:grid-cols-4">
-            {confidenceItems.map(({ icon: Icon, value, label }) => (
-              <div key={label} className="flex items-center gap-3 px-3 sm:px-6 py-6 border-r border-[#B9C0CA]/55 last:border-r-0 even:border-r-0 lg:even:border-r lg:last:border-r-0">
-                <Icon size={20} className="text-[#174A9B] flex-shrink-0" />
-                <div>
-                  <div className="text-[#10295E] text-xl leading-none" style={{ fontFamily: "'Cormorant Garamond', serif", letterSpacing: "0.05em" }}>
-                    {value}
+        <section className="border-b border-[#B9C0CA]/65 bg-[linear-gradient(135deg,#F6F1E9_0%,#E9DCCB_48%,#DDD2C5_100%)] py-5 sm:py-7">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+            {confidenceItems.map(({ icon: Icon, value, label }, index) => (
+              <div
+                key={label}
+                className="relative min-w-0 overflow-hidden rounded-2xl border border-[#B9C0CA]/65 bg-white/60 px-3 py-4 sm:px-5 sm:py-5 shadow-[0_14px_34px_rgba(7,21,47,0.10)]"
+              >
+                <span
+                  className="absolute right-3 top-2 text-[#B9C0CA]/65 text-lg"
+                  style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650 }}
+                  aria-hidden="true"
+                >
+                  0{index + 1}
+                </span>
+                <div className="flex min-w-0 flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-4">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-[#B9C0CA] bg-[linear-gradient(145deg,#245FC1,#10295E)] shadow-[0_8px_18px_rgba(16,41,94,0.24)]">
+                    <Icon size={18} className="text-[#F6F1E9]" />
                   </div>
-                  <div className="text-[#5F6977] text-[0.68rem] uppercase tracking-[0.12em] mt-1" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}>
-                    {label}
+                  <div className="min-w-0 pr-2">
+                    <div
+                      className="text-[#10295E] text-[1.65rem] sm:text-[1.85rem] leading-[0.9]"
+                      style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650, letterSpacing: "0.025em" }}
+                    >
+                      {value}
+                    </div>
+                    <div
+                      className="mt-2 text-[#465161] text-[0.78rem] sm:text-[0.82rem] uppercase tracking-[0.08em] leading-[1.22]"
+                      style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}
+                    >
+                      {label}
+                    </div>
                   </div>
                 </div>
               </div>

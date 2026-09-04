@@ -1,7 +1,7 @@
 // === ELITE LA PEPTIDES — Checkout Page ===
-// Redesigned to match site aesthetic: Cormorant Garamond headings, Rajdhani body, cyan blue CTA buttons
+// Boutique purchase flow: Cormorant display, Rajdhani utility, Inter body, warm light surfaces
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, type CSSProperties } from "react";
 import { useLocation } from "wouter";
 import { useCustomerAuth } from "@/hooks/useCustomerAuth";
 import { trpc } from "@/lib/trpc";
@@ -19,13 +19,41 @@ const US_STATES = [
   "VA","WA","WV","WI","WY","DC",
 ];
 
-// Cyan blue matching "Add to Cart" / "Buy Now" buttons on the product page
-const CYAN_BTN = {
-  background: "linear-gradient(135deg, oklch(0.55 0.14 255), oklch(0.44 0.13 255))",
-  boxShadow: "0 4px 24px oklch(0.55 0.14 255 / 40%)",
-  color: "white",
+const BOUTIQUE_BTN = {
+  color: "#10295E",
   fontFamily: "'Rajdhani', sans-serif",
   letterSpacing: "0.14em",
+};
+
+const PURCHASE_PAGE_STYLE: CSSProperties = {
+  background: "radial-gradient(circle at 10% 0%, rgba(36,95,193,0.08), transparent 28rem), linear-gradient(145deg, #F6F1E9 0%, #E9DCCB 55%, #DDD2C5 100%)",
+};
+
+const PURCHASE_HEADER_STYLE: CSSProperties = {
+  background: "rgba(246, 241, 233, 0.94)",
+  backdropFilter: "blur(20px)",
+  borderColor: "rgba(185, 192, 202, 0.72)",
+  boxShadow: "0 8px 30px rgba(7, 21, 47, 0.08)",
+};
+
+const LIGHT_PANEL_STYLE: CSSProperties = {
+  background: "linear-gradient(145deg, rgba(255,253,248,0.96), rgba(246,241,233,0.92))",
+  border: "1px solid rgba(185, 192, 202, 0.78)",
+  boxShadow: "0 20px 55px rgba(7, 21, 47, 0.12), inset 0 1px 0 rgba(255,255,255,0.95)",
+};
+
+const PURCHASE_FIELD_STYLE: CSSProperties = {
+  background: "rgba(255, 253, 248, 0.92)",
+  border: "1px solid rgba(124, 134, 147, 0.62)",
+  color: "#202833",
+  fontFamily: "'Inter', sans-serif",
+  fontWeight: 550,
+};
+
+const PURCHASE_LABEL_STYLE: CSSProperties = {
+  color: "#10295E",
+  fontFamily: "'Rajdhani', sans-serif",
+  fontWeight: 750,
 };
 
 export default function Checkout() {
@@ -90,8 +118,8 @@ export default function Checkout() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ background: "oklch(0.18 0.055 255)" }}>
-        <div className="text-white/50 text-xl tracking-widest uppercase" style={{ fontFamily: "'Rajdhani', sans-serif" }}>Loading...</div>
+      <div className="min-h-screen flex items-center justify-center" style={PURCHASE_PAGE_STYLE}>
+        <div className="text-[#10295E] text-xl tracking-[0.16em] uppercase" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}>Preparing Checkout...</div>
       </div>
     );
   }
@@ -118,47 +146,49 @@ export default function Checkout() {
   // ─── Order Confirmed / Zelle Instructions ────────────────────────────────────
   if (submitted) {
     return (
-      <div className="min-h-screen" style={{ background: "oklch(0.18 0.055 255)" }}>
+      <div className="min-h-screen text-[#202833]" style={PURCHASE_PAGE_STYLE}>
         {/* Nav */}
-        <header className="sticky top-0 z-50 border-b" style={{ background: "oklch(0.25 0.08 255 / 95%)", backdropFilter: "blur(20px)", borderColor: "oklch(0.32 0.10 255 / 40%)" }}>
+        <header className="sticky top-0 z-50 border-b" style={PURCHASE_HEADER_STYLE}>
           <div className="max-w-5xl mx-auto px-6 h-24 flex items-center gap-4">
             <img src={PRIMARY_LOGO_URL} alt={PRIMARY_LOGO_ALT} className={AUTH_LOGO_SIZE_CLASS} />
-            <span className="text-white/60 text-base ml-2 uppercase tracking-widest" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}>
+            <span className="hidden min-[360px]:inline text-[#10295E] text-base ml-2 uppercase tracking-[0.16em]" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}>
               Order Confirmed
             </span>
           </div>
         </header>
 
-        <div className="max-w-2xl mx-auto px-6 py-12">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 py-10 sm:py-12">
           {/* Success header */}
           <div className="text-center mb-10">
             <div
               className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-5"
-              style={{ background: "oklch(0.55 0.14 255 / 15%)", border: "2px solid oklch(0.55 0.14 255 / 50%)" }}
+              style={{ background: "linear-gradient(145deg, #245FC1, #10295E)", border: "2px solid rgba(185, 192, 202, 0.9)", boxShadow: "0 14px 34px rgba(7,21,47,0.2)" }}
             >
-              <CheckCircle size={40} style={{ color: "oklch(0.76 0.02 250)" }} />
+              <CheckCircle size={40} style={{ color: "#F6F1E9" }} />
             </div>
-            <h1 className="text-6xl text-white mb-3" style={{ fontFamily: "'Cormorant Garamond', serif", letterSpacing: "0.06em" }}>
+            <p className="text-[#174A9B] text-xs uppercase tracking-[0.2em] mb-2" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}>Purchase recorded</p>
+            <h1 className="text-5xl sm:text-6xl text-[#10295E] mb-3" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650, letterSpacing: "0.035em" }}>
               Order Placed!
             </h1>
-            <p className="text-white/60 text-xl" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}>
-              Order <span className="text-white font-bold">{orderNumber}</span> is confirmed
+            <p className="text-[#4B5563] text-base sm:text-lg" style={{ fontFamily: "'Inter', sans-serif" }}>
+              Order <span className="text-[#10295E] font-semibold">{orderNumber}</span> is confirmed
             </p>
           </div>
 
           {/* ── Zelle Payment Box ── */}
           <div
-            className="rounded-2xl overflow-hidden mb-6"
-            style={{ border: "2px solid oklch(0.55 0.14 255 / 50%)", background: "oklch(0.25 0.08 255)" }}
+            className="rounded-[1.75rem] overflow-hidden mb-6"
+            style={LIGHT_PANEL_STYLE}
           >
             <div
               className="px-6 py-4"
-              style={{ background: "oklch(0.55 0.14 255 / 15%)", borderBottom: "1px solid oklch(0.55 0.14 255 / 30%)" }}
+              style={{ background: "linear-gradient(135deg, rgba(233,220,203,0.78), rgba(246,241,233,0.92))", borderBottom: "1px solid rgba(185,192,202,0.72)" }}
             >
-              <p className="text-2xl font-bold uppercase tracking-widest" style={{ fontFamily: "'Cormorant Garamond', serif", color: "oklch(0.91 0.025 80)", letterSpacing: "0.1em" }}>
-                💳 Step 1 — Send Zelle Payment Now
+              <p className="text-[#174A9B] text-xs uppercase tracking-[0.18em] mb-1" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}>Step 01 · Payment</p>
+              <p className="text-2xl sm:text-3xl leading-tight" style={{ fontFamily: "'Cormorant Garamond', serif", color: "#10295E", fontWeight: 650, letterSpacing: "0.025em" }}>
+                Send Zelle Payment Now
               </p>
-              <p className="text-white/70 text-base mt-1" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}>
+              <p className="text-[#4B5563] text-base mt-2 leading-relaxed" style={{ fontFamily: "'Inter', sans-serif" }}>
                 Open your bank app, go to Zelle, and send the exact amount below.
               </p>
             </div>
@@ -166,25 +196,26 @@ export default function Checkout() {
             <div className="px-6 py-5 space-y-4">
               {/* Zelle Phone */}
               <div
-                className="rounded-xl px-5 py-4 flex items-center justify-between"
-                style={{ background: "oklch(0.29 0.085 255)", border: "1px solid oklch(0.44 0.13 255 / 50%)" }}
+                className="rounded-2xl px-4 sm:px-5 py-4 flex flex-col min-[390px]:flex-row min-[390px]:items-center min-[390px]:justify-between gap-4"
+                style={{ background: "rgba(255, 253, 248, 0.82)", border: "1px solid rgba(185, 192, 202, 0.78)" }}
               >
                 <div>
-                  <p className="text-white/50 text-sm uppercase tracking-widest mb-1" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}>
+                  <p className="text-[#5F6977] text-xs uppercase tracking-[0.15em] mb-1" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}>
                     Send Zelle To
                   </p>
-                  <p className="text-white font-bold text-4xl" style={{ fontFamily: "'Cormorant Garamond', serif", letterSpacing: "0.05em" }}>
+                  <p className="text-[#10295E] text-3xl sm:text-4xl" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650, letterSpacing: "0.035em" }}>
                     {ZELLE_PHONE}
                   </p>
                 </div>
                 <button
                   onClick={() => handleCopy("phone", ZELLE_PHONE.replace(/\D/g, ""))}
-                  className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold uppercase tracking-widest transition-all"
+                  className="flex min-h-11 items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm uppercase tracking-[0.12em] transition-all"
                   style={{
-                    background: copied === "phone" ? "oklch(0.5 0.2 145 / 20%)" : "oklch(0.55 0.14 255 / 20%)",
-                    border: `1px solid ${copied === "phone" ? "oklch(0.5 0.2 145 / 50%)" : "oklch(0.55 0.14 255 / 40%)"}`,
-                    color: copied === "phone" ? "oklch(0.7 0.2 145)" : "oklch(0.76 0.02 250)",
+                    background: copied === "phone" ? "rgba(57, 135, 90, 0.12)" : "rgba(233, 220, 203, 0.7)",
+                    border: `1px solid ${copied === "phone" ? "rgba(57, 135, 90, 0.45)" : "rgba(185, 192, 202, 0.9)"}`,
+                    color: copied === "phone" ? "#2D6C47" : "#174A9B",
                     fontFamily: "'Rajdhani', sans-serif",
+                    fontWeight: 800,
                   }}
                 >
                   {copied === "phone" ? <Check size={16} /> : <Copy size={16} />}
@@ -194,25 +225,26 @@ export default function Checkout() {
 
               {/* Amount */}
               <div
-                className="rounded-xl px-5 py-4 flex items-center justify-between"
-                style={{ background: "oklch(0.29 0.085 255)", border: "1px solid oklch(0.44 0.13 255 / 50%)" }}
+                className="rounded-2xl px-4 sm:px-5 py-4 flex flex-col min-[390px]:flex-row min-[390px]:items-center min-[390px]:justify-between gap-4"
+                style={{ background: "rgba(246, 241, 233, 0.9)", border: "1px solid rgba(185, 192, 202, 0.78)" }}
               >
                 <div>
-                  <p className="text-white/50 text-sm uppercase tracking-widest mb-1" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}>
+                  <p className="text-[#5F6977] text-xs uppercase tracking-[0.15em] mb-1" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}>
                     Exact Amount to Send
                   </p>
-                  <p className="text-white font-bold text-5xl" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+                  <p className="text-[#10295E] text-4xl sm:text-5xl" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650 }}>
                     ${orderTotal.toFixed(2)}
                   </p>
                 </div>
                 <button
                   onClick={() => handleCopy("amount", orderTotal.toFixed(2))}
-                  className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold uppercase tracking-widest transition-all"
+                  className="flex min-h-11 items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm uppercase tracking-[0.12em] transition-all"
                   style={{
-                    background: copied === "amount" ? "oklch(0.5 0.2 145 / 20%)" : "oklch(0.55 0.14 255 / 20%)",
-                    border: `1px solid ${copied === "amount" ? "oklch(0.5 0.2 145 / 50%)" : "oklch(0.55 0.14 255 / 40%)"}`,
-                    color: copied === "amount" ? "oklch(0.7 0.2 145)" : "oklch(0.76 0.02 250)",
+                    background: copied === "amount" ? "rgba(57, 135, 90, 0.12)" : "rgba(233, 220, 203, 0.7)",
+                    border: `1px solid ${copied === "amount" ? "rgba(57, 135, 90, 0.45)" : "rgba(185, 192, 202, 0.9)"}`,
+                    color: copied === "amount" ? "#2D6C47" : "#174A9B",
                     fontFamily: "'Rajdhani', sans-serif",
+                    fontWeight: 800,
                   }}
                 >
                   {copied === "amount" ? <Check size={16} /> : <Copy size={16} />}
@@ -222,32 +254,33 @@ export default function Checkout() {
 
               {/* Memo */}
               <div
-                className="rounded-xl px-5 py-4 flex items-center justify-between"
+                className="rounded-2xl px-4 sm:px-5 py-4 flex flex-col min-[390px]:flex-row min-[390px]:items-center min-[390px]:justify-between gap-4"
                 style={{
-                  background: "oklch(0.26 0.09 255 / 30%)",
-                  border: "2px solid oklch(0.55 0.14 255 / 60%)",
-                  boxShadow: "0 0 20px oklch(0.55 0.14 255 / 15%)",
+                  background: "linear-gradient(135deg, rgba(233,220,203,0.82), rgba(255,253,248,0.92))",
+                  border: "2px solid rgba(23, 74, 155, 0.38)",
+                  boxShadow: "0 14px 30px rgba(7, 21, 47, 0.09)",
                 }}
               >
                 <div>
-                  <p className="text-white/70 text-sm uppercase tracking-widest mb-1" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}>
-                    ⚠️ Memo / Note — Required in Zelle
+                  <p className="text-[#174A9B] text-xs uppercase tracking-[0.14em] mb-1" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 800 }}>
+                    Required Zelle Memo
                   </p>
-                  <p className="text-white font-bold text-3xl" style={{ fontFamily: "'Cormorant Garamond', serif", letterSpacing: "0.05em", color: "oklch(0.91 0.025 80)" }}>
+                  <p className="text-3xl sm:text-4xl" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650, letterSpacing: "0.035em", color: "#10295E" }}>
                     {orderNumber}
                   </p>
-                  <p className="text-white/50 text-sm mt-1" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
+                  <p className="text-[#4B5563] text-sm mt-1" style={{ fontFamily: "'Inter', sans-serif" }}>
                     Paste this into the Memo field in Zelle
                   </p>
                 </div>
                 <button
                   onClick={() => handleCopy("memo", orderNumber)}
-                  className="flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold uppercase tracking-widest transition-all"
+                  className="flex min-h-11 items-center justify-center gap-2 rounded-xl px-4 py-2 text-sm uppercase tracking-[0.12em] transition-all"
                   style={{
-                    background: copied === "memo" ? "oklch(0.5 0.2 145 / 20%)" : "oklch(0.55 0.14 255 / 20%)",
-                    border: `1px solid ${copied === "memo" ? "oklch(0.5 0.2 145 / 50%)" : "oklch(0.55 0.14 255 / 40%)"}`,
-                    color: copied === "memo" ? "oklch(0.7 0.2 145)" : "oklch(0.76 0.02 250)",
+                    background: copied === "memo" ? "rgba(57, 135, 90, 0.12)" : "rgba(255, 253, 248, 0.84)",
+                    border: `1px solid ${copied === "memo" ? "rgba(57, 135, 90, 0.45)" : "rgba(185, 192, 202, 0.9)"}`,
+                    color: copied === "memo" ? "#2D6C47" : "#174A9B",
                     fontFamily: "'Rajdhani', sans-serif",
+                    fontWeight: 800,
                   }}
                 >
                   {copied === "memo" ? <Check size={16} /> : <Copy size={16} />}
@@ -255,67 +288,68 @@ export default function Checkout() {
                 </button>
               </div>
 
-              <p className="text-white/50 text-base text-center" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}>
-                ⚠️ <strong className="text-white/80">Include the order number as your Zelle memo</strong> so we can match your payment.
+              <p className="text-[#4B5563] text-sm sm:text-base text-center leading-relaxed" style={{ fontFamily: "'Inter', sans-serif" }}>
+                <strong className="text-[#10295E]">Include the order number as your Zelle memo</strong> so we can match your payment.
               </p>
             </div>
           </div>
 
           {/* Step 2 */}
           <div
-            className="rounded-2xl px-6 py-5 mb-6"
-            style={{ background: "oklch(0.25 0.08 255)", border: "1px solid oklch(0.32 0.10 255 / 50%)" }}
+            className="rounded-[1.5rem] px-5 sm:px-6 py-5 mb-6"
+            style={LIGHT_PANEL_STYLE}
           >
-            <p className="text-2xl font-bold uppercase tracking-widest mb-2" style={{ fontFamily: "'Cormorant Garamond', serif", color: "oklch(0.91 0.025 80)", letterSpacing: "0.08em" }}>
-              📦 Step 2 — We'll Ship Your Order
+            <p className="text-[#174A9B] text-xs uppercase tracking-[0.18em] mb-1" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}>Step 02 · Fulfillment</p>
+            <p className="text-2xl sm:text-3xl mb-2" style={{ fontFamily: "'Cormorant Garamond', serif", color: "#10295E", fontWeight: 650, letterSpacing: "0.025em" }}>
+              We'll Ship Your Order
             </p>
-            <p className="text-white/70 text-lg leading-relaxed" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}>
-              Once we confirm your Zelle payment, your order status updates to <strong className="text-white">Paid</strong> and we begin preparing your shipment.
+            <p className="text-[#4B5563] text-base sm:text-lg leading-relaxed" style={{ fontFamily: "'Inter', sans-serif" }}>
+              Once we confirm your Zelle payment, your order status updates to <strong className="text-[#10295E]">Paid</strong> and we begin preparing your shipment.
               {emailConfigured && fulfillmentConfigured ? (
-                <> A tracking number will be sent to <strong className="text-white">{form.shipEmail}</strong>.</>
+                <> A tracking number will be sent to <strong className="text-[#10295E] break-words">{form.shipEmail}</strong>.</>
               ) : (
-                <> Automated email and fulfillment updates are temporarily disabled during the relaunch. Save your order number and check <strong className="text-white">My Orders</strong> or contact support for updates.</>
+                <> Automated email and fulfillment updates are temporarily disabled during the relaunch. Save your order number and check <strong className="text-[#10295E]">My Orders</strong> or contact support for updates.</>
               )}
             </p>
           </div>
 
           {/* Order Summary */}
           <div
-            className="rounded-2xl px-6 py-5 mb-8"
-            style={{ background: "oklch(0.25 0.08 255)", border: "1px solid oklch(0.32 0.10 255 / 50%)" }}
+            className="rounded-[1.5rem] px-5 sm:px-6 py-5 mb-8"
+            style={LIGHT_PANEL_STYLE}
           >
-            <p className="text-2xl font-bold uppercase tracking-widest mb-4" style={{ fontFamily: "'Cormorant Garamond', serif", color: "white", letterSpacing: "0.08em" }}>
+            <p className="text-2xl sm:text-3xl mb-4 text-[#10295E]" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650, letterSpacing: "0.025em" }}>
               Order Summary
             </p>
             <div className="space-y-3 mb-4">
               {cart.map(item => (
                 <div key={item.productId} className="flex justify-between items-center">
                   <div>
-                    <p className="text-white text-lg font-bold" style={{ fontFamily: "'Rajdhani', sans-serif" }}>{item.productName}</p>
-                    <p className="text-white/50 text-base" style={{ fontFamily: "'Rajdhani', sans-serif" }}>Qty: {item.quantity} × ${(item.unitPrice ?? 0).toFixed(2)}</p>
+                    <p className="text-[#10295E] text-xl leading-tight" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650 }}>{item.productName}</p>
+                    <p className="text-[#5F6977] text-sm mt-1" style={{ fontFamily: "'Inter', sans-serif" }}>Qty: {item.quantity} × ${(item.unitPrice ?? 0).toFixed(2)}</p>
                   </div>
-                  <span className="text-white text-xl font-bold" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
+                  <span className="text-[#10295E] text-xl" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650 }}>
                     ${((item.unitPrice ?? 0) * item.quantity).toFixed(2)}
                   </span>
                 </div>
               ))}
             </div>
-            <div className="border-t pt-4 space-y-2" style={{ borderColor: "oklch(0.32 0.10 255 / 40%)" }}>
-              <div className="flex justify-between text-lg" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
-                <span className="text-white/60 font-semibold">Subtotal</span>
-                <span className="text-white font-bold">${subtotal.toFixed(2)}</span>
+            <div className="border-t pt-4 space-y-2" style={{ borderColor: "rgba(185, 192, 202, 0.72)" }}>
+              <div className="flex justify-between items-center">
+                <span className="text-[#4B5563] text-sm uppercase tracking-[0.12em]" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}>Subtotal</span>
+                <span className="text-[#10295E] text-xl" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650 }}>${subtotal.toFixed(2)}</span>
               </div>
-              <div className="flex justify-between text-lg" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
-                <span className="text-white/60 font-semibold">Shipping</span>
-                <span className="text-white font-bold">${shipping.toFixed(2)}</span>
+              <div className="flex justify-between items-center">
+                <span className="text-[#4B5563] text-sm uppercase tracking-[0.12em]" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}>Shipping</span>
+                <span className="text-[#10295E] text-xl" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650 }}>${shipping.toFixed(2)}</span>
               </div>
-              <div className="flex justify-between text-lg" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
-                <span className="text-white/60 font-semibold">Tax</span>
-                <span className="text-white font-bold">${tax.toFixed(2)}</span>
+              <div className="flex justify-between items-center">
+                <span className="text-[#4B5563] text-sm uppercase tracking-[0.12em]" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}>Tax</span>
+                <span className="text-[#10295E] text-xl" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650 }}>${tax.toFixed(2)}</span>
               </div>
-              <div className="flex justify-between items-center pt-3 border-t" style={{ borderColor: "oklch(0.32 0.10 255 / 40%)" }}>
-                <span className="text-white text-2xl font-bold uppercase tracking-widest" style={{ fontFamily: "'Cormorant Garamond', serif" }}>Total Due</span>
-                <span className="text-white text-4xl font-bold" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+              <div className="flex flex-col min-[360px]:flex-row min-[360px]:items-center min-[360px]:justify-between gap-1 pt-3 border-t" style={{ borderColor: "rgba(185, 192, 202, 0.72)" }}>
+                <span className="text-[#10295E] text-2xl uppercase tracking-[0.05em]" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650 }}>Total Due</span>
+                <span className="self-end min-[360px]:self-auto text-[#10295E] text-4xl" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650 }}>
                   ${orderTotal.toFixed(2)}
                 </span>
               </div>
@@ -323,24 +357,24 @@ export default function Checkout() {
           </div>
 
           {/* Action buttons */}
-          <div className="flex gap-4">
+          <div className="flex flex-col sm:flex-row gap-4">
             <button
               onClick={() => setLocation("/account")}
-              className="flex-1 py-4 rounded-xl text-lg font-bold tracking-widest uppercase transition-all hover:opacity-90"
+              className="flex-1 py-4 rounded-xl text-base tracking-[0.12em] uppercase transition-all hover:border-[#174A9B]/50 hover:text-[#174A9B]"
               style={{
-                background: "oklch(0.29 0.085 255)",
-                border: "1px solid oklch(0.44 0.13 255 / 60%)",
-                color: "oklch(0.76 0.02 250)",
+                background: "rgba(255, 253, 248, 0.72)",
+                border: "1px solid rgba(185, 192, 202, 0.9)",
+                color: "#10295E",
                 fontFamily: "'Rajdhani', sans-serif",
-                letterSpacing: "0.1em",
+                fontWeight: 800,
               }}
             >
               My Orders
             </button>
             <button
               onClick={() => setLocation("/#products")}
-              className="flex-1 py-4 rounded-xl text-lg font-bold tracking-widest uppercase transition-all hover:opacity-90"
-              style={{ ...CYAN_BTN, letterSpacing: "0.1em" }}
+              className="product-boutique-cta flex-1 py-4 rounded-xl text-lg tracking-[0.1em] uppercase transition-all"
+              style={{ ...BOUTIQUE_BTN, fontWeight: 800 }}
             >
               Shop More
             </button>
@@ -352,18 +386,18 @@ export default function Checkout() {
 
   // ─── Checkout Form ────────────────────────────────────────────────────────────
   return (
-    <div className="min-h-screen" style={{ background: "oklch(0.18 0.055 255)" }}>
+    <div className="min-h-screen text-[#202833]" style={PURCHASE_PAGE_STYLE}>
       {/* Top Nav */}
       <header
         className="sticky top-0 z-50 border-b"
-        style={{ background: "oklch(0.25 0.08 255 / 95%)", backdropFilter: "blur(20px)", borderColor: "oklch(0.32 0.10 255 / 40%)" }}
+        style={PURCHASE_HEADER_STYLE}
       >
         <div className="max-w-5xl mx-auto px-6 h-24 flex items-center gap-4">
-          <button onClick={() => window.history.back()} className="text-white/50 hover:text-[#B9C0CA] transition-colors">
+          <button onClick={() => window.history.back()} className="flex h-11 w-11 items-center justify-center rounded-full border border-[#B9C0CA]/80 text-[#5F6977] hover:border-[#174A9B]/45 hover:text-[#174A9B] transition-colors" aria-label="Return to previous page">
             <ArrowLeft size={22} />
           </button>
           <img src={PRIMARY_LOGO_URL} alt={PRIMARY_LOGO_ALT} className={AUTH_LOGO_SIZE_CLASS} />
-          <span className="text-white/70 text-base ml-2 uppercase tracking-widest" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}>
+          <span className="hidden min-[360px]:inline text-[#10295E] text-base ml-1 sm:ml-2 uppercase tracking-[0.16em]" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}>
             Checkout
           </span>
         </div>
@@ -373,12 +407,13 @@ export default function Checkout() {
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
 
           {/* ── Shipping Form ── */}
-          <form onSubmit={handleSubmit} className="lg:col-span-3 space-y-6">
+          <form onSubmit={handleSubmit} className="lg:col-span-3 space-y-6 rounded-[1.75rem] p-5 sm:p-7" style={LIGHT_PANEL_STYLE}>
             <div>
-              <h2 className="text-5xl text-white mb-2" style={{ fontFamily: "'Cormorant Garamond', serif", letterSpacing: "0.06em" }}>
+              <p className="text-[#174A9B] text-xs uppercase tracking-[0.2em] mb-2" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}>Delivery details</p>
+              <h2 className="text-4xl sm:text-5xl text-[#10295E] mb-2" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650, letterSpacing: "0.035em" }}>
                 Shipping Information
               </h2>
-              <p className="text-white/50 text-lg" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}>
+              <p className="text-[#4B5563] text-base sm:text-lg leading-relaxed" style={{ fontFamily: "'Inter', sans-serif" }}>
                 After submitting, you'll receive Zelle payment instructions with your exact total.
               </p>
             </div>
@@ -391,7 +426,7 @@ export default function Checkout() {
                 <p className="text-base font-bold uppercase tracking-wider" style={{ color: "#B9C0CA", fontFamily: "'Rajdhani', sans-serif" }}>
                   Relaunch Integration Notice
                 </p>
-                <p className="text-white/70 text-sm mt-1 leading-relaxed" style={{ fontFamily: "'Inter', sans-serif" }}>
+                <p className="text-[#4B5563] text-sm mt-1 leading-relaxed" style={{ fontFamily: "'Inter', sans-serif" }}>
                   Your order will still be recorded in My Orders, but automated email and fulfillment updates are temporarily disabled pending reauthorization and owner approval. Save the order number shown after checkout.
                 </p>
               </div>
@@ -400,20 +435,20 @@ export default function Checkout() {
             {/* Name + Email */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               <div>
-                <label className="block mb-2 text-base font-bold uppercase tracking-widest" style={{ fontFamily: "'Rajdhani', sans-serif", color: "oklch(0.76 0.02 250)" }}>
+                <label className="block mb-2 text-sm uppercase tracking-[0.13em]" style={PURCHASE_LABEL_STYLE}>
                   Full Name *
                 </label>
                 <input
                   required
                   value={form.shipName}
                   onChange={e => setForm(p => ({ ...p, shipName: e.target.value }))}
-                  className="w-full px-4 py-3.5 rounded-xl outline-none focus:ring-2 focus:ring-[#B9C0CA]/40 text-lg"
-                  style={{ background: "oklch(0.29 0.085 255)", border: "1px solid oklch(0.44 0.13 255 / 60%)", color: "white", fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
+                  className="w-full px-4 py-4 rounded-xl outline-none focus:ring-2 focus:ring-[#174A9B]/20 focus:border-[#174A9B]/55 text-base sm:text-lg placeholder:text-[#7C8693]"
+                  style={PURCHASE_FIELD_STYLE}
                   placeholder="Your full name"
                 />
               </div>
               <div>
-                <label className="block mb-2 text-base font-bold uppercase tracking-widest" style={{ fontFamily: "'Rajdhani', sans-serif", color: "oklch(0.76 0.02 250)" }}>
+                <label className="block mb-2 text-sm uppercase tracking-[0.13em]" style={PURCHASE_LABEL_STYLE}>
                   Email *
                 </label>
                 <input
@@ -421,8 +456,8 @@ export default function Checkout() {
                   type="email"
                   value={form.shipEmail}
                   onChange={e => setForm(p => ({ ...p, shipEmail: e.target.value }))}
-                  className="w-full px-4 py-3.5 rounded-xl outline-none focus:ring-2 focus:ring-[#B9C0CA]/40 text-lg"
-                  style={{ background: "oklch(0.29 0.085 255)", border: "1px solid oklch(0.44 0.13 255 / 60%)", color: "white", fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
+                  className="w-full px-4 py-4 rounded-xl outline-none focus:ring-2 focus:ring-[#174A9B]/20 focus:border-[#174A9B]/55 text-base sm:text-lg placeholder:text-[#7C8693]"
+                  style={PURCHASE_FIELD_STYLE}
                   placeholder="your@email.com"
                 />
               </div>
@@ -430,44 +465,44 @@ export default function Checkout() {
 
             {/* Phone */}
             <div>
-              <label className="block mb-2 text-base font-bold uppercase tracking-widest" style={{ fontFamily: "'Rajdhani', sans-serif", color: "oklch(0.76 0.02 250)" }}>
+              <label className="block mb-2 text-sm uppercase tracking-[0.13em]" style={PURCHASE_LABEL_STYLE}>
                 Phone (optional)
               </label>
               <input
                 type="tel"
                 value={form.shipPhone}
                 onChange={e => setForm(p => ({ ...p, shipPhone: e.target.value }))}
-                className="w-full px-4 py-3.5 rounded-xl outline-none focus:ring-2 focus:ring-[#B9C0CA]/40 text-lg"
-                style={{ background: "oklch(0.29 0.085 255)", border: "1px solid oklch(0.44 0.13 255 / 60%)", color: "white", fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
+                className="w-full px-4 py-4 rounded-xl outline-none focus:ring-2 focus:ring-[#174A9B]/20 focus:border-[#174A9B]/55 text-base sm:text-lg placeholder:text-[#7C8693]"
+                style={PURCHASE_FIELD_STYLE}
                 placeholder="(310) 000-0000"
               />
             </div>
 
             {/* Street */}
             <div>
-              <label className="block mb-2 text-base font-bold uppercase tracking-widest" style={{ fontFamily: "'Rajdhani', sans-serif", color: "oklch(0.76 0.02 250)" }}>
+              <label className="block mb-2 text-sm uppercase tracking-[0.13em]" style={PURCHASE_LABEL_STYLE}>
                 Street Address *
               </label>
               <input
                 required
                 value={form.shipAddress}
                 onChange={e => setForm(p => ({ ...p, shipAddress: e.target.value }))}
-                className="w-full px-4 py-3.5 rounded-xl outline-none focus:ring-2 focus:ring-[#B9C0CA]/40 text-lg"
-                style={{ background: "oklch(0.29 0.085 255)", border: "1px solid oklch(0.44 0.13 255 / 60%)", color: "white", fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
+                className="w-full px-4 py-4 rounded-xl outline-none focus:ring-2 focus:ring-[#174A9B]/20 focus:border-[#174A9B]/55 text-base sm:text-lg placeholder:text-[#7C8693]"
+                style={PURCHASE_FIELD_STYLE}
                 placeholder="123 Main St"
               />
             </div>
 
             {/* Apt */}
             <div>
-              <label className="block mb-2 text-base font-bold uppercase tracking-widest" style={{ fontFamily: "'Rajdhani', sans-serif", color: "oklch(0.76 0.02 250)" }}>
+              <label className="block mb-2 text-sm uppercase tracking-[0.13em]" style={PURCHASE_LABEL_STYLE}>
                 Apt / Suite / Unit (optional)
               </label>
               <input
                 value={form.shipAddress2}
                 onChange={e => setForm(p => ({ ...p, shipAddress2: e.target.value }))}
-                className="w-full px-4 py-3.5 rounded-xl outline-none focus:ring-2 focus:ring-[#B9C0CA]/40 text-lg"
-                style={{ background: "oklch(0.29 0.085 255)", border: "1px solid oklch(0.44 0.13 255 / 60%)", color: "white", fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
+                className="w-full px-4 py-4 rounded-xl outline-none focus:ring-2 focus:ring-[#174A9B]/20 focus:border-[#174A9B]/55 text-base sm:text-lg placeholder:text-[#7C8693]"
+                style={PURCHASE_FIELD_STYLE}
                 placeholder="Apt 4B"
               />
             </div>
@@ -475,43 +510,43 @@ export default function Checkout() {
             {/* City / State / ZIP */}
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-5">
               <div className="col-span-2 sm:col-span-1">
-                <label className="block mb-2 text-base font-bold uppercase tracking-widest" style={{ fontFamily: "'Rajdhani', sans-serif", color: "oklch(0.76 0.02 250)" }}>
+                <label className="block mb-2 text-sm uppercase tracking-[0.13em]" style={PURCHASE_LABEL_STYLE}>
                   City *
                 </label>
                 <input
                   required
                   value={form.shipCity}
                   onChange={e => setForm(p => ({ ...p, shipCity: e.target.value }))}
-                  className="w-full px-4 py-3.5 rounded-xl outline-none focus:ring-2 focus:ring-[#B9C0CA]/40 text-lg"
-                  style={{ background: "oklch(0.29 0.085 255)", border: "1px solid oklch(0.44 0.13 255 / 60%)", color: "white", fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
+                  className="w-full px-4 py-4 rounded-xl outline-none focus:ring-2 focus:ring-[#174A9B]/20 focus:border-[#174A9B]/55 text-base sm:text-lg placeholder:text-[#7C8693]"
+                  style={PURCHASE_FIELD_STYLE}
                   placeholder="Los Angeles"
                 />
               </div>
               <div>
-                <label className="block mb-2 text-base font-bold uppercase tracking-widest" style={{ fontFamily: "'Rajdhani', sans-serif", color: "oklch(0.76 0.02 250)" }}>
+                <label className="block mb-2 text-sm uppercase tracking-[0.13em]" style={PURCHASE_LABEL_STYLE}>
                   State *
                 </label>
                 <select
                   required
                   value={form.shipState}
                   onChange={e => setForm(p => ({ ...p, shipState: e.target.value }))}
-                  className="w-full px-4 py-3.5 rounded-xl outline-none focus:ring-2 focus:ring-[#B9C0CA]/40 text-lg"
-                  style={{ background: "oklch(0.29 0.085 255)", border: "1px solid oklch(0.44 0.13 255 / 60%)", color: "white", fontFamily: "'Rajdhani', sans-serif", fontWeight: 600, cursor: "pointer" }}
+                  className="w-full px-4 py-4 rounded-xl outline-none focus:ring-2 focus:ring-[#174A9B]/20 focus:border-[#174A9B]/55 text-base sm:text-lg"
+                  style={{ ...PURCHASE_FIELD_STYLE, cursor: "pointer" }}
                 >
                   <option value="">State</option>
                   {US_STATES.map(s => <option key={s} value={s}>{s}</option>)}
                 </select>
               </div>
               <div>
-                <label className="block mb-2 text-base font-bold uppercase tracking-widest" style={{ fontFamily: "'Rajdhani', sans-serif", color: "oklch(0.76 0.02 250)" }}>
+                <label className="block mb-2 text-sm uppercase tracking-[0.13em]" style={PURCHASE_LABEL_STYLE}>
                   ZIP *
                 </label>
                 <input
                   required
                   value={form.shipZip}
                   onChange={e => setForm(p => ({ ...p, shipZip: e.target.value }))}
-                  className="w-full px-4 py-3.5 rounded-xl outline-none focus:ring-2 focus:ring-[#B9C0CA]/40 text-lg"
-                  style={{ background: "oklch(0.29 0.085 255)", border: "1px solid oklch(0.44 0.13 255 / 60%)", color: "white", fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
+                  className="w-full px-4 py-4 rounded-xl outline-none focus:ring-2 focus:ring-[#174A9B]/20 focus:border-[#174A9B]/55 text-base sm:text-lg placeholder:text-[#7C8693]"
+                  style={PURCHASE_FIELD_STYLE}
                   placeholder="90001"
                   maxLength={10}
                 />
@@ -520,15 +555,15 @@ export default function Checkout() {
 
             {/* Notes */}
             <div>
-              <label className="block mb-2 text-base font-bold uppercase tracking-widest" style={{ fontFamily: "'Rajdhani', sans-serif", color: "oklch(0.76 0.02 250)" }}>
+              <label className="block mb-2 text-sm uppercase tracking-[0.13em]" style={PURCHASE_LABEL_STYLE}>
                 Order Notes (optional)
               </label>
               <textarea
                 rows={3}
                 value={form.notes}
                 onChange={e => setForm(p => ({ ...p, notes: e.target.value }))}
-                className="w-full px-4 py-3.5 rounded-xl outline-none focus:ring-2 focus:ring-[#B9C0CA]/40 resize-none text-lg"
-                style={{ background: "oklch(0.29 0.085 255)", border: "1px solid oklch(0.44 0.13 255 / 60%)", color: "white", fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}
+                className="w-full px-4 py-4 rounded-xl outline-none focus:ring-2 focus:ring-[#174A9B]/20 focus:border-[#174A9B]/55 resize-none text-base sm:text-lg placeholder:text-[#7C8693]"
+                style={PURCHASE_FIELD_STYLE}
                 placeholder="Any special instructions..."
               />
             </div>
@@ -544,13 +579,13 @@ export default function Checkout() {
             <button
               type="submit"
               disabled={submitOrder.isPending || cart.length === 0}
-              className="w-full py-5 rounded-xl font-bold text-xl tracking-widest uppercase transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
-              style={{ ...CYAN_BTN, fontSize: "1.25rem" }}
+              className="product-boutique-cta w-full py-5 rounded-xl text-lg sm:text-xl tracking-[0.14em] uppercase transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
+              style={{ ...BOUTIQUE_BTN, fontWeight: 800 }}
             >
               {submitOrder.isPending ? "Placing Order..." : `Place Order — $${total.toFixed(2)}`}
             </button>
 
-            <p className="text-center text-white/40 text-base" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}>
+            <p className="text-center text-[#5F6977] text-sm sm:text-base" style={{ fontFamily: "'Inter', sans-serif" }}>
               Zelle payment instructions will appear immediately after placing your order.
             </p>
           </form>
@@ -559,9 +594,10 @@ export default function Checkout() {
           <div className="lg:col-span-2">
             <div
               className="rounded-2xl p-6 sticky top-24"
-              style={{ background: "oklch(0.28 0.08 255)", border: "1px solid oklch(0.32 0.10 255 / 50%)" }}
+              style={LIGHT_PANEL_STYLE}
             >
-              <h3 className="text-3xl text-white mb-5" style={{ fontFamily: "'Cormorant Garamond', serif", letterSpacing: "0.06em" }}>
+              <p className="text-[#174A9B] text-xs uppercase tracking-[0.18em] mb-2" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}>Your selection</p>
+              <h3 className="text-3xl sm:text-4xl text-[#10295E] mb-5" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650, letterSpacing: "0.035em" }}>
                 Order Summary
               </h3>
 
@@ -569,36 +605,36 @@ export default function Checkout() {
                 {cart.map(item => (
                   <div key={item.productId} className="flex justify-between items-start gap-3">
                     <div className="flex-1 min-w-0">
-                      <p className="text-white text-lg font-bold truncate" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
+                      <p className="text-[#10295E] text-xl leading-tight" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650 }}>
                         {item.productName}
                       </p>
-                      <p className="text-white/50 text-base" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}>
+                      <p className="text-[#5F6977] text-sm mt-1" style={{ fontFamily: "'Inter', sans-serif" }}>
                         Qty: {item.quantity} × ${(item.unitPrice ?? 0).toFixed(2)}
                       </p>
                     </div>
-                    <span className="text-white text-lg font-bold shrink-0" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
+                    <span className="text-[#10295E] text-xl shrink-0" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650 }}>
                       ${((item.unitPrice ?? 0) * item.quantity).toFixed(2)}
                     </span>
                   </div>
                 ))}
               </div>
 
-              <div className="border-t pt-5 space-y-3" style={{ borderColor: "oklch(0.32 0.10 255 / 40%)" }}>
+              <div className="border-t pt-5 space-y-3" style={{ borderColor: "rgba(185, 192, 202, 0.72)" }}>
                 <div className="flex justify-between items-center">
-                  <span className="text-white/60 text-lg font-semibold" style={{ fontFamily: "'Rajdhani', sans-serif" }}>Subtotal</span>
-                  <span className="text-white text-lg font-bold" style={{ fontFamily: "'Rajdhani', sans-serif" }}>${subtotal.toFixed(2)}</span>
+                  <span className="text-[#4B5563] text-sm uppercase tracking-[0.12em]" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}>Subtotal</span>
+                  <span className="text-[#10295E] text-xl" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650 }}>${subtotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-white/60 text-lg font-semibold" style={{ fontFamily: "'Rajdhani', sans-serif" }}>Shipping</span>
-                  <span className="text-white text-lg font-bold" style={{ fontFamily: "'Rajdhani', sans-serif" }}>${shipping.toFixed(2)}</span>
+                  <span className="text-[#4B5563] text-sm uppercase tracking-[0.12em]" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}>Shipping</span>
+                  <span className="text-[#10295E] text-xl" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650 }}>${shipping.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <span className="text-white/60 text-lg font-semibold" style={{ fontFamily: "'Rajdhani', sans-serif" }}>Tax</span>
-                  <span className="text-white text-lg font-bold" style={{ fontFamily: "'Rajdhani', sans-serif" }}>${tax.toFixed(2)}</span>
+                  <span className="text-[#4B5563] text-sm uppercase tracking-[0.12em]" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}>Tax</span>
+                  <span className="text-[#10295E] text-xl" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650 }}>${tax.toFixed(2)}</span>
                 </div>
-                <div className="flex justify-between items-center pt-3 border-t" style={{ borderColor: "oklch(0.32 0.10 255 / 40%)" }}>
-                  <span className="text-white text-2xl font-bold uppercase" style={{ fontFamily: "'Cormorant Garamond', serif", letterSpacing: "0.06em" }}>Total</span>
-                  <span className="text-white text-4xl font-bold" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+                <div className="flex justify-between items-center pt-3 border-t" style={{ borderColor: "rgba(185, 192, 202, 0.72)" }}>
+                  <span className="text-[#10295E] text-2xl uppercase" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650, letterSpacing: "0.05em" }}>Total</span>
+                  <span className="text-[#10295E] text-4xl" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650 }}>
                     ${total.toFixed(2)}
                   </span>
                 </div>
@@ -608,20 +644,20 @@ export default function Checkout() {
               <div className="mt-6 space-y-3">
                 <div
                   className="rounded-xl px-4 py-3 flex items-center gap-3"
-                  style={{ background: "oklch(0.55 0.14 255 / 10%)", border: "1px solid oklch(0.55 0.14 255 / 25%)" }}
+                  style={{ background: "rgba(233, 220, 203, 0.52)", border: "1px solid rgba(185, 192, 202, 0.72)" }}
                 >
                   <ShoppingBag size={20} style={{ color: "oklch(0.76 0.02 250)", flexShrink: 0 }} />
                   <div>
-                    <p className="text-white font-bold text-base uppercase tracking-widest" style={{ fontFamily: "'Rajdhani', sans-serif" }}>Payment via Zelle</p>
-                    <p className="text-white/70 font-semibold text-base" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 600 }}>Send to {ZELLE_PHONE} after ordering. Any orders placed after 8 p.m. will be processed the next day.</p>
+                    <p className="text-[#10295E] text-base uppercase tracking-[0.12em]" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}>Payment via Zelle</p>
+                    <p className="text-[#4B5563] text-sm leading-relaxed" style={{ fontFamily: "'Inter', sans-serif" }}>Send to {ZELLE_PHONE} after ordering. Any orders placed after 8 p.m. will be processed the next day.</p>
                   </div>
                 </div>
                 <div
                   className="rounded-xl px-4 py-3 flex items-center gap-3"
-                  style={{ background: "oklch(0.29 0.085 255)", border: "1px solid oklch(0.32 0.10 255 / 40%)" }}
+                  style={{ background: "rgba(246, 241, 233, 0.76)", border: "1px solid rgba(185, 192, 202, 0.72)" }}
                 >
                   <Truck size={20} style={{ color: "oklch(0.76 0.02 250)", flexShrink: 0 }} />
-                  <p className="text-white/70 text-base font-semibold" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
+                  <p className="text-[#4B5563] text-sm leading-relaxed" style={{ fontFamily: "'Inter', sans-serif" }}>
                     Flat-rate shipping $7.00 · 3–5 business days
                   </p>
                 </div>

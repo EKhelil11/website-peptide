@@ -389,15 +389,19 @@ export default function Footer() {
             >
               © {new Date().getFullYear()} LA Elite Sales LLC. All rights reserved. Operating as LA Elite Peptides.
             </p>
-            <div className="flex items-center gap-2">
-              <div className="h-px w-8 bg-[#B9C0CA]/30" />
+            <div className="brand-proof-footer flex items-center gap-3 rounded-full border border-[#B9C0CA]/30 bg-white/[0.06] px-4 py-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.08),0_10px_28px_rgba(0,0,0,0.24)]">
+              <div className="h-px w-7 bg-gradient-to-r from-[#B9C0CA]/35 to-[#E9DCCB]" />
               <span
-                className="text-[#174A9B]/60 text-xs italic"
-                style={{ fontFamily: "'Inter', sans-serif" }}
+                className="text-lg italic tracking-[0.06em] text-[#F7F2EA] sm:text-xl"
+                style={{
+                  fontFamily: "'Cormorant Garamond', serif",
+                  fontWeight: 650,
+                  textShadow: "0 2px 14px rgba(0, 0, 0, 0.75)",
+                }}
               >
                 Trusted. Tested.
               </span>
-              <div className="h-px w-8 bg-[#B9C0CA]/30" />
+              <div className="h-px w-7 bg-gradient-to-l from-[#B9C0CA]/35 to-[#E9DCCB]" />
             </div>
           </div>
         </div>

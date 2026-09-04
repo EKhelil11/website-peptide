@@ -9,12 +9,22 @@ import { ShoppingBag, Package, Clock, CheckCircle, Truck, XCircle, ArrowLeft, Lo
 import { PRIMARY_LOGO_ALT, PRIMARY_LOGO_URL, UTILITY_LOGO_SIZE_CLASS } from "@/lib/brandAssets";
 
 const STATUS_CONFIG: Record<string, { label: string; icon: any; color: string }> = {
-  pending_payment: { label: "Pending Payment", icon: Clock, color: "oklch(0.75 0.15 80)" },
-  paid:            { label: "Paid", icon: CheckCircle, color: "oklch(0.65 0.2 145)" },
-  processing:      { label: "Processing", icon: Package, color: "oklch(0.76 0.02 250)" },
-  shipped:         { label: "Shipped", icon: Truck, color: "oklch(0.65 0.2 145)" },
-  delivered:       { label: "Delivered", icon: CheckCircle, color: "oklch(0.65 0.2 145)" },
-  cancelled:       { label: "Cancelled", icon: XCircle, color: "oklch(0.6 0.15 25)" },
+  pending_payment: { label: "Pending Payment", icon: Clock, color: "#8A5A00" },
+  paid:            { label: "Paid", icon: CheckCircle, color: "#2D6C47" },
+  processing:      { label: "Processing", icon: Package, color: "#174A9B" },
+  shipped:         { label: "Shipped", icon: Truck, color: "#2D6C47" },
+  delivered:       { label: "Delivered", icon: CheckCircle, color: "#2D6C47" },
+  cancelled:       { label: "Cancelled", icon: XCircle, color: "#A13939" },
+};
+
+const ACCOUNT_PAGE_STYLE = {
+  background: "radial-gradient(circle at 12% 0%, rgba(36,95,193,0.08), transparent 30rem), linear-gradient(145deg, #F6F1E9 0%, #E9DCCB 58%, #DDD2C5 100%)",
+};
+
+const ACCOUNT_PANEL_STYLE = {
+  background: "linear-gradient(145deg, rgba(255,253,248,0.96), rgba(246,241,233,0.92))",
+  border: "1px solid rgba(185,192,202,0.78)",
+  boxShadow: "0 18px 48px rgba(7,21,47,0.11), inset 0 1px 0 rgba(255,255,255,0.95)",
 };
 
 export default function Account() {
@@ -36,8 +46,8 @@ export default function Account() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center" style={{ background: "oklch(0.18 0.055 255)" }}>
-        <div className="text-white/50 text-sm tracking-widest uppercase" style={{ fontFamily: "'Rajdhani', sans-serif" }}>Loading...</div>
+      <div className="min-h-screen flex items-center justify-center" style={ACCOUNT_PAGE_STYLE}>
+        <div className="text-[#10295E] text-base tracking-[0.16em] uppercase" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}>Preparing Your Account...</div>
       </div>
     );
   }
@@ -47,27 +57,28 @@ export default function Account() {
   const orders = ordersQuery.data ?? [];
 
   return (
-    <div className="min-h-screen" style={{ background: "oklch(0.18 0.055 255)" }}>
+    <div className="min-h-screen text-[#202833]" style={ACCOUNT_PAGE_STYLE}>
       {/* Top Nav */}
       <header
         className="sticky top-0 z-50 border-b"
         style={{
-          background: "oklch(0.25 0.08 255 / 95%)",
+          background: "rgba(246, 241, 233, 0.94)",
           backdropFilter: "blur(20px)",
-          borderColor: "oklch(0.32 0.10 255 / 40%)",
+          borderColor: "rgba(185, 192, 202, 0.72)",
+          boxShadow: "0 8px 30px rgba(7,21,47,0.08)",
         }}
       >
         <div className="max-w-5xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <button onClick={() => setLocation("/shop")} className="text-white/50 hover:text-[#B9C0CA] transition-colors">
+            <button onClick={() => setLocation("/shop")} className="flex h-11 w-11 items-center justify-center rounded-full border border-[#B9C0CA]/80 text-[#5F6977] hover:border-[#174A9B]/45 hover:text-[#174A9B] transition-colors" aria-label="Return to shop">
               <ArrowLeft size={20} />
             </button>
             <img src={PRIMARY_LOGO_URL} alt={PRIMARY_LOGO_ALT} className={UTILITY_LOGO_SIZE_CLASS} />
           </div>
           <button
             onClick={logout}
-            className="flex items-center gap-2 text-white/40 hover:text-white/70 transition-colors text-sm"
-            style={{ fontFamily: "'Rajdhani', sans-serif" }}
+            className="flex min-h-11 items-center gap-2 rounded-xl px-3 text-[#5F6977] hover:bg-white/55 hover:text-[#174A9B] transition-colors text-sm"
+            style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}
           >
             <LogOut size={16} />
             <span className="hidden sm:inline">Sign Out</span>
@@ -78,13 +89,14 @@ export default function Account() {
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10">
         {/* Header */}
         <div className="mb-8">
+          <p className="text-[#174A9B] text-xs uppercase tracking-[0.2em] mb-2" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}>Customer dashboard</p>
           <h1
-            className="text-4xl sm:text-5xl text-white mb-2"
-            style={{ fontFamily: "'Cormorant Garamond', serif", letterSpacing: "0.06em" }}
+            className="text-5xl sm:text-6xl text-[#10295E] mb-2"
+            style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650, letterSpacing: "0.035em" }}
           >
             My Account
           </h1>
-          <p className="text-white/50 text-sm" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
+          <p className="text-[#4B5563] text-base break-words" style={{ fontFamily: "'Inter', sans-serif" }}>
             {customer.firstName} {customer.lastName} · {customer.email}
           </p>
         </div>
@@ -97,7 +109,7 @@ export default function Account() {
             <p className="text-sm font-bold uppercase tracking-wider" style={{ color: "#B9C0CA", fontFamily: "'Rajdhani', sans-serif" }}>
               Relaunch Integration Notice
             </p>
-            <p className="text-white/70 text-sm mt-1 leading-relaxed" style={{ fontFamily: "'Inter', sans-serif" }}>
+            <p className="text-[#4B5563] text-sm mt-1 leading-relaxed" style={{ fontFamily: "'Inter', sans-serif" }}>
               Automated email and fulfillment updates are temporarily disabled pending reauthorization and owner approval. Order records and status changes remain visible on this page; contact support if you need a manual update.
             </p>
           </div>
@@ -107,46 +119,43 @@ export default function Account() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-10">
           <button
             onClick={() => setLocation("/shop")}
-            className="flex items-center gap-4 rounded-xl p-5 text-left transition-all hover:translate-y-[-1px]"
+            className="flex min-h-[118px] items-center gap-4 rounded-2xl p-5 text-left transition-all hover:translate-y-[-1px]"
             style={{
-              background: "linear-gradient(135deg, oklch(0.44 0.13 255 / 20%), oklch(0.55 0.25 355 / 10%))",
-              border: "1px solid oklch(0.44 0.13 255 / 40%)",
+              ...ACCOUNT_PANEL_STYLE,
+              background: "linear-gradient(135deg, rgba(255,253,248,0.96), rgba(233,220,203,0.82))",
             }}
           >
             <div
-              className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0"
-              style={{ background: "oklch(0.44 0.13 255 / 20%)" }}
+              className="w-12 h-12 rounded-full flex items-center justify-center shrink-0"
+              style={{ background: "linear-gradient(145deg, #245FC1, #10295E)", border: "1px solid #B9C0CA", boxShadow: "0 8px 20px rgba(7,21,47,0.18)" }}
             >
-              <ShoppingBag size={20} style={{ color: "oklch(0.44 0.13 255)" }} />
+              <ShoppingBag size={20} style={{ color: "#F6F1E9" }} />
             </div>
             <div>
-              <p className="text-white font-bold text-sm uppercase tracking-widest" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
+              <p className="text-[#10295E] text-2xl leading-tight" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650 }}>
                 Place New Order
               </p>
-              <p className="text-white/40 text-xs" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
+              <p className="text-[#5F6977] text-sm mt-1" style={{ fontFamily: "'Inter', sans-serif" }}>
                 Browse our full catalog
               </p>
             </div>
           </button>
 
           <div
-            className="flex items-center gap-4 rounded-xl p-5"
-            style={{
-              background: "oklch(0.28 0.08 255)",
-              border: "1px solid oklch(0.32 0.10 255 / 50%)",
-            }}
+            className="flex min-h-[118px] items-center gap-4 rounded-2xl p-5"
+            style={ACCOUNT_PANEL_STYLE}
           >
             <div
-              className="w-10 h-10 rounded-lg flex items-center justify-center shrink-0"
-              style={{ background: "oklch(0.76 0.02 250 / 15%)" }}
+              className="w-12 h-12 rounded-full flex items-center justify-center shrink-0"
+              style={{ background: "linear-gradient(145deg, #245FC1, #10295E)", border: "1px solid #B9C0CA", boxShadow: "0 8px 20px rgba(7,21,47,0.18)" }}
             >
-              <Package size={20} style={{ color: "oklch(0.76 0.02 250)" }} />
+              <Package size={20} style={{ color: "#F6F1E9" }} />
             </div>
             <div>
-              <p className="text-white font-bold text-sm uppercase tracking-widest" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
-                {orders.length} Total Orders
+              <p className="text-[#10295E] text-2xl leading-tight" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650 }}>
+                <span className="mr-1.5">{orders.length}</span> Total Orders
               </p>
-              <p className="text-white/40 text-xs" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
+              <p className="text-[#5F6977] text-sm mt-1" style={{ fontFamily: "'Inter', sans-serif" }}>
                 Questions? Text (310) 975-9289
               </p>
             </div>
@@ -156,26 +165,25 @@ export default function Account() {
         {/* Orders List */}
         <div>
           <h2
-            className="text-2xl text-white mb-4"
-            style={{ fontFamily: "'Cormorant Garamond', serif", letterSpacing: "0.06em" }}
+            className="text-4xl text-[#10295E] mb-4"
+            style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650, letterSpacing: "0.035em" }}
           >
             Order History
           </h2>
 
           {ordersQuery.isLoading ? (
-            <div className="text-white/40 text-sm py-8 text-center" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
+            <div className="text-[#5F6977] text-sm py-8 text-center" style={{ fontFamily: "'Inter', sans-serif" }}>
               Loading orders...
             </div>
           ) : orders.length === 0 ? (
             <div
               className="rounded-xl p-10 text-center"
               style={{
-                background: "oklch(0.28 0.08 255)",
-                border: "1px solid oklch(0.32 0.10 255 / 40%)",
+                ...ACCOUNT_PANEL_STYLE,
               }}
             >
-              <Package size={40} className="mx-auto mb-4 text-white/20" />
-              <p className="text-white/50 mb-4" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
+              <Package size={40} className="mx-auto mb-4 text-[#7C8693]" />
+              <p className="text-[#4B5563] mb-4" style={{ fontFamily: "'Inter', sans-serif" }}>
                 No orders yet. Ready to place your first order?
               </p>
               <button
@@ -201,19 +209,18 @@ export default function Account() {
                     key={order.id}
                     className="rounded-xl p-5"
                     style={{
-                      background: "oklch(0.28 0.08 255)",
-                      border: "1px solid oklch(0.32 0.10 255 / 50%)",
+                      ...ACCOUNT_PANEL_STYLE,
                     }}
                   >
                     <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
                       <div>
                         <p
-                          className="text-white font-bold text-lg"
-                          style={{ fontFamily: "'Cormorant Garamond', serif", letterSpacing: "0.05em" }}
+                          className="text-[#10295E] text-2xl"
+                          style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650, letterSpacing: "0.035em" }}
                         >
                           {order.orderNumber || `Order #${order.id}`}
                         </p>
-                        <p className="text-white/40 text-xs" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
+                        <p className="text-[#5F6977] text-sm mt-1" style={{ fontFamily: "'Inter', sans-serif" }}>
                           {new Date(order.createdAt).toLocaleDateString("en-US", {
                             year: "numeric", month: "long", day: "numeric"
                           })}
@@ -222,12 +229,13 @@ export default function Account() {
                       <div className="flex flex-wrap gap-2">
                         {/* Order status badge */}
                         <span
-                          className="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest"
+                          className="flex min-h-9 items-center gap-1.5 px-3 py-1 rounded-full text-sm uppercase tracking-[0.1em]"
                           style={{
                             background: `${statusCfg.color}18`,
                             border: `1px solid ${statusCfg.color}40`,
                             color: statusCfg.color,
                             fontFamily: "'Rajdhani', sans-serif",
+                            fontWeight: 800,
                           }}
                         >
                           <StatusIcon size={11} />
@@ -238,8 +246,8 @@ export default function Account() {
                     </div>
 
                     {/* Shipping address */}
-                    <p className="text-white/40 text-xs mb-3" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
-                      📦 {order.shipAddress}, {order.shipCity}, {order.shipState} {order.shipZip}
+                    <p className="text-[#4B5563] text-sm sm:text-base leading-relaxed mb-3" style={{ fontFamily: "'Inter', sans-serif" }}>
+                      <span className="text-[#174A9B] font-semibold">Ship to:</span> {order.shipAddress}, {order.shipCity}, {order.shipState} {order.shipZip}
                     </p>
 
                     {/* Tracking */}
@@ -259,13 +267,13 @@ export default function Account() {
                     )}
 
                     {/* Total */}
-                    <div className="flex justify-between items-center pt-3 border-t" style={{ borderColor: "oklch(0.32 0.10 255 / 30%)" }}>
-                      <span className="text-white/50 text-xs uppercase tracking-widest" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
+                    <div className="flex justify-between items-center pt-3 border-t" style={{ borderColor: "rgba(185,192,202,0.72)" }}>
+                      <span className="text-[#4B5563] text-sm uppercase tracking-[0.12em]" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}>
                         Order Total
                       </span>
                       <span
-                        className="text-white font-bold text-xl"
-                        style={{ fontFamily: "'Cormorant Garamond', serif" }}
+                        className="text-[#10295E] text-3xl"
+                        style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650 }}
                       >
                         ${((order.totalCents ?? 0) / 100).toFixed(2)}
                       </span>
@@ -279,16 +287,18 @@ export default function Account() {
 
         {/* Contact footer */}
         <div className="mt-10 text-center">
-          <p className="text-white/30 text-xs" style={{ fontFamily: "'Rajdhani', sans-serif" }}>
-            Questions about your order? Text us at{" "}
-            <a href="sms:(310)975-9289" className="text-white/50 hover:text-[#B9C0CA] transition-colors">
-              (310) 975-9289
-            </a>{" "}
-            or email{" "}
-            <a href="mailto:support@laelitepeps.com" className="text-white/50 hover:text-[#B9C0CA] transition-colors">
+          <p className="text-[#4B5563] text-sm leading-relaxed" style={{ fontFamily: "'Inter', sans-serif" }}>
+            Questions about your order?
+          </p>
+          <div className="mt-2 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 text-sm" style={{ fontFamily: "'Inter', sans-serif" }}>
+            <a href="sms:(310)975-9289" className="text-[#174A9B] font-semibold hover:text-[#10295E] transition-colors">
+              Text (310) 975-9289
+            </a>
+            <span className="hidden sm:inline text-[#7C8693]">or</span>
+            <a href="mailto:support@laelitepeps.com" className="text-[#174A9B] font-semibold hover:text-[#10295E] transition-colors break-words">
               support@laelitepeps.com
             </a>
-          </p>
+          </div>
         </div>
       </div>
     </div>

@@ -259,6 +259,20 @@ describe("vial-label blue-silver-limestone private-preview theme", () => {
     expect(footerSource).not.toContain('background: "oklch(0.28 0.08 255)"');
   });
 
+  it("elevates both exact brand proof lines with readable boutique contrast", () => {
+    expect(aboutSource).toContain("brand-proof-line");
+    expect(aboutSource).toContain("Los Angeles. Research Focused. Document Led.");
+    expect(aboutSource).toContain("text-[#F7F2EA]");
+    expect(aboutSource).toContain("'Rajdhani', sans-serif");
+    expect(aboutSource).toContain('textShadow: "0 2px 16px rgba(0, 10, 34, 0.9)"');
+
+    expect(footerSource).toContain("brand-proof-footer");
+    expect(footerSource).toContain("Trusted. Tested.");
+    expect(footerSource).toContain("text-[#F7F2EA]");
+    expect(footerSource).toContain("'Cormorant Garamond', serif");
+    expect(footerSource).toContain('textShadow: "0 2px 14px rgba(0, 0, 0, 0.75)"');
+  });
+
   it("uses one upscale boutique primary CTA for signed-in purchase and signed-out access states", () => {
     expect(themeCss).toContain(".product-boutique-cta");
     expect(themeCss).toContain("background: linear-gradient(135deg, #fffdf8 0%, #f1e5d2 44%, #b9c0ca 100%)");
