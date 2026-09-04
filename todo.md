@@ -244,6 +244,11 @@
 - [x] Elevate the `Discreet Packaging` and `Trackable Dispatch` titles with the same premium Cormorant hierarchy used in Our Standards and FAQ while preserving their exact wording and supporting copy.
 - [x] Refine the Nationwide Shipping service badges and icon-medallion spacing with Rajdhani utility labels, serif sequence numerals, and responsive containment without adding or repeating fulfillment claims.
 - [x] Verify the shipping typography at desktop, 375 px, and 320 px, update regression coverage, rerun TypeScript/tests/build, and present the combined Standards/FAQ/Shipping refinement privately before publication; owner explicitly approved publication on September 4, 2026.
-- [ ] Save the owner-approved combined Standards, FAQ, and Nationwide Shipping typography checkpoint, which automatically publishes this exact validated refinement.
-- [ ] Verify the live custom and Manus domains show the new standards badges, FAQ typography, and shipping service titles while preserving catalog, prices, COAs, contact routes, and non-secret integration status.
-- [ ] Report the published refinement version and final live-verification results to the owner.
+- [x] Save the owner-approved combined Standards, FAQ, and Nationwide Shipping typography checkpoint `635757fe`, which automatically published that exact validated refinement.
+- [x] Verify the live custom and Manus domains show the new standards badges, FAQ typography, and shipping service titles while preserving catalog, prices, COAs, contact routes, and non-secret integration status.
+- [x] Record the published refinement version `635757fe` and its live-verification results for inclusion in the consolidated owner report.
+- [x] Preserve the owner-supplied `kitchengood.jpg` unchanged in external web asset storage and upload it to a durable public URL for crawler and messaging-platform access.
+- [x] Add absolute canonical, Open Graph, X/Twitter card, crawlable image, and descriptive image metadata naming the approved kitchen-vial image with the `Trusted. Tested.` LA Elite Peptides preview title.
+- [x] Add valid Organization, WebSite, and WebPage structured data that nominates the approved image and existing logo without inventing ratings, reviews, offers, medical claims, or business information.
+- [ ] Add regression coverage for the exact public metadata, verify the image URL and server-rendered HTML response, run TypeScript/tests/build, and publish the owner-approved combined release.
+- [ ] Verify production metadata and image availability on the apex, `www`, and Manus domains, while noting that search engines retain final control over displayed search-result imagery.
