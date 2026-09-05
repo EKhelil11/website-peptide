@@ -310,8 +310,25 @@
 - [x] Verify Contact and all four hero statistics at desktop, 375 px, and 320 px, add regression coverage, run TypeScript/tests/build and runtime checks, and present privately before publication.
 - [x] On the Shop page, elevate only the text inside the four existing metric boxes: `16 / Current research compounds`, `7 / Catalog categories`, `Secure / Account-protected checkout`, and `Tracked / Order status workflow`.
 - [x] Preserve the Shop metric boxes, numbering, icons, colors, backgrounds, borders, dimensions, spacing, grid layout, dynamic counts, and behavior unchanged while applying the requested premium text hierarchy.
-- [ ] After explicit owner approval, save one checkpoint to publish the validated typography refinement and verify the live domains without sending emails, creating orders, purchasing labels, or changing production data.
-- [ ] Publish the owner-approved Contact, hero-statistic, and Shop metric typography refinement in one checkpoint without adding any unrelated changes.
-- [ ] Verify the apex, `www`, and Manus domains serve the new release and display the exact approved Contact, hero, and Shop typography changes on desktop and mobile.
-- [ ] Reconfirm 16 products, four signature blends, protected Tirzepatide 20 mg and Retatrutide 30 mg prices, 16 COA mappings, $7 shipping, 8% tax, exact contact destinations, and non-secret Resend/ShipStation status after publication.
-- [ ] Review production runtime logs and report the published version without sending email, creating orders, purchasing labels, charging payments, changing database data, or altering DNS/domains.
+- [x] After explicit owner approval, save one checkpoint to publish the validated typography refinement and verify the live domains without sending emails, creating orders, purchasing labels, or changing production data.
+- [x] Publish the owner-approved Contact, hero-statistic, and Shop metric typography refinement in one checkpoint without adding any unrelated changes.
+- [x] Verify the apex, `www`, and Manus domains serve the new release and display the exact approved Contact, hero, and Shop typography changes on desktop and mobile.
+- [x] Reconfirm 16 products, four signature blends, protected Tirzepatide 20 mg and Retatrutide 30 mg prices, 16 COA mappings, $7 shipping, 8% tax, exact contact destinations, and non-secret Resend/ShipStation status after publication.
+- [x] Review production runtime logs and report the published version without sending email, creating orders, purchasing labels, charging payments, changing database data, or altering DNS/domains.
+- [x] Reproduce the owner-reported state where clicking Shop shows no products, testing the published apex, `www`, and Manus domains at desktop, 375 px, and 320 px with fresh and persisted browser state.
+- [x] Determine whether the empty Shop is caused by normal route loading, stale cached assets, a persisted search/category filter, client-side runtime failure, product-image loading, or a deployed storefront regression.
+- [x] If a regression is confirmed, implement the smallest private correction that restores all 16 products without changing catalog data, prices, categories, images, COAs, cart, checkout, authentication, integrations, or domains.
+- [x] Validate the resolved Shop product grid, search/filter defaults, mobile rendering, TypeScript, tests, production build, and runtime logs without placing an order or calling Resend/ShipStation.
+- [x] Explain whether the issue is local connectivity/cache or a page defect, provide safe owner troubleshooting if no code change is needed, and do not publish a correction without explicit approval.
+- [x] Audit the owner-approved logo source, durable optimized asset, intrinsic dimensions, compression, transparency, and CSS display sizes across intro, header, footer, age verification, mobile menu, authentication, checkout, account, admin, legal, COA, and error routes to identify the actual blur source.
+- [x] Create a faithful sharper logo derivative that preserves the exact LA Elite Peptides artwork, wording, colors, proportions, transparency, and approved placements without redesigning, relabeling, recoloring, or inventing brand details.
+- [x] Store the sharper logo outside project source, upload it to durable website storage, and update the shared logo constant so every existing placement receives the same clean asset without changing approved responsive sizing.
+- [x] Add regression coverage for the sharper durable logo, reject legacy blurry references, and verify representative desktop, 375 px, and 320 px placements together with the Shop product-visibility correction.
+- [x] Run TypeScript, all credential-safe tests, production build, asset HTTP checks, runtime review, and protected catalog/price/COA/integration invariants, then present one private preview without publishing until explicit owner approval.
+- [ ] After explicit owner approval, save one checkpoint to publish the Shop visibility correction and sharper shared logo, then verify all live domains and protected storefront invariants using read-only checks.
+- [x] Record the owner’s explicit approval to publish the combined Shop product-visibility correction and sharper shared logo while preserving the validated private implementation unchanged.
+- [ ] Save exactly one checkpoint to publish the approved combined release; do not create duplicate releases to address normal propagation delay.
+- [ ] Verify the apex, `www`, and Manus domains serve the new Shop observer and clean-sharp logo asset, with all 16 products visible at desktop, 375 px, and 320 px and zero document overflow.
+- [ ] Verify representative header, footer, age-gate, authentication, product-detail, legal, COA, account, checkout, and admin logo placements remain consistent and transparent.
+- [ ] Reconfirm 16 products, four signature blends, protected prices, 16 COA mappings/documents, $7 shipping, 8% tax, exact contact destinations, non-secret Resend/ShipStation status, and clean production runtime logs without triggering side effects.
+- [ ] Deliver the new version number and live verification report to the owner.

@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowDown,
   FlaskConical,
@@ -89,6 +89,31 @@ export default function Shop() {
       return 0;
     });
   }, [activeCategory, searchQuery, sortOrder]);
+
+  useEffect(() => {
+    const items = catalogRef.current?.querySelectorAll(".animate-on-scroll");
+    if (!items?.length) return;
+
+    if (!("IntersectionObserver" in window)) {
+      items.forEach(item => item.classList.add("visible"));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.08, rootMargin: "0px 0px -40px 0px" },
+    );
+
+    items.forEach(item => observer.observe(item));
+    return () => observer.disconnect();
+  }, [visibleProducts]);
 
   const resetCatalog = () => {
     setActiveCategory("All");

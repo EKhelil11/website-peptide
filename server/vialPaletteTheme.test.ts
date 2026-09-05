@@ -117,7 +117,7 @@ describe("vial-label blue-silver-limestone private-preview theme", () => {
 
   it("retains the supplied silver-and-blue logo without recoloring its asset", () => {
     expect(allClientSource).toContain(
-      "/manus-storage/la-elite-peptides-silver-blue-logo-final_c61a4232-optimized_c3827f19.webp",
+      "/manus-storage/la-elite-peptides-logo-clean-sharp_0c078c9e.png",
     );
   });
 
