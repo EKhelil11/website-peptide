@@ -325,10 +325,43 @@
 - [x] Store the sharper logo outside project source, upload it to durable website storage, and update the shared logo constant so every existing placement receives the same clean asset without changing approved responsive sizing.
 - [x] Add regression coverage for the sharper durable logo, reject legacy blurry references, and verify representative desktop, 375 px, and 320 px placements together with the Shop product-visibility correction.
 - [x] Run TypeScript, all credential-safe tests, production build, asset HTTP checks, runtime review, and protected catalog/price/COA/integration invariants, then present one private preview without publishing until explicit owner approval.
-- [ ] After explicit owner approval, save one checkpoint to publish the Shop visibility correction and sharper shared logo, then verify all live domains and protected storefront invariants using read-only checks.
+- [x] After explicit owner approval, save one checkpoint to publish the Shop visibility correction and sharper shared logo, then verify all live domains and protected storefront invariants using read-only checks.
 - [x] Record the owner’s explicit approval to publish the combined Shop product-visibility correction and sharper shared logo while preserving the validated private implementation unchanged.
-- [ ] Save exactly one checkpoint to publish the approved combined release; do not create duplicate releases to address normal propagation delay.
-- [ ] Verify the apex, `www`, and Manus domains serve the new Shop observer and clean-sharp logo asset, with all 16 products visible at desktop, 375 px, and 320 px and zero document overflow.
-- [ ] Verify representative header, footer, age-gate, authentication, product-detail, legal, COA, account, checkout, and admin logo placements remain consistent and transparent.
-- [ ] Reconfirm 16 products, four signature blends, protected prices, 16 COA mappings/documents, $7 shipping, 8% tax, exact contact destinations, non-secret Resend/ShipStation status, and clean production runtime logs without triggering side effects.
-- [ ] Deliver the new version number and live verification report to the owner.
+- [x] Save exactly one checkpoint to publish the approved combined release; do not create duplicate releases to address normal propagation delay.
+- [x] Verify the apex, `www`, and Manus domains serve the new Shop observer and clean-sharp logo asset, with all 16 products visible at desktop, 375 px, and 320 px and zero document overflow.
+- [x] Verify representative header, footer, age-gate, authentication, product-detail, legal, COA, account, checkout, and admin logo placements remain consistent and transparent.
+- [x] Reconfirm 16 products, four signature blends, protected prices, 16 COA mappings/documents, $7 shipping, 8% tax, exact contact destinations, non-secret Resend/ShipStation status, and clean production runtime logs without triggering side effects.
+- [x] Deliver the new version number and live verification report to the owner.
+- [x] Audit the existing checkout totals, authenticated customer account model, order schema, order creation transaction, admin order detail, and order-number generator before implementing the RECROOMLV partner program.
+- [x] Define `RECROOMLV` as the only active partner checkout code, case-insensitive after trimming, with a 10% merchandise discount, unchanged $7 shipping, and tax calculated from the discounted merchandise subtotal.
+- [x] Persist the RECROOMLV benefit to the authenticated customer account only after the first successfully created qualifying order, then automatically apply it to that same account’s future orders without requiring the code again.
+- [x] Reject invalid checkout codes clearly and ensure anonymous users, unrelated accounts, and orders without the code or saved partner benefit receive no discount.
+- [x] Store the applied partner code and exact discount amount on every qualifying order so historical totals remain immutable and the admin order view visibly attributes the order to `RECROOMLV` / the Las Vegas gym.
+- [x] Make the next newly created order number `LAP-100099` and increment by one for each later order, without renumbering or mutating historical orders and without creating duplicate numbers under concurrent order creation.
+- [x] Update checkout, order confirmation, customer account/order history, and admin order detail to show merchandise discount and revised totals only when a partner benefit applies.
+- [x] Add database migration, backend validation, transactional persistence, and regression coverage for valid, invalid, first-use, future-use, tax, shipping, historical-order, admin-attribution, and order-number behavior.
+- [x] Validate the private RECROOMLV flow at desktop, 375 px, and 320 px plus TypeScript, all credential-safe tests, production build, database schema integrity, runtime logs, 16 products, four signature blends, protected prices, 16 COAs, auth/cart/admin behavior, and integration status without placing a live order or contacting providers.
+- [x] Present the private partner-program preview and do not save a checkpoint or publish it until the owner gives separate explicit approval.
+- [x] Run a read-only post-RECROOMLV customer Account simulation without creating a customer, order, email, payment, label, or provider request.
+- [x] Verify the customer sees the saved RECROOMLV benefit banner, qualifying order badge, 10% discount amount, correct discounted order total, order number, delivery address, and support links.
+- [x] Validate the simulated customer Account at desktop, 375 px, and 320 px with no horizontal overflow or clipped benefit/order information.
+- [x] Provide the owner with customer-view screenshots and a concise explanation while keeping the RECROOMLV program private and unpublished.
+- [x] Run a fresh read-only Admin order-log simulation for a RECROOMLV qualifying order without creating or updating any real order, payment, status, note, email, label, or provider record.
+- [x] Verify the Admin preview shows LAP-100099, the RECROOMLV badge, Las Vegas gym partner attribution, 10% discount amount, discounted total, expected Zelle memo/amount, and partner text in Admin Notes.
+- [x] Confirm existing Admin search, payment confirmation, cancellation, delivery, notes, and fulfillment controls remain present and contained at desktop and 375 px.
+- [x] Deliver the Admin dashboard preview screenshots to the owner while keeping the RECROOMLV partner program private and unpublished.
+- [x] Audit the existing owner order-email subject, delivery gate, provider injection, and order submission path before adding the RECROOMLV alert treatment.
+- [x] Use the existing single owner order email to generate a prominent RECROOMLV / Las Vegas gym alert subject and content for qualifying orders, avoiding a second duplicate email.
+- [x] Include the qualifying order number, customer identity, partner code, discount amount, final total, and gym attribution in the owner email while preserving standard subjects for non-partner orders.
+- [x] Ensure the alert is triggered only after a RECROOMLV order is successfully created and never for invalid codes, unqualified orders, quote previews, or failed submissions.
+- [x] Add mocked Resend and source regression coverage proving one owner email for a qualifying order, the specialized subject/content, unchanged standard order email behavior, and zero live sends during validation.
+- [x] Run TypeScript, all credential-safe tests, production build, no-mutation/provider-call checks, and protected catalog/commerce/integration invariants for the private alert refinement.
+- [x] Present the private RECROOMLV email-alert behavior and do not checkpoint or publish without separate explicit owner approval.
+- [x] Receive explicit owner approval to publish the complete RECROOMLV partner program and specialized owner email alert.
+- [x] Save one checkpoint containing the approved RECROOMLV discount, persistent customer benefit, Admin attribution, LAP-100099 sequence, and Option A owner email alert; auto-publish that exact state.
+- [ ] Verify the published checkout quote accepts RECROOMLV, rejects invalid codes, applies 10% to merchandise, preserves $7 shipping, and calculates 8% tax after the discount without submitting an order.
+- [ ] Verify the published customer Account and Admin source contracts expose the saved partner benefit, qualifying-order badge, discount history, gym attribution, search, Admin Notes, and existing controls.
+- [ ] Verify the next-order sequence remains empty and ready to issue LAP-100099 while historical LAP-100001 remains unchanged and no live verification order or enrollment is created.
+- [ ] Verify the published owner email contract sends one specialized `[RECROOMLV] Las Vegas Gym Order` email to support@laelitepeps.com for qualifying orders, keeps standard subjects for ordinary orders, and does not send a live test email.
+- [ ] Verify all three live domains, 16 products, four signature blends, protected prices, 16 COAs, $7 shipping, 8% tax, configured Resend/ShipStation status, and production runtime health after publication.
+- [ ] Deliver the published RECROOMLV release version and live verification report to the owner.

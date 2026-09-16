@@ -2,7 +2,7 @@ import { eq, desc, and, isNull } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import {
   InsertUser, users,
-  orders, orderItems, orderStatusHistory,
+  customers, orders, orderItems, orderNumberSequence, orderStatusHistory,
   InsertOrder, InsertOrderItem,
 } from "../drizzle/schema";
 import { ENV } from './_core/env';
@@ -100,44 +100,65 @@ export async function acceptTerms(userId: number, termsVersion: string): Promise
 // ─── Order number generation ────────────────────────────────────────────────
 
 export function generateOrderNumber(id: number): string {
-  // Offset by 9999 so the first order (id=1) becomes LAP-10000, id=2 → LAP-10001, etc.
-  // To start at LAP-10001 for the very first real order, offset = 10000
-  const displayNum = id + 10000;
-  return `LAP-${displayNum}`;
+  return `LAP-${id}`;
 }
 
 // ─── Orders ────────────────────────────────────────────────────────────────
 
 export async function createOrder(
   orderData: InsertOrder,
-  items: InsertOrderItem[]
+  items: InsertOrderItem[],
+  activatePartnerBenefit?: {
+    customerId: number;
+    partnerCode: string;
+    discountBps: number;
+  },
 ): Promise<{ orderId: number; orderNumber: string }> {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
 
-  const [result] = await db.insert(orders).values(orderData);
-  const orderId = (result as any).insertId as number;
-  const orderNumber = generateOrderNumber(orderId);
+  return db.transaction(async tx => {
+    const [sequenceResult] = await tx
+      .insert(orderNumberSequence)
+      .values({ createdAt: new Date() });
+    const sequenceId = Number((sequenceResult as { insertId: number }).insertId);
+    const orderNumber = generateOrderNumber(sequenceId);
 
-  // Set the human-readable order number
-  await db.update(orders).set({ orderNumber }).where(eq(orders.id, orderId));
+    const [result] = await tx.insert(orders).values({
+      ...orderData,
+      orderNumber,
+    });
+    const orderId = Number((result as { insertId: number }).insertId);
 
-  if (items.length > 0) {
-    const itemsWithOrderId = items.map(item => ({ ...item, orderId }));
-    await db.insert(orderItems).values(itemsWithOrderId);
-  }
+    if (items.length > 0) {
+      const itemsWithOrderId = items.map(item => ({ ...item, orderId }));
+      await tx.insert(orderItems).values(itemsWithOrderId);
+    }
 
-  // Record initial status history
-  await db.insert(orderStatusHistory).values({
-    orderId,
-    fromStatus: null,
-    toStatus: "pending_payment",
-    changedBy: "system",
-    note: "Order placed",
-    createdAt: Date.now(),
+    await tx.insert(orderStatusHistory).values({
+      orderId,
+      fromStatus: null,
+      toStatus: "pending_payment",
+      changedBy: "system",
+      note: orderData.partnerCode
+        ? `Order placed with partner code ${orderData.partnerCode}`
+        : "Order placed",
+      createdAt: Date.now(),
+    });
+
+    if (activatePartnerBenefit) {
+      await tx
+        .update(customers)
+        .set({
+          partnerCode: activatePartnerBenefit.partnerCode,
+          partnerDiscountBps: activatePartnerBenefit.discountBps,
+          partnerCodeActivatedAt: new Date(),
+        })
+        .where(eq(customers.id, activatePartnerBenefit.customerId));
+    }
+
+    return { orderId, orderNumber };
   });
-
-  return { orderId, orderNumber };
 }
 
 export async function getOrdersByUserId(userId: number) {

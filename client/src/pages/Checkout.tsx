@@ -1,7 +1,7 @@
 // === ELITE LA PEPTIDES — Checkout Page ===
 // Boutique purchase flow: Cormorant display, Rajdhani utility, Inter body, warm light surfaces
 
-import { useState, useEffect, type CSSProperties } from "react";
+import { useState, useEffect, useMemo, type CSSProperties } from "react";
 import { useLocation } from "wouter";
 import { useCustomerAuth } from "@/hooks/useCustomerAuth";
 import { trpc } from "@/lib/trpc";
@@ -66,6 +66,16 @@ export default function Checkout() {
   const [submitted, setSubmitted] = useState(false);
   const [orderNumber, setOrderNumber] = useState<string>("");
   const [orderTotal, setOrderTotal] = useState<number>(0);
+  const [orderReceipt, setOrderReceipt] = useState<{
+    subtotalCents: number;
+    discountCents: number;
+    partnerCode: string | null;
+    shippingCents: number;
+    taxCents: number;
+  } | null>(null);
+  const [confirmedItems, setConfirmedItems] = useState(cart);
+  const [partnerCodeDraft, setPartnerCodeDraft] = useState("");
+  const [requestedPartnerCode, setRequestedPartnerCode] = useState("");
   const [copied, setCopied] = useState<"phone" | "amount" | "memo" | null>(null);
 
   const [form, setForm] = useState({
@@ -107,10 +117,30 @@ export default function Checkout() {
     }
   }, [cart, isLoading]);
 
+  const quoteInput = useMemo(() => ({
+    items: cart.map(item => ({
+      productId: item.productId,
+      quantity: item.quantity,
+    })),
+    partnerCode: requestedPartnerCode || undefined,
+  }), [cart, requestedPartnerCode]);
+
+  const orderQuote = trpc.orders.quote.useQuery(quoteInput, {
+    enabled: !!customer && cart.length > 0,
+    retry: false,
+  });
+
   const submitOrder = trpc.orders.submit.useMutation({
     onSuccess: (data) => {
       setOrderNumber(data.orderNumber ?? "");
       setOrderTotal((data.totalCents ?? 0) / 100);
+      setOrderReceipt({
+        subtotalCents: data.subtotalCents,
+        discountCents: data.discountCents,
+        partnerCode: data.partnerCode,
+        shippingCents: data.shippingCents,
+        taxCents: data.taxCents,
+      });
       setSubmitted(true);
       clearCart();
     },
@@ -126,10 +156,14 @@ export default function Checkout() {
 
   if (!customer) return null;
 
-  const subtotal = cart.reduce((sum, item) => sum + (item.unitPrice ?? 0) * item.quantity, 0);
-  const shipping = SHIPPING_FLAT;
-  const tax = subtotal * TAX_RATE;
-  const total = subtotal + shipping + tax;
+  const localSubtotal = cart.reduce((sum, item) => sum + (item.unitPrice ?? 0) * item.quantity, 0);
+  const subtotal = (orderQuote.data?.subtotalCents ?? Math.round(localSubtotal * 100)) / 100;
+  const discount = (orderQuote.data?.discountCents ?? 0) / 100;
+  const shipping = (orderQuote.data?.shippingCents ?? Math.round(SHIPPING_FLAT * 100)) / 100;
+  const tax = (orderQuote.data?.taxCents ?? Math.round(localSubtotal * TAX_RATE * 100)) / 100;
+  const total = (orderQuote.data?.totalCents ?? Math.round((localSubtotal + SHIPPING_FLAT + localSubtotal * TAX_RATE) * 100)) / 100;
+  const appliedPartnerCode = orderQuote.data?.partnerCode ?? null;
+  const hasSavedPartnerBenefit = customer.partnerCode === "RECROOMLV" && customer.partnerDiscountBps === 1000;
 
   const handleCopy = (type: "phone" | "amount" | "memo", value: string) => {
     navigator.clipboard.writeText(value);
@@ -139,8 +173,13 @@ export default function Checkout() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (cart.length === 0) return;
-    submitOrder.mutate({ items: cart, ...form });
+    if (cart.length === 0 || orderQuote.isLoading || orderQuote.error) return;
+    setConfirmedItems(cart);
+    submitOrder.mutate({
+      items: cart,
+      ...form,
+      partnerCode: requestedPartnerCode || undefined,
+    });
   };
 
   // ─── Order Confirmed / Zelle Instructions ────────────────────────────────────
@@ -173,6 +212,11 @@ export default function Checkout() {
             <p className="text-[#4B5563] text-base sm:text-lg" style={{ fontFamily: "'Inter', sans-serif" }}>
               Order <span className="text-[#10295E] font-semibold">{orderNumber}</span> is confirmed
             </p>
+            {orderReceipt?.partnerCode && (
+              <p className="mx-auto mt-4 w-fit rounded-full border border-[#174A9B]/25 bg-[#174A9B]/[0.07] px-4 py-2 text-sm uppercase tracking-[0.12em] text-[#174A9B]" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 800 }}>
+                {orderReceipt.partnerCode} · 10% partner benefit applied
+              </p>
+            )}
           </div>
 
           {/* ── Zelle Payment Box ── */}
@@ -322,7 +366,7 @@ export default function Checkout() {
               Order Summary
             </p>
             <div className="space-y-3 mb-4">
-              {cart.map(item => (
+              {confirmedItems.map(item => (
                 <div key={item.productId} className="flex justify-between items-center">
                   <div>
                     <p className="text-[#10295E] text-xl leading-tight" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650 }}>{item.productName}</p>
@@ -337,15 +381,21 @@ export default function Checkout() {
             <div className="border-t pt-4 space-y-2" style={{ borderColor: "rgba(185, 192, 202, 0.72)" }}>
               <div className="flex justify-between items-center">
                 <span className="text-[#4B5563] text-sm uppercase tracking-[0.12em]" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}>Subtotal</span>
-                <span className="text-[#10295E] text-xl" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650 }}>${subtotal.toFixed(2)}</span>
+                <span className="text-[#10295E] text-xl" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650 }}>${((orderReceipt?.subtotalCents ?? 0) / 100).toFixed(2)}</span>
               </div>
+              {(orderReceipt?.discountCents ?? 0) > 0 && (
+                <div className="flex justify-between items-center text-[#174A9B]">
+                  <span className="text-sm uppercase tracking-[0.12em]" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 800 }}>Partner discount (10%)</span>
+                  <span className="text-xl" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650 }}>-${((orderReceipt?.discountCents ?? 0) / 100).toFixed(2)}</span>
+                </div>
+              )}
               <div className="flex justify-between items-center">
                 <span className="text-[#4B5563] text-sm uppercase tracking-[0.12em]" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}>Shipping</span>
-                <span className="text-[#10295E] text-xl" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650 }}>${shipping.toFixed(2)}</span>
+                <span className="text-[#10295E] text-xl" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650 }}>${((orderReceipt?.shippingCents ?? 0) / 100).toFixed(2)}</span>
               </div>
               <div className="flex justify-between items-center">
                 <span className="text-[#4B5563] text-sm uppercase tracking-[0.12em]" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}>Tax</span>
-                <span className="text-[#10295E] text-xl" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650 }}>${tax.toFixed(2)}</span>
+                <span className="text-[#10295E] text-xl" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650 }}>${((orderReceipt?.taxCents ?? 0) / 100).toFixed(2)}</span>
               </div>
               <div className="flex flex-col min-[360px]:flex-row min-[360px]:items-center min-[360px]:justify-between gap-1 pt-3 border-t" style={{ borderColor: "rgba(185, 192, 202, 0.72)" }}>
                 <span className="text-[#10295E] text-2xl uppercase tracking-[0.05em]" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650 }}>Total Due</span>
@@ -556,6 +606,66 @@ export default function Checkout() {
             {/* Notes */}
             <div>
               <label className="block mb-2 text-sm uppercase tracking-[0.13em]" style={PURCHASE_LABEL_STYLE}>
+                Partner Code (optional)
+              </label>
+              {hasSavedPartnerBenefit ? (
+                <div className="rounded-xl border border-[#174A9B]/25 bg-[#174A9B]/[0.07] px-4 py-4">
+                  <p className="text-[#10295E] text-xl" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650 }}>RECROOMLV partner benefit</p>
+                  <p className="mt-1 text-sm leading-relaxed text-[#4B5563]" style={{ fontFamily: "'Inter', sans-serif" }}>
+                    Your saved 10% merchandise discount is applied automatically to this and future orders.
+                  </p>
+                </div>
+              ) : (
+                <>
+                  <div className="flex flex-col min-[420px]:flex-row gap-3">
+                    <input
+                      value={partnerCodeDraft}
+                      onChange={e => setPartnerCodeDraft(e.target.value.toUpperCase())}
+                      onKeyDown={e => {
+                        if (e.key === "Enter") {
+                          e.preventDefault();
+                          setRequestedPartnerCode(partnerCodeDraft.trim().toUpperCase());
+                        }
+                      }}
+                      className="min-h-12 flex-1 px-4 py-3 rounded-xl outline-none focus:ring-2 focus:ring-[#174A9B]/20 focus:border-[#174A9B]/55 text-base sm:text-lg placeholder:text-[#7C8693] uppercase"
+                      style={PURCHASE_FIELD_STYLE}
+                      placeholder="Enter partner code"
+                      autoComplete="off"
+                      maxLength={32}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (requestedPartnerCode) {
+                          setPartnerCodeDraft("");
+                          setRequestedPartnerCode("");
+                        } else {
+                          setRequestedPartnerCode(partnerCodeDraft.trim().toUpperCase());
+                        }
+                      }}
+                      className="min-h-12 rounded-xl border border-[#174A9B]/30 bg-[#174A9B]/[0.07] px-5 text-sm uppercase tracking-[0.12em] text-[#174A9B] transition-colors hover:bg-[#174A9B]/[0.12]"
+                      style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 800 }}
+                    >
+                      {requestedPartnerCode ? "Remove" : orderQuote.isFetching ? "Checking..." : "Apply"}
+                    </button>
+                  </div>
+                  {orderQuote.error && requestedPartnerCode && (
+                    <p className="mt-2 text-sm font-semibold text-[#A13939]" style={{ fontFamily: "'Inter', sans-serif" }}>
+                      {orderQuote.error.message}
+                    </p>
+                  )}
+                  {appliedPartnerCode && !orderQuote.error && (
+                    <p className="mt-2 text-sm font-semibold text-[#2D6C47]" style={{ fontFamily: "'Inter', sans-serif" }}>
+                      RECROOMLV accepted. Your 10% merchandise discount will remain on this account for future orders.
+                    </p>
+                  )}
+                </>
+              )}
+            </div>
+
+            {/* Notes */}
+            <div>
+              <label className="block mb-2 text-sm uppercase tracking-[0.13em]" style={PURCHASE_LABEL_STYLE}>
                 Order Notes (optional)
               </label>
               <textarea
@@ -578,7 +688,13 @@ export default function Checkout() {
             {/* Place Order Button — cyan blue matching Add to Cart */}
             <button
               type="submit"
-              disabled={submitOrder.isPending || cart.length === 0}
+              disabled={
+                submitOrder.isPending ||
+                orderQuote.isLoading ||
+                !!orderQuote.error ||
+                cart.length === 0 ||
+                (!hasSavedPartnerBenefit && partnerCodeDraft.trim().toUpperCase() !== requestedPartnerCode)
+              }
               className="product-boutique-cta w-full py-5 rounded-xl text-lg sm:text-xl tracking-[0.14em] uppercase transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
               style={{ ...BOUTIQUE_BTN, fontWeight: 800 }}
             >
@@ -624,6 +740,12 @@ export default function Checkout() {
                   <span className="text-[#4B5563] text-sm uppercase tracking-[0.12em]" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}>Subtotal</span>
                   <span className="text-[#10295E] text-xl" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650 }}>${subtotal.toFixed(2)}</span>
                 </div>
+                {discount > 0 && (
+                  <div className="flex justify-between items-center text-[#174A9B]">
+                    <span className="text-sm uppercase tracking-[0.12em]" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 800 }}>Partner discount (10%)</span>
+                    <span className="text-xl" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650 }}>-${discount.toFixed(2)}</span>
+                  </div>
+                )}
                 <div className="flex justify-between items-center">
                   <span className="text-[#4B5563] text-sm uppercase tracking-[0.12em]" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}>Shipping</span>
                   <span className="text-[#10295E] text-xl" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650 }}>${shipping.toFixed(2)}</span>

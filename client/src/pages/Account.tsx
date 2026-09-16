@@ -99,6 +99,12 @@ export default function Account() {
           <p className="text-[#4B5563] text-base break-words" style={{ fontFamily: "'Inter', sans-serif" }}>
             {customer.firstName} {customer.lastName} · {customer.email}
           </p>
+          {customer.partnerCode === "RECROOMLV" && customer.partnerDiscountBps === 1000 && (
+            <div className="mt-4 w-fit max-w-full rounded-xl border border-[#174A9B]/25 bg-[#174A9B]/[0.07] px-4 py-3">
+              <p className="text-[#10295E] text-xl" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650 }}>RECROOMLV partner benefit active</p>
+              <p className="mt-1 text-[#4B5563] text-sm leading-relaxed" style={{ fontFamily: "'Inter', sans-serif" }}>Your 10% merchandise discount applies automatically to future orders.</p>
+            </div>
+          )}
         </div>
 
         {!integrationStatus.isLoading && (!emailConfigured || !fulfillmentConfigured) && (
@@ -241,6 +247,14 @@ export default function Account() {
                           <StatusIcon size={11} />
                           {statusCfg.label}
                         </span>
+                        {order.partnerCode && (
+                          <span
+                            className="flex min-h-9 items-center rounded-full border border-[#174A9B]/25 bg-[#174A9B]/[0.07] px-3 py-1 text-sm uppercase tracking-[0.1em] text-[#174A9B]"
+                            style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 800 }}
+                          >
+                            {order.partnerCode}
+                          </span>
+                        )}
   
                       </div>
                     </div>
@@ -267,6 +281,16 @@ export default function Account() {
                     )}
 
                     {/* Total */}
+                    {(order.discountCents ?? 0) > 0 && (
+                      <div className="mb-2 flex justify-between items-center text-[#174A9B]">
+                        <span className="text-sm uppercase tracking-[0.12em]" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 800 }}>
+                          Partner discount (10%)
+                        </span>
+                        <span className="text-xl" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650 }}>
+                          -${((order.discountCents ?? 0) / 100).toFixed(2)}
+                        </span>
+                      </div>
+                    )}
                     <div className="flex justify-between items-center pt-3 border-t" style={{ borderColor: "rgba(185,192,202,0.72)" }}>
                       <span className="text-[#4B5563] text-sm uppercase tracking-[0.12em]" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}>
                         Order Total

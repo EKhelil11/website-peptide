@@ -17,20 +17,53 @@ import { sendNewOrderEmail, sendPaymentConfirmedEmail, sendCustomerOrderConfirma
 import { createOrUpdateSSOrder, buildSSOrderPayload, getSSShipmentsForOrder } from "./shipstation";
 import { updateOrderShipStation } from "./db";
 import { isShipStationConfigured } from "./integrationStatus";
-
-const TAX_RATE = 0.08;       // 8% flat
-const SHIPPING_CENTS = 700;  // $7.00 flat
+import {
+  calculateOrderQuote,
+  InvalidCartItemError,
+  InvalidPartnerCodeError,
+  type PartnerCartInput,
+} from "./partnerDiscount";
 
 const cartItemSchema = z.object({
   productId: z.string(),
-  productName: z.string(),
+  productName: z.string().optional(),
   variantLabel: z.string().optional(),
   productCategory: z.string().optional(),
   quantity: z.number().int().min(1),
-  unitPrice: z.number().positive(), // dollars
+  unitPrice: z.number().positive().optional(),
 });
 
+function getOrderQuote(
+  items: PartnerCartInput[],
+  partnerCode: string | undefined,
+  customer: { partnerCode?: string | null; partnerDiscountBps?: number | null },
+) {
+  try {
+    return calculateOrderQuote({
+      items,
+      requestedCode: partnerCode,
+      savedCode: customer.partnerCode,
+      savedDiscountBps: customer.partnerDiscountBps,
+    });
+  } catch (error) {
+    if (error instanceof InvalidPartnerCodeError || error instanceof InvalidCartItemError) {
+      throw new TRPCError({ code: "BAD_REQUEST", message: error.message });
+    }
+    throw error;
+  }
+}
+
 export const orderRouter = router({
+  // ─── Customer: Preview authoritative totals and partner benefit ───────────
+  quote: customerProtectedProcedure
+    .input(z.object({
+      items: z.array(cartItemSchema).min(1),
+      partnerCode: z.string().max(32).optional(),
+    }))
+    .query(({ ctx, input }) => {
+      return getOrderQuote(input.items, input.partnerCode, ctx.customer);
+    }),
+
   // ─── Customer: Submit a new order ────────────────────────────────────────
   submit: customerProtectedProcedure
     .input(
@@ -45,24 +78,28 @@ export const orderRouter = router({
         shipState: z.string().min(2).max(4),
         shipZip: z.string().min(5),
         notes: z.string().optional(),
+        partnerCode: z.string().max(32).optional(),
       })
     )
     .mutation(async ({ ctx, input }) => {
-      const subtotalCents = Math.round(
-        input.items.reduce((sum, item) => sum + item.unitPrice * item.quantity, 0) * 100
-      );
-      const taxCents = Math.round(subtotalCents * TAX_RATE);
-      const totalCents = subtotalCents + taxCents + SHIPPING_CENTS;
+      const quote = getOrderQuote(input.items, input.partnerCode, ctx.customer);
+      const initialAdminNotes = [
+        quote.partnerCode ? `Partner attribution: ${quote.partnerCode} (Las Vegas gym)` : null,
+        input.notes?.trim() ? `Customer note: ${input.notes.trim()}` : null,
+      ].filter(Boolean).join("\n") || null;
 
       const { orderId, orderNumber } = await createOrder(
         {
           userId: 0,
           customerId: ctx.customer.id,
           status: "pending_payment",
-          subtotalCents,
-          shippingCents: SHIPPING_CENTS,
-          taxCents,
-          totalCents,
+          subtotalCents: quote.subtotalCents,
+          discountCents: quote.discountCents,
+          discountBps: quote.discountBps,
+          partnerCode: quote.partnerCode,
+          shippingCents: quote.shippingCents,
+          taxCents: quote.taxCents,
+          totalCents: quote.totalCents,
           zellePhone: "(310) 975-9289",
           shipName: input.shipName,
           shipEmail: input.shipEmail,
@@ -73,27 +110,38 @@ export const orderRouter = router({
           shipState: input.shipState,
           shipZip: input.shipZip,
           shipCountry: "US",
+          adminNotes: initialAdminNotes,
         },
-        input.items.map(item => ({
+        quote.items.map(item => ({
           orderId: 0, // set in createOrder
           productId: item.productId,
           productName: item.productName,
           variantLabel: item.variantLabel,
           productCategory: item.productCategory,
           quantity: item.quantity,
-          unitPriceCents: Math.round(item.unitPrice * 100),
-          lineTotalCents: Math.round(item.unitPrice * item.quantity * 100),
-        }))
+          unitPriceCents: item.unitPriceCents,
+          lineTotalCents: item.lineTotalCents,
+        })),
+        quote.firstUse && quote.partnerCode
+          ? {
+              customerId: ctx.customer.id,
+              partnerCode: quote.partnerCode,
+              discountBps: quote.discountBps,
+            }
+          : undefined,
       );
 
       // Notify owner
-      const itemsSummary = input.items
-        .map(i => `  • ${i.productName}${i.variantLabel ? ` (${i.variantLabel})` : ""} x${i.quantity} — $${(i.unitPrice * i.quantity).toFixed(2)}`)
+      const itemsSummary = quote.items
+        .map(i => `  • ${i.productName}${i.variantLabel ? ` (${i.variantLabel})` : ""} x${i.quantity} — $${(i.lineTotalCents / 100).toFixed(2)}`)
         .join("\n");
+      const partnerSummary = quote.partnerCode
+        ? `\nPartner: RECROOMLV · Las Vegas gym\nDiscount (10%): -$${(quote.discountCents / 100).toFixed(2)}`
+        : "";
 
       await notifyOwner({
-        title: `🛒 New Order ${orderNumber} — $${(totalCents / 100).toFixed(2)}`,
-        content: `Order: ${orderNumber}\nCustomer: ${input.shipName} (${input.shipEmail})\nPhone: ${input.shipPhone || "N/A"}\nShip to: ${input.shipAddress}, ${input.shipCity}, ${input.shipState} ${input.shipZip}\n\nItems:\n${itemsSummary}\n\nSubtotal: $${(subtotalCents / 100).toFixed(2)}\nShipping: $${(SHIPPING_CENTS / 100).toFixed(2)}\nTax (8%): $${(taxCents / 100).toFixed(2)}\nTotal: $${(totalCents / 100).toFixed(2)}\n\nZelle: (310) 975-9289 — Memo: ${orderNumber}`,
+        title: `🛒 New Order ${orderNumber} — $${(quote.totalCents / 100).toFixed(2)}`,
+        content: `Order: ${orderNumber}\nCustomer: ${input.shipName} (${input.shipEmail})\nPhone: ${input.shipPhone || "N/A"}\nShip to: ${input.shipAddress}, ${input.shipCity}, ${input.shipState} ${input.shipZip}${partnerSummary}\n\nItems:\n${itemsSummary}\n\nSubtotal: $${(quote.subtotalCents / 100).toFixed(2)}${quote.discountCents > 0 ? `\nDiscount: -$${(quote.discountCents / 100).toFixed(2)}` : ""}\nShipping: $${(quote.shippingCents / 100).toFixed(2)}\nTax (8%): $${(quote.taxCents / 100).toFixed(2)}\nTotal: $${(quote.totalCents / 100).toFixed(2)}\n\nZelle: (310) 975-9289 — Memo: ${orderNumber}`,
       }).catch(() => {});
 
       // Send rich HTML email to support@laelitepeps.com (owner notification)
@@ -107,15 +155,17 @@ export const orderRouter = router({
         shipCity: input.shipCity,
         shipState: input.shipState,
         shipZip: input.shipZip,
-        items: input.items.map(i => ({
+        items: quote.items.map(i => ({
           name: i.productName + (i.variantLabel ? ` (${i.variantLabel})` : ""),
           quantity: i.quantity,
-          unitPrice: Math.round(i.unitPrice * 100),
+          unitPrice: i.unitPriceCents,
         })),
-        subtotalCents,
-        shippingCents: SHIPPING_CENTS,
-        taxCents,
-        totalCents,
+        subtotalCents: quote.subtotalCents,
+        discountCents: quote.discountCents,
+        partnerCode: quote.partnerCode,
+        shippingCents: quote.shippingCents,
+        taxCents: quote.taxCents,
+        totalCents: quote.totalCents,
       }).catch(() => {});
 
       // Send order confirmation email directly to the customer
@@ -129,18 +179,30 @@ export const orderRouter = router({
         shipCity: input.shipCity,
         shipState: input.shipState,
         shipZip: input.shipZip,
-        items: input.items.map(i => ({
+        items: quote.items.map(i => ({
           name: i.productName + (i.variantLabel ? ` (${i.variantLabel})` : ""),
           quantity: i.quantity,
-          unitPrice: Math.round(i.unitPrice * 100),
+          unitPrice: i.unitPriceCents,
         })),
-        subtotalCents,
-        shippingCents: SHIPPING_CENTS,
-        taxCents,
-        totalCents,
+        subtotalCents: quote.subtotalCents,
+        discountCents: quote.discountCents,
+        partnerCode: quote.partnerCode,
+        shippingCents: quote.shippingCents,
+        taxCents: quote.taxCents,
+        totalCents: quote.totalCents,
       }).catch(() => {});
 
-      return { orderId, orderNumber, totalCents, success: true };
+      return {
+        orderId,
+        orderNumber,
+        subtotalCents: quote.subtotalCents,
+        discountCents: quote.discountCents,
+        partnerCode: quote.partnerCode,
+        shippingCents: quote.shippingCents,
+        taxCents: quote.taxCents,
+        totalCents: quote.totalCents,
+        success: true,
+      };
     }),
 
   // ─── Customer: Get my orders ─────────────────────────────────────────────

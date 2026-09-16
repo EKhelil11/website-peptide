@@ -152,7 +152,8 @@ export default function AdminOrders() {
     const matchesSearch = !q || (
       (o.orderNumber ?? "").toLowerCase().includes(q) ||
       (o.shipName ?? "").toLowerCase().includes(q) ||
-      (o.shipEmail ?? "").toLowerCase().includes(q)
+      (o.shipEmail ?? "").toLowerCase().includes(q) ||
+      (o.partnerCode ?? "").toLowerCase().includes(q)
     );
     return matchesTab && matchesSearch;
   });
@@ -328,7 +329,7 @@ export default function AdminOrders() {
             <input
               value={search}
               onChange={e => setSearch(e.target.value)}
-              placeholder="Search orders, names, emails..."
+              placeholder="Search orders, names, emails, partner codes..."
               className="pl-9 pr-4 py-2.5 rounded-lg outline-none w-80"
               style={{
                 background: "rgba(255,255,255,0.04)",
@@ -429,6 +430,11 @@ export default function AdminOrders() {
                       >
                         {new Date(order.createdAt).toLocaleDateString()}
                       </p>
+                      {order.partnerCode && (
+                        <span className="mt-2 inline-flex rounded-full border border-[#B9C0CA]/30 bg-[#B9C0CA]/10 px-2.5 py-1 text-xs font-bold uppercase tracking-[0.12em] text-[#B9C0CA]" style={{ fontFamily: rajdhani }}>
+                          {order.partnerCode}
+                        </span>
+                      )}
                     </div>
 
                     {/* Customer */}
@@ -486,6 +492,26 @@ export default function AdminOrders() {
                       className="px-5 pb-7 pt-5 border-t space-y-6"
                       style={{ borderColor: "rgba(185,192,202,0.1)" }}
                     >
+                      {order.partnerCode && (
+                        <div
+                          className="rounded-xl px-4 py-4"
+                          style={{
+                            background: "rgba(185,192,202,0.08)",
+                            border: "1px solid rgba(185,192,202,0.28)",
+                          }}
+                        >
+                          <p className="text-xs uppercase tracking-[0.2em] text-[#B9C0CA]" style={{ fontFamily: rajdhani, fontWeight: 800 }}>
+                            Partner Attribution
+                          </p>
+                          <p className="mt-1 text-white text-lg font-semibold" style={{ fontFamily: inter }}>
+                            Las Vegas gym · checkout code {order.partnerCode}
+                          </p>
+                          <p className="mt-1 text-white/50 text-sm" style={{ fontFamily: inter }}>
+                            10% merchandise discount · ${((order.discountCents ?? 0) / 100).toFixed(2)} saved on this order
+                          </p>
+                        </div>
+                      )}
+
                       {/* Items */}
                       <div>
                         <p
@@ -519,9 +545,12 @@ export default function AdminOrders() {
                           style={{ borderColor: "rgba(185,192,202,0.1)" }}
                         >
                           {[
-                            { label: "Subtotal", value: order.subtotalCents },
-                            { label: "Shipping", value: order.shippingCents },
-                            { label: "Tax (8%)", value: order.taxCents },
+                            { label: "Subtotal", value: order.subtotalCents, negative: false },
+                            ...(order.discountCents > 0
+                              ? [{ label: "Partner discount (10%)", value: order.discountCents, negative: true }]
+                              : []),
+                            { label: "Shipping", value: order.shippingCents, negative: false },
+                            { label: "Tax (8%)", value: order.taxCents, negative: false },
                           ].map(row => (
                             <div
                               key={row.label}
@@ -529,7 +558,7 @@ export default function AdminOrders() {
                               style={{ fontFamily: inter }}
                             >
                               <span>{row.label}</span>
-                              <span>${((row.value ?? 0) / 100).toFixed(2)}</span>
+                              <span>{row.negative ? "-" : ""}${((row.value ?? 0) / 100).toFixed(2)}</span>
                             </div>
                           ))}
                           <div

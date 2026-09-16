@@ -37,6 +37,8 @@ export interface NewOrderEmailParams {
   shipZip: string;
   items: Array<{ name: string; quantity: number; unitPrice: number }>;
   subtotalCents: number;
+  discountCents?: number;
+  partnerCode?: string | null;
   shippingCents: number;
   taxCents: number;
   totalCents: number;
@@ -48,6 +50,13 @@ export async function sendNewOrderEmail(params: NewOrderEmailParams): Promise<vo
     console.warn("[Email] RESEND_API_KEY not set — skipping order email");
     return;
   }
+
+  const isRecroomlvOrder = params.partnerCode?.trim().toUpperCase() === "RECROOMLV";
+  const formattedDiscount = ((params.discountCents ?? 0) / 100).toFixed(2);
+  const formattedTotal = (params.totalCents / 100).toFixed(2);
+  const subject = isRecroomlvOrder
+    ? `[RECROOMLV] Las Vegas Gym Order ${params.orderNumber} — $${formattedTotal}`
+    : `🛒 New Order ${params.orderNumber} — $${formattedTotal}`;
 
   const itemsHtml = params.items
     .map(
@@ -75,13 +84,21 @@ export async function sendNewOrderEmail(params: NewOrderEmailParams): Promise<vo
     <!-- Header -->
     <div style="background:#0f172a;padding:24px 32px;">
       <h1 style="color:#06b6d4;font-size:22px;margin:0;letter-spacing:2px;">LA ELITE PEPTIDES</h1>
-      <p style="color:#94a3b8;margin:4px 0 0;font-size:13px;">New Order Received</p>
+      <p style="color:#94a3b8;margin:4px 0 0;font-size:13px;">${isRecroomlvOrder ? "RECROOMLV · Las Vegas Gym Order" : "New Order Received"}</p>
     </div>
 
     <!-- Body -->
     <div style="padding:32px;">
       <h2 style="font-size:18px;color:#0f172a;margin:0 0 4px;">Order ${params.orderNumber}</h2>
       <p style="color:#6b7280;font-size:13px;margin:0 0 24px;">Awaiting Zelle payment confirmation</p>
+      ${isRecroomlvOrder ? `<div style="background:#eff6ff;border:1px solid #93c5fd;border-radius:8px;padding:14px 16px;margin-bottom:24px;color:#1e3a8a;">
+        <p style="margin:0 0 6px;font-size:11px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;">RECROOMLV Partner Alert</p>
+        <p style="margin:0 0 8px;font-size:17px;font-weight:700;">New Las Vegas gym client order</p>
+        <p style="margin:0;font-size:13px;line-height:1.6;">
+          Order <strong>${params.orderNumber}</strong> · Customer <strong>${params.customerName}</strong><br>
+          Partner code <strong>RECROOMLV</strong> · Discount <strong>-$${formattedDiscount}</strong> · Total <strong>$${formattedTotal}</strong>
+        </p>
+      </div>` : ""}
 
       <!-- Customer Info -->
       <table style="width:100%;border-collapse:collapse;margin-bottom:24px;">
@@ -121,6 +138,10 @@ export async function sendNewOrderEmail(params: NewOrderEmailParams): Promise<vo
           <td style="padding:4px 0;color:#6b7280;">Subtotal</td>
           <td style="padding:4px 0;text-align:right;color:#374151;">$${(params.subtotalCents / 100).toFixed(2)}</td>
         </tr>
+        ${params.discountCents ? `<tr>
+          <td style="padding:4px 0;color:#1e40af;">Partner discount (10%)</td>
+          <td style="padding:4px 0;text-align:right;color:#1e40af;">-$${(params.discountCents / 100).toFixed(2)}</td>
+        </tr>` : ""}
         <tr>
           <td style="padding:4px 0;color:#6b7280;">Shipping</td>
           <td style="padding:4px 0;text-align:right;color:#374151;">$${(params.shippingCents / 100).toFixed(2)}</td>
@@ -158,7 +179,7 @@ export async function sendNewOrderEmail(params: NewOrderEmailParams): Promise<vo
     const { error } = await resend.emails.send({
       from: FROM_ADDRESS,
       to: TO_ADDRESS,
-      subject: `🛒 New Order ${params.orderNumber} — $${(params.totalCents / 100).toFixed(2)}`,
+      subject,
       html,
     });
 
@@ -288,6 +309,7 @@ export async function sendCustomerOrderConfirmation(params: NewOrderEmailParams)
 
       <!-- Order Summary -->
       <h3 style="font-size:12px;text-transform:uppercase;letter-spacing:1px;color:#6b7280;margin:0 0 10px;">Order Summary — ${params.orderNumber}</h3>
+      ${params.partnerCode ? `<p style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:6px;padding:10px 12px;color:#1e40af;font-size:13px;font-weight:700;">Partner benefit applied · ${params.partnerCode}</p>` : ""}
       <table style="width:100%;border-collapse:collapse;margin-bottom:20px;">
         <thead>
           <tr style="background:#f8fafc;">
@@ -305,6 +327,10 @@ export async function sendCustomerOrderConfirmation(params: NewOrderEmailParams)
           <td style="padding:3px 0;color:#6b7280;">Subtotal</td>
           <td style="padding:3px 0;text-align:right;color:#374151;">$${(params.subtotalCents / 100).toFixed(2)}</td>
         </tr>
+        ${params.discountCents ? `<tr>
+          <td style="padding:3px 0;color:#1e40af;">Partner discount (10%)</td>
+          <td style="padding:3px 0;text-align:right;color:#1e40af;">-$${(params.discountCents / 100).toFixed(2)}</td>
+        </tr>` : ""}
         <tr>
           <td style="padding:3px 0;color:#6b7280;">Shipping</td>
           <td style="padding:3px 0;text-align:right;color:#374151;">$${(params.shippingCents / 100).toFixed(2)}</td>

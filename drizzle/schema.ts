@@ -47,6 +47,9 @@ export const orders = mysqlTable("orders", {
   ]).default("pending_payment").notNull(),
   // Financials (stored in cents to avoid float issues)
   subtotalCents: int("subtotalCents").notNull().default(0),
+  discountCents: int("discountCents").notNull().default(0),
+  discountBps: int("discountBps").notNull().default(0),
+  partnerCode: varchar("partnerCode", { length: 32 }),
   shippingCents: int("shippingCents").notNull().default(700), // $7.00 flat
   taxCents: int("taxCents").notNull().default(0),
   totalCents: int("totalCents").notNull().default(0),
@@ -83,6 +86,15 @@ export const orders = mysqlTable("orders", {
 
 export type Order = typeof orders.$inferSelect;
 export type InsertOrder = typeof orders.$inferInsert;
+
+// ─── Human-readable order number sequence ──────────────────────────────────
+
+export const orderNumberSequence = mysqlTable("order_number_sequence", {
+  id: int("id").autoincrement().primaryKey(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type OrderNumberSequence = typeof orderNumberSequence.$inferSelect;
 
 // ─── Order Items ────────────────────────────────────────────────────────────
 
@@ -129,6 +141,9 @@ export const customers = mysqlTable("customers", {
   tokenExpiry: bigint("tokenExpiry", { mode: "number" }),
   resetToken: varchar("resetToken", { length: 128 }),
   resetTokenExpiry: bigint("resetTokenExpiry", { mode: "number" }),
+  partnerCode: varchar("partnerCode", { length: 32 }),
+  partnerDiscountBps: int("partnerDiscountBps").default(0).notNull(),
+  partnerCodeActivatedAt: timestamp("partnerCodeActivatedAt"),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });

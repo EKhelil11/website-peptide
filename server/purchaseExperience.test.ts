@@ -37,9 +37,11 @@ describe("elevated purchase and account experience", () => {
     expect(checkoutSource).toContain('const ZELLE_PHONE = "(310) 975-9289"');
     expect(checkoutSource).toContain("const SHIPPING_FLAT = 7.00");
     expect(checkoutSource).toContain("const TAX_RATE = 0.08");
-    expect(checkoutSource).toContain("const tax = subtotal * TAX_RATE");
-    expect(checkoutSource).toContain("const total = subtotal + shipping + tax");
-    expect(checkoutSource).toContain("submitOrder.mutate({ items: cart, ...form })");
+    expect(checkoutSource).toContain("trpc.orders.quote.useQuery(quoteInput");
+    expect(checkoutSource).toContain("const tax = (orderQuote.data?.taxCents");
+    expect(checkoutSource).toContain("const total = (orderQuote.data?.totalCents");
+    expect(checkoutSource).toContain("submitOrder.mutate({");
+    expect(checkoutSource).toContain("partnerCode: requestedPartnerCode || undefined");
     expect(checkoutSource).toContain("setOrderNumber(data.orderNumber ?? \"\")");
     expect(checkoutSource).toContain("setOrderTotal((data.totalCents ?? 0) / 100)");
     expect(checkoutSource).toContain("handleCopy(\"memo\", orderNumber)");

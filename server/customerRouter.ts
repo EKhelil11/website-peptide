@@ -146,6 +146,8 @@ export const customerRouter = router({
             email: customer.email,
             firstName: customer.firstName,
             lastName: customer.lastName,
+            partnerCode: customer.partnerCode,
+            partnerDiscountBps: customer.partnerDiscountBps,
           },
         };
       } catch (err: any) {
@@ -173,6 +175,8 @@ export const customerRouter = router({
       email: customer.email,
       firstName: customer.firstName,
       lastName: customer.lastName,
+      partnerCode: customer.partnerCode,
+      partnerDiscountBps: customer.partnerDiscountBps,
     };
   }),
 

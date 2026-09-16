@@ -192,6 +192,8 @@ export function buildSSOrderPayload(order: {
   shipZip: string | null;
   shipCountry: string | null;
   subtotalCents: number;
+  discountCents?: number;
+  partnerCode?: string | null;
   shippingCents: number;
   taxCents: number;
   totalCents: number;
@@ -244,7 +246,9 @@ export function buildSSOrderPayload(order: {
     amountPaid: order.totalCents / 100,
     taxAmount: order.taxCents / 100,
     shippingAmount: order.shippingCents / 100,
-    internalNotes: `LA Elite Peptides order. Payment via Zelle.`,
+    internalNotes: order.partnerCode
+      ? `LA Elite Peptides order. Payment via Zelle. Partner code ${order.partnerCode} · Las Vegas gym · discount $${((order.discountCents ?? 0) / 100).toFixed(2)}.`
+      : `LA Elite Peptides order. Payment via Zelle.`,
     requestedShippingService: "USPS Priority Mail",
   };
 }
