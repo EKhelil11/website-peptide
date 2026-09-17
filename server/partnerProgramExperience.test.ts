@@ -8,6 +8,7 @@ const readSource = (relativePath: string) => fs.readFileSync(path.join(projectRo
 describe("RECROOMLV persistent partner-program experience", () => {
   const schema = readSource("drizzle/schema.ts");
   const migration = readSource("drizzle/0005_sour_ironclad.sql");
+  const sequenceMigration = readSource("drizzle/0006_set_order_sequence_130002.sql");
   const db = readSource("server/db.ts");
   const orderRouter = readSource("server/orderRouter.ts");
   const customerRouter = readSource("server/customerRouter.ts");
@@ -26,6 +27,8 @@ describe("RECROOMLV persistent partner-program experience", () => {
     expect(schema).toContain('mysqlTable("order_number_sequence"');
     expect(migration).toContain("AUTO_INCREMENT = 100099");
     expect(migration).not.toMatch(/DROP\s+(TABLE|COLUMN)/i);
+    expect(sequenceMigration).toContain("AUTO_INCREMENT = 130002");
+    expect(sequenceMigration).not.toMatch(/UPDATE\s+`?orders`?|DELETE\s+FROM\s+`?orders`?|DROP\s+(TABLE|COLUMN)/i);
   });
 
   it("creates orders and first-use eligibility in one transaction", () => {

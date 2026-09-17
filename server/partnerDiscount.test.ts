@@ -108,5 +108,7 @@ describe("RECROOMLV partner pricing", () => {
   it("formats dedicated sequence IDs directly as the new human-readable order numbers", () => {
     expect(generateOrderNumber(100_099)).toBe("LAP-100099");
     expect(generateOrderNumber(100_100)).toBe("LAP-100100");
+    expect(generateOrderNumber(130_002)).toBe("LAP-130002");
+    expect(generateOrderNumber(130_003)).toBe("LAP-130003");
   });
 });

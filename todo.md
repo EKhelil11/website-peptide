@@ -359,9 +359,20 @@
 - [x] Present the private RECROOMLV email-alert behavior and do not checkpoint or publish without separate explicit owner approval.
 - [x] Receive explicit owner approval to publish the complete RECROOMLV partner program and specialized owner email alert.
 - [x] Save one checkpoint containing the approved RECROOMLV discount, persistent customer benefit, Admin attribution, LAP-100099 sequence, and Option A owner email alert; auto-publish that exact state.
-- [ ] Verify the published checkout quote accepts RECROOMLV, rejects invalid codes, applies 10% to merchandise, preserves $7 shipping, and calculates 8% tax after the discount without submitting an order.
-- [ ] Verify the published customer Account and Admin source contracts expose the saved partner benefit, qualifying-order badge, discount history, gym attribution, search, Admin Notes, and existing controls.
-- [ ] Verify the next-order sequence remains empty and ready to issue LAP-100099 while historical LAP-100001 remains unchanged and no live verification order or enrollment is created.
-- [ ] Verify the published owner email contract sends one specialized `[RECROOMLV] Las Vegas Gym Order` email to support@laelitepeps.com for qualifying orders, keeps standard subjects for ordinary orders, and does not send a live test email.
-- [ ] Verify all three live domains, 16 products, four signature blends, protected prices, 16 COAs, $7 shipping, 8% tax, configured Resend/ShipStation status, and production runtime health after publication.
-- [ ] Deliver the published RECROOMLV release version and live verification report to the owner.
+- [x] Verify the published checkout quote accepts RECROOMLV, rejects invalid codes, applies 10% to merchandise, preserves $7 shipping, and calculates 8% tax after the discount without submitting an order.
+- [x] Verify the published customer Account and Admin source contracts expose the saved partner benefit, qualifying-order badge, discount history, gym attribution, search, Admin Notes, and existing controls.
+- [x] Verify the next-order sequence remains empty and ready to issue LAP-100099 while historical LAP-100001 remains unchanged and no live verification order or enrollment is created.
+- [x] Verify the published owner email contract sends one specialized `[RECROOMLV] Las Vegas Gym Order` email to support@laelitepeps.com for qualifying orders, keeps standard subjects for ordinary orders, and does not send a live test email.
+- [x] Verify all three live domains, 16 products, four signature blends, protected prices, 16 COAs, $7 shipping, 8% tax, configured Resend/ShipStation status, and production runtime health after publication.
+- [x] Deliver the published RECROOMLV release version and live verification report to the owner.
+
+- [x] Preserve all existing orders, including `LAP-100001` and confirmed `LAP-130001`, and verify `LAP-130002` is unused before changing the sequence.
+- [x] Set the dedicated production order-number sequence so the next successfully created order is `LAP-130002`, followed by `LAP-130003` and later numbers in ascending order.
+- [x] Add a tracked database migration and regression coverage for the `LAP-130002` starting point without changing cart, pricing, RECROOMLV discounts, tax, shipping, email, or fulfillment behavior.
+- [x] Validate the sequence change with read-only database checks, TypeScript, credential-safe tests, production build, and `git diff --check` without creating an order, sending email, or calling ShipStation.
+- [x] Present the validated private code change for owner approval and do not save a checkpoint or publish it until separately approved.
+- [x] Record the owner’s explicit approval on September 17, 2026 to publish the `LAP-130002` sequence migration and regression tests.
+- [x] Run the final TypeScript, credential-safe test, production build, and diff-integrity gate immediately before publication.
+- [ ] Save exactly one checkpoint containing the approved migration and tests, which publishes that project state.
+- [ ] Verify the apex, `www`, and Manus domains serve the new release while the database remains ready to issue `LAP-130002` without creating a test order or triggering providers.
+- [ ] Deliver the published version and verification result to the owner.
