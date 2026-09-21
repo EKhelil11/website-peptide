@@ -92,6 +92,6 @@ describe("Whitcomb hosted-card experience", () => {
     expect(db).toContain("Whitcomb payment session reference conflict");
     expect(db).toContain('eq(orders.status, "pending_payment")');
     expect(db).toContain('eq(orders.paymentMethod, "zelle")');
-    expect(db.indexOf("tx.insert(orders)")).toBeLessThan(db.indexOf("tx\n      .insert(orderNumberSequence)"));
+    expect(db.indexOf("tx.insert(orders)")).toBeLessThan(db.indexOf("tx\n      .update(orderNumberCounters)"));
   });
 });

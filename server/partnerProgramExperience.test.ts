@@ -9,6 +9,7 @@ describe("RECROOMLV persistent partner-program experience", () => {
   const schema = readSource("drizzle/schema.ts");
   const migration = readSource("drizzle/0005_sour_ironclad.sql");
   const sequenceMigration = readSource("drizzle/0006_set_order_sequence_130002.sql");
+  const exactCounterMigration = readSource("drizzle/0009_ancient_freak.sql");
   const db = readSource("server/db.ts");
   const orderRouter = readSource("server/orderRouter.ts");
   const customerRouter = readSource("server/customerRouter.ts");
@@ -25,16 +26,21 @@ describe("RECROOMLV persistent partner-program experience", () => {
     expect(schema).toContain('discountCents: int("discountCents").notNull().default(0)');
     expect(schema).toContain('discountBps: int("discountBps").notNull().default(0)');
     expect(schema).toContain('mysqlTable("order_number_sequence"');
+    expect(schema).toContain('mysqlTable("order_number_counters"');
     expect(migration).toContain("AUTO_INCREMENT = 100099");
     expect(migration).not.toMatch(/DROP\s+(TABLE|COLUMN)/i);
     expect(sequenceMigration).toContain("AUTO_INCREMENT = 130002");
     expect(sequenceMigration).not.toMatch(/UPDATE\s+`?orders`?|DELETE\s+FROM\s+`?orders`?|DROP\s+(TABLE|COLUMN)/i);
+    expect(exactCounterMigration).toContain("order_number_counters");
+    expect(exactCounterMigration).toContain("VALUES ('orders', 130002)");
+    expect(exactCounterMigration).not.toMatch(/UPDATE\s+`?orders`?|DELETE\s+FROM\s+`?orders`?|DROP\s+(TABLE|COLUMN)/i);
   });
 
   it("creates orders and first-use eligibility in one transaction", () => {
     expect(db).toContain("return db.transaction(async tx => {");
-    expect(db).toContain(".insert(orderNumberSequence)");
-    expect(db).toContain("const orderNumber = generateOrderNumber(sequenceId)");
+    expect(db).toContain(".update(orderNumberCounters)");
+    expect(db).toContain("lastIssuedNumber: sql`${orderNumberCounters.lastIssuedNumber} + 1`");
+    expect(db).toContain("const orderNumber = generateOrderNumber(counter.lastIssuedNumber)");
     expect(db).toContain("await tx.insert(orders).values");
     expect(db).toContain("await tx.insert(orderItems).values");
     expect(db).toContain("await tx.insert(orderStatusHistory).values");

@@ -2,7 +2,7 @@ import { eq, desc, and, or, isNull, isNotNull, gt, lt, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import {
   InsertUser, users,
-  customers, orders, orderItems, orderNumberSequence, orderStatusHistory, systemJobs,
+  customers, orders, orderItems, orderNumberCounters, orderStatusHistory, systemJobs,
   InsertOrder, InsertOrderItem,
 } from "../drizzle/schema";
 import { ENV } from './_core/env';
@@ -126,11 +126,25 @@ export async function createOrder(
     });
     const orderId = Number((result as { insertId: number }).insertId);
 
-    const [sequenceResult] = await tx
-      .insert(orderNumberSequence)
-      .values({ createdAt: new Date() });
-    const sequenceId = Number((sequenceResult as { insertId: number }).insertId);
-    const orderNumber = generateOrderNumber(sequenceId);
+    // Increment one named row instead of relying on AUTO_INCREMENT. TiDB can
+    // allocate AUTO_INCREMENT IDs in large blocks, which exposed LAP-160002
+    // after LAP-130002. The row-level update serializes concurrent checkouts.
+    const [counterResult] = await tx
+      .update(orderNumberCounters)
+      .set({
+        lastIssuedNumber: sql`${orderNumberCounters.lastIssuedNumber} + 1`,
+      })
+      .where(eq(orderNumberCounters.name, "orders"));
+    if (Number((counterResult as { affectedRows?: number }).affectedRows ?? 0) !== 1) {
+      throw new Error("Order number counter is not initialized");
+    }
+    const [counter] = await tx
+      .select({ lastIssuedNumber: orderNumberCounters.lastIssuedNumber })
+      .from(orderNumberCounters)
+      .where(eq(orderNumberCounters.name, "orders"))
+      .limit(1);
+    if (!counter) throw new Error("Order number counter could not be read");
+    const orderNumber = generateOrderNumber(counter.lastIssuedNumber);
     await tx.update(orders).set({ orderNumber }).where(eq(orders.id, orderId));
 
     if (items.length > 0) {

@@ -64,6 +64,13 @@
       "when": 1789932450686,
       "tag": "0008_mushy_hitman",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "5",
+      "when": 1790025742019,
+      "tag": "0009_ancient_freak",
+      "breakpoints": true
     }
   ]
 }

@@ -106,6 +106,19 @@ export const orderNumberSequence = mysqlTable("order_number_sequence", {
 
 export type OrderNumberSequence = typeof orderNumberSequence.$inferSelect;
 
+// ─── Exact customer-facing order number counter ─────────────────────────────
+
+// TiDB may allocate AUTO_INCREMENT values in large server-side blocks, so the
+// legacy sequence table cannot guarantee consecutive customer-facing numbers.
+// This single-row counter is incremented atomically inside the order transaction.
+export const orderNumberCounters = mysqlTable("order_number_counters", {
+  name: varchar("name", { length: 64 }).primaryKey(),
+  lastIssuedNumber: int("lastIssuedNumber").notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type OrderNumberCounter = typeof orderNumberCounters.$inferSelect;
+
 // ─── Order Items ────────────────────────────────────────────────────────────
 
 export const orderItems = mysqlTable("order_items", {

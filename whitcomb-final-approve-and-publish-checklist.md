@@ -3,8 +3,8 @@
 **Store:** LA Elite Peptides  
 **Merchant:** LA Elite Sales LLC  
 **Prepared:** September 20, 2026  
-**Current public release:** `fd3194dc`  
-**Current status:** Private integration complete; pre-publication evidence accepted; not checkpointed or published; live card checkout disabled
+**Current public release:** `c88c2e5e`
+**Current status:** Whitcomb hosted card checkout is live beside Zelle; five-minute background reconciliation is enabled and healthy
 
 ## Approval structure
 
@@ -12,9 +12,9 @@ Making the card-payment option public requires **three distinct approvals**. Thi
 
 | Stage | Owner approval | Effect |
 |---|---|---|
-| 1. Publish dormant release | **“Approve and publish the Whitcomb card-payment release with live card checkout remaining disabled.”** | Publishes the code and callback route. Customers still see the existing public payment experience; no card payment can start. |
-| 2. Start reconciliation | **“Approve creation of the five-minute Whitcomb payment reconciliation schedule.”** | Creates the authenticated background safety net for customers who close the hosted payment page before returning. |
-| 3. Enable card checkout | **“Approve enabling live Whitcomb card checkout for customers.”** | Makes **Credit or Debit Card** visible and usable alongside Zelle after the published callback and schedule pass verification. |
+| 1. Publish dormant release | **Completed — checkpoint `0af5679e`.** | Published the code and callback route with card checkout disabled. |
+| 2. Start reconciliation | **Completed — Heartbeat `fb4zcRcehdoFBprjmXYDNf`.** | Created the authenticated five-minute background safety net for customers who close the hosted payment page before returning. |
+| 3. Enable card checkout | **Completed — checkpoint `c88c2e5e`.** | Makes **Credit or Debit Card** visible and usable alongside Zelle. The owner explicitly approved enablement without authorizing the separate reconciliation schedule. |
 
 > **Important:** Stage 1 does not authorize Stage 2 or Stage 3. None of these stages authorizes a real test charge, refund, void, payment cancellation, customer email, or fulfillment test.
 
@@ -75,7 +75,7 @@ Before requesting Stage 2 approval, confirm that the deployed callback exists an
 
 > **Approve creation of the five-minute Whitcomb payment reconciliation schedule.**
 
-After creation, record the schedule identifier, verify one credential-safe invocation with no eligible orders, and confirm that no customer, order, payment, email, or fulfillment record changed.
+The schedule was created as `whitcomb-payment-reconciliation` with cron `0 */5 * * * *`, callback `/api/scheduled/reconcile-whitcomb-payments`, and task UID `fb4zcRcehdoFBprjmXYDNf`. Its first automatic run completed in one attempt with HTTP 200 and `{ checked: 1, paid: 0, open: 1, cancelled: 0, errors: 0 }`. The real order `LAP-130002` remained provider-open and pending payment; no email, owner notification, paid transition, ShipStation handoff, or label was created.
 
 ## Gate 4 — Enable card checkout publicly
 
@@ -121,9 +121,9 @@ Do not publish or enable live card checkout if the final gate finds an unexpecte
 | Decision | Current status |
 |---|---|
 | Pre-publication evidence | **Accepted** |
-| Stage 1 dormant publication | **Pending later explicit approval** |
-| Stage 2 reconciliation schedule | **Pending separate approval after deployment** |
-| Stage 3 live card enablement | **Pending separate approval after callback and schedule verification** |
+| Stage 1 dormant publication | **Completed — `0af5679e`** |
+| Stage 2 reconciliation schedule | **Completed — enabled every five minutes; task UID `fb4zcRcehdoFBprjmXYDNf`** |
+| Stage 3 live card enablement | **Completed — `c88c2e5e`** |
 | Real test charge | **Not approved** |
 | Refund/void/cancellation | **Not approved** |
 

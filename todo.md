@@ -385,7 +385,7 @@
 - [x] Add customer checkout, receipt, account-history, and Admin status presentation for card payments without weakening the existing server-side admin authorization boundary.
 - [x] Add deterministic provider doubles covering successful payment, cancellation, unavailable or paused service, repeated status polling, forged or stale responses, hostile hosted URLs, amount mismatch, discount totals, checkout retries, concurrent Zelle confirmation, and fulfillment/email side-effect gates.
 - [x] Run TypeScript, 189 credential-safe tests, production build, browser checks at desktop/375 px/320 px, database integrity checks, runtime-log review, and a signed connection/armed-status check without making a live charge.
-- [ ] If the owner and Whitcomb separately authorize the provider’s one-payment trial, present the exact charge amount and test order consequences for final confirmation before making that real card payment; otherwise document that the end-to-end live charge remains untested.
+- [x] Document that no end-to-end live charge was authorized or made; any future one-payment trial still requires the exact charge amount, test customer, order-number consumption, email/fulfillment consequences, and a separate final confirmation.
 - [x] Present one consolidated private preview and test report; do not save a checkpoint or publish until the owner explicitly approves the exact payment behavior. Current public release remains `fd3194dc`.
 
 - [x] Keep the Whitcomb card integration private and the live card gate disabled while pursuing a non-charging test path.
@@ -393,8 +393,8 @@
 - [x] Resubmit the request in the authenticated LA Elite Sales LLC merchant-portal thread and hand it to a person; no human desk reply was present at the latest check.
 - [x] Record the owner’s September 20, 2026 acceptance of the completed automated, browser, connection, build, database, and independent security evidence as sufficient pre-publication evidence.
 - [x] Receive the owner’s later explicit **approve and publish** instruction before saving a checkpoint or publishing the normal release; evidence acceptance alone was not treated as publication approval.
-- [ ] Review Whitcomb’s human desk response when available; treat it as informational unless it materially changes the provider contract.
-- [ ] Keep live checkout activation, any real charge, and reconciliation schedule creation behind their own separate explicit approval gates.
+- [x] Record that no human-desk response was available during release preparation; review any future reply as informational unless it materially changes the provider contract.
+- [x] Keep reconciliation scheduling, any real charge, refund, void, and provider cancellation behind their own separate explicit approval gates after the owner separately approved live checkout activation.
 - [x] Prepare the final owner-facing “Approve and Publish” checklist with separate phrases and gates for dormant publication, reconciliation scheduling, live card enablement, real charges, and refunds/voids; do not execute any gate yet.
 
 - [x] Record the owner’s explicit September 20, 2026 approval to publish the Whitcomb card-payment release with live card checkout remaining disabled.
@@ -408,6 +408,34 @@
 - [x] Enable only the server-side `ENABLE_LIVE_WHITCOMB` gate while preserving all code, pricing, RECROOMLV discount, tax, shipping, historical orders, order numbering, Zelle, email, ShipStation, domains, and manual auto-publish setting.
 - [x] Confirm Whitcomb is active/armed through a signed non-charging server check without creating a hosted checkout session.
 - [x] Re-run TypeScript, all 189 credential-safe tests (five live/credential tests intentionally skipped), production build, payment source audit, and diff integrity with no provider or commerce mutation.
-- [ ] Save one live-enablement checkpoint and explicitly publish its latest version through Website Canvas; do not create a reconciliation schedule.
-- [ ] Verify all three domains serve the enabled release, sanitized public status reports Whitcomb configured, public checkout renders both Zelle and Credit or Debit Card without placing an order, and database/order sequence remain unchanged.
-- [ ] Record the enabled release while leaving reconciliation scheduling, any real charge, refund, void, and provider cancellation behind separate approval gates.
+- [x] Save live-enablement checkpoint `c88c2e5e` and explicitly publish its latest version through Website Canvas; do not create a reconciliation schedule.
+- [x] Verify all three domains report Whitcomb configured through the sanitized public status endpoint, public checkout renders both Zelle and Credit or Debit Card at 1440 px, 375 px, and 320 px without placing an order, and database/order sequence remain unchanged.
+- [x] Record enabled release `c88c2e5e` while leaving reconciliation scheduling, any real charge, refund, void, and provider cancellation behind separate approval gates.
+
+- [x] Record the owner’s explicit approval to create and enable a platform-managed Whitcomb reconciliation Heartbeat every five minutes.
+- [x] Reconfirm the deployed callback and live Whitcomb gate, zero existing Heartbeats/system jobs, and detect the newly created real pending Whitcomb order `LAP-130002` before schedule creation; do not alter that order manually.
+- [x] Create exactly one enabled project-level Heartbeat named `whitcomb-payment-reconciliation` using `0 */5 * * * *` and `/api/scheduled/reconcile-whitcomb-payments`.
+- [x] Persist platform task UID `fb4zcRcehdoFBprjmXYDNf` in `system_jobs` so the callback authenticates and recognizes only the approved schedule.
+- [x] Verify the first automatic Heartbeat execution succeeded in one attempt with HTTP 200 and `{ checked: 1, paid: 0, open: 1, cancelled: 0, errors: 0 }`; `LAP-130002` remains provider-open and pending payment.
+- [x] Verify the schedule remains enabled every five minutes, its task UID matches the database registry, its lease released cleanly, and the first run created no new order, payment session, charge, email, owner notification, ShipStation order, label, or paid transition.
+- [x] Update the owner release records with the enabled schedule and management instructions without publishing another checkpoint.
+
+- [x] Record the owner’s explicit approval for a real live Whitcomb test order: Semax 10 mg × 1, $60.00 merchandise, $4.80 tax, $7.00 shipping, $71.80 total, expected order `LAP-130003`, using the existing Elias Khelil customer account and saved shipping profile.
+- [x] Create exactly one Whitcomb card order through the public storefront and verify the hosted payment page shows exactly $71.80 without exposing or entering card data on the LA Elite site; TiDB allocated the immutable actual order number `LAP-160002`, revealing a separate sequence defect.
+- [x] Hand the hosted Whitcomb page to the owner for manual card entry and final payment submission.
+- [x] After payment, verify provider-authoritative Paid status, exact $71.80 amount, one database order, one paid transition, one ShipStation fulfillment order awaiting shipment, and no label/tracking record. The send-only Resend key cannot list delivery events, so inbox delivery remains owner-observable rather than independently queryable.
+- [x] Verify the five-minute reconciliation schedule remains enabled and healthy, record the resulting order/payment evidence, and keep any refund, void, cancellation, or additional test charge behind separate approval.
+
+- [x] Preserve paid test order `LAP-160002`, Whitcomb reference `ws_300_faa5942225104f4461`, and ShipStation order `440947068` unchanged because those external records already reference that immutable number.
+- [x] Replace TiDB `AUTO_INCREMENT` order-number reservation with a transaction-locked application counter that issues exact consecutive numbers independent of internal database row IDs.
+- [x] Seed the exact next public order number at `LAP-130003` without renaming historical, pending, paid, provider, email, or ShipStation records.
+- [x] Add concurrency and migration regression coverage proving one exact number per committed order, retry idempotency, no gaps from duplicate submissions, and `LAP-130003` followed by `LAP-130004`.
+- [x] Apply the additive counter migration privately and validate no order, payment, email, owner notification, ShipStation order, label, or schedule side effect occurs.
+- [x] Run TypeScript, all 192 credential-safe tests (five live/credential tests intentionally skipped), production build, payment source audit, diff integrity, and database verification; keep the correction private until separate owner approval to publish.
+
+- [x] Record the owner’s explicit approval to publish the exact order-number counter correction.
+- [x] Re-run the complete prepublication gate and reconfirm the database counter is `130002`, paid `LAP-160002` remains immutable, and the five-minute reconciliation Heartbeat remains enabled.
+- [ ] Save exactly one checkpoint containing the additive counter migration, transaction-safe allocator, regression tests, and owner records.
+- [ ] Publish the latest checkpoint through Website Canvas with auto-publish unchanged and without creating an order or provider side effect.
+- [ ] Verify all public domains remain healthy, the database counter still predicts `LAP-130003`, existing orders/provider records remain unchanged, and no order, charge, email, notification, ShipStation order, label, refund, void, or cancellation was created by publication.
+- [ ] Record the exact published version and deliver the final numbering result to the owner.
