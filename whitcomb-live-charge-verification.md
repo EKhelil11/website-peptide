@@ -45,3 +45,7 @@ No refund, void, provider cancellation, additional charge, or label purchase was
 ## Owner confirmation
 
 On September 21, 2026, the owner confirmed that the payment was received, the ShipStation order arrived, and the complete live workflow is working. This closes the previously owner-observable payment notification and fulfillment-receipt evidence.
+
+## Exact numbering correction published
+
+Checkpoint `e142242f` was published through the manual Website Canvas control on September 21, 2026. Production remains healthy across the apex, `www`, and Manus domains. The exact counter remains `130002`, so the next committed order is **LAP-130003**, followed by **LAP-130004**. Existing `LAP-130002`, paid `LAP-160002`, the Whitcomb reference, and ShipStation order remain unchanged. Publication created no commerce or provider side effect.

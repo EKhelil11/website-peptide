@@ -5,9 +5,19 @@ import { useState } from "react";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { trpc } from "@/lib/trpc";
 import { useLocation } from "wouter";
-import { Package, CheckCircle, Truck, Clock, DollarSign, ArrowLeft, RefreshCw, ChevronDown, ChevronUp, Search } from "lucide-react";
+import { Package, CheckCircle, Truck, Clock, DollarSign, ArrowLeft, RefreshCw, ChevronDown, ChevronUp, Search, Ban } from "lucide-react";
 import { toast } from "sonner";
 import { PRIMARY_LOGO_ALT, PRIMARY_LOGO_URL, UTILITY_LOGO_SIZE_CLASS } from "@/lib/brandAssets";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 // All status colors use cyan/blue palette — no pink
 const STATUS_CONFIG: Record<string, { label: string; color: string; bg: string; border: string }> = {
@@ -63,6 +73,12 @@ export default function AdminOrders() {
   const [noteInputs, setNoteInputs] = useState<Record<number, string>>({});
   const [markPaidNotes, setMarkPaidNotes] = useState<Record<number, string>>({});
   const [search, setSearch] = useState("");
+  const [cancelTarget, setCancelTarget] = useState<{
+    id: number;
+    orderNumber: string;
+    totalCents: number;
+  } | null>(null);
+  const [cancelReason, setCancelReason] = useState("");
   const integrationStatus = trpc.integrations.status.useQuery();
 
   const ordersQuery = trpc.orders.adminListOrders.useQuery(undefined, {
@@ -86,6 +102,17 @@ export default function AdminOrders() {
       );
     },
     onError: (e) => toast.error(e.message || "Failed to mark as paid"),
+  });
+
+  const cancelPendingOrder = trpc.orders.adminCancelOrder.useMutation({
+    onSuccess: (data) => {
+      utils.orders.adminListOrders.invalidate();
+      utils.orders.adminStats.invalidate();
+      setCancelTarget(null);
+      setCancelReason("");
+      toast.success(`${data.orderNumber || "Order"} cancelled`);
+    },
+    onError: (e) => toast.error(e.message || "Failed to cancel order"),
   });
 
   const updateNotes = trpc.orders.adminUpdateNotes.useMutation({
@@ -167,6 +194,7 @@ export default function AdminOrders() {
   ];
 
   return (
+    <>
     <div className="min-h-screen bg-[#07152F]">
       {/* Top Nav */}
       <header
@@ -324,13 +352,13 @@ export default function AdminOrders() {
 
         {/* Search */}
         <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center mb-5">
-          <div className="relative">
+          <div className="relative w-full sm:w-auto">
             <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-white/30" />
             <input
               value={search}
               onChange={e => setSearch(e.target.value)}
               placeholder="Search orders, names, emails, partner codes..."
-              className="pl-9 pr-4 py-2.5 rounded-lg outline-none w-80"
+              className="w-full rounded-lg py-2.5 pl-9 pr-4 outline-none sm:w-80"
               style={{
                 background: "rgba(255,255,255,0.04)",
                 border: "1px solid rgba(185,192,202,0.15)",
@@ -625,7 +653,7 @@ export default function AdminOrders() {
                             Amount: <strong>${((order.totalCents ?? 0) / 100).toFixed(2)}</strong> · Provider status: <strong>{order.paymentProviderStatus || "awaiting checkout"}</strong>
                           </p>
                           <p className="mt-2 text-sm leading-relaxed text-white/50" style={{ fontFamily: inter }}>
-                            This order changes to Paid only after server-to-server verification with Whitcomb. Manual confirmation is disabled.
+                            This order changes to Paid or Cancelled only after server-to-server verification with Whitcomb. Manual payment confirmation and Admin cancellation are disabled.
                           </p>
                         </div>
                       )}
@@ -764,6 +792,30 @@ export default function AdminOrders() {
                           </div>
                         )}
 
+                        {order.status === "pending_payment" && order.paymentMethod === "zelle" && (
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setCancelTarget({
+                                id: order.id,
+                                orderNumber: order.orderNumber || `#${order.id}`,
+                                totalCents: order.totalCents ?? 0,
+                              });
+                              setCancelReason("");
+                            }}
+                            className="flex min-h-11 w-full items-center justify-center gap-2 rounded-xl px-5 py-3 text-base font-bold uppercase tracking-[0.15em] transition-all hover:bg-[#FF5A5A]/15 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FF7777] focus-visible:ring-offset-2 focus-visible:ring-offset-[#07152F] sm:w-auto"
+                            style={{
+                              background: "rgba(255,77,77,0.08)",
+                              border: "1px solid rgba(255,77,77,0.35)",
+                              color: "#FF8A8A",
+                              fontFamily: rajdhani,
+                            }}
+                          >
+                            <Ban size={16} />
+                            Cancel Order
+                          </button>
+                        )}
+
                         {/* Sync Tracking from ShipStation */}
                         {order.shipstationOrderId && !order.trackingNumber && (
                           <button
@@ -809,5 +861,76 @@ export default function AdminOrders() {
         )}
       </div>
     </div>
+    <AlertDialog
+      open={cancelTarget !== null}
+      onOpenChange={(open) => {
+        if (!open && !cancelPendingOrder.isPending) {
+          setCancelTarget(null);
+          setCancelReason("");
+        }
+      }}
+    >
+      <AlertDialogContent className="max-h-[calc(100dvh-2rem)] overflow-y-auto border-[#FF6B6B]/30 !bg-[#0A1934] p-4 text-white sm:max-w-lg sm:p-6">
+        <AlertDialogHeader>
+          <div className="mb-1 flex h-10 w-10 items-center justify-center rounded-full border border-[#FF6B6B]/35 bg-[#FF4D4D]/10 text-[#FF8A8A] sm:mb-2 sm:h-12 sm:w-12">
+            <Ban size={22} />
+          </div>
+          <AlertDialogTitle className="text-2xl text-white sm:text-3xl" style={{ fontFamily: bebasNeu, letterSpacing: "0.04em" }}>
+            Cancel {cancelTarget?.orderNumber}?
+          </AlertDialogTitle>
+          <AlertDialogDescription className="text-sm leading-relaxed text-white/65 sm:text-base" style={{ fontFamily: inter }}>
+            This permanently changes the unpaid Zelle order to Cancelled and removes it from active revenue totals. It does not send a refund, void a card payment, contact Whitcomb, or reverse a shipment.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+
+        <div className="rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3" style={{ fontFamily: inter }}>
+          <div className="flex items-center justify-between gap-4 text-sm">
+            <span className="text-white/55">Unpaid order total</span>
+            <strong className="text-[#B9C0CA]">
+              ${((cancelTarget?.totalCents ?? 0) / 100).toFixed(2)}
+            </strong>
+          </div>
+        </div>
+
+        <label className="space-y-2" style={{ fontFamily: inter }}>
+          <span className="text-sm font-semibold text-white/75">
+            Internal cancellation reason <span className="font-normal text-white/40">(optional)</span>
+          </span>
+          <textarea
+            rows={2}
+            maxLength={500}
+            value={cancelReason}
+            onChange={(event) => setCancelReason(event.target.value)}
+            placeholder="Example: Duplicate test order"
+            className="w-full resize-none rounded-xl border border-white/15 bg-white/[0.05] px-3 py-2.5 text-sm text-white outline-none placeholder:text-white/30 focus:border-[#B9C0CA]/55 focus:ring-2 focus:ring-[#B9C0CA]/20 sm:text-base"
+          />
+        </label>
+
+        <AlertDialogFooter className="flex-col gap-2 sm:flex-row sm:gap-3">
+          <AlertDialogCancel
+            disabled={cancelPendingOrder.isPending}
+            className="min-h-11 border-white/15 bg-transparent text-white/75 hover:bg-white/10 hover:text-white"
+          >
+            Keep Order
+          </AlertDialogCancel>
+          <AlertDialogAction
+            disabled={cancelPendingOrder.isPending || !cancelTarget}
+            onClick={(event) => {
+              event.preventDefault();
+              if (!cancelTarget) return;
+              cancelPendingOrder.mutate({
+                orderId: cancelTarget.id,
+                reason: cancelReason.trim() || undefined,
+              });
+            }}
+            className="min-h-11 bg-[#B52D36] font-bold uppercase tracking-[0.12em] text-white hover:bg-[#CC3641] focus-visible:ring-[#FF7777]"
+            style={{ fontFamily: rajdhani }}
+          >
+            {cancelPendingOrder.isPending ? "Cancelling..." : "Yes, Cancel Order"}
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+    </>
   );
 }

@@ -55,8 +55,14 @@ describe("Whitcomb hosted-card experience", () => {
     expect(account).toContain("Resume Secure Card Payment");
     expect(admin).toContain("Whitcomb Card Payment");
     expect(admin).toContain('order.paymentMethod === "zelle"');
+    expect(admin).toContain("Cancel Order");
+    expect(admin).toContain("Yes, Cancel Order");
+    expect(admin).toContain("It does not send a refund");
     expect(router).toContain("cannot be marked paid manually");
+    expect(router).toContain("adminCancelOrder");
+    expect(router).toContain("Whitcomb card orders are provider-controlled");
     expect(db).toContain('eq(orders.totalCents, input.amountCents)');
+    expect(db).toContain('note = "Order cancelled"');
   });
 
   it("authenticates scheduled reconciliation by platform task UID and never by request payload", () => {

@@ -1,8 +1,9 @@
-# Whitcomb dormant release — final publication verification
+# Whitcomb release — final publication verification
 
-**Checkpoint:** `0af5679e`  
-**Publication status:** Live on September 21, 2026  
-**Card availability:** Disabled pending a separate owner approval
+**Checkpoint:** `e142242f`
+**Publication status:** Live on September 21, 2026
+**Card availability:** Live beside Zelle
+**Next committed order:** `LAP-130003`
 
 ## Publication resolution
 
@@ -65,3 +66,7 @@ The owner-approved $71.80 Semax test completed successfully through the publishe
 The live test revealed that TiDB’s block-based `AUTO_INCREMENT` allocator jumped the customer-facing number from `LAP-130002` to `LAP-160002`. That paid number remains immutable across LA Elite, Whitcomb, and ShipStation. A private additive migration and transaction-locked application counter are now seeded so the next committed order is exactly `LAP-130003`; the correction passed 192 credential-safe tests, the build, source audit, and database rollback verification. It remains unpublished pending separate owner approval.
 
 The owner subsequently confirmed that payment was received, the ShipStation order was received, and the complete live Whitcomb workflow is working end to end.
+
+## Exact order-number counter — published
+
+The owner approved and checkpoint `e142242f` was published manually through Website Canvas on September 21, 2026. All three public domains and protected routes returned HTTP 200, the service is healthy, and the five-minute Whitcomb Heartbeat remains enabled. The production database still contains four orders, preserves pending `LAP-130002` and paid `LAP-160002`, records exactly one paid transition for `LAP-160002`, and keeps one registered Heartbeat. The exact counter is `130002`; therefore the next committed order is **LAP-130003**, followed by **LAP-130004**. Publication created no order or provider side effect.

@@ -355,7 +355,17 @@ export const orderRouter = router({
           message: "Card-payment orders cannot be cancelled while a secure payment link is open. Contact support for help.",
         });
       }
-      await cancelOrder(input.orderId, String(ctx.customer.id));
+      const transitioned = await cancelOrder(
+        input.orderId,
+        `customer:${ctx.customer.id}`,
+        "Order cancelled by customer",
+      );
+      if (!transitioned) {
+        throw new TRPCError({
+          code: "CONFLICT",
+          message: "This order is no longer eligible for cancellation.",
+        });
+      }
       return { success: true };
     }),
 
@@ -436,6 +446,43 @@ export const orderRouter = router({
       }
 
       return { success: true, shipstationQueued };
+    }),
+
+  // ─── Admin: Cancel an unpaid Zelle order ──────────────────────────────────
+  adminCancelOrder: adminProcedure
+    .input(z.object({
+      orderId: z.number().int().positive(),
+      reason: z.string().trim().max(500).optional(),
+    }))
+    .mutation(async ({ ctx, input }) => {
+      const order = await getOrderWithItems(input.orderId);
+      if (!order) throw new TRPCError({ code: "NOT_FOUND", message: "Order not found" });
+      if (order.paymentMethod === "whitcomb_card") {
+        throw new TRPCError({
+          code: "BAD_REQUEST",
+          message: "Whitcomb card orders are provider-controlled. Confirm a provider cancellation or refund separately before changing the storefront record.",
+        });
+      }
+      if (order.status !== "pending_payment") {
+        throw new TRPCError({
+          code: "CONFLICT",
+          message: "Only unpaid pending Zelle orders can be cancelled manually.",
+        });
+      }
+
+      const reason = input.reason?.trim();
+      const transitioned = await cancelOrder(
+        input.orderId,
+        `admin:${ctx.user.id}`,
+        reason ? `Order cancelled by admin: ${reason}` : "Order cancelled by admin",
+      );
+      if (!transitioned) {
+        throw new TRPCError({
+          code: "CONFLICT",
+          message: "This order is no longer an unpaid pending Zelle order.",
+        });
+      }
+      return { success: true, orderNumber: order.orderNumber };
     }),
 
   // ─── Admin: Sync tracking from ShipStation ───────────────────────────────

@@ -485,22 +485,32 @@ export async function updateOrderAdminNotes(orderId: number, adminNotes: string)
   await db.update(orders).set({ adminNotes }).where(eq(orders.id, orderId));
 }
 
-export async function cancelOrder(orderId: number, cancelledBy: string): Promise<void> {
+export async function cancelOrder(
+  orderId: number,
+  cancelledBy: string,
+  note = "Order cancelled",
+): Promise<boolean> {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
 
-  const [existing] = await db.select().from(orders).where(eq(orders.id, orderId)).limit(1);
-  if (!existing) throw new Error("Order not found");
+  return db.transaction(async tx => {
+    const changedAt = Date.now();
+    const [result] = await tx.update(orders).set({ status: "cancelled" }).where(and(
+      eq(orders.id, orderId),
+      eq(orders.status, "pending_payment"),
+      eq(orders.paymentMethod, "zelle"),
+    ));
+    if (Number((result as { affectedRows?: number }).affectedRows ?? 0) !== 1) return false;
 
-  await db.update(orders).set({ status: "cancelled" }).where(eq(orders.id, orderId));
-
-  await db.insert(orderStatusHistory).values({
-    orderId,
-    fromStatus: existing.status,
-    toStatus: "cancelled",
-    changedBy: cancelledBy,
-    note: "Order cancelled",
-    createdAt: Date.now(),
+    await tx.insert(orderStatusHistory).values({
+      orderId,
+      fromStatus: "pending_payment",
+      toStatus: "cancelled",
+      changedBy: cancelledBy,
+      note,
+      createdAt: changedAt,
+    });
+    return true;
   });
 }
 

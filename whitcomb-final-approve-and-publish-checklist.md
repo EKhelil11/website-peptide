@@ -3,8 +3,8 @@
 **Store:** LA Elite Peptides  
 **Merchant:** LA Elite Sales LLC  
 **Prepared:** September 20, 2026  
-**Current public release:** `c88c2e5e`
-**Current status:** Whitcomb hosted card checkout is live beside Zelle; five-minute background reconciliation is enabled and healthy
+**Current public release:** `e142242f`
+**Current status:** Whitcomb hosted card checkout is live beside Zelle; five-minute background reconciliation is enabled and healthy; the exact counter makes the next committed order `LAP-130003`
 
 ## Approval structure
 

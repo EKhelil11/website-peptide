@@ -435,7 +435,22 @@
 
 - [x] Record the owner’s explicit approval to publish the exact order-number counter correction.
 - [x] Re-run the complete prepublication gate and reconfirm the database counter is `130002`, paid `LAP-160002` remains immutable, and the five-minute reconciliation Heartbeat remains enabled.
-- [ ] Save exactly one checkpoint containing the additive counter migration, transaction-safe allocator, regression tests, and owner records.
-- [ ] Publish the latest checkpoint through Website Canvas with auto-publish unchanged and without creating an order or provider side effect.
-- [ ] Verify all public domains remain healthy, the database counter still predicts `LAP-130003`, existing orders/provider records remain unchanged, and no order, charge, email, notification, ShipStation order, label, refund, void, or cancellation was created by publication.
-- [ ] Record the exact published version and deliver the final numbering result to the owner.
+- [x] Save exactly one checkpoint `e142242f` containing the additive counter migration, transaction-safe allocator, regression tests, and owner records.
+- [x] Publish checkpoint `e142242f` through Website Canvas with auto-publish unchanged and without creating an order or provider side effect.
+- [x] Verify all public domains remain healthy, the database counter still predicts `LAP-130003`, existing orders/provider records remain unchanged, and no order, charge, email, notification, ShipStation order, label, refund, void, or cancellation was created by publication.
+- [x] Record published version `e142242f` and deliver the final numbering result to the owner.
+
+- [x] Add an Admin-only **Cancel Order** control for eligible unpaid orders with a deliberate confirmation dialog and clear irreversible-status warning.
+- [x] Permit manual cancellation only while an order is `pending_payment` and is not an open Whitcomb hosted-card session; keep paid, shipped, already-cancelled, and provider-open card orders protected.
+- [x] Preserve provider-authoritative cancellation for Whitcomb card orders so an Admin click cannot create a paid-but-cancelled race or imply a refund, void, or provider-session cancellation.
+- [x] Record one immutable order-status history transition and optional Admin audit note only when the single conditional pending-to-cancelled database update wins.
+- [x] Show accessible success/error feedback, hide unsafe actions with an explanation, and verify desktop, 375 px, and 320 px Admin layouts.
+- [x] Add server/UI regression coverage and run TypeScript, all 197 credential-safe tests (five live/credential tests intentionally skipped), production build, payment source audit, diff integrity, runtime checks, and read-only database verification without cancelling a real order or contacting Whitcomb, Resend, or ShipStation.
+- [x] Present the validated private change for owner review; do not save a checkpoint or publish until separately approved.
+
+- [x] Record the owner’s explicit instruction: **Approve and publish Admin Cancel Order.**
+- [x] Re-run the complete release gate and reconfirm no real order has been cancelled, the exact next order remains `LAP-130003`, and the five-minute Whitcomb Heartbeat remains healthy.
+- [ ] Save exactly one checkpoint containing the guarded Admin cancellation control, atomic server transition, regression tests, private validation report, and owner records.
+- [ ] Publish the latest checkpoint manually through Website Canvas with auto-publish unchanged.
+- [ ] Verify all public domains serve the release, the Admin cancellation dialog renders correctly at desktop and mobile widths without issuing a mutation, and protected Whitcomb/paid/shipped orders remain guarded.
+- [ ] Reconfirm the database, provider records, ShipStation state, Heartbeat, and exact order counter remain unchanged; record and deliver the published version.

@@ -7,6 +7,7 @@ const mocks = vi.hoisted(() => ({
   createOrder: vi.fn(),
   getOrderWithItems: vi.fn(),
   markOrderPaid: vi.fn(),
+  cancelOrder: vi.fn(),
   startWhitcombPayment: vi.fn(),
   attachWhitcombPaymentSession: vi.fn(),
   notifyOwner: vi.fn(),
@@ -24,7 +25,7 @@ vi.mock("./db", () => ({
   getOrderByCheckoutKey: mocks.getOrderByCheckoutKey,
   getAllOrdersWithItems: vi.fn(),
   markOrderPaid: mocks.markOrderPaid,
-  cancelOrder: vi.fn(),
+  cancelOrder: mocks.cancelOrder,
   updateOrderAdminNotes: vi.fn(),
   getOrderStats: vi.fn(),
   attachWhitcombPaymentSession: mocks.attachWhitcombPaymentSession,
@@ -185,5 +186,81 @@ describe("checkout submission idempotency", () => {
       .rejects.toMatchObject({ code: "CONFLICT" });
     expect(mocks.notifyOwner).not.toHaveBeenCalled();
     expect(mocks.sendNewOrderEmail).not.toHaveBeenCalled();
+  });
+
+  it("allows an admin to cancel one unpaid pending Zelle order with an audit reason", async () => {
+    mocks.getOrderWithItems.mockResolvedValueOnce({
+      ...existingOrder,
+      paymentMethod: "zelle",
+      paymentProviderCheckoutUrl: null,
+    });
+    mocks.cancelOrder.mockResolvedValueOnce(true);
+
+    const result = await orderRouter.createCaller(createAdminContext()).adminCancelOrder({
+      orderId: 41,
+      reason: "Duplicate test order",
+    });
+
+    expect(result).toEqual({ success: true, orderNumber: "LAP-130002" });
+    expect(mocks.cancelOrder).toHaveBeenCalledWith(
+      41,
+      "admin:9",
+      "Order cancelled by admin: Duplicate test order",
+    );
+    expect(mocks.notifyOwner).not.toHaveBeenCalled();
+    expect(mocks.sendNewOrderEmail).not.toHaveBeenCalled();
+  });
+
+  it("blocks Admin cancellation of a Whitcomb card order", async () => {
+    mocks.getOrderWithItems.mockResolvedValueOnce(existingOrder);
+
+    await expect(orderRouter.createCaller(createAdminContext()).adminCancelOrder({ orderId: 41 }))
+      .rejects.toMatchObject({ code: "BAD_REQUEST" });
+    expect(mocks.cancelOrder).not.toHaveBeenCalled();
+  });
+
+  it("blocks Admin cancellation after an order is paid", async () => {
+    mocks.getOrderWithItems.mockResolvedValueOnce({
+      ...existingOrder,
+      status: "paid",
+      paymentMethod: "zelle",
+      paymentProviderCheckoutUrl: null,
+    });
+
+    await expect(orderRouter.createCaller(createAdminContext()).adminCancelOrder({ orderId: 41 }))
+      .rejects.toMatchObject({ code: "CONFLICT" });
+    expect(mocks.cancelOrder).not.toHaveBeenCalled();
+  });
+
+  it("returns a conflict when another actor wins the cancellation transition", async () => {
+    mocks.getOrderWithItems.mockResolvedValueOnce({
+      ...existingOrder,
+      paymentMethod: "zelle",
+      paymentProviderCheckoutUrl: null,
+    });
+    mocks.cancelOrder.mockResolvedValueOnce(false);
+
+    await expect(orderRouter.createCaller(createAdminContext()).adminCancelOrder({ orderId: 41 }))
+      .rejects.toMatchObject({ code: "CONFLICT" });
+    expect(mocks.cancelOrder).toHaveBeenCalledTimes(1);
+  });
+
+  it("keeps customer cancellation on the same atomic unpaid-Zelle transition", async () => {
+    mocks.getOrderWithItems.mockResolvedValueOnce({
+      ...existingOrder,
+      customerId: customer.id,
+      paymentMethod: "zelle",
+      paymentProviderCheckoutUrl: null,
+    });
+    mocks.cancelOrder.mockResolvedValueOnce(true);
+
+    const result = await orderRouter.createCaller(createContext()).cancelOrder({ orderId: 41 });
+
+    expect(result).toEqual({ success: true });
+    expect(mocks.cancelOrder).toHaveBeenCalledWith(
+      41,
+      `customer:${customer.id}`,
+      "Order cancelled by customer",
+    );
   });
 });
