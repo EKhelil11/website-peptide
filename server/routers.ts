@@ -11,7 +11,14 @@ import { getIntegrationStatus } from "./integrationStatus";
 export const appRouter = router({
   system: systemRouter,
   integrations: router({
-    status: publicProcedure.query(() => getIntegrationStatus()),
+    status: publicProcedure.query(() => {
+      const status = getIntegrationStatus();
+      return {
+        email: { configured: status.email.configured, message: status.email.message },
+        shipstation: { configured: status.shipstation.configured, message: status.shipstation.message },
+        whitcomb: { configured: status.whitcomb.configured, message: status.whitcomb.message },
+      };
+    }),
   }),
   auth: router({
     me: publicProcedure.query(opts => opts.ctx.user),

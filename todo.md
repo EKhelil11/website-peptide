@@ -373,6 +373,33 @@
 - [x] Present the validated private code change for owner approval and do not save a checkpoint or publish it until separately approved.
 - [x] Record the owner’s explicit approval on September 17, 2026 to publish the `LAP-130002` sequence migration and regression tests.
 - [x] Run the final TypeScript, credential-safe test, production build, and diff-integrity gate immediately before publication.
-- [ ] Save exactly one checkpoint containing the approved migration and tests, which publishes that project state.
-- [ ] Verify the apex, `www`, and Manus domains serve the new release while the database remains ready to issue `LAP-130002` without creating a test order or triggering providers.
-- [ ] Deliver the published version and verification result to the owner.
+- [x] Save exactly one checkpoint `fd3194dc` containing the approved migration and tests, which publishes that project state.
+- [x] Verify the apex, `www`, and Manus domains serve the new release while the database remains ready to issue `LAP-130002` without creating a test order or triggering providers.
+- [x] Deliver the published version and verification result to the owner.
+
+- [x] Identify Whitcomb Payments Process Now, review its official custom-site API and supplied WooCommerce plugin, and confirm its hosted checkout, signed server API, polling-based confirmation, no-webhook design, and lack of a sandbox.
+- [x] Confirm card payment will supplement rather than replace Zelle and that card entry must occur on Whitcomb’s hosted page so raw card data never touches this site.
+- [x] Design the integration so raw card numbers, security codes, payment credentials, and secret keys never enter application logs, source code, chat, screenshots, or the LA Elite Peptides database.
+- [x] Preserve server-authoritative catalog prices, RECROOMLV merchandise discounts, $7 shipping, post-discount 8% tax, order numbering, historical orders, account behavior, Admin attribution, email, and ShipStation behavior.
+- [x] Implement the selected Whitcomb approach privately with server-created hosted payment links, HMAC-signed server calls, saved payment references and hosted URLs, authoritative throttled status polling, idempotent paid transitions, checkout replay protection, exact amount verification, and explicit unavailable/cancellation handling.
+- [x] Add customer checkout, receipt, account-history, and Admin status presentation for card payments without weakening the existing server-side admin authorization boundary.
+- [x] Add deterministic provider doubles covering successful payment, cancellation, unavailable or paused service, repeated status polling, forged or stale responses, hostile hosted URLs, amount mismatch, discount totals, checkout retries, concurrent Zelle confirmation, and fulfillment/email side-effect gates.
+- [x] Run TypeScript, 189 credential-safe tests, production build, browser checks at desktop/375 px/320 px, database integrity checks, runtime-log review, and a signed connection/armed-status check without making a live charge.
+- [ ] If the owner and Whitcomb separately authorize the provider’s one-payment trial, present the exact charge amount and test order consequences for final confirmation before making that real card payment; otherwise document that the end-to-end live charge remains untested.
+- [x] Present one consolidated private preview and test report; do not save a checkpoint or publish until the owner explicitly approves the exact payment behavior. Current public release remains `fd3194dc`.
+
+- [x] Keep the Whitcomb card integration private and the live card gate disabled while pursuing a non-charging test path.
+- [x] Submit a credential-free request through Whitcomb’s official developer support chat for a non-charging test merchant, temporary test environment, simulator, or test credentials; identify LA Elite Sales LLC / LA Elite Peptides and request reply to `support@laelitepeps.com`.
+- [x] Resubmit the request in the authenticated LA Elite Sales LLC merchant-portal thread and hand it to a person; no human desk reply was present at the latest check.
+- [x] Record the owner’s September 20, 2026 acceptance of the completed automated, browser, connection, build, database, and independent security evidence as sufficient pre-publication evidence.
+- [x] Receive the owner’s later explicit **approve and publish** instruction before saving a checkpoint or publishing the normal release; evidence acceptance alone was not treated as publication approval.
+- [ ] Review Whitcomb’s human desk response when available; treat it as informational unless it materially changes the provider contract.
+- [ ] Keep live checkout activation, any real charge, and reconciliation schedule creation behind their own separate explicit approval gates.
+- [x] Prepare the final owner-facing “Approve and Publish” checklist with separate phrases and gates for dormant publication, reconciliation scheduling, live card enablement, real charges, and refunds/voids; do not execute any gate yet.
+
+- [x] Record the owner’s explicit September 20, 2026 approval to publish the Whitcomb card-payment release with live card checkout remaining disabled.
+- [x] Re-run TypeScript, the complete credential-safe test suite, production build, payment source audit, and diff-integrity gate immediately before publication.
+- [x] Reconfirm historical orders, zero Whitcomb orders, zero scheduled jobs, next order `LAP-130002`, sanitized integration status, and disabled live-card gate before publication.
+- [ ] Save exactly one checkpoint to publish the approved dormant Whitcomb integration; do not enable live checkout, create a schedule, payment session, charge, email, ShipStation order, or label.
+- [ ] Verify the apex, `www`, and Manus domains serve the new release; verify the production callback route, existing storefront invariants, sanitized public status, runtime logs, and unchanged database state.
+- [ ] Record the exact published version and leave reconciliation scheduling, live checkout enablement, real charges, and refunds/voids behind their separate approval gates.

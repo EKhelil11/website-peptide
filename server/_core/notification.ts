@@ -8,6 +8,14 @@ export type NotificationPayload = {
 
 const TITLE_MAX_LENGTH = 1200;
 const CONTENT_MAX_LENGTH = 20000;
+type NotificationFetch = typeof globalThis.fetch;
+const defaultNotificationFetch: NotificationFetch = globalThis.fetch.bind(globalThis);
+let notificationFetch = defaultNotificationFetch;
+
+export function __setNotificationFetchForTests(fetcher?: NotificationFetch) {
+  if (ENV.isProduction) throw new Error("Notification test transport is unavailable in production");
+  notificationFetch = fetcher ?? defaultNotificationFetch;
+}
 
 const trimValue = (value: string): string => value.trim();
 const isNonEmptyString = (value: unknown): value is string =>
@@ -64,7 +72,8 @@ const validatePayload = (input: NotificationPayload): NotificationPayload => {
  * bubble up as TRPC errors so callers can fix the payload.
  */
 export async function notifyOwner(
-  payload: NotificationPayload
+  payload: NotificationPayload,
+  signal: AbortSignal = AbortSignal.timeout(8_000),
 ): Promise<boolean> {
   const { title, content } = validatePayload(payload);
 
@@ -85,7 +94,7 @@ export async function notifyOwner(
   const endpoint = buildEndpointUrl(ENV.forgeApiUrl);
 
   try {
-    const response = await fetch(endpoint, {
+    const response = await notificationFetch(endpoint, {
       method: "POST",
       headers: {
         accept: "application/json",
@@ -94,21 +103,17 @@ export async function notifyOwner(
         "connect-protocol-version": "1",
       },
       body: JSON.stringify({ title, content }),
+      signal,
     });
 
     if (!response.ok) {
-      const detail = await response.text().catch(() => "");
-      console.warn(
-        `[Notification] Failed to notify owner (${response.status} ${response.statusText})${
-          detail ? `: ${detail}` : ""
-        }`
-      );
+      console.warn(`[Notification] Failed to notify owner (${response.status} ${response.statusText}).`);
       return false;
     }
 
     return true;
-  } catch (error) {
-    console.warn("[Notification] Error calling notification service:", error);
+  } catch {
+    console.warn("[Notification] Error calling notification service.");
     return false;
   }
 }

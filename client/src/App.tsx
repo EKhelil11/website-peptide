@@ -21,6 +21,7 @@ const TermsPage = lazy(() => import("./pages/TermsPage"));
 const ShippingReturnsPage = lazy(() => import("./pages/ShippingReturnsPage"));
 const PrivacyPolicyPage = lazy(() => import("./pages/PrivacyPolicyPage"));
 const Checkout = lazy(() => import("./pages/Checkout"));
+const WhitcombReturn = lazy(() => import("./pages/WhitcombReturn"));
 const Account = lazy(() => import("./pages/Account"));
 const AdminOrders = lazy(() => import("./pages/AdminOrders"));
 const AdminLogin = lazy(() => import("./pages/AdminLogin"));
@@ -58,6 +59,7 @@ function Router() {
       <Route path="/shipping-returns" component={ShippingReturnsPage} />
       <Route path="/privacy-policy" component={PrivacyPolicyPage} />
       <Route path="/checkout" component={Checkout} />
+      <Route path="/payment/whitcomb-return" component={WhitcombReturn} />
       <Route path="/account" component={Account} />
       <Route path="/admin" component={AdminOrders} />
       <Route path="/admin/login" component={AdminLogin} />

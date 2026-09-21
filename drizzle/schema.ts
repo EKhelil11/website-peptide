@@ -35,6 +35,7 @@ export const orders = mysqlTable("orders", {
   id: int("id").autoincrement().primaryKey(),
   // Human-readable order ID e.g. LAP-000123
   orderNumber: varchar("orderNumber", { length: 32 }).unique(),
+  checkoutIdempotencyKey: varchar("checkoutIdempotencyKey", { length: 64 }).unique(),
   userId: int("userId").default(0).notNull(),
   customerId: int("customerId"),  // custom email/password customer (nullable for legacy orders)
   status: mysqlEnum("status", [
@@ -54,6 +55,15 @@ export const orders = mysqlTable("orders", {
   taxCents: int("taxCents").notNull().default(0),
   totalCents: int("totalCents").notNull().default(0),
   // Payment
+  paymentMethod: varchar("paymentMethod", { length: 32 }).default("zelle").notNull(),
+  paymentProvider: varchar("paymentProvider", { length: 32 }),
+  paymentProviderReference: varchar("paymentProviderReference", { length: 128 }).unique(),
+  paymentProviderCheckoutUrl: varchar("paymentProviderCheckoutUrl", { length: 500 }),
+  paymentProviderStatus: varchar("paymentProviderStatus", { length: 32 }),
+  paymentProviderAmountCents: int("paymentProviderAmountCents"),
+  paymentProviderPaidAt: bigint("paymentProviderPaidAt", { mode: "number" }),
+  paymentProviderLastCheckedAt: bigint("paymentProviderLastCheckedAt", { mode: "number" }),
+  paymentProviderCheckCount: int("paymentProviderCheckCount").default(0).notNull(),
   zellePhone: varchar("zellePhone", { length: 32 }).default("(310) 975-9289"),
   paymentConfirmedAt: bigint("paymentConfirmedAt", { mode: "number" }),
   paymentConfirmedBy: int("paymentConfirmedBy"), // admin user id
@@ -127,6 +137,20 @@ export const orderStatusHistory = mysqlTable("order_status_history", {
 });
 
 export type OrderStatusHistory = typeof orderStatusHistory.$inferSelect;
+
+// ─── Platform-managed scheduled jobs ─────────────────────────────────────────
+
+export const systemJobs = mysqlTable("system_jobs", {
+  id: int("id").autoincrement().primaryKey(),
+  name: varchar("name", { length: 128 }).notNull().unique(),
+  scheduleCronTaskUid: varchar("scheduleCronTaskUid", { length: 65 }).unique(),
+  leaseExpiresAt: bigint("leaseExpiresAt", { mode: "number" }),
+  lastRunAt: bigint("lastRunAt", { mode: "number" }),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type SystemJob = typeof systemJobs.$inferSelect;
 
 // ─── Customer Auth (separate from Manus OAuth users) ────────────────────────
 

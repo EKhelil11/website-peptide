@@ -233,12 +233,12 @@ export default function AdminOrders() {
             className="text-white/40 text-base tracking-wider"
             style={{ fontFamily: rajdhani }}
           >
-            Zelle: (310) 975-9289 · Mark paid after confirming Zelle deposit
+            Zelle deposits are confirmed manually · Whitcomb card payments confirm automatically
           </p>
         </div>
 
-        <div className="grid gap-3 sm:grid-cols-2 mb-8">
-          {[integrationStatus.data?.email, integrationStatus.data?.shipstation].filter(Boolean).map((integration) => (
+        <div className="grid gap-3 sm:grid-cols-3 mb-8">
+          {[integrationStatus.data?.email, integrationStatus.data?.shipstation, integrationStatus.data?.whitcomb].filter(Boolean).map((integration) => (
             <div
               key={integration!.message}
               className="rounded-xl px-4 py-3 text-sm"
@@ -435,6 +435,9 @@ export default function AdminOrders() {
                           {order.partnerCode}
                         </span>
                       )}
+                      <span className="mt-2 ml-2 inline-flex rounded-full border border-white/15 bg-white/[0.05] px-2.5 py-1 text-xs font-bold uppercase tracking-[0.12em] text-white/65" style={{ fontFamily: rajdhani }}>
+                        {order.paymentMethod === "whitcomb_card" ? "Whitcomb Card" : "Zelle"}
+                      </span>
                     </div>
 
                     {/* Customer */}
@@ -590,7 +593,7 @@ export default function AdminOrders() {
                       </div>
 
                       {/* Zelle Memo */}
-                      {order.status === "pending_payment" && (
+                      {order.status === "pending_payment" && order.paymentMethod === "zelle" && (
                         <div
                           className="rounded-lg px-4 py-4"
                           style={{
@@ -609,6 +612,20 @@ export default function AdminOrders() {
                             style={{ fontFamily: inter }}
                           >
                             Amount: <strong>${((order.totalCents ?? 0) / 100).toFixed(2)}</strong> · Memo: <strong>{order.orderNumber}</strong>
+                          </p>
+                        </div>
+                      )}
+
+                      {order.status === "pending_payment" && order.paymentMethod === "whitcomb_card" && (
+                        <div className="rounded-lg px-4 py-4" style={{ background: "rgba(36,95,193,0.08)", border: "1px solid rgba(36,95,193,0.32)" }}>
+                          <p className="mb-2 text-xs font-bold uppercase tracking-[0.2em] text-[#8EB5FF]" style={{ fontFamily: rajdhani }}>
+                            Whitcomb Card Payment
+                          </p>
+                          <p className="text-base text-white" style={{ fontFamily: inter }}>
+                            Amount: <strong>${((order.totalCents ?? 0) / 100).toFixed(2)}</strong> · Provider status: <strong>{order.paymentProviderStatus || "awaiting checkout"}</strong>
+                          </p>
+                          <p className="mt-2 text-sm leading-relaxed text-white/50" style={{ fontFamily: inter }}>
+                            This order changes to Paid only after server-to-server verification with Whitcomb. Manual confirmation is disabled.
                           </p>
                         </div>
                       )}
@@ -702,7 +719,7 @@ export default function AdminOrders() {
                       {/* Actions */}
                       <div className="flex flex-wrap gap-3 pt-1">
                         {/* Mark Paid */}
-                        {order.status === "pending_payment" && (
+                        {order.status === "pending_payment" && order.paymentMethod === "zelle" && (
                           <div
                             className="w-full space-y-3 rounded-xl p-4"
                             style={{

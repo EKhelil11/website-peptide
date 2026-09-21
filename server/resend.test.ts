@@ -1,7 +1,12 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { ENV } from "./_core/env";
 import {
+  __setPaymentEmailFetchForTests,
+  __setPaymentEmailRequestTimeoutForTests,
   __setResendClientFactoryForTests,
+  sendPaymentConfirmedEmail,
+  sendPaymentConfirmedEmailAbortable,
+  sendCustomerOrderConfirmation,
   sendNewOrderEmail,
   sendVerificationEmail,
 } from "./email";
@@ -14,6 +19,8 @@ afterEach(() => {
   ENV.resendApiKey = originalResendApiKey;
   ENV.liveEmailEnabled = originalLiveEmailEnabled;
   __setResendClientFactoryForTests();
+  __setPaymentEmailFetchForTests();
+  __setPaymentEmailRequestTimeoutForTests();
 });
 
 describe("Resend configuration state", () => {
@@ -75,6 +82,50 @@ describe("Resend configuration state", () => {
 
     expect(factory).toHaveBeenCalledTimes(1);
     expect(send).toHaveBeenCalledTimes(1);
+  });
+
+  it("aborts the payment-confirmation HTTP transport and uses an order-scoped idempotency key", async () => {
+    ENV.resendApiKey = "credential-present";
+    ENV.liveEmailEnabled = true;
+    const fetcher = vi.fn((_url: string | URL | Request, init?: RequestInit) => new Promise<Response>((_resolve, reject) => {
+      init?.signal?.addEventListener("abort", () => reject(new DOMException("Aborted", "AbortError")), { once: true });
+    }));
+    __setPaymentEmailFetchForTests(fetcher as typeof fetch);
+    const controller = new AbortController();
+    const pending = sendPaymentConfirmedEmailAbortable({
+      orderNumber: "LAP-130002",
+      customerName: "Controlled",
+      customerEmail: "controlled@example.com",
+      totalCents: 20140,
+    }, controller.signal);
+    controller.abort();
+
+    await expect(pending).rejects.toMatchObject({ name: "AbortError" });
+    expect(fetcher).toHaveBeenCalledWith("https://api.resend.com/emails", expect.objectContaining({
+      signal: controller.signal,
+      headers: expect.objectContaining({ "Idempotency-Key": "payment-confirmed-LAP-130002" }),
+    }));
+  });
+
+  it("bounds the Admin Zelle payment-confirmation path with a real abort signal", async () => {
+    ENV.resendApiKey = "credential-present";
+    ENV.liveEmailEnabled = true;
+    __setPaymentEmailRequestTimeoutForTests(5);
+    const fetcher = vi.fn((_url: string | URL | Request, init?: RequestInit) => new Promise<Response>((_resolve, reject) => {
+      init?.signal?.addEventListener("abort", () => reject(new DOMException("Aborted", "AbortError")), { once: true });
+    }));
+    __setPaymentEmailFetchForTests(fetcher as typeof fetch);
+
+    await expect(sendPaymentConfirmedEmail({
+      orderNumber: "LAP-130002",
+      customerName: "Controlled",
+      customerEmail: "controlled@example.com",
+      totalCents: 20140,
+    })).resolves.toBeUndefined();
+    expect(fetcher).toHaveBeenCalledWith(
+      "https://api.resend.com/emails",
+      expect.objectContaining({ signal: expect.any(AbortSignal) }),
+    );
   });
 
   it("sends exactly one specialized RECROOMLV Las Vegas gym owner alert", async () => {
@@ -147,5 +198,42 @@ describe("Resend configuration state", () => {
     expect(payload.html).toContain("New Order Received");
     expect(payload.html).not.toContain("RECROOMLV Partner Alert");
     expect(payload.html).not.toContain("Las Vegas Gym Order");
+  });
+
+  it("renders Whitcomb card emails without telling the owner or customer to pay by Zelle", async () => {
+    ENV.resendApiKey = "credential-present";
+    ENV.liveEmailEnabled = true;
+    const send = vi.fn().mockResolvedValue({ data: { id: "card-order-id" }, error: null });
+    __setResendClientFactoryForTests(() => ({ emails: { send } }) as never);
+    const params = {
+      orderNumber: "LAP-130002",
+      customerName: "Card Customer",
+      customerEmail: "card-preview@example.com",
+      shipAddress: "300 Research Way",
+      shipCity: "Los Angeles",
+      shipState: "CA",
+      shipZip: "90001",
+      items: [{ name: "Retatrutide (30 mg)", quantity: 1, unitPrice: 20_000 }],
+      subtotalCents: 20_000,
+      discountCents: 0,
+      partnerCode: null,
+      shippingCents: 700,
+      taxCents: 1_600,
+      totalCents: 22_300,
+      paymentMethod: "whitcomb_card" as const,
+      paymentUrl: "https://whitcombpayments.com/pay/?t=ws_test",
+    };
+
+    await sendNewOrderEmail(params);
+    await sendCustomerOrderConfirmation(params);
+
+    expect(send).toHaveBeenCalledTimes(2);
+    const ownerHtml = send.mock.calls[0][0].html;
+    const customerHtml = send.mock.calls[1][0].html;
+    expect(ownerHtml).toContain("Awaiting Whitcomb Card Payment");
+    expect(ownerHtml).not.toContain("Awaiting Zelle Payment");
+    expect(customerHtml).toContain("Continue to Secure Card Payment");
+    expect(customerHtml).toContain("whitcombpayments.com/pay/");
+    expect(customerHtml).not.toContain("Send your Zelle payment");
   });
 });

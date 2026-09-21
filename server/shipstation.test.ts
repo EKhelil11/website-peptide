@@ -1,9 +1,9 @@
-import { describe, expect, it } from "vitest";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { ENV } from "./_core/env";
 import { evaluateIntegrationStatus } from "./integrationStatus";
 import {
   __setShipStationFetchForTests,
+  __setShipStationRequestTimeoutForTests,
   buildSSOrderPayload,
   createOrUpdateSSOrder,
   deleteSSOrder,
@@ -19,6 +19,7 @@ afterEach(() => {
   ENV.shipstationApiSecret = originalShipstationApiSecret;
   ENV.liveShipstationEnabled = originalLiveShipstationEnabled;
   __setShipStationFetchForTests();
+  __setShipStationRequestTimeoutForTests();
 });
 
 function controlledPayload() {
@@ -117,6 +118,27 @@ describe("ShipStation configuration and payload", () => {
 
     expect(result.orderId).toBe(123);
     expect(fetcher).toHaveBeenCalledTimes(1);
+    expect(fetcher).toHaveBeenCalledWith(
+      "https://ssapi.shipstation.com/orders/createorder",
+      expect.objectContaining({ signal: expect.any(AbortSignal) }),
+    );
+  });
+
+  it("aborts a hanging ShipStation transport at the configured request deadline", async () => {
+    ENV.shipstationApiKey = "key";
+    ENV.shipstationApiSecret = "secret";
+    ENV.liveShipstationEnabled = true;
+    __setShipStationRequestTimeoutForTests(5);
+    const fetcher = vi.fn((_url: string | URL | Request, init?: RequestInit) => new Promise<Response>((_resolve, reject) => {
+      init?.signal?.addEventListener("abort", () => reject(new DOMException("Aborted", "AbortError")), { once: true });
+    }));
+    __setShipStationFetchForTests(fetcher as typeof fetch);
+
+    await expect(createOrUpdateSSOrder(controlledPayload())).rejects.toMatchObject({ name: "AbortError" });
+    expect(fetcher).toHaveBeenCalledWith(
+      "https://ssapi.shipstation.com/orders/createorder",
+      expect.objectContaining({ signal: expect.any(AbortSignal) }),
+    );
   });
 
   it("retrieves and soft-deletes an approved test order without requesting labels or postage", async () => {

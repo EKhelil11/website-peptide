@@ -14,10 +14,24 @@ type ResendClientFactory = (apiKey: string) => ResendClient;
 
 const defaultResendClientFactory: ResendClientFactory = apiKey => new Resend(apiKey);
 let resendClientFactory = defaultResendClientFactory;
+type PaymentEmailFetch = typeof globalThis.fetch;
+const defaultPaymentEmailFetch: PaymentEmailFetch = globalThis.fetch.bind(globalThis);
+let paymentEmailFetch = defaultPaymentEmailFetch;
+let paymentEmailRequestTimeoutMs = 8_000;
 
 export function __setResendClientFactoryForTests(factory?: ResendClientFactory) {
   if (ENV.isProduction) throw new Error("Resend test factory is unavailable in production");
   resendClientFactory = factory ?? defaultResendClientFactory;
+}
+
+export function __setPaymentEmailFetchForTests(fetcher?: PaymentEmailFetch) {
+  if (ENV.isProduction) throw new Error("Payment email test transport is unavailable in production");
+  paymentEmailFetch = fetcher ?? defaultPaymentEmailFetch;
+}
+
+export function __setPaymentEmailRequestTimeoutForTests(timeoutMs = 8_000) {
+  if (ENV.isProduction) throw new Error("Payment email timeout override is unavailable in production");
+  paymentEmailRequestTimeoutMs = timeoutMs;
 }
 
 function getResend(): ResendClient | null {
@@ -42,6 +56,8 @@ export interface NewOrderEmailParams {
   shippingCents: number;
   taxCents: number;
   totalCents: number;
+  paymentMethod?: "zelle" | "whitcomb_card";
+  paymentUrl?: string | null;
 }
 
 export async function sendNewOrderEmail(params: NewOrderEmailParams): Promise<void> {
@@ -52,6 +68,7 @@ export async function sendNewOrderEmail(params: NewOrderEmailParams): Promise<vo
   }
 
   const isRecroomlvOrder = params.partnerCode?.trim().toUpperCase() === "RECROOMLV";
+  const isCardPayment = params.paymentMethod === "whitcomb_card";
   const formattedDiscount = ((params.discountCents ?? 0) / 100).toFixed(2);
   const formattedTotal = (params.totalCents / 100).toFixed(2);
   const subject = isRecroomlvOrder
@@ -90,7 +107,7 @@ export async function sendNewOrderEmail(params: NewOrderEmailParams): Promise<vo
     <!-- Body -->
     <div style="padding:32px;">
       <h2 style="font-size:18px;color:#0f172a;margin:0 0 4px;">Order ${params.orderNumber}</h2>
-      <p style="color:#6b7280;font-size:13px;margin:0 0 24px;">Awaiting Zelle payment confirmation</p>
+      <p style="color:#6b7280;font-size:13px;margin:0 0 24px;">${isCardPayment ? "Awaiting verified Whitcomb card payment" : "Awaiting Zelle payment confirmation"}</p>
       ${isRecroomlvOrder ? `<div style="background:#eff6ff;border:1px solid #93c5fd;border-radius:8px;padding:14px 16px;margin-bottom:24px;color:#1e3a8a;">
         <p style="margin:0 0 6px;font-size:11px;font-weight:800;letter-spacing:1.4px;text-transform:uppercase;">RECROOMLV Partner Alert</p>
         <p style="margin:0 0 8px;font-size:17px;font-weight:700;">New Las Vegas gym client order</p>
@@ -156,13 +173,13 @@ export async function sendNewOrderEmail(params: NewOrderEmailParams): Promise<vo
         </tr>
       </table>
 
-      <!-- Zelle Reminder -->
-      <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:6px;padding:16px;margin-bottom:0;">
-        <p style="margin:0;font-size:13px;color:#166534;font-weight:600;">💚 Awaiting Zelle Payment</p>
-        <p style="margin:6px 0 0;font-size:13px;color:#166534;">
-          Customer should send <strong>$${(params.totalCents / 100).toFixed(2)}</strong> to <strong>(310) 975-9289</strong> with memo: <strong>${params.orderNumber}</strong>
-        </p>
-      </div>
+      ${isCardPayment ? `<div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:6px;padding:16px;margin-bottom:0;">
+        <p style="margin:0;font-size:13px;color:#1e40af;font-weight:600;">Awaiting Whitcomb Card Payment</p>
+        <p style="margin:6px 0 0;font-size:13px;color:#1e40af;">This order will be marked paid only after LA Elite Peptides verifies the payment directly with Whitcomb.</p>
+      </div>` : `<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:6px;padding:16px;margin-bottom:0;">
+        <p style="margin:0;font-size:13px;color:#166534;font-weight:600;">Awaiting Zelle Payment</p>
+        <p style="margin:6px 0 0;font-size:13px;color:#166534;">Customer should send <strong>$${(params.totalCents / 100).toFixed(2)}</strong> to <strong>(310) 975-9289</strong> with memo: <strong>${params.orderNumber}</strong></p>
+      </div>`}
     </div>
 
     <!-- Footer -->
@@ -193,15 +210,14 @@ export async function sendNewOrderEmail(params: NewOrderEmailParams): Promise<vo
   }
 }
 
-export async function sendPaymentConfirmedEmail(params: {
+export interface PaymentConfirmedEmailParams {
   orderNumber: string;
   customerName: string;
   customerEmail: string;
   totalCents: number;
-}): Promise<void> {
-  const resend = getResend();
-  if (!resend) return;
+}
 
+function buildPaymentConfirmedEmail(params: PaymentConfirmedEmailParams) {
   const html = `
 <!DOCTYPE html>
 <html>
@@ -227,17 +243,42 @@ export async function sendPaymentConfirmedEmail(params: {
 </body>
 </html>`;
 
+  return {
+    from: FROM_ADDRESS,
+    to: TO_ADDRESS,
+    subject: `✅ Payment Confirmed — ${params.orderNumber} ($${(params.totalCents / 100).toFixed(2)})`,
+    html,
+  };
+}
+
+export async function sendPaymentConfirmedEmail(params: PaymentConfirmedEmailParams): Promise<void> {
+  if (!isEmailConfigured() || !ENV.resendApiKey) return;
   try {
-    const { error } = await resend.emails.send({
-      from: FROM_ADDRESS,
-      to: TO_ADDRESS,
-      subject: `✅ Payment Confirmed — ${params.orderNumber} ($${(params.totalCents / 100).toFixed(2)})`,
-      html,
-    });
-    if (error) console.warn("[Email] Resend error sending payment confirmed email:", error);
-    else console.log(`[Email] Payment confirmed email sent for ${params.orderNumber}`);
-  } catch (err) {
-    console.warn("[Email] Failed to send payment confirmed email:", err);
+    await sendPaymentConfirmedEmailAbortable(params, AbortSignal.timeout(paymentEmailRequestTimeoutMs));
+    console.log(`[Email] Payment confirmed email sent for ${params.orderNumber}`);
+  } catch {
+    console.warn(`[Email] Failed to send payment confirmed email for ${params.orderNumber}.`);
+  }
+}
+
+export async function sendPaymentConfirmedEmailAbortable(
+  params: PaymentConfirmedEmailParams,
+  signal: AbortSignal,
+): Promise<void> {
+  if (!isEmailConfigured() || !ENV.resendApiKey) return;
+  const payload = buildPaymentConfirmedEmail(params);
+  const response = await paymentEmailFetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${ENV.resendApiKey}`,
+      "Content-Type": "application/json",
+      "Idempotency-Key": `payment-confirmed-${params.orderNumber}`,
+    },
+    body: JSON.stringify(payload),
+    signal,
+  });
+  if (!response.ok) {
+    throw new Error(`Payment confirmation email failed with status ${response.status}`);
   }
 }
 
@@ -249,6 +290,7 @@ export async function sendCustomerOrderConfirmation(params: NewOrderEmailParams)
     console.warn("[Email] RESEND_API_KEY not set — skipping customer confirmation email");
     return;
   }
+  const isCardPayment = params.paymentMethod === "whitcomb_card";
 
   const itemsHtml = params.items
     .map(
@@ -287,10 +329,12 @@ export async function sendCustomerOrderConfirmation(params: NewOrderEmailParams)
     <!-- Body -->
     <div style="padding:32px;">
 
-      <!-- Order Number + Zelle Instructions -->
+      <!-- Order Number + Payment Instructions -->
       <div style="background:#eff6ff;border:1px solid #bfdbfe;border-radius:6px;padding:20px;margin-bottom:28px;">
-        <h2 style="font-size:15px;color:#1e40af;margin:0 0 12px;text-transform:uppercase;letter-spacing:1px;">Next Step: Send Zelle Payment</h2>
-        <table style="width:100%;border-collapse:collapse;font-size:15px;">
+        <h2 style="font-size:15px;color:#1e40af;margin:0 0 12px;text-transform:uppercase;letter-spacing:1px;">${isCardPayment ? "Next Step: Secure Card Payment" : "Next Step: Send Zelle Payment"}</h2>
+        ${isCardPayment ? `<p style="margin:0 0 14px;font-size:14px;line-height:1.65;color:#374151;">Complete payment on Whitcomb Payments’ hosted page. Card details never pass through LA Elite Peptides.</p>
+        ${params.paymentUrl ? `<a href="${params.paymentUrl}" style="display:inline-block;background:#10295e;color:#ffffff;text-decoration:none;border-radius:8px;padding:13px 18px;font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;">Continue to Secure Card Payment</a>` : `<p style="margin:0;font-size:13px;line-height:1.65;color:#1e40af;font-weight:600;">Sign in to <a href="https://laelitepeps.com/account" style="color:#10295e;">My Account</a> and choose Resume Secure Card Payment.</p>`}
+        <p style="margin:12px 0 0;font-size:12px;color:#6b7280;">Your order is marked paid only after secure server verification with Whitcomb.</p>` : `<table style="width:100%;border-collapse:collapse;font-size:15px;">
           <tr>
             <td style="padding:4px 0;color:#374151;width:120px;">Send to:</td>
             <td style="padding:4px 0;font-weight:700;color:#0f172a;">(310) 975-9289</td>
@@ -304,7 +348,7 @@ export async function sendCustomerOrderConfirmation(params: NewOrderEmailParams)
             <td style="padding:4px 0;font-weight:700;color:#0f172a;font-family:monospace;font-size:16px;">${params.orderNumber}</td>
           </tr>
         </table>
-        <p style="margin:12px 0 0;font-size:12px;color:#6b7280;">Orders placed after 8 PM will be processed the next business day.</p>
+        <p style="margin:12px 0 0;font-size:12px;color:#6b7280;">Orders placed after 8 PM will be processed the next business day.</p>`}
       </div>
 
       <!-- Order Summary -->
@@ -354,11 +398,15 @@ export async function sendCustomerOrderConfirmation(params: NewOrderEmailParams)
       <!-- What Happens Next -->
       <div style="background:#f8fafc;border-radius:6px;padding:16px;font-size:13px;color:#374151;">
         <p style="margin:0 0 8px;font-weight:600;color:#0f172a;">What happens next:</p>
-        <ol style="margin:0;padding-left:20px;line-height:1.8;">
+        ${isCardPayment ? `<ol style="margin:0;padding-left:20px;line-height:1.8;">
+          <li>Complete payment on Whitcomb’s hosted payment page</li>
+          <li>We verify the payment server-to-server and begin processing your order</li>
+          <li>You’ll receive a shipping notification with tracking once dispatched</li>
+        </ol>` : `<ol style="margin:0;padding-left:20px;line-height:1.8;">
           <li>Send your Zelle payment to <strong>(310) 975-9289</strong> with memo <strong>${params.orderNumber}</strong></li>
           <li>We'll confirm your payment and begin processing your order</li>
           <li>You'll receive a shipping notification with tracking once dispatched</li>
-        </ol>
+        </ol>`}
       </div>
     </div>
 

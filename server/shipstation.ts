@@ -13,10 +13,16 @@ const SS_BASE = "https://ssapi.shipstation.com";
 type ShipStationFetch = typeof globalThis.fetch;
 const defaultShipStationFetch: ShipStationFetch = globalThis.fetch.bind(globalThis);
 let shipStationFetch = defaultShipStationFetch;
+let shipStationRequestTimeoutMs = 10_000;
 
 export function __setShipStationFetchForTests(fetcher?: ShipStationFetch) {
   if (ENV.isProduction) throw new Error("ShipStation test transport is unavailable in production");
   shipStationFetch = fetcher ?? defaultShipStationFetch;
+}
+
+export function __setShipStationRequestTimeoutForTests(timeoutMs = 10_000) {
+  if (ENV.isProduction) throw new Error("ShipStation timeout override is unavailable in production");
+  shipStationRequestTimeoutMs = timeoutMs;
 }
 
 function authHeader(): string {
@@ -41,6 +47,7 @@ async function ssRequest<T>(
       "Content-Type": "application/json",
     },
     body: body ? JSON.stringify(body) : undefined,
+    signal: AbortSignal.timeout(shipStationRequestTimeoutMs),
   });
 
   const text = await res.text();
@@ -197,6 +204,7 @@ export function buildSSOrderPayload(order: {
   shippingCents: number;
   taxCents: number;
   totalCents: number;
+  paymentMethod?: string;
   createdAt: Date;
   status: string;
   items: Array<{
@@ -247,8 +255,8 @@ export function buildSSOrderPayload(order: {
     taxAmount: order.taxCents / 100,
     shippingAmount: order.shippingCents / 100,
     internalNotes: order.partnerCode
-      ? `LA Elite Peptides order. Payment via Zelle. Partner code ${order.partnerCode} · Las Vegas gym · discount $${((order.discountCents ?? 0) / 100).toFixed(2)}.`
-      : `LA Elite Peptides order. Payment via Zelle.`,
+      ? `LA Elite Peptides order. Payment via ${order.paymentMethod === "whitcomb_card" ? "Whitcomb card" : "Zelle"}. Partner code ${order.partnerCode} · Las Vegas gym · discount $${((order.discountCents ?? 0) / 100).toFixed(2)}.`
+      : `LA Elite Peptides order. Payment via ${order.paymentMethod === "whitcomb_card" ? "Whitcomb card" : "Zelle"}.`,
     requestedShippingService: "USPS Priority Mail",
   };
 }

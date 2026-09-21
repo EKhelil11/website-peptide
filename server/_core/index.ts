@@ -10,6 +10,7 @@ import { registerStorageProxy } from "./storageProxy";
 import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
+import { reconcileWhitcombPaymentsHandler } from "../whitcombScheduled";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -41,6 +42,7 @@ async function startServer() {
   registerStorageProxy(app);
   registerOAuthRoutes(app);
   registerShipStationWebhook(app);
+  app.post("/api/scheduled/reconcile-whitcomb-payments", reconcileWhitcombPaymentsHandler);
   // tRPC API
   app.use(
     "/api/trpc",

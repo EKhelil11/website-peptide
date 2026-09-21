@@ -6,7 +6,7 @@ import { useLocation } from "wouter";
 import { useCustomerAuth } from "@/hooks/useCustomerAuth";
 import { trpc } from "@/lib/trpc";
 import { useCart } from "@/contexts/CartContext";
-import { ArrowLeft, CheckCircle, Copy, Check, ShoppingBag, Truck, Shield } from "lucide-react";
+import { ArrowLeft, CheckCircle, Copy, Check, CreditCard, Landmark, ShoppingBag, Truck, Shield } from "lucide-react";
 import { AUTH_LOGO_SIZE_CLASS, PRIMARY_LOGO_ALT, PRIMARY_LOGO_URL } from "@/lib/brandAssets";
 const ZELLE_PHONE = "(310) 975-9289";
 const SHIPPING_FLAT = 7.00;
@@ -63,6 +63,7 @@ export default function Checkout() {
   const integrationStatus = trpc.integrations.status.useQuery();
   const emailConfigured = integrationStatus.data?.email.configured ?? false;
   const fulfillmentConfigured = integrationStatus.data?.shipstation.configured ?? false;
+  const whitcombConfigured = integrationStatus.data?.whitcomb.configured ?? false;
   const [submitted, setSubmitted] = useState(false);
   const [orderNumber, setOrderNumber] = useState<string>("");
   const [orderTotal, setOrderTotal] = useState<number>(0);
@@ -76,6 +77,8 @@ export default function Checkout() {
   const [confirmedItems, setConfirmedItems] = useState(cart);
   const [partnerCodeDraft, setPartnerCodeDraft] = useState("");
   const [requestedPartnerCode, setRequestedPartnerCode] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState<"zelle" | "whitcomb_card">("zelle");
+  const [checkoutIdempotencyKey] = useState(() => crypto.randomUUID());
   const [copied, setCopied] = useState<"phone" | "amount" | "memo" | null>(null);
 
   const [form, setForm] = useState({
@@ -132,6 +135,15 @@ export default function Checkout() {
 
   const submitOrder = trpc.orders.submit.useMutation({
     onSuccess: (data) => {
+      if (data.paymentMethod === "whitcomb_card" && data.paymentUrl) {
+        window.location.assign(data.paymentUrl);
+        return;
+      }
+      if (data.paymentMethod === "whitcomb_card") {
+        clearCart();
+        setLocation("/account");
+        return;
+      }
       setOrderNumber(data.orderNumber ?? "");
       setOrderTotal((data.totalCents ?? 0) / 100);
       setOrderReceipt({
@@ -179,6 +191,8 @@ export default function Checkout() {
       items: cart,
       ...form,
       partnerCode: requestedPartnerCode || undefined,
+      paymentMethod,
+      checkoutIdempotencyKey,
     });
   };
 
@@ -464,7 +478,7 @@ export default function Checkout() {
                 Shipping Information
               </h2>
               <p className="text-[#4B5563] text-base sm:text-lg leading-relaxed" style={{ fontFamily: "'Inter', sans-serif" }}>
-                After submitting, you'll receive Zelle payment instructions with your exact total.
+                Choose Zelle or secure hosted card payment after entering your delivery details.
               </p>
             </div>
 
@@ -678,6 +692,53 @@ export default function Checkout() {
               />
             </div>
 
+            {/* Payment method */}
+            <fieldset>
+              <legend className="block mb-3 text-sm uppercase tracking-[0.13em]" style={PURCHASE_LABEL_STYLE}>
+                Payment Method
+              </legend>
+              <div className={`grid grid-cols-1 ${whitcombConfigured ? "sm:grid-cols-2" : ""} gap-3`}>
+                <button
+                  type="button"
+                  role="radio"
+                  aria-checked={paymentMethod === "zelle"}
+                  onClick={() => setPaymentMethod("zelle")}
+                  className="min-h-[116px] rounded-2xl p-4 text-left transition-all"
+                  style={{
+                    background: paymentMethod === "zelle" ? "rgba(23,74,155,0.08)" : "rgba(255,253,248,0.72)",
+                    border: `2px solid ${paymentMethod === "zelle" ? "rgba(23,74,155,0.55)" : "rgba(185,192,202,0.72)"}`,
+                  }}
+                >
+                  <span className="mb-3 flex items-center gap-2 text-[#10295E]" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 800 }}>
+                    <Landmark size={20} /> Zelle
+                  </span>
+                  <span className="block text-sm leading-relaxed text-[#4B5563]" style={{ fontFamily: "'Inter', sans-serif" }}>
+                    Place the order now, then send the exact total with your order number as the memo.
+                  </span>
+                </button>
+                {whitcombConfigured && (
+                  <button
+                    type="button"
+                    role="radio"
+                    aria-checked={paymentMethod === "whitcomb_card"}
+                    onClick={() => setPaymentMethod("whitcomb_card")}
+                    className="min-h-[116px] rounded-2xl p-4 text-left transition-all"
+                    style={{
+                      background: paymentMethod === "whitcomb_card" ? "rgba(23,74,155,0.08)" : "rgba(255,253,248,0.72)",
+                      border: `2px solid ${paymentMethod === "whitcomb_card" ? "rgba(23,74,155,0.55)" : "rgba(185,192,202,0.72)"}`,
+                    }}
+                  >
+                    <span className="mb-3 flex items-center gap-2 text-[#10295E]" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 800 }}>
+                      <CreditCard size={20} /> Credit or Debit Card
+                    </span>
+                    <span className="block text-sm leading-relaxed text-[#4B5563]" style={{ fontFamily: "'Inter', sans-serif" }}>
+                      Continue to Whitcomb Payments’ secure hosted page. Card details never pass through this site.
+                    </span>
+                  </button>
+                )}
+              </div>
+            </fieldset>
+
             {/* Error */}
             {submitOrder.error && (
               <div className="rounded-xl px-5 py-4 text-lg font-semibold" style={{ background: "oklch(0.4 0.2 25 / 20%)", border: "1px solid oklch(0.5 0.2 25 / 40%)", color: "oklch(0.8 0.15 25)", fontFamily: "'Rajdhani', sans-serif" }}>
@@ -698,11 +759,17 @@ export default function Checkout() {
               className="product-boutique-cta w-full py-5 rounded-xl text-lg sm:text-xl tracking-[0.14em] uppercase transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
               style={{ ...BOUTIQUE_BTN, fontWeight: 800 }}
             >
-              {submitOrder.isPending ? "Placing Order..." : `Place Order — $${total.toFixed(2)}`}
+              {submitOrder.isPending
+                ? paymentMethod === "whitcomb_card" ? "Opening Secure Payment..." : "Placing Order..."
+                : paymentMethod === "whitcomb_card"
+                  ? `Continue to Secure Card Payment — $${total.toFixed(2)}`
+                  : `Place Order — $${total.toFixed(2)}`}
             </button>
 
             <p className="text-center text-[#5F6977] text-sm sm:text-base" style={{ fontFamily: "'Inter', sans-serif" }}>
-              Zelle payment instructions will appear immediately after placing your order.
+              {paymentMethod === "whitcomb_card"
+                ? "You’ll leave this site briefly to pay on Whitcomb Payments’ secure hosted page."
+                : "Zelle payment instructions will appear immediately after placing your order."}
             </p>
           </form>
 
@@ -770,8 +837,14 @@ export default function Checkout() {
                 >
                   <ShoppingBag size={20} style={{ color: "oklch(0.76 0.02 250)", flexShrink: 0 }} />
                   <div>
-                    <p className="text-[#10295E] text-base uppercase tracking-[0.12em]" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}>Payment via Zelle</p>
-                    <p className="text-[#4B5563] text-sm leading-relaxed" style={{ fontFamily: "'Inter', sans-serif" }}>Send to {ZELLE_PHONE} after ordering. Any orders placed after 8 p.m. will be processed the next day.</p>
+                    <p className="text-[#10295E] text-base uppercase tracking-[0.12em]" style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 750 }}>
+                      {paymentMethod === "whitcomb_card" ? "Secure Hosted Card Payment" : "Payment via Zelle"}
+                    </p>
+                    <p className="text-[#4B5563] text-sm leading-relaxed" style={{ fontFamily: "'Inter', sans-serif" }}>
+                      {paymentMethod === "whitcomb_card"
+                        ? "Card entry happens on Whitcomb Payments. We confirm payment server-to-server before fulfillment."
+                        : `Send to ${ZELLE_PHONE} after ordering. Any orders placed after 8 p.m. will be processed the next day.`}
+                    </p>
                   </div>
                 </div>
                 <div

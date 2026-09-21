@@ -50,6 +50,20 @@
       "when": 1789679367480,
       "tag": "0006_set_order_sequence_130002",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "5",
+      "when": 1789929881096,
+      "tag": "0007_fearless_anita_blake",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "5",
+      "when": 1789932450686,
+      "tag": "0008_mushy_hitman",
+      "breakpoints": true
     }
   ]
 }

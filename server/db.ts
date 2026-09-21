@@ -1,8 +1,8 @@
-import { eq, desc, and, isNull } from "drizzle-orm";
+import { eq, desc, and, or, isNull, isNotNull, gt, lt, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import {
   InsertUser, users,
-  customers, orders, orderItems, orderNumberSequence, orderStatusHistory,
+  customers, orders, orderItems, orderNumberSequence, orderStatusHistory, systemJobs,
   InsertOrder, InsertOrderItem,
 } from "../drizzle/schema";
 import { ENV } from './_core/env';
@@ -118,17 +118,20 @@ export async function createOrder(
   if (!db) throw new Error("Database not available");
 
   return db.transaction(async tx => {
+    // Insert the order first so its unique checkout idempotency key wins before
+    // any customer-facing LAP sequence number is reserved.
+    const [result] = await tx.insert(orders).values({
+      ...orderData,
+      orderNumber: null,
+    });
+    const orderId = Number((result as { insertId: number }).insertId);
+
     const [sequenceResult] = await tx
       .insert(orderNumberSequence)
       .values({ createdAt: new Date() });
     const sequenceId = Number((sequenceResult as { insertId: number }).insertId);
     const orderNumber = generateOrderNumber(sequenceId);
-
-    const [result] = await tx.insert(orders).values({
-      ...orderData,
-      orderNumber,
-    });
-    const orderId = Number((result as { insertId: number }).insertId);
+    await tx.update(orders).set({ orderNumber }).where(eq(orders.id, orderId));
 
     if (items.length > 0) {
       const itemsWithOrderId = items.map(item => ({ ...item, orderId }));
@@ -192,6 +195,18 @@ export async function getOrderByNumber(orderNumber: string) {
   return { ...order, items };
 }
 
+export async function getOrderByCheckoutKey(customerId: number, checkoutIdempotencyKey: string) {
+  const db = await getDb();
+  if (!db) return null;
+  const [order] = await db.select().from(orders).where(and(
+    eq(orders.customerId, customerId),
+    eq(orders.checkoutIdempotencyKey, checkoutIdempotencyKey),
+  )).limit(1);
+  if (!order) return null;
+  const items = await db.select().from(orderItems).where(eq(orderItems.orderId, order.id));
+  return { ...order, items };
+}
+
 export async function getAllOrders() {
   const db = await getDb();
   if (!db) return [];
@@ -210,31 +225,243 @@ export async function getAllOrdersWithItems() {
   return results;
 }
 
+export async function attachWhitcombPaymentSession(
+  orderId: number,
+  reference: string,
+  checkoutUrl: string,
+  amountCents: number,
+): Promise<void> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const [existing] = await db.select({
+    reference: orders.paymentProviderReference,
+  }).from(orders).where(eq(orders.id, orderId)).limit(1);
+  if (existing?.reference && existing.reference !== reference) {
+    throw new Error("Whitcomb payment session reference conflict");
+  }
+  const [result] = await db.update(orders).set({
+    paymentProviderReference: reference,
+    paymentProviderCheckoutUrl: checkoutUrl,
+    paymentProviderStatus: "open",
+    paymentProviderAmountCents: amountCents,
+    paymentProviderLastCheckedAt: null,
+  }).where(and(
+    eq(orders.id, orderId),
+    eq(orders.paymentMethod, "whitcomb_card"),
+    eq(orders.status, "pending_payment"),
+    or(isNull(orders.paymentProviderReference), eq(orders.paymentProviderReference, reference)),
+  ));
+  if (Number((result as { affectedRows?: number }).affectedRows ?? 0) !== 1) {
+    const [current] = await db.select({
+      status: orders.status,
+      method: orders.paymentMethod,
+      reference: orders.paymentProviderReference,
+      checkoutUrl: orders.paymentProviderCheckoutUrl,
+    }).from(orders).where(eq(orders.id, orderId)).limit(1);
+    if (
+      current?.status === "pending_payment" &&
+      current.method === "whitcomb_card" &&
+      current.reference === reference &&
+      current.checkoutUrl === checkoutUrl
+    ) return;
+    throw new Error("Whitcomb payment session could not be attached");
+  }
+}
+
+export async function claimWhitcombPaymentPoll(
+  orderId: number,
+  reference: string,
+  claimedAt: number,
+  eligibleBefore: number,
+): Promise<boolean> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const [result] = await db.update(orders).set({
+    paymentProviderLastCheckedAt: claimedAt,
+    paymentProviderCheckCount: sql`${orders.paymentProviderCheckCount} + 1`,
+  }).where(and(
+    eq(orders.id, orderId),
+    eq(orders.status, "pending_payment"),
+    eq(orders.paymentMethod, "whitcomb_card"),
+    eq(orders.paymentProvider, "whitcomb"),
+    eq(orders.paymentProviderReference, reference),
+    or(isNull(orders.paymentProviderLastCheckedAt), lt(orders.paymentProviderLastCheckedAt, eligibleBefore)),
+  ));
+  return Number((result as { affectedRows?: number }).affectedRows ?? 0) === 1;
+}
+
+export async function recordWhitcombPaymentCheck(
+  orderId: number,
+  reference: string,
+  input: { status: string; amountCents?: number; paidAt?: number; checkedAt: number },
+): Promise<boolean> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const [result] = await db.update(orders).set({
+    paymentProviderStatus: input.status,
+    paymentProviderAmountCents: input.amountCents,
+    ...(input.paidAt ? { paymentProviderPaidAt: input.paidAt } : {}),
+  }).where(and(
+    eq(orders.id, orderId),
+    eq(orders.status, "pending_payment"),
+    eq(orders.paymentMethod, "whitcomb_card"),
+    eq(orders.paymentProviderReference, reference),
+    eq(orders.paymentProviderLastCheckedAt, input.checkedAt),
+  ));
+  return Number((result as { affectedRows?: number }).affectedRows ?? 0) === 1;
+}
+
+export async function markOrderPaidByWhitcomb(
+  orderId: number,
+  input: {
+    reference: string;
+    amountCents: number;
+    paidAt: number;
+    checkedAt: number;
+  },
+): Promise<boolean> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+
+  return db.transaction(async tx => {
+    const [result] = await tx.update(orders).set({
+      status: "paid",
+      paymentProviderStatus: "paid",
+      paymentProviderAmountCents: input.amountCents,
+      paymentProviderPaidAt: input.paidAt,
+      paymentConfirmedAt: input.paidAt,
+      paymentConfirmedBy: null,
+      paymentNotes: `Whitcomb card payment confirmed (${input.reference})`,
+    }).where(and(
+      eq(orders.id, orderId),
+      eq(orders.status, "pending_payment"),
+      eq(orders.paymentMethod, "whitcomb_card"),
+      eq(orders.paymentProvider, "whitcomb"),
+      eq(orders.paymentProviderReference, input.reference),
+      eq(orders.totalCents, input.amountCents),
+      eq(orders.paymentProviderLastCheckedAt, input.checkedAt),
+      eq(orders.paymentProviderStatus, "paid"),
+    ));
+    if (Number((result as { affectedRows?: number }).affectedRows ?? 0) === 0) return false;
+
+    await tx.insert(orderStatusHistory).values({
+      orderId,
+      fromStatus: "pending_payment",
+      toStatus: "paid",
+      changedBy: "whitcomb",
+      note: `Whitcomb card payment confirmed (${input.reference})`,
+      createdAt: input.paidAt,
+    });
+    return true;
+  });
+}
+
+export async function markOrderCancelledByWhitcomb(
+  orderId: number,
+  reference: string,
+  checkedAt: number,
+): Promise<boolean> {
+  const db = await getDb();
+  if (!db) throw new Error("Database not available");
+  const changedAt = Date.now();
+  return db.transaction(async tx => {
+    const [result] = await tx.update(orders).set({
+      status: "cancelled",
+      paymentProviderStatus: "cancelled",
+    }).where(and(
+      eq(orders.id, orderId),
+      eq(orders.status, "pending_payment"),
+      eq(orders.paymentMethod, "whitcomb_card"),
+      eq(orders.paymentProvider, "whitcomb"),
+      eq(orders.paymentProviderReference, reference),
+      eq(orders.paymentProviderLastCheckedAt, checkedAt),
+      eq(orders.paymentProviderStatus, "cancelled"),
+    ));
+    if (Number((result as { affectedRows?: number }).affectedRows ?? 0) !== 1) return false;
+    await tx.insert(orderStatusHistory).values({
+      orderId,
+      fromStatus: "pending_payment",
+      toStatus: "cancelled",
+      changedBy: "whitcomb",
+      note: "Whitcomb hosted card payment cancelled",
+      createdAt: changedAt,
+    });
+    return true;
+  });
+}
+
+export async function getPendingWhitcombOrders(limit = 5, lastCheckedBefore = Date.now() - 5 * 60 * 1000) {
+  const db = await getDb();
+  if (!db) return [];
+  const cutoff = new Date(Date.now() - 24 * 60 * 60 * 1000);
+  return db.select().from(orders).where(and(
+    eq(orders.status, "pending_payment"),
+    eq(orders.paymentMethod, "whitcomb_card"),
+    eq(orders.paymentProvider, "whitcomb"),
+    isNotNull(orders.paymentProviderReference),
+    gt(orders.createdAt, cutoff),
+    or(isNull(orders.paymentProviderLastCheckedAt), lt(orders.paymentProviderLastCheckedAt, lastCheckedBefore)),
+  )).orderBy(desc(orders.createdAt)).limit(limit);
+}
+
+export async function getSystemJobByTaskUid(taskUid: string) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const [job] = await db.select().from(systemJobs)
+    .where(eq(systemJobs.scheduleCronTaskUid, taskUid)).limit(1);
+  return job;
+}
+
+export async function claimSystemJobLease(taskUid: string, now: number, leaseMs: number) {
+  const db = await getDb();
+  if (!db) return false;
+  const [result] = await db.update(systemJobs).set({
+    leaseExpiresAt: now + leaseMs,
+    lastRunAt: now,
+  }).where(and(
+    eq(systemJobs.scheduleCronTaskUid, taskUid),
+    or(isNull(systemJobs.leaseExpiresAt), lt(systemJobs.leaseExpiresAt, now)),
+  ));
+  return Number((result as { affectedRows?: number }).affectedRows ?? 0) === 1;
+}
+
+export async function releaseSystemJobLease(taskUid: string) {
+  const db = await getDb();
+  if (!db) return;
+  await db.update(systemJobs).set({ leaseExpiresAt: null })
+    .where(eq(systemJobs.scheduleCronTaskUid, taskUid));
+}
+
 export async function markOrderPaid(
   orderId: number,
   adminUserId: number,
   paymentNotes?: string
-): Promise<void> {
+): Promise<boolean> {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
+  const confirmedAt = Date.now();
+  return db.transaction(async tx => {
+    const [result] = await tx.update(orders).set({
+      status: "paid",
+      paymentConfirmedAt: confirmedAt,
+      paymentConfirmedBy: adminUserId,
+      ...(paymentNotes ? { paymentNotes } : {}),
+    }).where(and(
+      eq(orders.id, orderId),
+      eq(orders.status, "pending_payment"),
+      eq(orders.paymentMethod, "zelle"),
+    ));
+    if (Number((result as { affectedRows?: number }).affectedRows ?? 0) !== 1) return false;
 
-  const [existing] = await db.select().from(orders).where(eq(orders.id, orderId)).limit(1);
-  if (!existing) throw new Error("Order not found");
-
-  await db.update(orders).set({
-    status: "paid",
-    paymentConfirmedAt: Date.now(),
-    paymentConfirmedBy: adminUserId,
-    ...(paymentNotes ? { paymentNotes } : {}),
-  }).where(eq(orders.id, orderId));
-
-  await db.insert(orderStatusHistory).values({
-    orderId,
-    fromStatus: existing.status,
-    toStatus: "paid",
-    changedBy: String(adminUserId),
-    note: paymentNotes || "Zelle payment confirmed by admin",
-    createdAt: Date.now(),
+    await tx.insert(orderStatusHistory).values({
+      orderId,
+      fromStatus: "pending_payment",
+      toStatus: "paid",
+      changedBy: String(adminUserId),
+      note: paymentNotes || "Zelle payment confirmed by admin",
+      createdAt: confirmedAt,
+    });
+    return true;
   });
 }
 

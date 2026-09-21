@@ -14,6 +14,8 @@ export const ENV = {
   resendApiKey: process.env.RESEND_API_KEY ?? "",
   shipstationApiKey: process.env.SHIPSTATION_API_KEY ?? "",
   shipstationApiSecret: process.env.SHIPSTATION_API_SECRET ?? "",
+  whitcombProcessNowKey: process.env.WHITCOMB_PROCESS_NOW_KEY ?? "",
   liveEmailEnabled: parseBooleanEnv(process.env.ENABLE_LIVE_EMAIL),
   liveShipstationEnabled: parseBooleanEnv(process.env.ENABLE_LIVE_SHIPSTATION),
+  liveWhitcombEnabled: parseBooleanEnv(process.env.ENABLE_LIVE_WHITCOMB),
 };

@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useLocation } from "wouter";
 import { useCustomerAuth } from "@/hooks/useCustomerAuth";
 import { trpc } from "@/lib/trpc";
-import { ShoppingBag, Package, Clock, CheckCircle, Truck, XCircle, ArrowLeft, LogOut } from "lucide-react";
+import { ShoppingBag, Package, Clock, CheckCircle, CreditCard, Truck, XCircle, ArrowLeft, LogOut } from "lucide-react";
 import { PRIMARY_LOGO_ALT, PRIMARY_LOGO_URL, UTILITY_LOGO_SIZE_CLASS } from "@/lib/brandAssets";
 
 const STATUS_CONFIG: Record<string, { label: string; icon: any; color: string }> = {
@@ -42,6 +42,12 @@ export default function Account() {
 
   const ordersQuery = trpc.orders.myOrders.useQuery(undefined, {
     enabled: !!customer,
+  });
+  const resumeCardPayment = trpc.orders.resumeWhitcombPayment.useMutation({
+    onSuccess: data => {
+      if (data.url) window.location.assign(data.url);
+      else ordersQuery.refetch();
+    },
   });
 
   if (isLoading) {
@@ -255,6 +261,13 @@ export default function Account() {
                             {order.partnerCode}
                           </span>
                         )}
+                        <span
+                          className="flex min-h-9 items-center gap-1.5 rounded-full border border-[#174A9B]/20 bg-white/50 px-3 py-1 text-sm uppercase tracking-[0.1em] text-[#10295E]"
+                          style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 800 }}
+                        >
+                          {order.paymentMethod === "whitcomb_card" ? <CreditCard size={12} /> : null}
+                          {order.paymentMethod === "whitcomb_card" ? "Card" : "Zelle"}
+                        </span>
   
                       </div>
                     </div>
@@ -277,6 +290,32 @@ export default function Account() {
                       >
                         <Truck size={12} />
                         Tracking: <strong>{order.trackingNumber}</strong>
+                      </div>
+                    )}
+
+                    {order.status === "pending_payment" && order.paymentMethod === "whitcomb_card" && (
+                      <div className="mb-3 rounded-xl border border-[#174A9B]/25 bg-[#174A9B]/[0.06] p-4">
+                        <p className="text-xl text-[#10295E]" style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650 }}>
+                          {order.paymentProviderStatus === "cancelled" ? "Card payment cancelled" : "Card payment awaiting confirmation"}
+                        </p>
+                        <p className="mt-1 text-sm leading-relaxed text-[#4B5563]" style={{ fontFamily: "'Inter', sans-serif" }}>
+                          {order.paymentProviderStatus === "cancelled"
+                            ? "No completed card payment was confirmed. Contact support to choose another payment option."
+                            : "Complete payment on Whitcomb’s hosted page. This order is marked paid only after server verification."}
+                        </p>
+                        {order.paymentProviderStatus !== "cancelled" && (
+                          <button
+                            onClick={() => resumeCardPayment.mutate({ orderId: order.id })}
+                            disabled={resumeCardPayment.isPending}
+                            className="mt-3 min-h-11 w-full rounded-xl bg-[#10295E] px-4 text-sm uppercase tracking-[0.12em] text-white disabled:opacity-50 sm:w-auto"
+                            style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 800 }}
+                          >
+                            {resumeCardPayment.isPending ? "Checking Payment..." : "Resume Secure Card Payment"}
+                          </button>
+                        )}
+                        {resumeCardPayment.error && (
+                          <p className="mt-2 text-sm font-semibold text-[#A13939]" style={{ fontFamily: "'Inter', sans-serif" }}>{resumeCardPayment.error.message}</p>
+                        )}
                       </div>
                     )}
 
