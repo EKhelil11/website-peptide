@@ -400,6 +400,14 @@
 - [x] Record the owner’s explicit September 20, 2026 approval to publish the Whitcomb card-payment release with live card checkout remaining disabled.
 - [x] Re-run TypeScript, the complete credential-safe test suite, production build, payment source audit, and diff-integrity gate immediately before publication.
 - [x] Reconfirm historical orders, zero Whitcomb orders, zero scheduled jobs, next order `LAP-130002`, sanitized integration status, and disabled live-card gate before publication.
-- [ ] Save exactly one checkpoint to publish the approved dormant Whitcomb integration; do not enable live checkout, create a schedule, payment session, charge, email, ShipStation order, or label.
-- [ ] Verify the apex, `www`, and Manus domains serve the new release; verify the production callback route, existing storefront invariants, sanitized public status, runtime logs, and unchanged database state.
-- [ ] Record the exact published version and leave reconciliation scheduling, live checkout enablement, real charges, and refunds/voids behind their separate approval gates.
+- [x] Save exactly one checkpoint `0af5679e` and activate it through the explicit Website Canvas **Publish latest version** control; do not enable live checkout, create a schedule, payment session, charge, email, ShipStation order, or label.
+- [x] Verify the apex, `www`, and Manus domains serve the new release; verify the production callback route, existing storefront invariants, sanitized public status, healthy runtime, all 16 COA PDFs, and unchanged database state.
+- [x] Record published version `0af5679e` and leave reconciliation scheduling, live checkout enablement, real charges, and refunds/voids behind their separate approval gates.
+
+- [x] Record the owner’s explicit September 21, 2026 approval to enable public Whitcomb hosted card checkout alongside Zelle; this does not authorize reconciliation scheduling, a real order, payment session, card charge, email, fulfillment action, refund, void, or provider cancellation.
+- [x] Enable only the server-side `ENABLE_LIVE_WHITCOMB` gate while preserving all code, pricing, RECROOMLV discount, tax, shipping, historical orders, order numbering, Zelle, email, ShipStation, domains, and manual auto-publish setting.
+- [x] Confirm Whitcomb is active/armed through a signed non-charging server check without creating a hosted checkout session.
+- [x] Re-run TypeScript, all 189 credential-safe tests (five live/credential tests intentionally skipped), production build, payment source audit, and diff integrity with no provider or commerce mutation.
+- [ ] Save one live-enablement checkpoint and explicitly publish its latest version through Website Canvas; do not create a reconciliation schedule.
+- [ ] Verify all three domains serve the enabled release, sanitized public status reports Whitcomb configured, public checkout renders both Zelle and Credit or Debit Card without placing an order, and database/order sequence remain unchanged.
+- [ ] Record the enabled release while leaving reconciliation scheduling, any real charge, refund, void, and provider cancellation behind separate approval gates.
