@@ -450,7 +450,23 @@
 
 - [x] Record the owner’s explicit instruction: **Approve and publish Admin Cancel Order.**
 - [x] Re-run the complete release gate and reconfirm no real order has been cancelled, the exact next order remains `LAP-130003`, and the five-minute Whitcomb Heartbeat remains healthy.
-- [ ] Save exactly one checkpoint containing the guarded Admin cancellation control, atomic server transition, regression tests, private validation report, and owner records.
+- [x] Save exactly one checkpoint `d9dde257` containing the guarded Admin cancellation control, atomic server transition, regression tests, private validation report, and owner records.
+- [x] Publish checkpoint `d9dde257` manually through Website Canvas with auto-publish unchanged.
+- [x] Verify all public domains serve the release, the Admin cancellation dialog renders correctly at desktop and mobile widths without issuing a mutation, and protected Whitcomb/paid/shipped orders remain guarded.
+- [x] Reconfirm the database, provider records, ShipStation state, Heartbeat, and exact order counter remain unchanged; record and deliver published version `d9dde257`.
+
+- [x] Make a cancellation reason explicitly required before an Admin can confirm manual cancellation, with clear helper text and validation that whitespace-only input is rejected.
+- [x] Store the normalized Admin-entered reason in immutable order-status history and append a concise cancellation audit line to Admin Notes without overwriting existing notes.
+- [x] Keep manual cancellation restricted to unpaid pending Zelle orders; preserve provider-controlled Whitcomb, paid, shipped, and already-cancelled protections and all separate refund/void gates.
+- [x] Add unmistakable premium status badges for `Pending Payment` and `Cancelled` in order cards and summary/filter surfaces, using distinct icons, contrast, and accessible text rather than color alone.
+- [x] Ensure cancelled orders clearly show who cancelled them, the recorded reason, and when the status changed while pending orders retain payment-method-specific guidance.
+- [x] Add server/UI regression coverage for required reason validation, normalized persistence, immutable history, preserved Admin Notes, status badge copy, and protected order states.
+- [x] Validate privately at desktop, 375 px, and 320 px with every real mutation blocked; run TypeScript, all 198 credential-safe tests (five live/credential tests intentionally skipped), production build, payment source audit, diff integrity, runtime checks, and read-only database verification.
+- [x] Present the validated private refinement for owner review; do not save a checkpoint or publish until separately approved.
+
+- [x] Record the owner’s explicit instruction: **Approve and publish Admin cancellation reasons and status badges.**
+- [x] Re-run the complete release gate and reconfirm zero cancelled production orders, exact next number `LAP-130003`, live Whitcomb protections, and the enabled five-minute Heartbeat.
+- [ ] Save exactly one checkpoint containing the required reason contract, immutable history/Admin Notes audit, enhanced Pending Payment and Cancelled badges, tests, and validation records.
 - [ ] Publish the latest checkpoint manually through Website Canvas with auto-publish unchanged.
-- [ ] Verify all public domains serve the release, the Admin cancellation dialog renders correctly at desktop and mobile widths without issuing a mutation, and protected Whitcomb/paid/shipped orders remain guarded.
-- [ ] Reconfirm the database, provider records, ShipStation state, Heartbeat, and exact order counter remain unchanged; record and deliver the published version.
+- [ ] Verify all public domains serve the release; validate the live required-reason dialog and Pending/Cancelled visual states at desktop, 375 px, and 320 px with all mutations blocked.
+- [ ] Reconfirm no order, payment, refund, void, provider cancellation, email, notification, ShipStation order, label, schedule, or exact-counter change resulted from publication; record and deliver the published version.

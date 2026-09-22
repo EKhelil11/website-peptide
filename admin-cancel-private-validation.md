@@ -1,7 +1,7 @@
-# Admin Cancel Order — Private Validation Report
+# Admin Cancel Order — Release Verification Report
 
-**Status:** Owner approved for publication; release in progress  
-**Pre-release public checkpoint:** `e142242f`  
+**Status:** Published and live-verified
+**Current public checkpoint:** `d9dde257`
 **Validation date:** September 21, 2026
 
 ## Outcome
@@ -54,3 +54,13 @@ The owner supplied the required explicit instruction on September 21, 2026:
 > **Approve and publish Admin Cancel Order.**
 
 The complete prepublication gate passed again with **197 credential-safe tests** and five intentional live/credential skips. The approved checkpoint and live verification are recorded in the release closeout.
+
+## Live visual verification
+
+After publication, a mutation-blocked audit against the public custom domain reproduced the approved Admin experience at 1440 px, 375 px, and 320 px with no horizontal overflow and zero mutation requests. The 375-pixel dialog remained opaque and fully reachable, with both **Keep Order** and **Yes, Cancel Order** visible. The published Whitcomb card order view retained provider-controlled status messaging and exposed zero manual Cancel Order buttons.
+
+## Publication closeout
+
+Checkpoint `d9dde257` was published manually through Website Canvas with auto-publish left off. The apex, `www`, and Manus domains served matching live assets (`index-BlMcdbmd.js` and `index-CeXoiAbl.css`). The published Admin chunk `AdminOrders-Cp_jKKpk.js` contains both the Cancel Order interface and the `adminCancelOrder` mutation contract. Shop, product, COA, Admin login, and Admin Orders routes returned HTTP 200, and the public integration-status response remained sanitized.
+
+The production database still contains the same four orders and **zero cancellation history rows**. Paid `LAP-160002`, open provider-controlled `LAP-130002`, shipped `LAP-130001`, and pending Zelle `LAP-100001` were unchanged. The exact counter remains `130002`, so the next committed order remains `LAP-130003`. The five-minute Whitcomb Heartbeat remains enabled; its five latest runs completed successfully with HTTP 200 and zero errors.

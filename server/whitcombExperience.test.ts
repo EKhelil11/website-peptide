@@ -58,11 +58,27 @@ describe("Whitcomb hosted-card experience", () => {
     expect(admin).toContain("Cancel Order");
     expect(admin).toContain("Yes, Cancel Order");
     expect(admin).toContain("It does not send a refund");
+    expect(admin).toContain("Cancellation reason");
+    expect(admin).toContain("Required for the permanent cancellation audit history and Admin Notes.");
+    expect(admin).toContain("cancelReasonIsValid");
+    expect(admin).not.toContain("Internal cancellation reason <span className=\"font-normal text-white/40\">(optional)</span>");
+    expect(admin).toContain("Order status: ${statusCfg.label}");
+    expect(admin).toContain("Cancelled Order");
+    expect(admin).toContain("cancellationActorLabel");
+    expect(admin).toContain("cancellationReasonLabel");
+    expect(admin).toContain("stats?.cancelledCount");
+    expect(admin).toContain("AlertTriangle");
+    expect(admin).toContain("XCircle");
     expect(router).toContain("cannot be marked paid manually");
     expect(router).toContain("adminCancelOrder");
     expect(router).toContain("Whitcomb card orders are provider-controlled");
+    expect(router).toContain('min(3, "Enter a cancellation reason of at least 3 characters.")');
+    expect(router).toContain("Manual Admin cancellation — Reason:");
     expect(db).toContain('eq(orders.totalCents, input.amountCents)');
     expect(db).toContain('note = "Order cancelled"');
+    expect(db).toContain("historyByOrder");
+    expect(db).toContain("CONCAT_WS");
+    expect(db).toContain("cancelledCount");
   });
 
   it("authenticates scheduled reconciliation by platform task UID and never by request payload", () => {

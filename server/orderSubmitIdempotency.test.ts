@@ -198,23 +198,34 @@ describe("checkout submission idempotency", () => {
 
     const result = await orderRouter.createCaller(createAdminContext()).adminCancelOrder({
       orderId: 41,
-      reason: "Duplicate test order",
+      reason: "  Duplicate test order  ",
     });
 
     expect(result).toEqual({ success: true, orderNumber: "LAP-130002" });
     expect(mocks.cancelOrder).toHaveBeenCalledWith(
       41,
       "admin:9",
-      "Order cancelled by admin: Duplicate test order",
+      "Manual Admin cancellation — Reason: Duplicate test order",
+      expect.stringMatching(/^\[Cancelled .* by admin 9\] Duplicate test order$/),
     );
     expect(mocks.notifyOwner).not.toHaveBeenCalled();
     expect(mocks.sendNewOrderEmail).not.toHaveBeenCalled();
   });
 
+  it("requires a non-whitespace Admin cancellation reason", async () => {
+    await expect(orderRouter.createCaller(createAdminContext()).adminCancelOrder({
+      orderId: 41,
+      reason: "   ",
+    })).rejects.toMatchObject({ code: "BAD_REQUEST" });
+
+    expect(mocks.getOrderWithItems).not.toHaveBeenCalled();
+    expect(mocks.cancelOrder).not.toHaveBeenCalled();
+  });
+
   it("blocks Admin cancellation of a Whitcomb card order", async () => {
     mocks.getOrderWithItems.mockResolvedValueOnce(existingOrder);
 
-    await expect(orderRouter.createCaller(createAdminContext()).adminCancelOrder({ orderId: 41 }))
+    await expect(orderRouter.createCaller(createAdminContext()).adminCancelOrder({ orderId: 41, reason: "Duplicate test order" }))
       .rejects.toMatchObject({ code: "BAD_REQUEST" });
     expect(mocks.cancelOrder).not.toHaveBeenCalled();
   });
@@ -227,7 +238,7 @@ describe("checkout submission idempotency", () => {
       paymentProviderCheckoutUrl: null,
     });
 
-    await expect(orderRouter.createCaller(createAdminContext()).adminCancelOrder({ orderId: 41 }))
+    await expect(orderRouter.createCaller(createAdminContext()).adminCancelOrder({ orderId: 41, reason: "Customer requested cancellation" }))
       .rejects.toMatchObject({ code: "CONFLICT" });
     expect(mocks.cancelOrder).not.toHaveBeenCalled();
   });
@@ -240,7 +251,7 @@ describe("checkout submission idempotency", () => {
     });
     mocks.cancelOrder.mockResolvedValueOnce(false);
 
-    await expect(orderRouter.createCaller(createAdminContext()).adminCancelOrder({ orderId: 41 }))
+    await expect(orderRouter.createCaller(createAdminContext()).adminCancelOrder({ orderId: 41, reason: "Duplicate test order" }))
       .rejects.toMatchObject({ code: "CONFLICT" });
     expect(mocks.cancelOrder).toHaveBeenCalledTimes(1);
   });

@@ -452,7 +452,7 @@ export const orderRouter = router({
   adminCancelOrder: adminProcedure
     .input(z.object({
       orderId: z.number().int().positive(),
-      reason: z.string().trim().max(500).optional(),
+      reason: z.string().trim().min(3, "Enter a cancellation reason of at least 3 characters.").max(500),
     }))
     .mutation(async ({ ctx, input }) => {
       const order = await getOrderWithItems(input.orderId);
@@ -470,11 +470,13 @@ export const orderRouter = router({
         });
       }
 
-      const reason = input.reason?.trim();
+      const reason = input.reason;
+      const changedAt = new Date().toISOString();
       const transitioned = await cancelOrder(
         input.orderId,
         `admin:${ctx.user.id}`,
-        reason ? `Order cancelled by admin: ${reason}` : "Order cancelled by admin",
+        `Manual Admin cancellation — Reason: ${reason}`,
+        `[Cancelled ${changedAt} by admin ${ctx.user.id}] ${reason}`,
       );
       if (!transitioned) {
         throw new TRPCError({

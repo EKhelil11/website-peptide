@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useAuth } from "@/_core/hooks/useAuth";
 import { trpc } from "@/lib/trpc";
 import { useLocation } from "wouter";
-import { Package, CheckCircle, Truck, Clock, DollarSign, ArrowLeft, RefreshCw, ChevronDown, ChevronUp, Search, Ban } from "lucide-react";
+import { Package, CheckCircle, Truck, Clock, DollarSign, ArrowLeft, RefreshCw, ChevronDown, ChevronUp, Search, Ban, AlertTriangle, XCircle, type LucideIcon } from "lucide-react";
 import { toast } from "sonner";
 import { PRIMARY_LOGO_ALT, PRIMARY_LOGO_URL, UTILITY_LOGO_SIZE_CLASS } from "@/lib/brandAssets";
 import {
@@ -19,43 +19,70 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 
-// All status colors use cyan/blue palette — no pink
-const STATUS_CONFIG: Record<string, { label: string; color: string; bg: string; border: string }> = {
+type StatusConfig = {
+  label: string;
+  shortLabel: string;
+  color: string;
+  bg: string;
+  border: string;
+  shadow: string;
+  icon: LucideIcon;
+};
+
+const STATUS_CONFIG: Record<string, StatusConfig> = {
   pending_payment: {
     label: "Pending Payment",
-    color: "#B9C0CA",
-    bg: "rgba(255,184,0,0.08)",
-    border: "rgba(255,184,0,0.3)",
+    shortLabel: "Pending",
+    color: "#FFD36A",
+    bg: "linear-gradient(135deg, rgba(255,184,0,0.18), rgba(255,184,0,0.07))",
+    border: "rgba(255,199,71,0.52)",
+    shadow: "0 0 0 1px rgba(255,184,0,0.08), 0 8px 24px rgba(255,184,0,0.08)",
+    icon: AlertTriangle,
   },
   paid: {
     label: "Paid",
+    shortLabel: "Paid",
     color: "#00E5A0",
     bg: "rgba(0,229,160,0.08)",
     border: "rgba(0,229,160,0.3)",
+    shadow: "none",
+    icon: CheckCircle,
   },
   processing: {
     label: "Processing",
+    shortLabel: "Processing",
     color: "#B9C0CA",
     bg: "rgba(185,192,202,0.08)",
     border: "rgba(185,192,202,0.3)",
+    shadow: "none",
+    icon: Clock,
   },
   shipped: {
     label: "Shipped",
+    shortLabel: "Shipped",
     color: "#B9C0CA",
     bg: "rgba(185,192,202,0.08)",
     border: "rgba(185,192,202,0.3)",
+    shadow: "none",
+    icon: Truck,
   },
   delivered: {
     label: "Delivered",
+    shortLabel: "Delivered",
     color: "#00E5A0",
     bg: "rgba(0,229,160,0.08)",
     border: "rgba(0,229,160,0.3)",
+    shadow: "none",
+    icon: CheckCircle,
   },
   cancelled: {
     label: "Cancelled",
-    color: "#FF4D4D",
-    bg: "rgba(255,77,77,0.08)",
-    border: "rgba(255,77,77,0.3)",
+    shortLabel: "Cancelled",
+    color: "#FF9B9B",
+    bg: "linear-gradient(135deg, rgba(181,45,54,0.24), rgba(255,77,77,0.08))",
+    border: "rgba(255,107,107,0.58)",
+    shadow: "0 0 0 1px rgba(255,77,77,0.08), 0 8px 24px rgba(181,45,54,0.12)",
+    icon: XCircle,
   },
 };
 
@@ -64,6 +91,22 @@ type FilterTab = "all" | "pending_payment" | "paid" | "shipped" | "cancelled";
 const bebasNeu = "'Cormorant Garamond', serif";
 const rajdhani = "'Rajdhani', sans-serif";
 const inter = "'Inter', sans-serif";
+
+function cancellationActorLabel(changedBy?: string | null) {
+  if (!changedBy) return "Unknown actor";
+  if (changedBy === "whitcomb") return "Whitcomb provider";
+  if (changedBy.startsWith("admin:")) return `Admin user ${changedBy.slice("admin:".length)}`;
+  if (changedBy.startsWith("customer:")) return `Customer account ${changedBy.slice("customer:".length)}`;
+  return changedBy;
+}
+
+function cancellationReasonLabel(note?: string | null) {
+  if (!note) return "No reason recorded";
+  return note
+    .replace(/^Manual Admin cancellation\s*[—-]\s*Reason:\s*/i, "")
+    .replace(/^Order cancelled by admin:\s*/i, "")
+    .trim() || "No reason recorded";
+}
 
 export default function AdminOrders() {
   const { user, loading } = useAuth();
@@ -185,13 +228,16 @@ export default function AdminOrders() {
     return matchesTab && matchesSearch;
   });
 
-  const tabs: { key: FilterTab; label: string; count: number }[] = [
-    { key: "all", label: "All Orders", count: allOrders.length },
-    { key: "pending_payment", label: "Pending Payment", count: allOrders.filter(o => o.status === "pending_payment").length },
-    { key: "paid", label: "Paid", count: allOrders.filter(o => o.status === "paid" || o.status === "processing").length },
-    { key: "shipped", label: "Shipped", count: allOrders.filter(o => o.status === "shipped" || o.status === "delivered").length },
-    { key: "cancelled", label: "Cancelled", count: allOrders.filter(o => o.status === "cancelled").length },
+  const tabs: { key: FilterTab; label: string; count: number; icon: LucideIcon }[] = [
+    { key: "all", label: "All Orders", count: allOrders.length, icon: Package },
+    { key: "pending_payment", label: "Pending Payment", count: allOrders.filter(o => o.status === "pending_payment").length, icon: AlertTriangle },
+    { key: "paid", label: "Paid", count: allOrders.filter(o => o.status === "paid" || o.status === "processing").length, icon: CheckCircle },
+    { key: "shipped", label: "Shipped", count: allOrders.filter(o => o.status === "shipped" || o.status === "delivered").length, icon: Truck },
+    { key: "cancelled", label: "Cancelled", count: allOrders.filter(o => o.status === "cancelled").length, icon: XCircle },
   ];
+
+  const normalizedCancelReason = cancelReason.trim();
+  const cancelReasonIsValid = normalizedCancelReason.length >= 3;
 
   return (
     <>
@@ -283,7 +329,7 @@ export default function AdminOrders() {
         </div>
 
         {/* Stats Cards */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-10">
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-10">
           {[
             {
               label: "Pending Payment",
@@ -308,6 +354,14 @@ export default function AdminOrders() {
               bg: "rgba(185,192,202,0.06)",
               border: "rgba(185,192,202,0.2)",
               icon: <Truck size={18} />,
+            },
+            {
+              label: "Cancelled",
+              value: stats?.cancelledCount ?? 0,
+              color: "#FF9B9B",
+              bg: "rgba(181,45,54,0.12)",
+              border: "rgba(255,107,107,0.35)",
+              icon: <XCircle size={18} />,
             },
             {
               label: "Total Revenue",
@@ -374,18 +428,23 @@ export default function AdminOrders() {
         <div className="flex flex-wrap gap-2 mb-7">
           {tabs.map(tab => {
             const active = filterTab === tab.key;
+            const isPriorityStatus = tab.key === "pending_payment" || tab.key === "cancelled";
+            const tabStatus = isPriorityStatus ? STATUS_CONFIG[tab.key] : null;
+            const TabIcon = tab.icon;
             return (
               <button
                 key={tab.key}
                 onClick={() => setFilterTab(tab.key)}
-                className="px-4 py-2 rounded-lg font-bold uppercase tracking-[0.15em] transition-all text-sm"
+                className="inline-flex min-h-10 items-center gap-2 rounded-lg px-4 py-2 text-sm font-bold uppercase tracking-[0.15em] transition-all"
                 style={{
                   fontFamily: rajdhani,
-                  background: active ? "rgba(185,192,202,0.15)" : "rgba(255,255,255,0.04)",
-                  border: active ? "1px solid rgba(185,192,202,0.4)" : "1px solid rgba(255,255,255,0.08)",
-                  color: active ? "#B9C0CA" : "rgba(255,255,255,0.5)",
+                  background: active && tabStatus ? tabStatus.bg : active ? "rgba(185,192,202,0.15)" : "rgba(255,255,255,0.04)",
+                  border: active && tabStatus ? `1px solid ${tabStatus.border}` : active ? "1px solid rgba(185,192,202,0.4)" : "1px solid rgba(255,255,255,0.08)",
+                  color: active && tabStatus ? tabStatus.color : active ? "#B9C0CA" : "rgba(255,255,255,0.5)",
+                  boxShadow: active && tabStatus ? tabStatus.shadow : "none",
                 }}
               >
+                <TabIcon size={14} aria-hidden="true" />
                 {tab.label}
                 {tab.count > 0 && (
                   <span className="ml-1.5 opacity-60">({tab.count})</span>
@@ -424,7 +483,10 @@ export default function AdminOrders() {
             {filteredOrders.map(order => {
               const isExpanded = expandedOrder === order.id;
               const statusCfg = STATUS_CONFIG[order.status] ?? STATUS_CONFIG.pending_payment;
+              const StatusIcon = statusCfg.icon;
               const items = (order as any).items ?? [];
+              const history = (order as any).history ?? [];
+              const cancellationEvent = history.find((event: any) => event.toStatus === "cancelled");
 
               return (
                 <div
@@ -432,7 +494,8 @@ export default function AdminOrders() {
                   className="rounded-xl overflow-hidden"
                   style={{
                     background: "rgba(255,255,255,0.03)",
-                    border: "1px solid rgba(185,192,202,0.1)",
+                    border: `1px solid ${order.status === "pending_payment" || order.status === "cancelled" ? statusCfg.border : "rgba(185,192,202,0.1)"}`,
+                    boxShadow: order.status === "pending_payment" || order.status === "cancelled" ? statusCfg.shadow : "none",
                   }}
                 >
                   {/* Order Row Header */}
@@ -500,14 +563,17 @@ export default function AdminOrders() {
 
                     {/* Status Badge */}
                     <span
-                      className="px-3 py-1.5 rounded-full text-sm font-bold uppercase tracking-[0.12em]"
+                      className="inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-bold uppercase tracking-[0.12em]"
+                      aria-label={`Order status: ${statusCfg.label}`}
                       style={{
                         background: statusCfg.bg,
                         border: `1px solid ${statusCfg.border}`,
                         color: statusCfg.color,
                         fontFamily: rajdhani,
+                        boxShadow: statusCfg.shadow,
                       }}
                     >
+                      <StatusIcon size={14} strokeWidth={2.3} aria-hidden="true" />
                       {statusCfg.label}
                     </span>
 
@@ -655,6 +721,36 @@ export default function AdminOrders() {
                           <p className="mt-2 text-sm leading-relaxed text-white/50" style={{ fontFamily: inter }}>
                             This order changes to Paid or Cancelled only after server-to-server verification with Whitcomb. Manual payment confirmation and Admin cancellation are disabled.
                           </p>
+                        </div>
+                      )}
+
+                      {order.status === "cancelled" && (
+                        <div
+                          className="rounded-xl px-4 py-4"
+                          style={{
+                            background: "linear-gradient(135deg, rgba(181,45,54,0.18), rgba(255,77,77,0.06))",
+                            border: "1px solid rgba(255,107,107,0.42)",
+                            boxShadow: "0 12px 30px rgba(181,45,54,0.1)",
+                          }}
+                        >
+                          <div className="flex items-center gap-2 text-[#FF9B9B]">
+                            <XCircle size={17} aria-hidden="true" />
+                            <p className="text-xs font-bold uppercase tracking-[0.2em]" style={{ fontFamily: rajdhani }}>
+                              Cancelled Order
+                            </p>
+                          </div>
+                          <p className="mt-3 text-sm leading-relaxed text-white/55" style={{ fontFamily: inter }}>
+                            Recorded by <strong className="text-white/80">{cancellationActorLabel(cancellationEvent?.changedBy)}</strong>
+                            {cancellationEvent?.createdAt ? ` on ${new Date(cancellationEvent.createdAt).toLocaleString()}` : ""}
+                          </p>
+                          <div className="mt-3 rounded-lg border border-white/10 bg-black/10 px-3 py-3">
+                            <p className="text-xs font-bold uppercase tracking-[0.16em] text-white/40" style={{ fontFamily: rajdhani }}>
+                              Cancellation reason
+                            </p>
+                            <p className="mt-1 text-base font-medium leading-relaxed text-white" style={{ fontFamily: inter }}>
+                              {cancellationReasonLabel(cancellationEvent?.note)}
+                            </p>
+                          </div>
                         </div>
                       )}
 
@@ -894,16 +990,26 @@ export default function AdminOrders() {
 
         <label className="space-y-2" style={{ fontFamily: inter }}>
           <span className="text-sm font-semibold text-white/75">
-            Internal cancellation reason <span className="font-normal text-white/40">(optional)</span>
+            Cancellation reason <span className="text-[#FF9B9B]" aria-hidden="true">*</span>
           </span>
           <textarea
+            id="admin-cancellation-reason"
             rows={2}
+            required
+            minLength={3}
             maxLength={500}
             value={cancelReason}
             onChange={(event) => setCancelReason(event.target.value)}
-            placeholder="Example: Duplicate test order"
+            aria-required="true"
+            aria-describedby="admin-cancellation-reason-help"
+            aria-invalid={cancelReason.length > 0 && !cancelReasonIsValid}
+            placeholder="Example: Duplicate order or customer requested cancellation"
             className="w-full resize-none rounded-xl border border-white/15 bg-white/[0.05] px-3 py-2.5 text-sm text-white outline-none placeholder:text-white/30 focus:border-[#B9C0CA]/55 focus:ring-2 focus:ring-[#B9C0CA]/20 sm:text-base"
           />
+          <span id="admin-cancellation-reason-help" className="flex items-start justify-between gap-3 text-xs leading-relaxed text-white/45">
+            <span>Required for the permanent cancellation audit history and Admin Notes.</span>
+            <span className="shrink-0">{normalizedCancelReason.length}/500</span>
+          </span>
         </label>
 
         <AlertDialogFooter className="flex-col gap-2 sm:flex-row sm:gap-3">
@@ -914,13 +1020,13 @@ export default function AdminOrders() {
             Keep Order
           </AlertDialogCancel>
           <AlertDialogAction
-            disabled={cancelPendingOrder.isPending || !cancelTarget}
+            disabled={cancelPendingOrder.isPending || !cancelTarget || !cancelReasonIsValid}
             onClick={(event) => {
               event.preventDefault();
-              if (!cancelTarget) return;
+              if (!cancelTarget || !cancelReasonIsValid) return;
               cancelPendingOrder.mutate({
                 orderId: cancelTarget.id,
-                reason: cancelReason.trim() || undefined,
+                reason: normalizedCancelReason,
               });
             }}
             className="min-h-11 bg-[#B52D36] font-bold uppercase tracking-[0.12em] text-white hover:bg-[#CC3641] focus-visible:ring-[#FF7777]"

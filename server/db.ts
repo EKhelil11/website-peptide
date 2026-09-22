@@ -1,4 +1,4 @@
-import { eq, desc, and, or, isNull, isNotNull, gt, lt, sql } from "drizzle-orm";
+import { eq, desc, and, or, isNull, isNotNull, gt, lt, sql, inArray } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import {
   InsertUser, users,
@@ -231,10 +231,21 @@ export async function getAllOrdersWithItems() {
   const db = await getDb();
   if (!db) return [];
   const allOrders = await db.select().from(orders).orderBy(desc(orders.createdAt));
+  const history = allOrders.length > 0
+    ? await db.select().from(orderStatusHistory)
+      .where(inArray(orderStatusHistory.orderId, allOrders.map(order => order.id)))
+      .orderBy(desc(orderStatusHistory.createdAt))
+    : [];
+  const historyByOrder = new Map<number, typeof history>();
+  for (const event of history) {
+    const existing = historyByOrder.get(event.orderId) ?? [];
+    existing.push(event);
+    historyByOrder.set(event.orderId, existing);
+  }
   const results = [];
   for (const order of allOrders) {
     const items = await db.select().from(orderItems).where(eq(orderItems.orderId, order.id));
-    results.push({ ...order, items });
+    results.push({ ...order, items, history: historyByOrder.get(order.id) ?? [] });
   }
   return results;
 }
@@ -489,13 +500,19 @@ export async function cancelOrder(
   orderId: number,
   cancelledBy: string,
   note = "Order cancelled",
+  adminAuditLine?: string,
 ): Promise<boolean> {
   const db = await getDb();
   if (!db) throw new Error("Database not available");
 
   return db.transaction(async tx => {
     const changedAt = Date.now();
-    const [result] = await tx.update(orders).set({ status: "cancelled" }).where(and(
+    const [result] = await tx.update(orders).set({
+      status: "cancelled",
+      ...(adminAuditLine ? {
+        adminNotes: sql<string>`CONCAT_WS('\n', NULLIF(TRIM(${orders.adminNotes}), ''), ${adminAuditLine})`,
+      } : {}),
+    }).where(and(
       eq(orders.id, orderId),
       eq(orders.status, "pending_payment"),
       eq(orders.paymentMethod, "zelle"),
@@ -577,15 +594,16 @@ export async function updateOrderShipStation(
 
 export async function getOrderStats() {
   const db = await getDb();
-  if (!db) return { pendingCount: 0, paidCount: 0, shippedCount: 0, totalRevenueCents: 0 };
+  if (!db) return { pendingCount: 0, paidCount: 0, shippedCount: 0, cancelledCount: 0, totalRevenueCents: 0 };
 
   const allOrders = await db.select().from(orders);
   const pendingCount = allOrders.filter(o => o.status === "pending_payment").length;
   const paidCount = allOrders.filter(o => o.status === "paid" || o.status === "processing").length;
   const shippedCount = allOrders.filter(o => o.status === "shipped" || o.status === "delivered").length;
+  const cancelledCount = allOrders.filter(o => o.status === "cancelled").length;
   const totalRevenueCents = allOrders
     .filter(o => o.status !== "cancelled" && o.status !== "pending_payment")
     .reduce((sum, o) => sum + (o.totalCents || 0), 0);
 
-  return { pendingCount, paidCount, shippedCount, totalRevenueCents };
+  return { pendingCount, paidCount, shippedCount, cancelledCount, totalRevenueCents };
 }
