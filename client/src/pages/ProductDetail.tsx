@@ -46,7 +46,10 @@ function MolecularTable({ product }: { product: Product }) {
   const md = product.molecularData;
   if (!md) {
     return (
-      <p className="text-white/50 text-sm italic">
+      <p
+        className="product-tab-body text-[0.95rem] italic leading-[1.75] text-white/72 sm:text-base"
+        style={{ fontFamily: "'Inter', sans-serif", fontWeight: 430 }}
+      >
         Molecular data not available for this compound.
       </p>
     );
@@ -62,23 +65,23 @@ function MolecularTable({ product }: { product: Product }) {
   ].filter((r) => r.value);
 
   return (
-    <div className="overflow-x-auto rounded-xl border border-white/10">
+    <div className="product-molecular-table overflow-x-auto rounded-xl border border-white/10">
       <table className="w-full text-sm">
         <tbody>
           {rows.map(({ label, value }, i) => (
             <tr
               key={label}
-              className={i % 2 === 0 ? "bg-white/3" : "bg-transparent"}
+              className={`${i % 2 === 0 ? "bg-white/3" : "bg-transparent"} max-[359px]:block`}
             >
               <td
-                className="px-5 py-3 text-white/50 uppercase tracking-widest text-xs font-semibold w-40"
-                style={{ fontFamily: "'Rajdhani', sans-serif" }}
+                className="product-molecular-label w-40 px-5 py-3 text-[0.72rem] font-bold uppercase tracking-[0.12em] leading-relaxed text-[#B9C0CA]/85 max-[359px]:block max-[359px]:w-full max-[359px]:pb-1"
+                style={{ fontFamily: "'Inter', sans-serif" }}
               >
                 {label}
               </td>
               <td
-                className="px-5 py-3 text-white/85"
-                style={{ fontFamily: "'Inter', sans-serif" }}
+                className="product-molecular-value px-5 py-3 text-[0.98rem] leading-relaxed text-white/90 break-words [overflow-wrap:anywhere] max-[359px]:block max-[359px]:w-full max-[359px]:pt-0"
+                style={{ fontFamily: "'Inter', sans-serif", fontWeight: 500 }}
               >
                 {value}
               </td>
@@ -184,6 +187,7 @@ export default function ProductDetail() {
   const product = findProductById(id);
 
   const [activeTab, setActiveTab] = useState<Tab>("overview");
+  const activeTabLabel = TAB_LABELS.find(({ key }) => key === activeTab)?.label ?? "Research Overview";
   const [activeImg, setActiveImg] = useState(0);
   const [selectedVariant, setSelectedVariant] = useState(0);
   const [qty, setQty] = useState(1);
@@ -700,20 +704,21 @@ export default function ProductDetail() {
       >
         <div className="max-w-6xl mx-auto px-6 pt-8">
           {/* Tab bar */}
-          <div className="grid grid-cols-3 sm:flex sm:gap-0 border-b border-white/10">
+          <div className="product-detail-tabs grid grid-cols-2 sm:flex sm:flex-wrap sm:gap-0 border-b border-white/10">
             {TAB_LABELS.map(({ key, label }) => (
               <button
                 key={key}
                 onClick={() => setActiveTab(key)}
-                className="px-2 sm:px-5 py-3 text-[0.67rem] sm:text-sm font-bold tracking-wide leading-tight transition-all duration-200 border-b-2 -mb-px"
+                className="min-h-12 px-3 py-3.5 text-[0.78rem] sm:px-5 sm:text-sm font-semibold leading-snug transition-all duration-200 border-b-2 -mb-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B9C0CA]/70 focus-visible:ring-inset"
                 style={{
-                  fontFamily: "'Rajdhani', sans-serif",
-                  fontWeight: 700,
-                  letterSpacing: "0.06em",
+                  fontFamily: "'Inter', sans-serif",
+                  fontWeight: activeTab === key ? 700 : 600,
+                  letterSpacing: "0.01em",
                   borderBottomColor: activeTab === key ? "#B9C0CA" : "transparent",
-                  color: activeTab === key ? "#B9C0CA" : "rgba(255,255,255,0.4)",
-                  background: "transparent",
+                  color: activeTab === key ? "#F6F1E9" : "rgba(255,255,255,0.62)",
+                  background: activeTab === key ? "rgba(185,192,202,0.06)" : "transparent",
                 }}
+                aria-pressed={activeTab === key}
               >
                 {label}
               </button>
@@ -721,35 +726,72 @@ export default function ProductDetail() {
           </div>
 
           {/* Tab content */}
-          <div className="py-8">
+          <div className="product-detail-tab-content py-7 sm:py-8">
+            <div className="mb-5 border-b border-white/8 pb-4 sm:mb-6">
+              <p
+                className="text-[0.68rem] font-bold uppercase tracking-[0.18em] text-[#9DB6D8]"
+                style={{ fontFamily: "'Inter', sans-serif" }}
+              >
+                Full Product Details
+              </p>
+              <h2
+                className="mt-1 text-[1.9rem] leading-tight text-[#F6F1E9] sm:text-[2.2rem]"
+                style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650, letterSpacing: "0.01em" }}
+              >
+                {activeTabLabel}
+              </h2>
+            </div>
             {activeTab === "overview" && (
-              <div className="max-w-3xl space-y-5">
+              <div className="product-overview-content max-w-3xl space-y-6">
                 <div
-                  className="rounded-xl border border-[#B9C0CA]/15 px-5 py-4"
+                  className="rounded-xl border border-[#B9C0CA]/18 px-5 py-5 sm:px-6"
                   style={{ background: "rgba(185,192,202,0.06)" }}
                 >
                   <p
-                    className="text-[#B9C0CA] text-xs uppercase tracking-[0.14em] mb-2"
-                    style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
+                    className="text-[#B9C0CA] text-[0.72rem] uppercase tracking-[0.12em] leading-relaxed mb-2"
+                    style={{ fontFamily: "'Inter', sans-serif", fontWeight: 700 }}
                   >
                     Research Classification
                   </p>
-                  <p className="text-white/90 text-base leading-relaxed">
+                  <p
+                    className="product-tab-body text-white/92 text-base leading-[1.75] sm:text-[1.05rem]"
+                    style={{ fontFamily: "'Inter', sans-serif", fontWeight: 550 }}
+                  >
                     {product.researchClassification}
                   </p>
                 </div>
-                <p className="text-white/85 leading-relaxed text-lg">{product.synopsis}</p>
-                <p className="text-white/70 leading-relaxed text-base">{product.plainEnglish}</p>
+                <p
+                  className="product-tab-lead text-[1.05rem] leading-[1.8] text-[#F6F1E9]/95 sm:text-[1.12rem]"
+                  style={{ fontFamily: "'Inter', sans-serif", fontWeight: 500 }}
+                >
+                  {product.synopsis}
+                </p>
+                <p
+                  className="product-tab-body text-[0.98rem] leading-[1.8] text-white/78 sm:text-[1.03rem]"
+                  style={{ fontFamily: "'Inter', sans-serif", fontWeight: 430 }}
+                >
+                  {product.plainEnglish}
+                </p>
               </div>
             )}
             {activeTab === "mechanism" && (
-              <div className="max-w-3xl">
-                <p className="text-white/70 leading-relaxed text-base">{product.howItWorks}</p>
+              <div className="product-mechanism-content max-w-3xl">
+                <p
+                  className="product-tab-body text-[1rem] leading-[1.82] text-white/82 sm:text-[1.06rem]"
+                  style={{ fontFamily: "'Inter', sans-serif", fontWeight: 430 }}
+                >
+                  {product.howItWorks}
+                </p>
               </div>
             )}
             {activeTab === "applications" && (
-              <div className="max-w-3xl space-y-4">
-                <p className="text-white/70 leading-relaxed text-base">{product.whoIsItFor}</p>
+              <div className="product-applications-content max-w-3xl space-y-5">
+                <p
+                  className="product-tab-body text-[1rem] leading-[1.82] text-white/82 sm:text-[1.06rem]"
+                  style={{ fontFamily: "'Inter', sans-serif", fontWeight: 430 }}
+                >
+                  {product.whoIsItFor}
+                </p>
                 {/* Quick facts */}
                 <div
                   className="product-application-specs rounded-xl border border-white/8 overflow-hidden mt-6"
@@ -790,21 +832,26 @@ export default function ProductDetail() {
               </div>
             )}
             {activeTab === "handling" && (
-              <div className="max-w-3xl space-y-6">
+              <div className="product-handling-content max-w-3xl space-y-6">
                 <div
-                  className="rounded-xl border border-white/10 p-5"
+                  className="rounded-xl border border-white/10 p-5 sm:p-6"
                   style={{ background: "oklch(0.27 0.08 255 / 0.5)" }}
                 >
                   <div className="flex items-start gap-3">
                     <ShieldCheck size={19} className="text-[#B9C0CA] mt-0.5 flex-shrink-0" />
                     <div>
                       <p
-                        className="text-[#B9C0CA] text-xs uppercase tracking-[0.14em] mb-2"
-                        style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
+                        className="text-[#B9C0CA] text-[0.72rem] uppercase tracking-[0.12em] leading-relaxed mb-2"
+                        style={{ fontFamily: "'Inter', sans-serif", fontWeight: 700 }}
                       >
                         Laboratory Handling
                       </p>
-                      <p className="text-white/70 leading-relaxed text-base">{product.handling}</p>
+                      <p
+                        className="product-tab-body text-[0.98rem] leading-[1.8] text-white/82 sm:text-[1.03rem]"
+                        style={{ fontFamily: "'Inter', sans-serif", fontWeight: 430 }}
+                      >
+                        {product.handling}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -814,18 +861,24 @@ export default function ProductDetail() {
                   style={{ background: "rgba(185,192,202,0.06)" }}
                 >
                   <p
-                    className="text-white text-sm uppercase tracking-[0.12em]"
-                    style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
+                    className="text-[#F6F1E9] text-[0.72rem] uppercase tracking-[0.12em] leading-relaxed"
+                    style={{ fontFamily: "'Inter', sans-serif", fontWeight: 700 }}
                   >
                     Product Documentation
                   </p>
-                  <p className="text-white/55 text-sm leading-relaxed mt-2">
+                  <p
+                    className="product-tab-body mt-2 text-[0.95rem] leading-[1.75] text-white/75 sm:text-base"
+                    style={{ fontFamily: "'Inter', sans-serif", fontWeight: 430 }}
+                  >
                     {product.coa
                       ? `The owner-supplied COA has been matched to lot ${product.coa.lotBatch}. It reports ${product.coa.contentResult} and ${product.coa.purityResult}. These results apply only to the sample identified in report ${product.coa.reportId}.`
                       : "A product-specific COA location is reserved for a report that matches this compound and lot. Until a document is supplied and mapped, analytical identity and purity remain pending on the website."}
                   </p>
                   <Link href={`/coa/${product.id}`}>
-                    <span className="inline-flex items-center gap-2 mt-4 text-[#E9DCCB] hover:text-white text-xs uppercase tracking-[0.14em] cursor-pointer">
+                    <span
+                      className="inline-flex items-center gap-2 mt-4 text-[#E9DCCB] hover:text-white text-xs uppercase tracking-[0.12em] cursor-pointer"
+                      style={{ fontFamily: "'Inter', sans-serif", fontWeight: 700 }}
+                    >
                       <FileText size={14} /> {product.coa ? "View report details" : "View COA status"}
                     </span>
                   </Link>
@@ -833,8 +886,8 @@ export default function ProductDetail() {
 
                 <div>
                   <p
-                    className="text-[#B9C0CA] text-xs uppercase tracking-[0.14em] mb-3"
-                    style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
+                    className="text-[#B9C0CA] text-[0.72rem] uppercase tracking-[0.12em] leading-relaxed mb-3"
+                    style={{ fontFamily: "'Inter', sans-serif", fontWeight: 700 }}
                   >
                     Research References
                   </p>
@@ -845,10 +898,10 @@ export default function ProductDetail() {
                         href={reference.url}
                         target="_blank"
                         rel="noreferrer"
-                        className="flex items-start justify-between gap-4 rounded-lg border border-white/8 px-4 py-3 text-white/70 hover:text-white hover:border-[#B9C0CA]/35 transition-colors"
-                        style={{ background: "rgba(255,255,255,0.025)" }}
+                        className="flex items-start justify-between gap-4 rounded-lg border border-white/8 px-4 py-3.5 text-white/78 hover:text-white hover:border-[#B9C0CA]/35 transition-colors"
+                        style={{ background: "rgba(255,255,255,0.025)", fontFamily: "'Inter', sans-serif", fontWeight: 500 }}
                       >
-                        <span className="text-sm leading-relaxed">{reference.title}</span>
+                        <span className="text-[0.94rem] leading-[1.7] sm:text-[0.98rem]">{reference.title}</span>
                         <ExternalLink size={14} className="text-[#B9C0CA] mt-0.5 flex-shrink-0" />
                       </a>
                     ))}
@@ -871,7 +924,10 @@ export default function ProductDetail() {
               >
                 Research Use Only — Important Notice
               </p>
-              <p className="text-white/55 text-sm leading-relaxed">
+              <p
+                className="text-[0.92rem] leading-[1.75] text-white/68 sm:text-[0.96rem]"
+                style={{ fontFamily: "'Inter', sans-serif", fontWeight: 430 }}
+              >
                 {product.disclaimer ||
                   `${product.name} is sold strictly for in-vitro laboratory research use only. It is not a drug, food additive, cosmetic, or dietary supplement. This material is not approved by the FDA or any regulatory authority for human or veterinary use, and any discussion of clinical application is for scientific context only — not product endorsement.`}
               </p>

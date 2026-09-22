@@ -477,3 +477,18 @@
 - [x] Add focused regression coverage proving the shared specification block uses the intended typography and still renders canonical product-derived values, including Retatrutide 30 mg at `$200`.
 - [x] Validate the private Retatrutide Applications tab at desktop, 375 px, and 320 px; run TypeScript, all 201 credential-safe tests (five live/credential tests intentionally skipped), production build, diff integrity, runtime checks, and protected catalog/price assertions without creating an order or contacting providers.
 - [x] Present the private typography refinement for owner review; do not save a checkpoint or publish until separately approved.
+
+- [x] Save owner-requested private restore checkpoint `15fa86e6` before changing Research Overview or any other full-detail tab.
+- [x] Make the five full-detail tabs easier to find and read with larger Inter labels, stronger active/inactive contrast, clear focus states, and a mobile layout that does not force tiny text.
+- [x] Add a clear active-section heading using the established Cormorant display role while keeping all explanatory and factual copy in readable Inter body type.
+- [x] Elevate Research Overview classification, synopsis, and explanatory text with stronger contrast, comfortable line height, and consistent spacing without changing any wording.
+- [x] Apply the same readable hierarchy to Mechanism of Action, Applications, Molecular Data, and Handling & Sources, including table labels, values, documentation copy, and pending-data states.
+- [x] Preserve all 16 products, four signature blends, research-only wording, descriptions, prices, COAs, tabs, routes, cart, checkout, authentication, Admin, payment integrations, Heartbeat, and domains.
+- [x] Add focused regression coverage for every full-detail tab typography role and validate all five tabs at desktop, 375 px, and 320 px without horizontal overflow or real mutations.
+- [x] Run TypeScript, all 207 credential-safe tests (five live/credential tests intentionally skipped), production build, diff integrity, runtime checks, integration status, and protected database/catalog assertions.
+- [x] Present a private preview against restore checkpoint `15fa86e6`; do not save another checkpoint or publish until separately approved.
+
+- [x] Record the owner’s instruction to save the current validated Full Product Details readability update before increasing heading size or body contrast.
+- [ ] Save the current 207-test-passed private state as a restore checkpoint without publishing it.
+- [ ] After the checkpoint, increase every active full-detail section heading and body-text contrast while preserving all wording, data, layout behavior, and restore checkpoint `15fa86e6`.
+- [ ] Revalidate all five tabs at desktop, 375 px, and 320 px, then present the stronger private preview without publishing.
