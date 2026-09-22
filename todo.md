@@ -489,6 +489,13 @@
 - [x] Present a private preview against restore checkpoint `15fa86e6`; do not save another checkpoint or publish until separately approved.
 
 - [x] Record the owner’s instruction to save the current validated Full Product Details readability update before increasing heading size or body contrast.
-- [ ] Save the current 207-test-passed private state as a restore checkpoint without publishing it.
-- [ ] After the checkpoint, increase every active full-detail section heading and body-text contrast while preserving all wording, data, layout behavior, and restore checkpoint `15fa86e6`.
-- [ ] Revalidate all five tabs at desktop, 375 px, and 320 px, then present the stronger private preview without publishing.
+- [x] Save the current 207-test-passed private state as restore checkpoint `cba7aa29` without publishing it.
+- [x] After the checkpoint, increase every active full-detail section heading and body-text contrast while preserving all wording, data, layout behavior, and restore checkpoints `15fa86e6` and `cba7aa29`.
+- [x] Revalidate all five tabs at desktop, 375 px, and 320 px, then present the stronger private preview without publishing.
+
+- [x] Record the owner’s explicit instruction: **Approve and publish the changes to the section headings and body text contrast.**
+- [x] Re-run the complete release gate and reconfirm 16 products, protected prices/COAs, zero cancelled orders, exact next number `LAP-130003`, configured integrations, and the enabled five-minute Whitcomb Heartbeat.
+- [ ] Save exactly one checkpoint containing the 56 px desktop/37.6 px mobile section headings, stronger all-tab body contrast, focused regressions, responsive evidence, and private validation records.
+- [ ] Publish the latest checkpoint manually through Website Canvas with auto-publish unchanged.
+- [ ] Verify all three public domains serve the release; validate Research Overview and representative other tabs at desktop, 375 px, and 320 px with all mutations blocked and no horizontal overflow.
+- [ ] Reconfirm no order, cancellation, payment, refund, void, provider mutation, email, notification, ShipStation order, label, schedule, database, or exact-counter change resulted from publication; record and deliver the published version.

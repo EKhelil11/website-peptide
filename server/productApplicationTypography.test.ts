@@ -36,6 +36,10 @@ describe("shared product full-detail typography", () => {
     expect(tabsSource).toContain("Full Product Details");
     expect(tabsSource).toContain("activeTabLabel");
     expect(tabsSource).toContain("'Cormorant Garamond', serif");
+    expect(tabsSource).toContain("text-[2.35rem]");
+    expect(tabsSource).toContain("sm:text-[3rem]");
+    expect(tabsSource).toContain("lg:text-[3.5rem]");
+    expect(tabsSource).toContain('color: activeTab === key ? "#FFFFFF" : "rgba(255,255,255,0.74)"');
   });
 
   it("elevates Research Overview with consistent body typography and contrast", () => {
@@ -44,7 +48,9 @@ describe("shared product full-detail typography", () => {
     expect(overviewSource.match(/product-tab-body/g)?.length).toBe(2);
     expect(overviewSource.match(/'Inter', sans-serif/g)?.length).toBe(4);
     expect(overviewSource).toContain("leading-[1.8]");
-    expect(overviewSource).toContain("text-white/78");
+    expect(overviewSource).toContain("product-tab-body text-white text-base");
+    expect(overviewSource).toContain("product-tab-lead text-[1.05rem] leading-[1.8] text-white");
+    expect(overviewSource).toContain("text-white/90");
     expect(overviewSource).not.toContain("'Rajdhani', sans-serif");
   });
 
@@ -53,9 +59,11 @@ describe("shared product full-detail typography", () => {
     expect(mechanismSource).toContain("product-tab-body");
     expect(mechanismSource).toContain("leading-[1.82]");
     expect(mechanismSource).toContain("'Inter', sans-serif");
+    expect(mechanismSource).toContain("text-white/92");
     expect(applicationsSource).toContain("product-applications-content");
     expect(applicationsSource).toContain("product-tab-body");
     expect(applicationsSource).toContain("leading-[1.82]");
+    expect(applicationsSource).toContain("text-white/92");
   });
 
   it("uses the surrounding Inter body family for Applications labels and values", () => {
@@ -95,6 +103,9 @@ describe("shared product full-detail typography", () => {
     expect(molecularTableSource).not.toContain("'Rajdhani', sans-serif");
     expect(molecularTableSource).toContain("[overflow-wrap:anywhere]");
     expect(molecularTableSource).toContain("max-[359px]:block");
+    expect(molecularTableSource).toContain("text-[#D8DDE5]");
+    expect(molecularTableSource).toContain("text-white/95");
+    expect(molecularTableSource).toContain("text-white/88");
   });
 
   it("uses readable Inter roles throughout Handling, Documentation, and References", () => {
@@ -105,6 +116,10 @@ describe("shared product full-detail typography", () => {
     expect(handlingSource).toContain("leading-[1.8]");
     expect(handlingSource).toContain("leading-[1.75]");
     expect(handlingSource).toContain("leading-[1.7]");
+    expect(handlingSource).toContain("text-white/92");
+    expect(handlingSource).toContain("text-white/88");
+    expect(handlingSource).toContain("text-white/90");
+    expect(productDetail).toContain("text-white/84");
   });
 
   it("preserves all five full-detail sections and research-only safeguards", () => {

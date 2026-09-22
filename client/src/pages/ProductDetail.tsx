@@ -47,7 +47,7 @@ function MolecularTable({ product }: { product: Product }) {
   if (!md) {
     return (
       <p
-        className="product-tab-body text-[0.95rem] italic leading-[1.75] text-white/72 sm:text-base"
+        className="product-tab-body text-[0.95rem] italic leading-[1.75] text-white/88 sm:text-base"
         style={{ fontFamily: "'Inter', sans-serif", fontWeight: 430 }}
       >
         Molecular data not available for this compound.
@@ -74,13 +74,13 @@ function MolecularTable({ product }: { product: Product }) {
               className={`${i % 2 === 0 ? "bg-white/3" : "bg-transparent"} max-[359px]:block`}
             >
               <td
-                className="product-molecular-label w-40 px-5 py-3 text-[0.72rem] font-bold uppercase tracking-[0.12em] leading-relaxed text-[#B9C0CA]/85 max-[359px]:block max-[359px]:w-full max-[359px]:pb-1"
+                className="product-molecular-label w-40 px-5 py-3 text-[0.72rem] font-bold uppercase tracking-[0.12em] leading-relaxed text-[#D8DDE5] max-[359px]:block max-[359px]:w-full max-[359px]:pb-1"
                 style={{ fontFamily: "'Inter', sans-serif" }}
               >
                 {label}
               </td>
               <td
-                className="product-molecular-value px-5 py-3 text-[0.98rem] leading-relaxed text-white/90 break-words [overflow-wrap:anywhere] max-[359px]:block max-[359px]:w-full max-[359px]:pt-0"
+                className="product-molecular-value px-5 py-3 text-[0.98rem] leading-relaxed text-white/95 break-words [overflow-wrap:anywhere] max-[359px]:block max-[359px]:w-full max-[359px]:pt-0"
                 style={{ fontFamily: "'Inter', sans-serif", fontWeight: 500 }}
               >
                 {value}
@@ -715,7 +715,7 @@ export default function ProductDetail() {
                   fontWeight: activeTab === key ? 700 : 600,
                   letterSpacing: "0.01em",
                   borderBottomColor: activeTab === key ? "#B9C0CA" : "transparent",
-                  color: activeTab === key ? "#F6F1E9" : "rgba(255,255,255,0.62)",
+                  color: activeTab === key ? "#FFFFFF" : "rgba(255,255,255,0.74)",
                   background: activeTab === key ? "rgba(185,192,202,0.06)" : "transparent",
                 }}
                 aria-pressed={activeTab === key}
@@ -735,7 +735,7 @@ export default function ProductDetail() {
                 Full Product Details
               </p>
               <h2
-                className="mt-1 text-[1.9rem] leading-tight text-[#F6F1E9] sm:text-[2.2rem]"
+                className="mt-1 text-[2.35rem] leading-[1.04] text-white sm:text-[3rem] lg:text-[3.5rem]"
                 style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 650, letterSpacing: "0.01em" }}
               >
                 {activeTabLabel}
@@ -754,20 +754,20 @@ export default function ProductDetail() {
                     Research Classification
                   </p>
                   <p
-                    className="product-tab-body text-white/92 text-base leading-[1.75] sm:text-[1.05rem]"
+                    className="product-tab-body text-white text-base leading-[1.75] sm:text-[1.05rem]"
                     style={{ fontFamily: "'Inter', sans-serif", fontWeight: 550 }}
                   >
                     {product.researchClassification}
                   </p>
                 </div>
                 <p
-                  className="product-tab-lead text-[1.05rem] leading-[1.8] text-[#F6F1E9]/95 sm:text-[1.12rem]"
+                  className="product-tab-lead text-[1.05rem] leading-[1.8] text-white sm:text-[1.12rem]"
                   style={{ fontFamily: "'Inter', sans-serif", fontWeight: 500 }}
                 >
                   {product.synopsis}
                 </p>
                 <p
-                  className="product-tab-body text-[0.98rem] leading-[1.8] text-white/78 sm:text-[1.03rem]"
+                  className="product-tab-body text-[0.98rem] leading-[1.8] text-white/90 sm:text-[1.03rem]"
                   style={{ fontFamily: "'Inter', sans-serif", fontWeight: 430 }}
                 >
                   {product.plainEnglish}
@@ -777,7 +777,7 @@ export default function ProductDetail() {
             {activeTab === "mechanism" && (
               <div className="product-mechanism-content max-w-3xl">
                 <p
-                  className="product-tab-body text-[1rem] leading-[1.82] text-white/82 sm:text-[1.06rem]"
+                  className="product-tab-body text-[1rem] leading-[1.82] text-white/92 sm:text-[1.06rem]"
                   style={{ fontFamily: "'Inter', sans-serif", fontWeight: 430 }}
                 >
                   {product.howItWorks}
@@ -787,7 +787,7 @@ export default function ProductDetail() {
             {activeTab === "applications" && (
               <div className="product-applications-content max-w-3xl space-y-5">
                 <p
-                  className="product-tab-body text-[1rem] leading-[1.82] text-white/82 sm:text-[1.06rem]"
+                  className="product-tab-body text-[1rem] leading-[1.82] text-white/92 sm:text-[1.06rem]"
                   style={{ fontFamily: "'Inter', sans-serif", fontWeight: 430 }}
                 >
                   {product.whoIsItFor}
@@ -847,7 +847,7 @@ export default function ProductDetail() {
                         Laboratory Handling
                       </p>
                       <p
-                        className="product-tab-body text-[0.98rem] leading-[1.8] text-white/82 sm:text-[1.03rem]"
+                        className="product-tab-body text-[0.98rem] leading-[1.8] text-white/92 sm:text-[1.03rem]"
                         style={{ fontFamily: "'Inter', sans-serif", fontWeight: 430 }}
                       >
                         {product.handling}
@@ -867,7 +867,7 @@ export default function ProductDetail() {
                     Product Documentation
                   </p>
                   <p
-                    className="product-tab-body mt-2 text-[0.95rem] leading-[1.75] text-white/75 sm:text-base"
+                    className="product-tab-body mt-2 text-[0.95rem] leading-[1.75] text-white/88 sm:text-base"
                     style={{ fontFamily: "'Inter', sans-serif", fontWeight: 430 }}
                   >
                     {product.coa
@@ -898,7 +898,7 @@ export default function ProductDetail() {
                         href={reference.url}
                         target="_blank"
                         rel="noreferrer"
-                        className="flex items-start justify-between gap-4 rounded-lg border border-white/8 px-4 py-3.5 text-white/78 hover:text-white hover:border-[#B9C0CA]/35 transition-colors"
+                        className="flex items-start justify-between gap-4 rounded-lg border border-white/8 px-4 py-3.5 text-white/90 hover:text-white hover:border-[#B9C0CA]/35 transition-colors"
                         style={{ background: "rgba(255,255,255,0.025)", fontFamily: "'Inter', sans-serif", fontWeight: 500 }}
                       >
                         <span className="text-[0.94rem] leading-[1.7] sm:text-[0.98rem]">{reference.title}</span>
@@ -925,7 +925,7 @@ export default function ProductDetail() {
                 Research Use Only — Important Notice
               </p>
               <p
-                className="text-[0.92rem] leading-[1.75] text-white/68 sm:text-[0.96rem]"
+                className="text-[0.92rem] leading-[1.75] text-white/84 sm:text-[0.96rem]"
                 style={{ fontFamily: "'Inter', sans-serif", fontWeight: 430 }}
               >
                 {product.disclaimer ||
