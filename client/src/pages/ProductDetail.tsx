@@ -26,6 +26,7 @@ import {
 } from "lucide-react";
 import { findProductById, products, type Product } from "@/lib/products";
 import { PRIMARY_LOGO_ALT, PRIMARY_LOGO_URL, UTILITY_LOGO_SIZE_CLASS } from "@/lib/brandAssets";
+import { renderResearchGlossaryText } from "@/components/ResearchGlossaryTooltip";
 
 const VIAL_IMG =
   "/manus-storage/lap-vial-retatrutide-10mg_52f96021-optimized_683307ff.webp";
@@ -193,6 +194,7 @@ export default function ProductDetail() {
   const [qty, setQty] = useState(1);
   const [, navigate] = useLocation();
   const { isAuthenticated } = useCustomerAuth();
+  const overviewGlossaryTermIds = new Set<string>();
 
   // Build the returnTo URL for this product page so login redirects back here
   const returnToLogin = () => navigate(`/login?returnTo=/product/${id}`);
@@ -704,12 +706,41 @@ export default function ProductDetail() {
       >
         <div className="max-w-6xl mx-auto px-6 pt-8">
           {/* Tab bar */}
-          <div className="product-detail-tabs grid grid-cols-2 sm:flex sm:flex-wrap sm:gap-0 border-b border-white/10">
+          <div
+            className="product-detail-tabs sticky top-[88px] z-40 grid grid-cols-2 border-y border-white/12 bg-[#0B1D3D]/95 p-2 shadow-[0_18px_42px_-30px_rgba(0,0,0,0.95)] backdrop-blur-xl sm:flex sm:flex-wrap sm:gap-0 sm:border-x sm:px-2"
+            role="tablist"
+            aria-label="Full Product Details sections"
+          >
             {TAB_LABELS.map(({ key, label }) => (
               <button
                 key={key}
+                id={`product-detail-tab-${key}`}
+                type="button"
+                role="tab"
                 onClick={() => setActiveTab(key)}
-                className="min-h-12 px-3 py-3.5 text-[0.78rem] sm:px-5 sm:text-sm font-semibold leading-snug transition-all duration-200 border-b-2 -mb-px focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B9C0CA]/70 focus-visible:ring-inset"
+                onKeyDown={event => {
+                  const currentIndex = TAB_LABELS.findIndex(tab => tab.key === key);
+                  const lastIndex = TAB_LABELS.length - 1;
+                  let nextIndex = currentIndex;
+
+                  if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+                    nextIndex = currentIndex === lastIndex ? 0 : currentIndex + 1;
+                  } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+                    nextIndex = currentIndex === 0 ? lastIndex : currentIndex - 1;
+                  } else if (event.key === "Home") {
+                    nextIndex = 0;
+                  } else if (event.key === "End") {
+                    nextIndex = lastIndex;
+                  } else {
+                    return;
+                  }
+
+                  event.preventDefault();
+                  const nextKey = TAB_LABELS[nextIndex].key;
+                  setActiveTab(nextKey);
+                  document.getElementById(`product-detail-tab-${nextKey}`)?.focus();
+                }}
+                className="min-h-12 rounded-sm border-b-2 px-3 py-3 text-[0.76rem] font-semibold leading-snug transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D8DDE5] focus-visible:ring-inset motion-reduce:transition-none sm:px-5 sm:text-sm"
                 style={{
                   fontFamily: "'Inter', sans-serif",
                   fontWeight: activeTab === key ? 700 : 600,
@@ -718,7 +749,9 @@ export default function ProductDetail() {
                   color: activeTab === key ? "#FFFFFF" : "rgba(255,255,255,0.74)",
                   background: activeTab === key ? "rgba(185,192,202,0.06)" : "transparent",
                 }}
-                aria-pressed={activeTab === key}
+                aria-selected={activeTab === key}
+                aria-controls={`product-detail-panel-${key}`}
+                tabIndex={activeTab === key ? 0 : -1}
               >
                 {label}
               </button>
@@ -726,7 +759,13 @@ export default function ProductDetail() {
           </div>
 
           {/* Tab content */}
-          <div className="product-detail-tab-content py-7 sm:py-8">
+          <div
+            id={`product-detail-panel-${activeTab}`}
+            className="product-detail-tab-content scroll-mt-24 py-7 sm:py-8"
+            role="tabpanel"
+            aria-labelledby={`product-detail-tab-${activeTab}`}
+            tabIndex={0}
+          >
             <div className="mb-5 border-b border-white/8 pb-4 sm:mb-6">
               <p
                 className="text-[0.68rem] font-bold uppercase tracking-[0.18em] text-[#9DB6D8]"
@@ -743,6 +782,16 @@ export default function ProductDetail() {
             </div>
             {activeTab === "overview" && (
               <div className="product-overview-content max-w-3xl space-y-6">
+                <div className="research-glossary-guide flex items-start gap-3 rounded-lg border border-[#B9C0CA]/22 bg-white/[0.035] px-4 py-3 text-white/86">
+                  <FlaskConical aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-[#D8DDE5]" />
+                  <p
+                    className="text-sm leading-relaxed"
+                    style={{ fontFamily: "'Inter', sans-serif", fontWeight: 500 }}
+                  >
+                    <span className="font-bold text-white">Research terminology:</span>{" "}
+                    Select an underlined term for a plain-language laboratory definition.
+                  </p>
+                </div>
                 <div
                   className="rounded-xl border border-[#B9C0CA]/18 px-5 py-5 sm:px-6"
                   style={{ background: "rgba(185,192,202,0.06)" }}
@@ -757,20 +806,20 @@ export default function ProductDetail() {
                     className="product-tab-body text-white text-base leading-[1.75] sm:text-[1.05rem]"
                     style={{ fontFamily: "'Inter', sans-serif", fontWeight: 550 }}
                   >
-                    {product.researchClassification}
+                    {renderResearchGlossaryText(product.researchClassification, overviewGlossaryTermIds, 2)}
                   </p>
                 </div>
                 <p
-                  className="product-tab-lead text-[1.05rem] leading-[1.8] text-white sm:text-[1.12rem]"
-                  style={{ fontFamily: "'Inter', sans-serif", fontWeight: 500 }}
-                >
-                  {product.synopsis}
+                    className="product-tab-lead text-[1.05rem] leading-[1.8] text-white sm:text-[1.12rem]"
+                    style={{ fontFamily: "'Inter', sans-serif", fontWeight: 500 }}
+                  >
+                  {renderResearchGlossaryText(product.synopsis, overviewGlossaryTermIds, 2)}
                 </p>
                 <p
-                  className="product-tab-body text-[0.98rem] leading-[1.8] text-white/90 sm:text-[1.03rem]"
-                  style={{ fontFamily: "'Inter', sans-serif", fontWeight: 430 }}
-                >
-                  {product.plainEnglish}
+                    className="product-tab-body text-[0.98rem] leading-[1.8] text-white/90 sm:text-[1.03rem]"
+                    style={{ fontFamily: "'Inter', sans-serif", fontWeight: 430 }}
+                  >
+                  {renderResearchGlossaryText(product.plainEnglish, overviewGlossaryTermIds, 4)}
                 </p>
               </div>
             )}

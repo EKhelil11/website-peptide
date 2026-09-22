@@ -52,7 +52,8 @@ describe("private mobile experience and loading contracts", () => {
 
   it("improves product compliance readability and balances the five mobile tabs", () => {
     expect(productDetail).toContain("text-[0.92rem] leading-[1.75] text-white/84 sm:text-[0.96rem]");
-    expect(productDetail).toContain("product-detail-tabs grid grid-cols-2 sm:flex");
+    expect(productDetail).toContain("product-detail-tabs sticky top-[88px] z-40 grid grid-cols-2");
+    expect(productDetail).toContain("sm:flex sm:flex-wrap");
     expect(productDetail).toContain("min-h-12");
     expect(productDetail).not.toContain("tracking-wide whitespace-nowrap transition-all");
   });

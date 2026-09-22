@@ -1,7 +1,7 @@
-# Full Product Details Contrast Refinement — Private Validation Report
+# Full Product Details Contrast Refinement — Release Verification Report
 
-**Status:** Owner approved for manual publication on September 22, 2026  
-**Current public release:** `0e164d28`  
+**Status:** Published and live-verified on September 22, 2026
+**Current public release:** `41904c34`
 **Earlier restore checkpoint:** `15fa86e6`  
 **Immediate pre-adjustment restore checkpoint:** `cba7aa29`
 
@@ -38,8 +38,14 @@ Representative visual evidence is stored outside the project at `/home/ubuntu/pr
 
 ## Protected invariants
 
-All 16 products, four signature blends, owner-confirmed prices including Retatrutide 30 mg at $200, all 16 COAs, research-only wording, descriptions, tabs, routes, cart, checkout, authentication, Admin, Whitcomb, Resend, ShipStation, five-minute Heartbeat, database records, order sequence, domains, and production checkpoint remain unchanged.
+All 16 products, four signature blends, owner-confirmed prices including Retatrutide 30 mg at $200, all 16 COAs, research-only wording, descriptions, tabs, routes, cart, checkout, authentication, Admin, Whitcomb, Resend, ShipStation, five-minute Heartbeat, database records, order sequence, and domains remain unchanged.
 
-## Publication gate
+## Live publication verification
 
-The owner explicitly instructed: **“Approve and publish the changes to the section headings and body text contrast.”** Final publication and production verification are now authorized for this exact typography revision. Restore checkpoints `cba7aa29` and `15fa86e6` remain available.
+The owner explicitly instructed: **“Approve and publish the changes to the section headings and body text contrast.”** Checkpoint `41904c34` was published through the manual Website Canvas control with auto-publish left off.
+
+All three public domains now serve the same production main bundle `/assets/index-CTPpqo6V.js` and stylesheet `/assets/index-BYc00b9U.css`. The production main bundle resolves the new product-detail chunk `ProductDetail-BLoGsZ_i.js`. The Retatrutide product route, its COA route, and the Admin login route returned HTTP 200 on the apex, `www`, and Manus domains.
+
+A second mutation-blocked audit ran against `https://laelitepeps.com` after publication. All **15 tab/viewport combinations** passed again: 56 px desktop headings, 37.6 px mobile headings, Inter body typography, the approved contrast floor, and zero horizontal overflow. Three incidental non-read-only browser requests were blocked, and no storefront mutation was allowed.
+
+The sanitized live integration endpoint still reports Resend, ShipStation, and Whitcomb configured. The database remains at 4 orders, 0 cancelled, 1 paid, and 2 Whitcomb orders; `lastIssuedNumber` remains `130002`, so the next order remains `LAP-130003`. The five-minute Whitcomb Heartbeat remains enabled, and its five most recent runs each completed once with HTTP 200 and zero errors. Restore checkpoints `cba7aa29` and `15fa86e6` remain available.

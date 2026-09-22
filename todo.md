@@ -495,7 +495,29 @@
 
 - [x] Record the owner’s explicit instruction: **Approve and publish the changes to the section headings and body text contrast.**
 - [x] Re-run the complete release gate and reconfirm 16 products, protected prices/COAs, zero cancelled orders, exact next number `LAP-130003`, configured integrations, and the enabled five-minute Whitcomb Heartbeat.
-- [ ] Save exactly one checkpoint containing the 56 px desktop/37.6 px mobile section headings, stronger all-tab body contrast, focused regressions, responsive evidence, and private validation records.
-- [ ] Publish the latest checkpoint manually through Website Canvas with auto-publish unchanged.
-- [ ] Verify all three public domains serve the release; validate Research Overview and representative other tabs at desktop, 375 px, and 320 px with all mutations blocked and no horizontal overflow.
-- [ ] Reconfirm no order, cancellation, payment, refund, void, provider mutation, email, notification, ShipStation order, label, schedule, database, or exact-counter change resulted from publication; record and deliver the published version.
+- [x] Save exactly one checkpoint `41904c34` containing the 56 px desktop/37.6 px mobile section headings, stronger all-tab body contrast, focused regressions, responsive evidence, and private validation records.
+- [x] Publish checkpoint `41904c34` manually through Website Canvas with auto-publish unchanged.
+- [x] Verify all three public domains serve the release; validate all five full-detail tabs at desktop, 375 px, and 320 px with all mutations blocked and no horizontal overflow.
+- [x] Reconfirm no order, cancellation, payment, refund, void, provider mutation, email, notification, ShipStation order, label, schedule, database, or exact-counter change resulted from publication; record and deliver published version `41904c34`.
+
+## Private Research Glossary, Sticky Tabs, and Signature Blend Typography — September 22, 2026
+
+- [x] Preserve production checkpoint `41904c34`; make this pass private and do not checkpoint or manually publish without a new explicit owner approval.
+- [x] Add a reusable, Research Overview-only plain-language glossary for documented complex terms without rewriting canonical product copy.
+- [x] Keep every glossary definition laboratory-focused and free of dosing, administration, cycling, stacking, personal use, human or animal consumption, diagnosis, treatment, prevention, safety, efficacy, or outcome promises.
+- [x] Provide visible glossary triggers with accessible names and clear hover, keyboard focus, tap/click, outside-click, and Escape dismissal behavior.
+- [x] Ensure tooltip content is rendered through an accessible dialog/tooltip primitive, remains readable at 320 px, and does not clip or cause horizontal overflow.
+- [x] Add a subtle Research terminology helper that explains the glossary interaction without adding external runtime links or network requests.
+- [x] Make the Full Product Details tab navigation sticky within its detail section, with a header-safe top offset, opaque premium backdrop, clear active/focus states, and correct z-index while scrolling.
+- [x] Preserve all five exact tab names, tab content, tab semantics, and current desktop layout; provide a compact no-overflow mobile tab pattern that keeps every tab keyboard and touch reachable.
+- [x] Upgrade typography only for the four hero Signature Blend buttons: `GH Synergy`, `Wolverine Stack`, `Glow Stack`, and `KLOW Blend`.
+- [x] Preserve the four hero blend names, routes, button count, colors, surfaces, order, layout, and surrounding hero content.
+- [x] Extend deterministic source regressions for glossary terms/definitions, research-only wording, accessible interaction semantics, sticky classes/offset, five tabs, and hero Signature Blend typography.
+- [x] Preserve 16 products, four signature blends, mapped COAs, Retatrutide 30 mg at $200, Tirzepatide 20 mg at $175, $7 shipping, 8% tax, auth/cart/checkout/account/Admin behavior, and all integration configuration.
+- [x] Run TypeScript, focused tests, full credential-safe tests, production build, and `git diff --check`; keep the pre-existing large-chunk advisory non-blocking.
+- [x] Run mutation-blocked responsive browser audits at 1440, 375, and 320 px for tooltip hover/focus/tap/Escape behavior, sticky navigation during actual scroll, all five tabs, and no horizontal overflow.
+- [x] Reconfirm read-only integration, runtime, database, exact-counter, and five-minute Heartbeat invariants without creating orders, payments, emails, labels, provider calls, schedule changes, or database mutations.
+- [x] Receive the owner’s conditional release instruction: **“if no errors please publish”**; all final gates passed after correcting the header-safe sticky offset and close-button focus return.
+- [ ] Save exactly one release checkpoint for the validated glossary, sticky tabs, and Signature Blend typography scope.
+- [ ] Manually publish the approved checkpoint through Website Canvas with auto-publish unchanged.
+- [ ] Verify the apex, `www`, and Manus domains converge on the new assets; re-run mutation-blocked live audits and protected invariants after publication.

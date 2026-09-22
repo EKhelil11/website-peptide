@@ -44,9 +44,11 @@ describe("shared product full-detail typography", () => {
 
   it("elevates Research Overview with consistent body typography and contrast", () => {
     expect(overviewSource).toContain("product-overview-content");
+    expect(overviewSource).toContain("research-glossary-guide");
+    expect(overviewSource).toContain("renderResearchGlossaryText");
     expect(overviewSource).toContain("product-tab-lead");
     expect(overviewSource.match(/product-tab-body/g)?.length).toBe(2);
-    expect(overviewSource.match(/'Inter', sans-serif/g)?.length).toBe(4);
+    expect(overviewSource.match(/'Inter', sans-serif/g)?.length).toBe(5);
     expect(overviewSource).toContain("leading-[1.8]");
     expect(overviewSource).toContain("product-tab-body text-white text-base");
     expect(overviewSource).toContain("product-tab-lead text-[1.05rem] leading-[1.8] text-white");
