@@ -752,7 +752,7 @@ export default function ProductDetail() {
                 <p className="text-white/70 leading-relaxed text-base">{product.whoIsItFor}</p>
                 {/* Quick facts */}
                 <div
-                  className="rounded-xl border border-white/8 overflow-hidden mt-6"
+                  className="product-application-specs rounded-xl border border-white/8 overflow-hidden mt-6"
                   style={{ background: "oklch(0.27 0.08 255 / 0.5)" }}
                 >
                   {[
@@ -764,18 +764,18 @@ export default function ProductDetail() {
                   ].map(({ label, value }, i) => (
                     <div
                       key={label}
-                      className="flex justify-between items-center px-5 py-3.5 border-b border-white/5 last:border-0"
+                      className="product-application-spec-row flex justify-between items-start gap-5 max-[359px]:flex-col max-[359px]:gap-1.5 px-5 py-3.5 border-b border-white/5 last:border-0"
                       style={{ background: i % 2 === 0 ? "rgba(255,255,255,0.02)" : "transparent" }}
                     >
                       <span
-                        className="text-[#B9C0CA]/80 uppercase tracking-widest text-sm"
-                        style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
+                        className="product-application-spec-label shrink-0 text-[#B9C0CA]/85 uppercase tracking-[0.12em] text-[0.72rem] sm:text-xs leading-relaxed"
+                        style={{ fontFamily: "'Inter', sans-serif", fontWeight: 700 }}
                       >
                         {label}
                       </span>
                       <span
-                        className="text-white text-base"
-                        style={{ fontFamily: "'Rajdhani', sans-serif", fontWeight: 700 }}
+                        className="product-application-spec-value min-w-0 max-w-[68%] text-right max-[359px]:max-w-none max-[359px]:w-full max-[359px]:text-left text-white/95 text-[0.98rem] sm:text-base leading-relaxed break-words"
+                        style={{ fontFamily: "'Inter', sans-serif", fontWeight: 500, letterSpacing: "-0.01em" }}
                       >
                         {value}
                       </span>

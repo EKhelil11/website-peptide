@@ -466,7 +466,14 @@
 
 - [x] Record the owner’s explicit instruction: **Approve and publish Admin cancellation reasons and status badges.**
 - [x] Re-run the complete release gate and reconfirm zero cancelled production orders, exact next number `LAP-130003`, live Whitcomb protections, and the enabled five-minute Heartbeat.
-- [ ] Save exactly one checkpoint containing the required reason contract, immutable history/Admin Notes audit, enhanced Pending Payment and Cancelled badges, tests, and validation records.
-- [ ] Publish the latest checkpoint manually through Website Canvas with auto-publish unchanged.
-- [ ] Verify all public domains serve the release; validate the live required-reason dialog and Pending/Cancelled visual states at desktop, 375 px, and 320 px with all mutations blocked.
-- [ ] Reconfirm no order, payment, refund, void, provider cancellation, email, notification, ShipStation order, label, schedule, or exact-counter change resulted from publication; record and deliver the published version.
+- [x] Save exactly one checkpoint `0e164d28` containing the required reason contract, immutable history/Admin Notes audit, enhanced Pending Payment and Cancelled badges, tests, and validation records.
+- [x] Publish checkpoint `0e164d28` manually through Website Canvas with auto-publish unchanged.
+- [x] Verify all public domains serve the release; validate the live required-reason dialog and Pending/Cancelled visual states at desktop, 375 px, and 320 px with all mutations blocked.
+- [x] Reconfirm no order, payment, refund, void, provider cancellation, email, notification, ShipStation order, label, schedule, or exact-counter change resulted from publication; record and deliver published version `0e164d28`.
+
+- [x] Refine only the shared **Applications** quick-facts typography used by all product full-detail pages; preserve every product name, content, category, classification, price, tab, layout, and commerce behavior.
+- [x] Replace the condensed utility font on the Compound, Content, Category, Classification, and Price rows with the same readable Inter body-family used by the surrounding section, while keeping labels and values clearly differentiated by weight, size, and color.
+- [x] Keep long research classifications legible with comfortable line height, wrapping, alignment, and spacing at desktop, 375 px, and 320 px without horizontal overflow.
+- [x] Add focused regression coverage proving the shared specification block uses the intended typography and still renders canonical product-derived values, including Retatrutide 30 mg at `$200`.
+- [x] Validate the private Retatrutide Applications tab at desktop, 375 px, and 320 px; run TypeScript, all 201 credential-safe tests (five live/credential tests intentionally skipped), production build, diff integrity, runtime checks, and protected catalog/price assertions without creating an order or contacting providers.
+- [x] Present the private typography refinement for owner review; do not save a checkpoint or publish until separately approved.

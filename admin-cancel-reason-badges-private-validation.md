@@ -1,8 +1,8 @@
-# Admin Cancellation Reason and Status Badges — Private Validation Report
+# Admin Cancellation Reason and Status Badges — Release Verification Report
 
-**Status:** Owner approved for publication; final release gate passed.
+**Status:** Published and live-verified.
 
-**Current public checkpoint:** `d9dde257`
+**Current public checkpoint:** `0e164d28`
 
 ## Summary
 
@@ -57,4 +57,30 @@ On September 21, 2026, the owner explicitly instructed:
 
 > Approve and publish Admin cancellation reasons and status badges.
 
-The final release gate passed before checkpointing. The public storefront remains on `d9dde257` until the approved checkpoint is activated through the manual Website Canvas publish control.
+Checkpoint `0e164d28` was saved after the final release gate and activated through the manual Website Canvas **Publish latest version** control. Auto-publish was not enabled.
+
+## Live visual verification
+
+After publication, a mutation-blocked audit against the public custom domain reproduced the required-reason cancellation dialog and priority status treatments without issuing any mutation request.
+
+The 1440 × 1000 desktop view keeps the dialog centered and visually dominant over a dimmed Admin dashboard. The unpaid-order warning, `$71.80` total, required cancellation-reason field, character counter, and **Keep Order** / **Yes, Cancel Order** actions are readable and clearly separated. The underlying order cards visibly distinguish amber **Pending Payment** from rose **Cancelled** states.
+
+At 320 × 720, the dialog remains fully contained with no horizontal overflow. The required reason, helper text, counter, and both stacked actions remain visible and tappable, and the destructive action is visually explicit without obscuring the order context.
+
+The live 375- and 320-pixel Admin views also pass. Summary cards now show a dedicated rose **Cancelled** count alongside the amber **Pending Payment** count. Filter chips and order-card badges pair text with distinct icons and border treatments, so status does not depend on color alone. The cancelled order uses a rose card accent and expands to a dedicated **Cancelled Order** audit panel showing the actor, timestamp, and normalized reason, while its existing Admin Notes remain present below. Pending Zelle and Whitcomb cards retain their payment-specific distinctions. No horizontal overflow was observed at either mobile width.
+
+## Live release verification
+
+| Check | Result |
+|---|---|
+| Public domains | `laelitepeps.com`, `www.laelitepeps.com`, and `peptideweb-yaousumk.manus.space` serve the same release assets |
+| Published assets | Main `/assets/index-pmDPqjOC.js`, CSS `/assets/index-DwMXDZlY.css`, Admin `/assets/AdminOrders-BSJwoAGI.js`; Admin chunk HTTP 200 on all three domains |
+| Admin feature strings | Required cancellation reason, Cancelled Order audit, and required-history/Admin-Notes helper text present in the live Admin bundle |
+| Live responsive audit | Passed at 1440 × 1000, 375 × 812, and 320 × 720; no horizontal overflow; zero mutation requests |
+| Public routes | Shop, Admin login, Admin orders, Semax product, and Semax COA returned HTTP 200 |
+| Integration status | Resend, ShipStation, and Whitcomb remain configured through the sanitized public status response |
+| Database | Four existing orders unchanged; zero cancelled orders; paid and open Whitcomb records unchanged; exact next number remains `LAP-130003` |
+| Reconciliation | Heartbeat `fb4zcRcehdoFBprjmXYDNf` remains enabled every five minutes; latest five runs succeeded with HTTP 200 and zero errors |
+| Runtime | Checkpoint `0e164d28` is running with no TypeScript or LSP errors |
+
+Publication created no order, cancellation, charge, refund, void, provider cancellation, email, owner notification, ShipStation order, label, schedule change, or order-number change.
